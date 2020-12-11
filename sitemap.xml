@@ -4,21 +4,7 @@
   <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/07/Ubuntu-19-04-Installation-and-Development-Environment-Setups/</loc>
     
-    <lastmod>2020-12-09T15:47:54.660Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
-    
-    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
-    
-    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
+    <lastmod>2020-12-11T14:49:37.969Z</lastmod>
     
   </url>
   
@@ -30,7 +16,28 @@
   </url>
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/</loc>
+    
+    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
+    
+    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/04/An-Intuitive-Understanding-of-Kullback-Leibler-Divergence-and-Cross-Entropy/</loc>
+    
+    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
@@ -51,13 +58,6 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/</loc>
-    
-    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/10/PCL-Tutorials/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2020/02/25/Python-Learning-Notes/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/11/30/Basic-Usage-of-Hexo/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
@@ -79,7 +79,14 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/11/30/Basic-Usage-of-Hexo/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2020/02/25/Python-Learning-Notes/</loc>
+    
+    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
@@ -94,13 +101,6 @@
   
   <url>
     <loc>http://blog.zhaoyongsheng.com/tags/index.html</loc>
-    
-    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
