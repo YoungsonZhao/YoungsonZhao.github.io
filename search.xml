@@ -148,8 +148,8 @@
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Tutorials</tag>
         <tag>C++</tag>
+        <tag>Tutorials</tag>
         <tag>Debug</tag>
       </tags>
   </entry>
@@ -175,8 +175,8 @@
         <category>3D</category>
       </categories>
       <tags>
-        <tag>Point Cloud Library</tag>
         <tag>Tutorials</tag>
+        <tag>Point Cloud Library</tag>
         <tag>PCL</tag>
       </tags>
   </entry>
