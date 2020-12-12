@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/</loc>
+    
+    <lastmod>2020-12-12T03:27:59.968Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/</loc>
     
     <lastmod>2020-12-11T15:05:12.564Z</lastmod>
@@ -23,14 +30,14 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/An-Intuitive-Understanding-of-Kullback-Leibler-Divergence-and-Cross-Entropy/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/An-Intuitive-Understanding-of-Kullback-Leibler-Divergence-and-Cross-Entropy/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
@@ -58,6 +65,13 @@
   </url>
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2020/02/26/Tensorflow-Learning-Notes/</loc>
+    
+    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2020/03/12/CPlusPlus-Learning-Notes/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
@@ -65,7 +79,7 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2020/02/26/Tensorflow-Learning-Notes/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/11/30/Basic-Usage-of-Hexo/</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
@@ -79,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/11/30/Basic-Usage-of-Hexo/</loc>
+    <loc>http://blog.zhaoyongsheng.com/tags/index.html</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
@@ -94,13 +108,6 @@
   
   <url>
     <loc>http://blog.zhaoyongsheng.com/categories/index.html</loc>
-    
-    <lastmod>2020-12-08T16:15:34.636Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/tags/index.html</loc>
     
     <lastmod>2020-12-08T16:15:34.636Z</lastmod>
     
