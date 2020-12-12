@@ -14,6 +14,16 @@ Second, login using a computer in lan and install.<figure class="highlight angel
 After running the above command line, we will sea the shadowsocks plugin in software center. If we want to use the v2ray function, we have to config virtual memory for a better performance. Prepare an USB storage (USB 3.0 is recommended) and format it as ext4. Then download and install the virtual memory plugin directly from software center.</li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Blog</category>
+      </categories>
+      <tags>
+        <tag>Installation</tag>
+        <tag>Setups</tag>
+        <tag>RT-AC86U</tag>
+        <tag>Shadowsocks</tag>
+        <tag>V2Ray</tag>
+      </tags>
   </entry>
   <entry>
     <title>C++ Tutorials - Learning Notes for Beginners</title>
