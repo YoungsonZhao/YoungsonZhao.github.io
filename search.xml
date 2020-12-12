@@ -163,8 +163,8 @@ After running the above command line, we will sea the shadowsocks plugin in soft
         <category>C++</category>
       </categories>
       <tags>
-        <tag>C++</tag>
         <tag>Tutorials</tag>
+        <tag>C++</tag>
         <tag>Debug</tag>
       </tags>
   </entry>
@@ -190,8 +190,8 @@ After running the above command line, we will sea the shadowsocks plugin in soft
         <category>3D</category>
       </categories>
       <tags>
-        <tag>Tutorials</tag>
         <tag>Point Cloud Library</tag>
+        <tag>Tutorials</tag>
         <tag>PCL</tag>
       </tags>
   </entry>
@@ -616,6 +616,7 @@ p=l_1 \times l_2\
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 <h2 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h2><p>Basically, <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> supports <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> and it can automatically compile Markdown to static webpage. </p>
 <h3 id="Insert-Images"><a href="#Insert-Images" class="headerlink" title="Insert Images"></a>Insert Images</h3><p>There are multiple ways that can insert images in Markdown, such as using absolute path, relative path, or url path. In Hexo, we can simply put the images we want to inert in <strong>source/images</strong> and insert it using the following command.<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">/images/image_example.jpg</span>)</span></pre></td></tr></table></figure><br>This method is easy to use. However, if we have huge amounts of images in our blog, it would be difficult to efficiently manage them.<br>Luckily, Hexo provides a more organized way to many images on a post-per-post basis. We first turn on this convenient approach by setting the <strong>post_assert_folder</strong> setting in <strong>_config.yml</strong> to true.<br><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_assert_folder:</span> <span class="literal">true</span></span></pre></td></tr></table></figure><br>With asset folder management enabled, Hexo will create a folder every time you make a new post with the <strong>hexo new [layout] <title></title></strong> command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow. Then we can insert images using the following command.<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">image.jpg</span>)</span></pre></td></tr></table></figure><br>More info: <a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="noopener">Assert Folders</a></p>
+<h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.<br><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">[<span class="string">Download file</span>](<span class="link">file.example</span>)</span></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
         <category>Blog</category>

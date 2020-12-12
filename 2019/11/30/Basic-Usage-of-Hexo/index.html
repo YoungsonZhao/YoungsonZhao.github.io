@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-12-08T16:15:34.636Z">
+<meta property="og:updated_time" content="2020-12-12T03:47:27.405Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.zhaoyongsheng.com/2019/11/30/Basic-Usage-of-Hexo/">
@@ -258,7 +258,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-09 00:15:34" itemprop="dateModified" datetime="2020-12-09T00:15:34+08:00">2020-12-09</time>
+                <time title="Modified: 2020-12-12 11:47:27" itemprop="dateModified" datetime="2020-12-12T11:47:27+08:00">2020-12-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,7 +299,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.4k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -330,6 +330,7 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 <h2 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h2><p>Basically, <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> supports <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> and it can automatically compile Markdown to static webpage. </p>
 <h3 id="Insert-Images"><a href="#Insert-Images" class="headerlink" title="Insert Images"></a>Insert Images</h3><p>There are multiple ways that can insert images in Markdown, such as using absolute path, relative path, or url path. In Hexo, we can simply put the images we want to inert in <strong>source/images</strong> and insert it using the following command.<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">/images/image_example.jpg</span>)</span></pre></td></tr></table></figure><br>This method is easy to use. However, if we have huge amounts of images in our blog, it would be difficult to efficiently manage them.<br>Luckily, Hexo provides a more organized way to many images on a post-per-post basis. We first turn on this convenient approach by setting the <strong>post_assert_folder</strong> setting in <strong>_config.yml</strong> to true.<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="attr">post_assert_folder:</span> <span class="literal">true</span></span></pre></td></tr></table></figure><br>With asset folder management enabled, Hexo will create a folder every time you make a new post with the <strong>hexo new [layout] <title></title></strong> command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow. Then we can insert images using the following command.<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">image.jpg</span>)</span></pre></td></tr></table></figure><br>More info: <a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="noopener">Assert Folders</a></p>
+<h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">[<span class="string">Download file</span>](<span class="link">file.example</span>)</span></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -430,7 +431,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing"><span class="nav-number">2.</span> <span class="nav-text">Writing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Insert-Images"><span class="nav-number">2.1.</span> <span class="nav-text">Insert Images</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing"><span class="nav-number">2.</span> <span class="nav-text">Writing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Insert-Images"><span class="nav-number">2.1.</span> <span class="nav-text">Insert Images</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File-download-links"><span class="nav-number">2.2.</span> <span class="nav-text">File download links</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -525,7 +526,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">62k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
