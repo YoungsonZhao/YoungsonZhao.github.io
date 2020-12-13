@@ -33,8 +33,8 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <categories>
         <category>Tutorials</category>
         <category>Python</category>
-        <category>Deep Learning</category>
         <category>Tensorflow</category>
+        <category>Deep Learning</category>
         <category>Tensorflow</category>
       </categories>
       <tags>
@@ -70,8 +70,8 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <categories>
         <category>Tutorials</category>
         <category>Python</category>
-        <category>Deep Learning</category>
         <category>Tensorflow</category>
+        <category>Deep Learning</category>
         <category>Tensorflow</category>
       </categories>
       <tags>
@@ -173,8 +173,8 @@ After running the above command line, we will sea the shadowsocks plugin in soft
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Tutorials</tag>
         <tag>C++</tag>
+        <tag>Tutorials</tag>
         <tag>Debug</tag>
       </tags>
   </entry>
@@ -200,8 +200,8 @@ After running the above command line, we will sea the shadowsocks plugin in soft
         <category>3D</category>
       </categories>
       <tags>
-        <tag>Point Cloud Library</tag>
         <tag>Tutorials</tag>
+        <tag>Point Cloud Library</tag>
         <tag>PCL</tag>
       </tags>
   </entry>
@@ -266,9 +266,8 @@ It would takes several minutes for first update &amp; upgrade. The time depends 
 <li>Install ibus<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install ibus ibus-clutter ibus-gtk ibus-gtk3</span></pre></td></tr></table></figure></li>
 <li>Install pinyin and setup<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ibus-pinyin</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo reboot (optional, we can <span class="built_in">do</span> <span class="keyword">it</span> latter)</span></pre></td></tr><tr><td class="code"><pre><span class="line">ibus-setup</span></pre></td></tr></table></figure></li>
 <li>Choose intelligent pinyin<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">System<span class="built_in"> Settings </span>&gt; Region &amp; Language &gt; Input Sources</span></pre></td></tr><tr><td class="code"><pre><span class="line">Pinyin Preferences &gt; Initial state &gt; English</span></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Install-ZSH"><a href="#Install-ZSH" class="headerlink" title="Install ZSH"></a>Install ZSH</h3><ul>
+<h3 id="Install-Mendeley"><a href="#Install-Mendeley" class="headerlink" title="Install Mendeley"></a>Install Mendeley</h3><a href="https://www.mendeley.com/?interaction_required=true" target="_blank" rel="noopener">Mendeley</a> is a cross-platform paper management tool. It offers free cloud service that could synchronize papers between different devices in one account. <a href="https://www.mendeley.com/guides/download-mendeley-desktop/ubuntu/instructions" target="_blank" rel="noopener">Download Mendeley</a><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">chmod</span> +<span class="selector-tag">x</span> <span class="selector-tag">mendeleydesktop_1</span><span class="selector-class">.19</span><span class="selector-class">.4-stable_amd64</span><span class="selector-class">.deb</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">dpkg</span> <span class="selector-tag">-i</span> <span class="selector-tag">mendeleydesktop_1</span><span class="selector-class">.19</span><span class="selector-class">.4-stable_amd64</span><span class="selector-class">.deb</span></span></pre></td></tr></table></figure>
+<h3 id="Install-ZSH"><a href="#Install-ZSH" class="headerlink" title="Install ZSH"></a>Install ZSH</h3></li>
 <li>Install git, curl and zsh<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install git</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install curl</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install zsh</span></pre></td></tr><tr><td class="code"><pre><span class="line">zsh --version</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo reboot</span></pre></td></tr></table></figure></li>
 <li><p>Config your global email and name for git</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global user.email <span class="string">"zhaoyongsheng@zju.edu.cn"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">git<span class="built_in"> config </span>--global user.name <span class="string">"Alex"</span></span></pre></td></tr></table></figure>
@@ -280,6 +279,8 @@ It would takes several minutes for first update &amp; upgrade. The time depends 
 <h3 id="Install-tmux"><a href="#Install-tmux" class="headerlink" title="Install tmux"></a>Install tmux</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install tmux</span></pre></td></tr></table></figure>
 <h3 id="Install-ssh"><a href="#Install-ssh" class="headerlink" title="Install ssh"></a>Install ssh</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install zsh</span></pre></td></tr><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa</span></pre></td></tr></table></figure>
 <h3 id="Install-zeal"><a href="#Install-zeal" class="headerlink" title="Install zeal"></a>Install zeal</h3><figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">sudo<span class="built_in"> add-apt-repository </span>ppa:zeal-developers/ppa (deprecated)</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-get update (deprecated)</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-get install zeal</span></pre></td></tr></table></figure>
+<p>Visit <a href="zealusercontributions.herokuapp.com">Offline Docsets</a> and add more docsets such as tensorflow, zsh, and so on.</p>
+<h3 id="Install-Java-Runtime-Environment"><a href="#Install-Java-Runtime-Environment" class="headerlink" title="Install Java Runtime Environment"></a>Install Java Runtime Environment</h3><p>When we using <strong>LibreOffice</strong> from terminal, we will see the following warnings.<br><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="keyword">javaldx: </span>Could not find a <span class="keyword">Java </span>Runtime Environment!</span></pre></td></tr><tr><td class="code"><pre><span class="line">Please ensure that a <span class="keyword">JVM </span><span class="keyword">and </span>the package libreoffice-<span class="keyword">java-common</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">is </span><span class="keyword">installed.</span></span></pre></td></tr></table></figure><br>We can fix it by installing java runtime environment.<br><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sudo apt-get <span class="keyword">install</span> <span class="keyword">default</span>-jre libreoffice-<span class="keyword">java</span>-common</span></pre></td></tr></table></figure></p>
 <h3 id="Install-gcc-and-cmake"><a href="#Install-gcc-and-cmake" class="headerlink" title="Install gcc and cmake"></a>Install gcc and cmake</h3><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install gcc</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> install cmake</span></pre></td></tr></table></figure>
 <h3 id="Install-vscode-and-sync"><a href="#Install-vscode-and-sync" class="headerlink" title="Install vscode and sync"></a>Install vscode and sync</h3><ul>
 <li>Install vscode<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">curl https://packages.microsoft.com/keys/microsoft.asc | gpg <span class="comment">--dearmor &gt; packages.microsoft.gpg</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo <span class="keyword">install</span> -o root -g root -m <span class="number">644</span> packages.microsoft.gpg /usr/<span class="keyword">share</span>/keyrings/</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo sh -c <span class="string">'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" &gt; /etc/apt/sources.list.d/vscode.list'</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> apt-transport-https</span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">update</span></span></pre></td></tr><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> <span class="keyword">install</span> code</span></pre></td></tr></table></figure></li>
@@ -461,6 +462,8 @@ H({P,\,Q}) =  - \sum_{i}{p_{i} \log{q_{i}}}
     <content><![CDATA[<p><a href="https://ubuntu.com/" target="_blank" rel="noopener">Ubuntu</a> is a popular version of <a href="https://www.linux.org/" target="_blank" rel="noopener">Linux</a> with a desktop. It is easy to use and widely used in software and algorithm development. There are tens of thousands of open source softwares that support Ubuntu. As a researcher and algorithm engineer, I am using Ubuntu 16.04 and 18.04 to do research and development work. This post contains many useful experiences and skills in using Ubuntu that I want to share with you and make a documentation for myself at the same time.<br><a id="more"></a></p>
 <h2 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h2><h3 id="Command-Line-History"><a href="#Command-Line-History" class="headerlink" title="Command Line History"></a>Command Line History</h3><p><strong>history</strong> command is used to list the commands we used in the terminal.<br><figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">history</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">history</span> | <span class="keyword">grep</span> <span class="string">"apt-get"</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="keyword">history</span> | tee &gt; <span class="keyword">history</span>.hist</span></pre></td></tr></table></figure></p>
 <h3 id="Word-Count"><a href="#Word-Count" class="headerlink" title="Word Count"></a>Word Count</h3><p>Ubuntu provides a command to count the word or line of a text content. The command is <strong>wc</strong>. For example, we can use this command to count the items of a directory.<br><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">ls <span class="string">| wc -l</span></span></pre></td></tr></table></figure></p>
+<h3 id="Show-amp-Kill-Process"><a href="#Show-amp-Kill-Process" class="headerlink" title="Show &amp; Kill Process"></a>Show &amp; Kill Process</h3><h4 id="Show"><a href="#Show" class="headerlink" title="Show"></a>Show</h4><p>We can check all the running process using <strong>ps</strong> command<br><figure class="highlight dns"><table><tr><td class="code"><pre><span class="line">ps -<span class="keyword">A</span></span></pre></td></tr></table></figure></p>
+<h4 id="Kill"><a href="#Kill" class="headerlink" title="Kill"></a>Kill</h4><figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">kill</span><span class="meta"> [pid]</span></span></pre></td></tr></table></figure>
 <h3 id="Kernel-Information"><a href="#Kernel-Information" class="headerlink" title="Kernel Information"></a>Kernel Information</h3><p><strong>uname</strong> can be used to print the kernel information.<br><figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">uname</span> <span class="string">-r</span></span></pre></td></tr><tr><td class="code"><pre><span class="line"><span class="attr">uname</span> <span class="string">-v</span></span></pre></td></tr></table></figure></p>
 <h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><p>If we meet ssh command not found error, then we can fix it by installing openssh-server<br><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install openssh-<span class="keyword">server</span></span></pre></td></tr></table></figure></p>
 <h3 id="Scan-LAN-IPs"><a href="#Scan-LAN-IPs" class="headerlink" title="Scan LAN IPs"></a>Scan LAN IPs</h3><p><em>nmap</em> is a tool scanning all the ips in a local network.<br><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install nmap</span></pre></td></tr><tr><td class="code"><pre><span class="line">nmap -sP <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span>/<span class="number">24</span></span></pre></td></tr></table></figure></p>
