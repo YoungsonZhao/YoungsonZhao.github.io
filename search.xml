@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Click-Through Rate Prediction Using GBDT and Linear Regression with Avazu Dataset</title>
+    <url>/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/</url>
+    <content><![CDATA[<p>In online advertising and online shopping, Click-Through Rate (CTR) is a good metric to evaluate the quality of advertisement recommendation and goods recommendation. CTR prediction is one of the main challenges in building an intelligent recommendation system. It aims to predict the probability of an customer clicking the recommended items, which helps us to explore the interests of customers and to choose items for an customer from the massive amount of items effectively and usefully. In this article, I will show you how to build a CTR prediction model using machine learning methods and avazu dataset. Python, pandas,matplotlib, seaborn, xgboost, scikit-learning are used in this article.<br><a id="more"></a></p>
+<h3 id="Definition-of-Click-Through-Rate"><a href="#Definition-of-Click-Through-Rate" class="headerlink" title="Definition of Click-Through Rate"></a>Definition of Click-Through Rate</h3><h3 id="Introduction-of-Avazu-Dataset"><a href="#Introduction-of-Avazu-Dataset" class="headerlink" title="Introduction of Avazu Dataset"></a>Introduction of Avazu Dataset</h3><h3 id="Exploratory-Data-Analysis"><a href="#Exploratory-Data-Analysis" class="headerlink" title="Exploratory Data Analysis"></a>Exploratory Data Analysis</h3><h3 id="Data-Preprocess"><a href="#Data-Preprocess" class="headerlink" title="Data Preprocess"></a>Data Preprocess</h3><h3 id="Hyper-Parameters-Search"><a href="#Hyper-Parameters-Search" class="headerlink" title="Hyper Parameters Search"></a>Hyper Parameters Search</h3><h3 id="Feature-Selection-Using-GBDT"><a href="#Feature-Selection-Using-GBDT" class="headerlink" title="Feature Selection Using GBDT"></a>Feature Selection Using GBDT</h3><h3 id="Linear-Regression-Model"><a href="#Linear-Regression-Model" class="headerlink" title="Linear Regression Model"></a>Linear Regression Model</h3>]]></content>
+      <categories>
+        <category>Click-Through Rate Prediction</category>
+        <category>Machine Learning</category>
+        <category>Deep Learning</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+        <tag>Click-Through Rate(CTR)</tag>
+        <tag>Machine Learning</tag>
+        <tag>Python</tag>
+        <tag>Pandas</tag>
+        <tag>Matplotlib</tag>
+        <tag>Seaborn</tag>
+        <tag>XGBoost</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Usage of ASUS RT-AC86U - Firmware Upgrade and Plugin Installation</title>
     <url>/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/</url>
     <content><![CDATA[<p><a href="https://www.asus.com/us/Networking/RT-AC86U/" target="_blank" rel="noopener">Asus RT-AC86U</a> is a professional dual band gigabit WiFi router, which has arm structure. Moreover, it has officially supported open source firmware, which has much more powerful functions, such like running official and third-part plugins on it. In this article, I will show you how to upgrade its firmware to highly customized version, install shadowsocks plugin and config v2ray service.<br><a id="more"></a><br>NOTE： There is a reset button on the back of Asus RT-AC86U, if there is anything wrong when upgrading the firmware, we can hold the button for seconds (maybe 30s) to reset the router.</p>
@@ -33,14 +54,14 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <categories>
         <category>Tutorials</category>
         <category>Python</category>
-        <category>Tensorflow</category>
         <category>Deep Learning</category>
+        <category>Tensorflow</category>
         <category>Tensorflow</category>
       </categories>
       <tags>
         <tag>Tutorials</tag>
-        <tag>Tensorflow</tag>
         <tag>Python</tag>
+        <tag>Tensorflow</tag>
         <tag>Notes</tag>
       </tags>
   </entry>
@@ -70,14 +91,14 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <categories>
         <category>Tutorials</category>
         <category>Python</category>
-        <category>Tensorflow</category>
         <category>Deep Learning</category>
+        <category>Tensorflow</category>
         <category>Tensorflow</category>
       </categories>
       <tags>
         <tag>Tutorials</tag>
-        <tag>Tensorflow</tag>
         <tag>Python</tag>
+        <tag>Tensorflow</tag>
         <tag>Notes</tag>
       </tags>
   </entry>

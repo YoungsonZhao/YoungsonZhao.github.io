@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.zhaoyongsheng.com/"/>
-  <updated>2020-12-12T03:54:57.349Z</updated>
+  <updated>2020-12-20T12:47:56.374Z</updated>
   <id>http://blog.zhaoyongsheng.com/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Click-Through Rate Prediction Using GBDT and Linear Regression with Avazu Dataset</title>
+    <link href="http://blog.zhaoyongsheng.com/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/"/>
+    <id>http://blog.zhaoyongsheng.com/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/</id>
+    <published>2020-12-20T12:12:40.000Z</published>
+    <updated>2020-12-20T12:47:56.374Z</updated>
+    
+    <content type="html"><![CDATA[<p>In online advertising and online shopping, Click-Through Rate (CTR) is a good metric to evaluate the quality of advertisement recommendation and goods recommendation. CTR prediction is one of the main challenges in building an intelligent recommendation system. It aims to predict the probability of an customer clicking the recommended items, which helps us to explore the interests of customers and to choose items for an customer from the massive amount of items effectively and usefully. In this article, I will show you how to build a CTR prediction model using machine learning methods and avazu dataset. Python, pandas,matplotlib, seaborn, xgboost, scikit-learning are used in this article.<br><a id="more"></a></p><h3 id="Definition-of-Click-Through-Rate"><a href="#Definition-of-Click-Through-Rate" class="headerlink" title="Definition of Click-Through Rate"></a>Definition of Click-Through Rate</h3><h3 id="Introduction-of-Avazu-Dataset"><a href="#Introduction-of-Avazu-Dataset" class="headerlink" title="Introduction of Avazu Dataset"></a>Introduction of Avazu Dataset</h3><h3 id="Exploratory-Data-Analysis"><a href="#Exploratory-Data-Analysis" class="headerlink" title="Exploratory Data Analysis"></a>Exploratory Data Analysis</h3><h3 id="Data-Preprocess"><a href="#Data-Preprocess" class="headerlink" title="Data Preprocess"></a>Data Preprocess</h3><h3 id="Hyper-Parameters-Search"><a href="#Hyper-Parameters-Search" class="headerlink" title="Hyper Parameters Search"></a>Hyper Parameters Search</h3><h3 id="Feature-Selection-Using-GBDT"><a href="#Feature-Selection-Using-GBDT" class="headerlink" title="Feature Selection Using GBDT"></a>Feature Selection Using GBDT</h3><h3 id="Linear-Regression-Model"><a href="#Linear-Regression-Model" class="headerlink" title="Linear Regression Model"></a>Linear Regression Model</h3>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;In online advertising and online shopping, Click-Through Rate (CTR) is a good metric to evaluate the quality of advertisement recommendation and goods recommendation. CTR prediction is one of the main challenges in building an intelligent recommendation system. It aims to predict the probability of an customer clicking the recommended items, which helps us to explore the interests of customers and to choose items for an customer from the massive amount of items effectively and usefully. In this article, I will show you how to build a CTR prediction model using machine learning methods and avazu dataset. Python, pandas,matplotlib, seaborn, xgboost, scikit-learning are used in this article.&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Click-Through Rate Prediction" scheme="http://blog.zhaoyongsheng.com/categories/Click-Through-Rate-Prediction/"/>
+    
+      <category term="Machine Learning" scheme="http://blog.zhaoyongsheng.com/categories/Click-Through-Rate-Prediction/Machine-Learning/"/>
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/categories/Click-Through-Rate-Prediction/Machine-Learning/Deep-Learning/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/tags/Deep-Learning/"/>
+    
+      <category term="Click-Through Rate(CTR)" scheme="http://blog.zhaoyongsheng.com/tags/Click-Through-Rate-CTR/"/>
+    
+      <category term="Machine Learning" scheme="http://blog.zhaoyongsheng.com/tags/Machine-Learning/"/>
+    
+      <category term="Python" scheme="http://blog.zhaoyongsheng.com/tags/Python/"/>
+    
+      <category term="Pandas" scheme="http://blog.zhaoyongsheng.com/tags/Pandas/"/>
+    
+      <category term="Matplotlib" scheme="http://blog.zhaoyongsheng.com/tags/Matplotlib/"/>
+    
+      <category term="Seaborn" scheme="http://blog.zhaoyongsheng.com/tags/Seaborn/"/>
+    
+      <category term="XGBoost" scheme="http://blog.zhaoyongsheng.com/tags/XGBoost/"/>
+    
+  </entry>
   
   <entry>
     <title>Usage of ASUS RT-AC86U - Firmware Upgrade and Plugin Installation</title>
@@ -65,18 +105,18 @@
     
       <category term="Python" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/"/>
     
-      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/Tensorflow/"/>
-    
       <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/categories/Deep-Learning/"/>
+    
+      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/Tensorflow/"/>
     
       <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/categories/Deep-Learning/Tensorflow/"/>
     
     
       <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
     
-      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/tags/Tensorflow/"/>
-    
       <category term="Python" scheme="http://blog.zhaoyongsheng.com/tags/Python/"/>
+    
+      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/tags/Tensorflow/"/>
     
       <category term="Notes" scheme="http://blog.zhaoyongsheng.com/tags/Notes/"/>
     
@@ -101,18 +141,18 @@
     
       <category term="Python" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/"/>
     
-      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/Tensorflow/"/>
-    
       <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/categories/Deep-Learning/"/>
+    
+      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/Tensorflow/"/>
     
       <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/categories/Deep-Learning/Tensorflow/"/>
     
     
       <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
     
-      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/tags/Tensorflow/"/>
-    
       <category term="Python" scheme="http://blog.zhaoyongsheng.com/tags/Python/"/>
+    
+      <category term="Tensorflow" scheme="http://blog.zhaoyongsheng.com/tags/Tensorflow/"/>
     
       <category term="Notes" scheme="http://blog.zhaoyongsheng.com/tags/Notes/"/>
     
