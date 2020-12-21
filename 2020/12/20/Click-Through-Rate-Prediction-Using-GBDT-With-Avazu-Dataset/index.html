@@ -61,7 +61,8 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;blog.zhaoyongsheng.com&#x2F;2020&#x2F;12&#x2F;20&#x2F;Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset&#x2F;site-cate.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;blog.zhaoyongsheng.com&#x2F;2020&#x2F;12&#x2F;20&#x2F;Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset&#x2F;app-cate.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;blog.zhaoyongsheng.com&#x2F;2020&#x2F;12&#x2F;20&#x2F;Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset&#x2F;device-type.png">
-<meta property="og:updated_time" content="2020-12-21T15:41:36.331Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;blog.zhaoyongsheng.com&#x2F;2020&#x2F;12&#x2F;20&#x2F;Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset&#x2F;corr.png">
+<meta property="og:updated_time" content="2020-12-21T16:18:59.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;blog.zhaoyongsheng.com&#x2F;2020&#x2F;12&#x2F;20&#x2F;Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset&#x2F;head.png">
 
@@ -265,7 +266,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-12-21 23:41:36" itemprop="dateModified" datetime="2020-12-21T23:41:36+08:00">2020-12-21</time>
+                <time title="Modified: 2020-12-22 00:18:59" itemprop="dateModified" datetime="2020-12-22T00:18:59+08:00">2020-12-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,7 +319,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.4k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -374,11 +375,13 @@ The first column is the index, the second column is the label, the third row the
 <li>Distribution of Application Category and Label<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sns.countplot(<span class="attribute">x</span>=<span class="string">'app_category'</span>, <span class="attribute">hue</span>=<span class="string">'click'</span>, <span class="attribute">data</span>=avazu)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">plt.show()</span></pre></td></tr></table></figure>
 <img alt="Distribution of application category with respect to labels" data-src="/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/app-cate.png"></li>
 <li>Distribution of Device Type and Label<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">sns.countplot(<span class="attr">x</span> = <span class="string">"device_type"</span>, <span class="attr">hue</span> = <span class="string">"click"</span>, <span class="attr">data</span> = avazu)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">plt.show()</span></pre></td></tr></table></figure>
-<img alt="Distribution of device type with respect to labels" data-src="/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/device-type.png"><h3 id="Data-Preprocess"><a href="#Data-Preprocess" class="headerlink" title="Data Preprocess"></a>Data Preprocess</h3><h3 id="Hyper-Parameters-Search"><a href="#Hyper-Parameters-Search" class="headerlink" title="Hyper Parameters Search"></a>Hyper Parameters Search</h3><h3 id="Feature-Selection-Using-GBDT"><a href="#Feature-Selection-Using-GBDT" class="headerlink" title="Feature Selection Using GBDT"></a>Feature Selection Using GBDT</h3><h3 id="Linear-Regression-Model"><a href="#Linear-Regression-Model" class="headerlink" title="Linear Regression Model"></a>Linear Regression Model</h3></li>
+<img alt="Distribution of device type with respect to labels" data-src="/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/device-type.png"></li>
+<li>Covariance of Features<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">avazu_drop = avazu.drop(columns=[<span class="string">'id'</span>])</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">avazu_corr = avazu_drop.corr()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">plt.figure(figsize=(20, 18))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">sns.heatmap(avazu_corr.abs(), <span class="attribute">annot</span>=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">plt.show()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">print</span>(avazu_corr[<span class="string">'click'</span>].sort_values(<span class="attribute">ascending</span>=<span class="literal">False</span>))</span></pre></td></tr></table></figure>
+<img alt="Covariance of Features" data-src="/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/corr.png"><br>As we can see, C1 and devece_type have high correlation with each other, C14 and C17 have high correlation with each other </li>
 </ul>
 </li>
 </ul>
-
+<h3 id="Data-Preprocess"><a href="#Data-Preprocess" class="headerlink" title="Data Preprocess"></a>Data Preprocess</h3><h3 id="Hyper-Parameters-Search"><a href="#Hyper-Parameters-Search" class="headerlink" title="Hyper Parameters Search"></a>Hyper Parameters Search</h3><h3 id="Feature-Selection-Using-GBDT"><a href="#Feature-Selection-Using-GBDT" class="headerlink" title="Feature Selection Using GBDT"></a>Feature Selection Using GBDT</h3><h3 id="Linear-Regression-Model"><a href="#Linear-Regression-Model" class="headerlink" title="Linear Regression Model"></a>Linear Regression Model</h3>
     </div>
 
     
