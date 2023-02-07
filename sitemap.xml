@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
+    
+    <lastmod>2023-02-07T17:58:55.026Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/</loc>
     
-    <lastmod>2023-02-07T16:58:33.501Z</lastmod>
+    <lastmod>2023-02-07T17:49:36.019Z</lastmod>
     
   </url>
   
