@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/</loc>
+    
+    <lastmod>2023-02-07T16:42:22.299Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/categories/index.html</loc>
     
     <lastmod>2023-02-07T15:11:06.829Z</lastmod>
@@ -103,13 +110,6 @@
     <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
     
     <lastmod>2023-02-07T15:11:06.814Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/</loc>
-    
-    <lastmod>2023-02-07T15:11:06.812Z</lastmod>
     
   </url>
   
