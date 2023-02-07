@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.zhaoyongsheng.com/"/>
-  <updated>2023-02-07T17:58:55.026Z</updated>
+  <updated>2023-02-07T18:04:44.203Z</updated>
   <id>http://blog.zhaoyongsheng.com/</id>
   
   <author>
@@ -21,13 +21,13 @@
     <link href="http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/"/>
     <id>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</id>
     <published>2023-02-07T17:51:54.000Z</published>
-    <updated>2023-02-07T17:58:55.026Z</updated>
+    <updated>2023-02-07T18:04:44.203Z</updated>
     
-    <content type="html"><![CDATA[<html><head></head><body><p>Django is wide-spread web framework in Python.<br><a id="more"></a></p><h2 id="Prerequire"><a href="#Prerequire" class="headerlink" title="Prerequire"></a>Prerequire</h2><h3 id=""><a href="#" class="headerlink" title=" "></a> </h3></body></html>]]></content>
+    <content type="html"><![CDATA[<html><head></head><body><p><a href="https://www.djangoproject.com/" target="_blank" rel="noopener">Django</a> is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. In this tutorial, I will teach you to develop and deploy a web application step by step using Django, Apache and PostgreSQL on Ubuntu 18.04.</p><a id="more"></a><h2 id="Prerequire"><a href="#Prerequire" class="headerlink" title="Prerequire"></a>Prerequire</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3></body></html>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Django is wide-spread web framework in Python.&lt;br&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://www.djangoproject.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Django&lt;/a&gt; is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. In this tutorial, I will teach you to develop and deploy a web application step by step using Django, Apache and PostgreSQL on Ubuntu 18.04.&lt;/p&gt;
     
     </summary>
     
