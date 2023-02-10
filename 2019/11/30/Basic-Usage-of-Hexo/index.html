@@ -325,17 +325,27 @@
         <html><head></head><body><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <a id="more"></a>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 <h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
+
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 <h2 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h2><p>Basically, <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> supports <a href="https://en.wikipedia.org/wiki/Markdown" target="_blank" rel="noopener">Markdown</a> and it can automatically compile Markdown to static webpage. </p>
-<h3 id="Insert-Images"><a href="#Insert-Images" class="headerlink" title="Insert Images"></a>Insert Images</h3><p>There are multiple ways that can insert images in Markdown, such as using absolute path, relative path, or url path. In Hexo, we can simply put the images we want to inert in <strong>source/images</strong> and insert it using the following command.<br></p><figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">/images/image_example.jpg</span>)</span><br></pre></td></tr></tbody></table></figure><br>This method is easy to use. However, if we have huge amounts of images in our blog, it would be difficult to efficiently manage them.<br>Luckily, Hexo provides a more organized way to many images on a post-per-post basis. We first turn on this convenient approach by setting the <strong>post_assert_folder</strong> setting in <strong>_config.yml</strong> to true.<br><figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_assert_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure><br>With asset folder management enabled, Hexo will create a folder every time you make a new post with the <strong>hexo new [layout] <title></title></strong> command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow. Then we can insert images using the following command.<br><figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">image.jpg</span>)</span><br></pre></td></tr></tbody></table></figure><br>More info: <a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="noopener">Assert Folders</a><p></p>
-<h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.<br></p><figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">Download file</span>](<span class="link">file.example</span>)</span><br></pre></td></tr></tbody></table></figure><p></p>
-</body></html>
+<h3 id="Insert-Images"><a href="#Insert-Images" class="headerlink" title="Insert Images"></a>Insert Images</h3><p>There are multiple ways that can insert images in Markdown, such as using absolute path, relative path, or url path. In Hexo, we can simply put the images we want to inert in <strong>source/images</strong> and insert it using the following command.</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">/images/image_example.jpg</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>This method is easy to use. However, if we have huge amounts of images in our blog, it would be difficult to efficiently manage them.<br>Luckily, Hexo provides a more organized way to many images on a post-per-post basis. We first turn on this convenient approach by setting the <strong>post_assert_folder</strong> setting in <strong>_config.yml</strong> to true.</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">post_assert_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>With asset folder management enabled, Hexo will create a folder every time you make a new post with the <strong>hexo new [layout] <title></title></strong> command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow. Then we can insert images using the following command.</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">descriptions</span>](<span class="link">image.jpg</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a href="https://hexo.io/docs/asset-folders.html" target="_blank" rel="noopener">Assert Folders</a></p>
+<h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">Download file</span>](<span class="link">file.example</span>)</span><br></pre></td></tr></tbody></table></figure></body></html>
     </div>
 
     
@@ -530,13 +540,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">80k</span>
+    <span title="Symbols count total">81k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:13</span>
+    <span title="Reading time total">1:14</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>

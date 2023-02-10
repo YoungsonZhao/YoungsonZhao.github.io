@@ -4,7 +4,7 @@
   <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
     
-    <lastmod>2023-02-08T12:59:14.126Z</lastmod>
+    <lastmod>2023-02-10T14:45:19.235Z</lastmod>
     
   </url>
   
@@ -16,14 +16,14 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/categories/index.html</loc>
+    <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
     
     <lastmod>2023-02-07T15:11:06.829Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
+    <loc>http://blog.zhaoyongsheng.com/categories/index.html</loc>
     
     <lastmod>2023-02-07T15:11:06.829Z</lastmod>
     
@@ -65,13 +65,6 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/10/PCL-Tutorials/</loc>
-    
-    <lastmod>2023-02-07T15:11:06.819Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/24/C-Coding-Debug-Log/</loc>
     
     <lastmod>2023-02-07T15:11:06.819Z</lastmod>
@@ -79,7 +72,7 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2020/02/25/Python-Learning-Notes/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/10/PCL-Tutorials/</loc>
     
     <lastmod>2023-02-07T15:11:06.819Z</lastmod>
     
@@ -93,9 +86,9 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2020/02/25/Python-Learning-Notes/</loc>
     
-    <lastmod>2023-02-07T15:11:06.815Z</lastmod>
+    <lastmod>2023-02-07T15:11:06.819Z</lastmod>
     
   </url>
   
@@ -107,14 +100,21 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/An-Intuitive-Understanding-of-Kullback-Leibler-Divergence-and-Cross-Entropy/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
+    
+    <lastmod>2023-02-07T15:11:06.815Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
     
     <lastmod>2023-02-07T15:11:06.814Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/An-Intuitive-Understanding-of-Kullback-Leibler-Divergence-and-Cross-Entropy/</loc>
     
     <lastmod>2023-02-07T15:11:06.814Z</lastmod>
     

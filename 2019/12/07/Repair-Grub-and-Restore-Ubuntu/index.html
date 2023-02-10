@@ -342,12 +342,16 @@
       
         <html><head></head><body><p>For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks at different time. The existing Ubuntu’s grub file will be overwritten during the installation of new operation system. When the installation failed or the new installed operation system broken, the grub file may be broken, which results in that the existing Ubuntu can not boot. Fortunately, there are methods to repair the broken grub file and restore the existing Ubuntu system. In this article, I will briefly introduce one useful method, which helps me to save my Ubuntu 16.04.</p>
 <a id="more"></a>
-<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>When the grub file is broken, the following message will be prompted in terminal during booting.<br></p><figure class="highlight subunit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>: unknow filesystem</span><br><span class="line">grub &gt;</span><br><span class="line">```</span><br></pre></td></tr></tbody></table></figure><br>If you see a similar message when you boot a ubuntu system, it indicates that the operation system’s grub file was broken. You can use the following method to repair the grub file. I have tested that this method is valid.<p></p>
+
+<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>When the grub file is broken, the following message will be prompted in terminal during booting.</p>
+<figure class="highlight subunit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>: unknow filesystem</span><br><span class="line">grub &gt;</span><br><span class="line">```</span><br></pre></td></tr></tbody></table></figure>
+<p>If you see a similar message when you boot a ubuntu system, it indicates that the operation system’s grub file was broken. You can use the following method to repair the grub file. I have tested that this method is valid.</p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ul>
 <li>Check partition<figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub &gt; <span class="keyword">ls</span></span><br></pre></td></tr></tbody></table></figure>
 We will see all the partitions on disk.</li>
 </ul>
 <figure class="highlight gcode"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(hd0)</span> <span class="comment">(hd0,gpt0)</span> <span class="comment">(hd0,gpt1)</span> <span class="comment">(hd0,gpt2)</span> ...</span><br></pre></td></tr></tbody></table></figure>
+
 <ul>
 <li><p>Find the root directory of Ubuntu<br>List contents of every partition until we find the root directory of the Ubuntu system we want to restore.</p>
 <figure class="highlight lisp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grub &gt; ls (<span class="name">hd0</span>,gpt1)/</span><br><span class="line">grub &gt; ls (<span class="name">hd0</span>,gpt2)/</span><br><span class="line">grub &gt; ls (<span class="name">hd0</span>,gpt3)/</span><br></pre></td></tr></tbody></table></figure>
@@ -561,13 +565,13 @@ We will see all the partitions on disk.</li>
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">80k</span>
+    <span title="Symbols count total">81k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:13</span>
+    <span title="Reading time total">1:14</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
