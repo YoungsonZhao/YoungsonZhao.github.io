@@ -55,7 +55,7 @@
 <meta property="og:description" content="PostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and perform">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-11T15:59:05.000Z">
-<meta property="article:modified_time" content="2023-02-11T17:41:54.261Z">
+<meta property="article:modified_time" content="2023-02-11T17:51:07.126Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="PostgreSQL">
 <meta name="twitter:card" content="summary">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-12 01:41:54" itemprop="dateModified" datetime="2023-02-12T01:41:54+08:00">2023-02-12</time>
+                <time title="Modified: 2023-02-12 01:51:07" itemprop="dateModified" datetime="2023-02-12T01:51:07+08:00">2023-02-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -338,6 +338,7 @@
 <h3 id="Reset-Password"><a href="#Reset-Password" class="headerlink" title="Reset Password"></a>Reset Password</h3><p>If we want to use PostgreSQL in Django applications, the password is required. However, the default user <strong>postgres</strong> doesn’t have a password and we must set password for <strong>postgres</strong>.</p>
 <figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line">ALTER<span class="built_in"> USER </span>postgres WITH PASSWORD <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql restart / systemctl restart postgresql</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="Basic-Command"><a href="#Basic-Command" class="headerlink" title="Basic Command"></a>Basic Command</h2><ul>
+<li>Check status<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service postgresql status</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li>Start psql with user postgres<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo -u postgres psql</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li>Create Database<figure class="highlight n1ql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> servo;</span><br></pre></td></tr></tbody></table></figure></li>
 <li>List Databases<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\l</span></span><br></pre></td></tr></tbody></table></figure></li>

@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
+    
+    <lastmod>2023-02-11T18:04:41.885Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/11/Basic-Usage-of-PostgreSQL/</loc>
     
-    <lastmod>2023-02-11T17:41:54.261Z</lastmod>
+    <lastmod>2023-02-11T17:51:07.126Z</lastmod>
     
   </url>
   
@@ -82,13 +89,6 @@
     <loc>http://blog.zhaoyongsheng.com/categories/index.html</loc>
     
     <lastmod>2023-02-11T16:01:56.505Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
-    
-    <lastmod>2023-02-07T15:11:06.829Z</lastmod>
     
   </url>
   
