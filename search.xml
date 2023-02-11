@@ -87,9 +87,11 @@
 <figure class="highlight css"><table><tbody><tr><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">apt-get</span> <span class="selector-tag">install</span> <span class="selector-tag">alien</span></span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">alien</span> <span class="selector-tag">toec-oep102d-1</span><span class="selector-class">.4-4</span><span class="selector-class">.nd7</span><span class="selector-class">.x86_64</span><span class="selector-class">.rpm</span></span><br><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">alien</span> <span class="selector-tag">-r</span> <span class="selector-tag">toec-oep102d_1</span><span class="selector-class">.4-5_amd64</span><span class="selector-class">.deb</span></span><br></pre></td></tr></tbody></table></figure>
 </body></html>]]></content>
       <categories>
-        <category>Linux</category>
+        <category>Tutorials</category>
         <category>Ubuntu</category>
-        <category>Skills</category>
+        <category>Commands</category>
+        <category>SSH</category>
+        <category>Commands</category>
       </categories>
       <tags>
         <tag>Ubuntu</tag>
@@ -640,11 +642,10 @@ Logs can offer us useful information when there is something wrong during config
 <p>Now we can visit the Django’s application via http:xxx.xxx.xxx.xxx:8080/admin/. <strong>Congratulations!</strong><br>If there are any problems, feel free to contact me.</p>
 </body></html>]]></content>
       <categories>
-        <category>Linux</category>
         <category>Tutorials</category>
-        <category>Ubuntu</category>
         <category>Django</category>
         <category>PostgreSQL</category>
+        <category>Ubuntu</category>
       </categories>
       <tags>
         <tag>Ubuntu</tag>
@@ -742,9 +743,8 @@ The first column is the index, the second column is the label, the third row the
 </ul>
 <h3 id="Data-Preprocess"><a href="#Data-Preprocess" class="headerlink" title="Data Preprocess"></a>Data Preprocess</h3><h3 id="Hyper-Parameters-Search"><a href="#Hyper-Parameters-Search" class="headerlink" title="Hyper Parameters Search"></a>Hyper Parameters Search</h3><h3 id="Feature-Selection-Using-GBDT"><a href="#Feature-Selection-Using-GBDT" class="headerlink" title="Feature Selection Using GBDT"></a>Feature Selection Using GBDT</h3><h3 id="Linear-Regression-Model"><a href="#Linear-Regression-Model" class="headerlink" title="Linear Regression Model"></a>Linear Regression Model</h3></body></html>]]></content>
       <categories>
-        <category>Click-Through Rate Prediction</category>
-        <category>Machine Learning</category>
         <category>Deep Learning</category>
+        <category>Click-Through Rate Prediction</category>
       </categories>
       <tags>
         <tag>Deep Learning</tag>
@@ -789,7 +789,6 @@ We will see all the partitions on disk.</li>
 </ul>
 </body></html>]]></content>
       <categories>
-        <category>Linux</category>
         <category>Ubuntu</category>
         <category>Boot</category>
         <category>Grub</category>

@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
+    
+    <lastmod>2023-02-11T16:10:45.838Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
+    
+    <lastmod>2023-02-11T16:08:40.889Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
+    
+    <lastmod>2023-02-11T16:08:27.503Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/</loc>
+    
+    <lastmod>2023-02-11T16:07:39.076Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/</loc>
     
     <lastmod>2023-02-11T16:05:33.791Z</lastmod>
@@ -37,20 +65,6 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
-    
-    <lastmod>2023-02-11T15:58:01.474Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
-    
-    <lastmod>2023-02-11T14:28:44.755Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
     
     <lastmod>2023-02-07T15:11:06.829Z</lastmod>
@@ -61,13 +75,6 @@
     <loc>http://blog.zhaoyongsheng.com/tags/index.html</loc>
     
     <lastmod>2023-02-07T15:11:06.829Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/</loc>
-    
-    <lastmod>2023-02-07T15:11:06.821Z</lastmod>
     
   </url>
   
@@ -108,13 +115,6 @@
   
   <url>
     <loc>http://blog.zhaoyongsheng.com/2019/12/07/Ubuntu-19-04-Installation-and-Development-Environment-Setups/</loc>
-    
-    <lastmod>2023-02-07T15:11:06.815Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
     
     <lastmod>2023-02-07T15:11:06.815Z</lastmod>
     
