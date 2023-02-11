@@ -633,10 +633,11 @@ Logs can offer us useful information when there is something wrong during config
 <figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">vi <span class="regexp">/django/</span>servo<span class="regexp">/servo/</span>settings.py</span><br></pre></td></tr></tbody></table></figure>
 <p>Find the line <strong>DEBUG = True</strong>, and set it as False.</p>
 <figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">DEBUG</span> = <span class="literal">False</span></span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Change-Own-of-Django-Directory"><a href="#Change-Own-of-Django-Directory" class="headerlink" title="Change Own of Django Directory"></a>Change Own of Django Directory</h3><p>Generally, the owner of django’s directory is the admin user of the operation system. We must change the owner to apache to let it have full access to Django’s directory. </p>
+<h3 id="Change-Owner-of-Django-Directory"><a href="#Change-Owner-of-Django-Directory" class="headerlink" title="Change Owner of Django Directory"></a>Change Owner of Django Directory</h3><p>Generally, the owner of django’s directory is the admin user of the operation system. We must change the owner to apache to let it have full access to Django’s directory. </p>
 <figure class="highlight haskell"><table><tbody><tr><td class="code"><pre><span class="line"><span class="title">cd</span> /</span><br><span class="line"><span class="title">chown</span> -<span class="type">R</span> www-<span class="class"><span class="keyword">data</span>:www-<span class="keyword">data</span> django</span></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="Restart-Apache"><a href="#Restart-Apache" class="headerlink" title="Restart Apache"></a>Restart Apache</h3><p>Finishing the above steps, restart apache to deploy Django’s application.</p>
 <figure class="highlight maxima"><table><tbody><tr><td class="code"><pre><span class="line">service apache2 <span class="built_in">restart</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Now we can visit the Django’s application via http:xxx.xxx.xxx.xxx:8080/admin/. <strong>Congratulations!</strong><br>If there are any problems, feel free to contact me.</p>
 </body></html>]]></content>
       <categories>
         <category>Linux</category>
