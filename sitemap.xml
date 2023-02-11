@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Ubuntu-19-04-Installation-and-Development-Environment-Setups/</loc>
+    
+    <lastmod>2023-02-11T16:17:13.406Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
+    
+    <lastmod>2023-02-11T16:17:06.762Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2020/03/12/CPlusPlus-Learning-Notes/</loc>
     
     <lastmod>2023-02-11T16:14:26.859Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://blog.zhaoyongsheng.com/2020/02/26/Tensorflow-Learning-Notes/</loc>
     
     <lastmod>2023-02-11T16:13:44.900Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
-    
-    <lastmod>2023-02-11T16:12:54.362Z</lastmod>
     
   </url>
   
@@ -110,13 +117,6 @@
     <loc>http://blog.zhaoyongsheng.com/2020/02/25/Python-Learning-Notes/</loc>
     
     <lastmod>2023-02-07T15:11:06.819Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/07/Ubuntu-19-04-Installation-and-Development-Environment-Setups/</loc>
-    
-    <lastmod>2023-02-07T15:11:06.815Z</lastmod>
     
   </url>
   
