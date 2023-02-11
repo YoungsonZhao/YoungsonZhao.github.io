@@ -58,8 +58,8 @@
 <p>And find the two lines:</p>
 <figure class="highlight vala"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#ClientAliveInterval 0</span></span><br><span class="line"><span class="meta">#ClientAliveCountMax 3</span></span><br></pre></td></tr></tbody></table></figure>
 <p>Second, uncomment the two lines and set them as follows:</p>
-<figure class="highlight routeros"><table><tbody><tr><td class="code"><pre><span class="line">ClientAliveInterval 30 #The<span class="built_in"> client </span>will send heartbeat data <span class="keyword">to</span> the<span class="built_in"> server </span>every 30 seconds.</span><br><span class="line">ClientAliveCountMax 86400 #The<span class="built_in"> server </span>will broken the<span class="built_in"> connection </span>automatically after 86400 seconds that <span class="keyword">not</span> received heartbeat signals <span class="keyword">from</span> client.</span><br></pre></td></tr></tbody></table></figure>
-<p>Third, restart the sshd service.</p>
+<figure class="highlight angelscript"><table><tbody><tr><td class="code"><pre><span class="line">ClientAliveInterval <span class="number">30</span> </span><br><span class="line">ClientAliveCountMax <span class="number">86400</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>ClientAliveInterval 30</strong> – The client will send heartbeat data to the server every 30 seconds.<br><strong>ClientAliveCountMax 86400</strong> – The server will broken the connection automatically after 86400 seconds that not received heartbeat signals from client.<br>Third, restart the sshd service.</p>
 <figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">service sshd restart</span></span><br></pre></td></tr></tbody></table></figure>
 
 
