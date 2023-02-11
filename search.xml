@@ -399,10 +399,10 @@ After running the above command line, we will sea the shadowsocks plugin in soft
 </ul>
 </body></html>]]></content>
       <categories>
-        <category>Blog</category>
+        <category>Tutorials</category>
+        <category>Shadowsocks</category>
       </categories>
       <tags>
-        <tag>Installation</tag>
         <tag>Setups</tag>
         <tag>RT-AC86U</tag>
         <tag>Shadowsocks</tag>
@@ -681,7 +681,8 @@ Logs can offer us useful information when there is something wrong during config
 <h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.</p>
 <figure class="highlight markdown"><table><tbody><tr><td class="code"><pre><span class="line">[<span class="string">Download file</span>](<span class="link">file.example</span>)</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
       <categories>
-        <category>Blog</category>
+        <category>Tutorials</category>
+        <category>Hexo</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
@@ -879,12 +880,18 @@ Second, if the current version of Hexo is lower than 4.2.1 then upgrade Hexo usi
 </ul>
 </body></html>]]></content>
       <categories>
-        <category>Blog</category>
+        <category>Tutorials</category>
+        <category>Hexo</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
         <tag>NexT</tag>
         <tag>GitHub</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Basic Usage of PostgreSQL</title>
+    <url>/2023/02/11/Basic-Usage-of-PostgreSQL/</url>
+    <content><![CDATA[<html><head></head><body><a id="more"></a></body></html>]]></content>
   </entry>
 </search>
