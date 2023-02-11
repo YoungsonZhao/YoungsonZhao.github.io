@@ -55,7 +55,7 @@
 <meta property="og:description" content="Ubuntu is a popular version of Linux with a desktop. It is easy to use and widely used in software and algorithm development. There are tens of thousands of open source softwares that support Ubuntu.">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-12-04T14:39:11.000Z">
-<meta property="article:modified_time" content="2023-02-10T17:04:48.823Z">
+<meta property="article:modified_time" content="2023-02-11T05:31:48.186Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="Ubuntu">
 <meta property="article:tag" content="Skills">
@@ -265,7 +265,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-11 01:04:48" itemprop="dateModified" datetime="2023-02-11T01:04:48+08:00">2023-02-11</time>
+                <time title="Modified: 2023-02-11 13:31:48" itemprop="dateModified" datetime="2023-02-11T13:31:48+08:00">2023-02-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,7 +318,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.4k</span>
+              <span>3.8k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -355,7 +355,15 @@
 <figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install openssh-<span class="keyword">server</span></span><br></pre></td></tr></tbody></table></figure>
 <p>The default port for ssh is <strong>22</strong>. Please make sure this port is authorized by firewall.</p>
 <figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ufw allow <span class="number">22</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="Solution-for-disconnect-frequently"><a href="#Solution-for-disconnect-frequently" class="headerlink" title="Solution for disconnect frequently"></a>Solution for disconnect frequently</h4><p>When we connect a machine via ssh and don’t input any commands for a while, the ssh connection will be disconnected because the pipe is broken. We have to reconnect it via ssh command, which is quite annoying and wasting time. There are methods to keep </p>
+<h4 id="Solution-for-disconnect-frequently"><a href="#Solution-for-disconnect-frequently" class="headerlink" title="Solution for disconnect frequently"></a>Solution for disconnect frequently</h4><p>When we connect a machine via ssh and don’t input any commands for a while, the ssh connection will be disconnected because the pipe is broken. We have to reconnect it via ssh command, which is quite annoying and wasting time. There are method to make ssh connection keep longer time.</p>
+<p>First, open the ssh config file using vim.</p>
+<figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>ssh<span class="regexp">/sshd_config</span></span><br></pre></td></tr></tbody></table></figure>
+<p>And find the two lines:</p>
+<figure class="highlight vala"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ClientAliveInterval 0</span></span><br><span class="line"><span class="meta">#ClientAliveCountMax 3</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Second, uncomment the two lines and set them as follows:</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ClientAliveInterval 30 #The<span class="built_in"> client </span>will send heartbeat data <span class="keyword">to</span> the<span class="built_in"> server </span>every 30 seconds.</span><br><span class="line">ClientAliveCountMax 86400 #The<span class="built_in"> server </span>will broken the<span class="built_in"> connection </span>automatically after 86400 seconds that <span class="keyword">not</span> received heartbeat signals <span class="keyword">from</span> client.</span><br></pre></td></tr></tbody></table></figure>
+
+
 <h3 id="Scan-LAN-IPs"><a href="#Scan-LAN-IPs" class="headerlink" title="Scan LAN IPs"></a>Scan LAN IPs</h3><p><em>nmap</em> is a tool scanning all the ips in a local network.</p>
 <figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install nmap</span><br><span class="line">nmap -sP <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></tbody></table></figure>
 
@@ -585,7 +593,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:16</span>
+    <span title="Reading time total">1:17</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>

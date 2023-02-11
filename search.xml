@@ -52,7 +52,15 @@
 <figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install openssh-<span class="keyword">server</span></span><br></pre></td></tr></tbody></table></figure>
 <p>The default port for ssh is <strong>22</strong>. Please make sure this port is authorized by firewall.</p>
 <figure class="highlight angelscript"><table><tbody><tr><td class="code"><pre><span class="line">sudo ufw allow <span class="number">22</span></span><br></pre></td></tr></tbody></table></figure>
-<h4 id="Solution-for-disconnect-frequently"><a href="#Solution-for-disconnect-frequently" class="headerlink" title="Solution for disconnect frequently"></a>Solution for disconnect frequently</h4><p>When we connect a machine via ssh and don’t input any commands for a while, the ssh connection will be disconnected because the pipe is broken. We have to reconnect it via ssh command, which is quite annoying and wasting time. There are methods to keep </p>
+<h4 id="Solution-for-disconnect-frequently"><a href="#Solution-for-disconnect-frequently" class="headerlink" title="Solution for disconnect frequently"></a>Solution for disconnect frequently</h4><p>When we connect a machine via ssh and don’t input any commands for a while, the ssh connection will be disconnected because the pipe is broken. We have to reconnect it via ssh command, which is quite annoying and wasting time. There are method to make ssh connection keep longer time.</p>
+<p>First, open the ssh config file using vim.</p>
+<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>ssh<span class="regexp">/sshd_config</span></span><br></pre></td></tr></tbody></table></figure>
+<p>And find the two lines:</p>
+<figure class="highlight vala"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#ClientAliveInterval 0</span></span><br><span class="line"><span class="meta">#ClientAliveCountMax 3</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Second, uncomment the two lines and set them as follows:</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="code"><pre><span class="line">ClientAliveInterval 30 #The<span class="built_in"> client </span>will send heartbeat data <span class="keyword">to</span> the<span class="built_in"> server </span>every 30 seconds.</span><br><span class="line">ClientAliveCountMax 86400 #The<span class="built_in"> server </span>will broken the<span class="built_in"> connection </span>automatically after 86400 seconds that <span class="keyword">not</span> received heartbeat signals <span class="keyword">from</span> client.</span><br></pre></td></tr></tbody></table></figure>
+
+
 <h3 id="Scan-LAN-IPs"><a href="#Scan-LAN-IPs" class="headerlink" title="Scan LAN IPs"></a>Scan LAN IPs</h3><p><em>nmap</em> is a tool scanning all the ips in a local network.</p>
 <figure class="highlight angelscript"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install nmap</span><br><span class="line">nmap -sP <span class="number">192.168</span><span class="number">.1</span><span class="number">.0</span>/<span class="number">24</span></span><br></pre></td></tr></tbody></table></figure>
 
