@@ -881,7 +881,8 @@ Second, if the current version of Hexo is lower than 4.2.1 then upgrade Hexo usi
 <li>Show data<figure class="highlight cs"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure></li>
 <li>Show data directory<figure class="highlight sql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">show</span> data_directory;</span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
-<h2 id="Backup-amp-Restore"><a href="#Backup-amp-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2></body></html>]]></content>
+<h2 id="Backup-amp-Restore"><a href="#Backup-amp-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2><h3 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h3><figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h3><figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres pg_restore -Fc -d servo &lt; /var/lib/postgresql/servo.bak</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
       <categories>
         <category>Tutorials</category>
         <category>Django</category>
