@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
+    
+    <lastmod>2023-02-10T17:04:48.823Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
     
-    <lastmod>2023-02-10T15:39:35.675Z</lastmod>
+    <lastmod>2023-02-10T16:26:17.990Z</lastmod>
     
   </url>
   
@@ -103,13 +110,6 @@
     <loc>http://blog.zhaoyongsheng.com/2019/12/07/Repair-Grub-and-Restore-Ubuntu/</loc>
     
     <lastmod>2023-02-07T15:11:06.815Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</loc>
-    
-    <lastmod>2023-02-07T15:11:06.814Z</lastmod>
     
   </url>
   
