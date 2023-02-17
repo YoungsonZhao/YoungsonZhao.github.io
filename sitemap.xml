@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/</loc>
+    
+    <lastmod>2023-02-15T16:19:25.426Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/about/index.html</loc>
     
     <lastmod>2023-02-11T18:04:41.885Z</lastmod>
