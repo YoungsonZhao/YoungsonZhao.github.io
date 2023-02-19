@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Jupyter Notebook is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set Up Jupyter Notebook on Ubuntu 18.04">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="Jupyter Notebook is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-19T11:04:41.000Z">
+<meta property="article:modified_time" content="2023-02-19T14:37:37.225Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="--Jupyter Notebook">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Set Up Jupyter Notebook on Ubuntu 18.04 | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Set Up Jupyter Notebook on Ubuntu 18.04
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2023-02-19 19:04:41 / Modified: 22:37:37" itemprop="dateCreated datePublished" datetime="2023-02-19T19:04:41+08:00">2023-02-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Jupyter-Notebook/" itemprop="url" rel="index">
+                    <span itemprop="name">Jupyter Notebook</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" class="post-meta-item leancloud_visitors" data-flag-title="Set Up Jupyter Notebook on Ubuntu 18.04" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p><a href="http://jupyter.org/" target="_blank" rel="noopener">Jupyter Notebook</a> is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Julia, R, Haskell, and Ruby. It is often used for working with data, statistical modeling, and machine learning.</p>
+<p>This tutorial will walk you through setting up Jupyter Notebook to run from an Ubuntu 18.04 server, as well as teach you how to connect to and use the Notebook. Jupyter Notebooks (or simply Notebooks) are documents produced by the Jupyter Notebook app which contain both computer code and rich text elements (paragraph, equations, figures, links, etc.) which aid in presenting and sharing reproducible research. In the final step of this guide, you will run Python 3 code using a Jupyter Notebook running on a remote server.</p>
+<a id="more"></a>
+<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><p>Please make sure python3 and pip3 are installed. If not, install them using the following command.</p>
+<figure class="highlight mipsasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt <span class="keyword">install </span>python3-pip python3-dev</span><br><span class="line">``` </span><br><span class="line">Then <span class="keyword">install </span><span class="keyword">jupyter </span>notebook using pip3.</span><br></pre></td></tr></tbody></table></figure>
+<p>pip install notebook</p>
+<figure class="highlight smali"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">After installation,<span class="built_in"> check </span>the version of jupyter.</span><br></pre></td></tr></tbody></table></figure>
+<p>jupyter –version</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If you see <span class="keyword">the</span> following <span class="built_in">result</span>, <span class="keyword">the</span> jupyter notebook is installed successfully.</span><br></pre></td></tr></tbody></table></figure>
+<p>Selected Jupyter core packages…<br>IPython          : 7.16.3<br>ipykernel        : 5.5.6<br>ipywidgets       : not installed<br>jupyter_client   : 7.1.2<br>jupyter_core     : 4.9.2<br>jupyter_server   : not installed<br>jupyterlab       : not installed<br>nbclient         : 0.5.9<br>nbconvert        : 6.0.7<br>nbformat         : 5.1.3<br>notebook         : 6.4.10<br>qtconsole        : not installed<br>traitlets        : 4.3.3</p>
+<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### <span class="keyword">Set</span> <span class="keyword">Password</span></span><br><span class="line">jupyter notebook needs a <span class="keyword">password</span> <span class="keyword">to</span> <span class="keyword">login</span> <span class="keyword">before</span> use it. We can generate a <span class="keyword">password</span> <span class="keyword">using</span> the **passwd()** <span class="keyword">function</span> jupyter provide. First, <span class="keyword">open</span> a python shell <span class="keyword">by</span> **python** command <span class="keyword">in</span> terminal. <span class="keyword">Then</span> generate a <span class="keyword">password</span> <span class="keyword">by</span> the <span class="keyword">following</span> command.</span><br></pre></td></tr></tbody></table></figure>
+<p>from notebook.auth import passwd;<br>passwd()</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Input <span class="keyword">a</span> password <span class="keyword">and</span> <span class="keyword">it</span> will generate <span class="keyword">a</span> <span class="keyword">token</span> <span class="keyword">for</span> this password. Please keep this <span class="keyword">token</span> <span class="keyword">and</span> we will use <span class="keyword">it</span> later <span class="built_in">to</span> configure jupyter.</span><br><span class="line"><span class="comment">### Configuration</span></span><br><span class="line">Before <span class="keyword">using</span> jupyter notebook, we had better <span class="built_in">set</span> some configurations <span class="keyword">for</span> <span class="keyword">it</span>. Using <span class="keyword">the</span> following <span class="keyword">command</span> <span class="title">to</span> <span class="title">generate</span> <span class="title">a</span> <span class="title">configuration</span> <span class="title">file</span>.</span><br></pre></td></tr></tbody></table></figure>
+<p>jupyter notebook –generate-config</p>
+<figure class="highlight vhdl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A <span class="keyword">configuration</span> <span class="keyword">file</span> named **jupyter_notebook_config.py** <span class="keyword">is</span> created <span class="keyword">in</span> directory **~/.jupyter**.</span><br><span class="line"><span class="keyword">Open</span> <span class="keyword">and</span> edit this <span class="keyword">file</span>.</span><br></pre></td></tr></tbody></table></figure>
+<p>vi .jupyter/jupyter_notebook_config.py</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">There are lots of configurations and what I <span class="keyword">set</span> <span class="keyword">is</span> <span class="keyword">as</span> <span class="keyword">follows</span>:</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Whether-to-allow-the-user-to-run-the-notebook-as-root-If-you-do-not-install-jupyter-in-a-virtual-env-please-set-this-option-as-True"><a href="#Whether-to-allow-the-user-to-run-the-notebook-as-root-If-you-do-not-install-jupyter-in-a-virtual-env-please-set-this-option-as-True" class="headerlink" title="Whether to allow the user to run the notebook as root. If you do not install jupyter in a virtual env, please set this option as True."></a>Whether to allow the user to run the notebook as root. If you do not install jupyter in a virtual env, please set this option as True.</h2><p>c.NotebookApp.allow_root = True</p>
+<h2 id="The-IP-address-the-notebook-server-will-listen-on-‘-’-means-any-IP"><a href="#The-IP-address-the-notebook-server-will-listen-on-‘-’-means-any-IP" class="headerlink" title="The IP address the notebook server will listen on. ‘*’ means any IP."></a>The IP address the notebook server will listen on. ‘*’ means any IP.</h2><p>c.NotebookApp.ip = ‘*’</p>
+<h2 id="The-directory-to-use-for-notebooks-and-kernels-Please-do-not-use-full-path-jupyter-will-add-the-default-path-prefix-automatically"><a href="#The-directory-to-use-for-notebooks-and-kernels-Please-do-not-use-full-path-jupyter-will-add-the-default-path-prefix-automatically" class="headerlink" title="The directory to use for notebooks and kernels. Please do not use full path, jupyter will add the default path prefix automatically."></a>The directory to use for notebooks and kernels. Please do not use full path, jupyter will add the default path prefix automatically.</h2><p>c.NotebookApp.notebook_dir = ‘gits/jupyter/‘</p>
+<h2 id="Whether-to-open-in-a-browser-after-starting-The-specific-browser-used-is"><a href="#Whether-to-open-in-a-browser-after-starting-The-specific-browser-used-is" class="headerlink" title="Whether to open in a browser after starting. The specific browser used is"></a>Whether to open in a browser after starting. The specific browser used is</h2><h1 id="platform-dependent-and-determined-by-the-python-standard-library-webbrowser"><a href="#platform-dependent-and-determined-by-the-python-standard-library-webbrowser" class="headerlink" title="platform dependent and determined by the python standard library webbrowser"></a>platform dependent and determined by the python standard library <code>webbrowser</code></h1><h1 id="module-unless-it-is-overridden-using-the-–browser-NotebookApp-browser"><a href="#module-unless-it-is-overridden-using-the-–browser-NotebookApp-browser" class="headerlink" title="module, unless it is overridden using the –browser (NotebookApp.browser)"></a>module, unless it is overridden using the –browser (NotebookApp.browser)</h1><h1 id="configuration-option"><a href="#configuration-option" class="headerlink" title="configuration option."></a>configuration option.</h1><p>c.NotebookApp.open_browser = False</p>
+<h2 id="The-string-should-be-of-the-form-type-salt-hashed-password-Copy-the-token-generated-by-passwd"><a href="#The-string-should-be-of-the-form-type-salt-hashed-password-Copy-the-token-generated-by-passwd" class="headerlink" title="The string should be of the form type:salt:hashed-password. Copy the token generated by passwd()."></a>The string should be of the form type:salt:hashed-password. Copy the token generated by passwd().</h2><p>c.NotebookApp.password = ‘argon2:$argon2id$v=19$m=10240,t=10,p=8$x/wZxj7yQsoUagjuidgnaiudgiu9adniaunaneianngda’</p>
+<h2 id="The-port-the-notebook-server-will-listen-on-env-JUPYTER-PORT"><a href="#The-port-the-notebook-server-will-listen-on-env-JUPYTER-PORT" class="headerlink" title="The port the notebook server will listen on (env: JUPYTER_PORT)."></a>The port the notebook server will listen on (env: JUPYTER_PORT).</h2><p>c.NotebookApp.port = 8888</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Then we can run jupyter notebook <span class="keyword">by</span> executing <span class="keyword">the</span> following <span class="keyword">command</span>:</span><br></pre></td></tr></tbody></table></figure>
+<p>jupyter notebook</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The port <span class="built_in">number</span> used <span class="keyword">in</span> jupyter is <span class="number">8888</span>, <span class="keyword">then</span> we can visit jupyter notebook via <span class="keyword">http</span>://<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8888.</span> Please make sure <span class="keyword">the</span> <span class="number">8888</span> port is allowed <span class="keyword">by</span> firewall. If <span class="keyword">not</span> allowed, use <span class="keyword">the</span> following <span class="keyword">command</span> <span class="title">to</span> <span class="title">set</span> <span class="title">it</span>.</span><br></pre></td></tr></tbody></table></figure>
+<p>sudo ufw allow 8888</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### Run Service</span></span><br><span class="line"><span class="keyword">If</span> we start jupyter notebook by command **jupyter notebook**, it will close when the terminal is close. Usually, we want jupyter notebook <span class="keyword">to</span> keep running, thus we can use it whenever we need. We can make jupyter as a<span class="built_in"> system </span>service.</span><br></pre></td></tr></tbody></table></figure>
+<p>sudo vi /lib/systemd/system/jupyter.service</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Edit <span class="keyword">this</span> file <span class="keyword">as</span> follows.</span><br></pre></td></tr></tbody></table></figure>
+<p>[Unit]</p>
+<h1 id="A-short-description-about-the-service"><a href="#A-short-description-about-the-service" class="headerlink" title="A short description about the service"></a>A short description about the service</h1><p>Description=Juyper-NoteBook</p>
+<p>[Service]</p>
+<h1 id="Use-simple-run-type-and-define-the-PIDFile"><a href="#Use-simple-run-type-and-define-the-PIDFile" class="headerlink" title="Use simple run type and define the PIDFile"></a>Use simple run type and define the PIDFile</h1><p>Type=simple<br>PIDFile=/run/jupyter.pid</p>
+<h1 id="The-start-command"><a href="#The-start-command" class="headerlink" title="The start command"></a>The start command</h1><p>ExecStart=/usr/local/bin/jupyter-notebook</p>
+<h1 id="The-stop-command"><a href="#The-stop-command" class="headerlink" title="The stop command"></a>The stop command</h1><p>ExecStop=/usr/bin/pkill jupyter-notebook</p>
+<h1 id="Set-always-restart-when-fail"><a href="#Set-always-restart-when-fail" class="headerlink" title="Set always restart when fail."></a>Set always restart when fail.</h1><p>Restart=always</p>
+<h1 id="The-time-wait-for-before-restart"><a href="#The-time-wait-for-before-restart" class="headerlink" title="The time wait for before restart"></a>The time wait for before restart</h1><p>RestartSec=30s</p>
+<h1 id="Set-user-name"><a href="#Set-user-name" class="headerlink" title="Set user name"></a>Set user name</h1><p>User=root</p>
+<h1 id="Set-group-name"><a href="#Set-group-name" class="headerlink" title="Set group name"></a>Set group name</h1><p>Group=root<br>WorkingDirectory=/root</p>
+<p>[Install]</p>
+<h1 id="Set-Target"><a href="#Set-Target" class="headerlink" title="Set Target"></a>Set Target</h1><p>WantedBy=multi-user.target</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Start jupyter<span class="built_in"> service </span>by the following commands.</span><br></pre></td></tr></tbody></table></figure>
+<p>sudo systemctl daemon-reload<br>sudo systemctl enable jupyter<br>sudo systemctl start jupyter</p>
+<figure class="highlight smali"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">We can also<span class="built_in"> check </span>the running status of jupyter service<span class="built_in"> if </span>there is anything wrong during start.</span><br></pre></td></tr></tbody></table></figure>
+<p>systemctl status jupyter.service</p>
+<figure class="highlight markdown"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">### Extensions</span></span><br><span class="line">[<span class="string">**jupyter_contrib_nbextensions**</span>](<span class="link">https://github.com/ipython-contrib/jupyter_contrib_nbextensions</span>) helps to manage a collect of extensions that can add functionality to jupyter notebook, which make it easier to use.</span><br></pre></td></tr></tbody></table></figure>
+<p>pip install jupyter_contrib_nbextensions<br>jupyter contrib nbextension install –user<br>pip install jupyter_nbextensions_configurator<br>jupyter nbextensions_configurator enable –user<br>systemctl restart jupyter</p>
+<figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Then</span> we can configure notebooks<span class="symbol">'s</span> functions via the web page.</span><br><span class="line">Install autopep8, <span class="keyword">if</span> we want <span class="keyword">use</span> it <span class="keyword">in</span> notebook.</span><br></pre></td></tr></tbody></table></figure>
+<p>pip install autopep8<br>```</p>
+</body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" title="Set Up Jupyter Notebook on Ubuntu 18.04">http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Jupyter-Notebook/" rel="tag"><i class="fa fa-tag"></i> --Jupyter Notebook</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/" rel="prev" title="Solution For node's Warning: Accessing non-existent property 'column' of module exports inside circular dependency">
+      <i class="fa fa-chevron-left"></i> Solution For node's Warning: Accessing non-existent property 'column' of module exports inside circular dependency
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Installation"><span class="nav-number">1.</span> <span class="nav-text">Installation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Whether-to-allow-the-user-to-run-the-notebook-as-root-If-you-do-not-install-jupyter-in-a-virtual-env-please-set-this-option-as-True"><span class="nav-number"></span> <span class="nav-text">Whether to allow the user to run the notebook as root. If you do not install jupyter in a virtual env, please set this option as True.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-IP-address-the-notebook-server-will-listen-on-‘-’-means-any-IP"><span class="nav-number"></span> <span class="nav-text">The IP address the notebook server will listen on. ‘*’ means any IP.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-directory-to-use-for-notebooks-and-kernels-Please-do-not-use-full-path-jupyter-will-add-the-default-path-prefix-automatically"><span class="nav-number"></span> <span class="nav-text">The directory to use for notebooks and kernels. Please do not use full path, jupyter will add the default path prefix automatically.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Whether-to-open-in-a-browser-after-starting-The-specific-browser-used-is"><span class="nav-number"></span> <span class="nav-text">Whether to open in a browser after starting. The specific browser used is</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#platform-dependent-and-determined-by-the-python-standard-library-webbrowser"><span class="nav-number"></span> <span class="nav-text">platform dependent and determined by the python standard library webbrowser</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#module-unless-it-is-overridden-using-the-–browser-NotebookApp-browser"><span class="nav-number"></span> <span class="nav-text">module, unless it is overridden using the –browser (NotebookApp.browser)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#configuration-option"><span class="nav-number"></span> <span class="nav-text">configuration option.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#The-string-should-be-of-the-form-type-salt-hashed-password-Copy-the-token-generated-by-passwd"><span class="nav-number"></span> <span class="nav-text">The string should be of the form type:salt:hashed-password. Copy the token generated by passwd().</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-port-the-notebook-server-will-listen-on-env-JUPYTER-PORT"><span class="nav-number"></span> <span class="nav-text">The port the notebook server will listen on (env: JUPYTER_PORT).</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-short-description-about-the-service"><span class="nav-number"></span> <span class="nav-text">A short description about the service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-simple-run-type-and-define-the-PIDFile"><span class="nav-number"></span> <span class="nav-text">Use simple run type and define the PIDFile</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-start-command"><span class="nav-number"></span> <span class="nav-text">The start command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-stop-command"><span class="nav-number"></span> <span class="nav-text">The stop command</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-always-restart-when-fail"><span class="nav-number"></span> <span class="nav-text">Set always restart when fail.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-time-wait-for-before-restart"><span class="nav-number"></span> <span class="nav-text">The time wait for before restart</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-user-name"><span class="nav-number"></span> <span class="nav-text">Set user name</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-group-name"><span class="nav-number"></span> <span class="nav-text">Set group name</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Set-Target"><span class="nav-number"></span> <span class="nav-text">Set Target</span></a></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">100k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">1:31</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

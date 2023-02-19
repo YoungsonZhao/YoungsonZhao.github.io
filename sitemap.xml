@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</loc>
+    
+    <lastmod>2023-02-19T14:37:37.225Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/</loc>
     
     <lastmod>2023-02-19T10:53:17.891Z</lastmod>
