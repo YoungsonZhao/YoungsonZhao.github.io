@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/</loc>
+    
+    <lastmod>2023-02-19T10:53:17.891Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/</loc>
     
-    <lastmod>2023-02-15T16:19:25.426Z</lastmod>
+    <lastmod>2023-02-19T09:26:28.317Z</lastmod>
     
   </url>
   

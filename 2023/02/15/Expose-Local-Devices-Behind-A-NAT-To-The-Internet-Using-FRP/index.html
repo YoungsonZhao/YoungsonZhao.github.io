@@ -49,15 +49,15 @@
 
   <meta name="description" content="Nowadays, there are lots of intelligent devices at home, such as a personal web server or a NAS. It is quite convenient if we can visit these devices anywhere and anytime. However, the home network pr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Expose Local Devices Behind A NAT To The Internet Using FRP">
+<meta property="og:title" content="Expose Local Devices Behind A NAT To The Internet Using frp">
 <meta property="og:url" content="http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/index.html">
 <meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
 <meta property="og:description" content="Nowadays, there are lots of intelligent devices at home, such as a personal web server or a NAS. It is quite convenient if we can visit these devices anywhere and anytime. However, the home network pr">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-15T14:37:40.000Z">
-<meta property="article:modified_time" content="2023-02-15T16:19:25.426Z">
+<meta property="article:modified_time" content="2023-02-19T09:26:28.317Z">
 <meta property="article:author" content="Dr. Zhao">
-<meta property="article:tag" content="FRP">
+<meta property="article:tag" content="frp">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/">
@@ -74,7 +74,7 @@
   };
 </script>
 
-  <title>Expose Local Devices Behind A NAT To The Internet Using FRP | Dr. Zhao's Blog</title>
+  <title>Expose Local Devices Behind A NAT To The Internet Using frp | Dr. Zhao's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
     <script>
@@ -243,7 +243,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          Expose Local Devices Behind A NAT To The Internet Using FRP
+          Expose Local Devices Behind A NAT To The Internet Using frp
         </h2>
 
         <div class="post-meta">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-16 00:19:25" itemprop="dateModified" datetime="2023-02-16T00:19:25+08:00">2023-02-16</time>
+                <time title="Modified: 2023-02-19 17:26:28" itemprop="dateModified" datetime="2023-02-19T17:26:28+08:00">2023-02-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,14 +274,14 @@
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/FRP/" itemprop="url" rel="index">
-                    <span itemprop="name">FRP</span>
+                  <a href="/categories/Tutorials/frp/" itemprop="url" rel="index">
+                    <span itemprop="name">frp</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/" class="post-meta-item leancloud_visitors" data-flag-title="Expose Local Devices Behind A NAT To The Internet Using FRP" title="Views">
+            <span id="/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/" class="post-meta-item leancloud_visitors" data-flag-title="Expose Local Devices Behind A NAT To The Internet Using frp" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -307,7 +307,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.4k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -365,7 +365,7 @@
 <li><strong>server_port</strong> is bind_port we set in frps.ini, the client will send data to the server’s bind port.</li>
 <li><strong>token</strong> is the token we set in frps.ini, which is used for authentication</li>
 <li><strong>log</strong> lines configure the log directory and log level and days to keep.</li>
-<li><strong>tcp</strong> lines configure the connection between the server and client is tcp.<br>After the general <figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[router]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">80</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">7080</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br><span class="line"><span class="section">[git]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">30000</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">30000</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li><strong>tcp</strong> lines configure the connection between the server and client is tcp.<br>After the general <figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[router]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">80</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">7080</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[git]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">30000</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">30000</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="section">[git-ssh]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">30001</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">30001</span></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
 </body></html>
     </div>
@@ -402,7 +402,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/" title="Expose Local Devices Behind A NAT To The Internet Using FRP">http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/</a>
+    <a href="http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/" title="Expose Local Devices Behind A NAT To The Internet Using frp">http://blog.zhaoyongsheng.com/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -414,7 +414,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/FRP/" rel="tag"><i class="fa fa-tag"></i> FRP</a>
+              <a href="/tags/frp/" rel="tag"><i class="fa fa-tag"></i> frp</a>
           </div>
 
         
@@ -426,7 +426,10 @@
     <a href="/2023/02/11/Basic-Usage-of-PostgreSQL/" rel="prev" title="Basic Usage of PostgreSQL">
       <i class="fa fa-chevron-left"></i> Basic Usage of PostgreSQL
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/" rel="next" title="Solution For node's Warning: Accessing non-existent property 'column' of module exports inside circular dependency">
+      Solution For node's Warning: Accessing non-existent property 'column' of module exports inside circular dependency <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -481,20 +484,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -560,13 +563,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">92k</span>
+    <span title="Symbols count total">96k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:24</span>
+    <span title="Reading time total">1:27</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
