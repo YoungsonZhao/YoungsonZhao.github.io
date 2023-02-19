@@ -974,7 +974,15 @@ Logs can offer us useful information when there is something wrong during config
   <entry>
     <title>A Method To Make Git Ignore Take Effect</title>
     <url>/2023/02/20/A-Method-To-Make-Git-Ignore-Take-Effect/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn’t take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.<br><a id="more"></a></p>
+    <content><![CDATA[<html><head></head><body><p><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn’t take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.</p>
+<a id="more"></a>
+<p>Adding files or folders to <strong>.gitignore</strong> doesn’t remove them from git cache. We have to remove them from git cache manually.</p>
+<h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><p>First, add and commit every changed files.<br>Second, remove the ignore files from git cache using the following command.</p>
+<figure class="highlight delphi"><table><tbody><tr><td class="code"><pre><span class="line">git rm --cached <span class="keyword">file</span>.<span class="keyword">name</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Third, commit the delete.</p>
+<figure class="highlight maxima"><table><tbody><tr><td class="code"><pre><span class="line">git commit -m <span class="string">"ignore file.name"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="folders"><a href="#folders" class="headerlink" title="folders"></a>folders</h3><p>Steps are similar with ignoring files. But the command that removes folders from git cache is different.</p>
+<figure class="highlight ada"><table><tbody><tr><td class="code"><pre><span class="line">git rm -rf <span class="comment">--cached folder_name</span></span><br></pre></td></tr></tbody></table></figure>
 </body></html>]]></content>
       <categories>
         <category>-- [Tutorials, Git]</category>
