@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.zhaoyongsheng.com/"/>
-  <updated>2023-02-19T14:45:58.274Z</updated>
+  <updated>2023-02-19T17:04:24.813Z</updated>
   <id>http://blog.zhaoyongsheng.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>A Method To Make Git Ignore Take Effect</title>
+    <link href="http://blog.zhaoyongsheng.com/2023/02/20/A-Method-To-Make-Git-Ignore-Take-Effect/"/>
+    <id>http://blog.zhaoyongsheng.com/2023/02/20/A-Method-To-Make-Git-Ignore-Take-Effect/</id>
+    <published>2023-02-19T16:55:52.000Z</published>
+    <updated>2023-02-19T17:04:24.813Z</updated>
+    
+    <content type="html"><![CDATA[<html><head></head><body><p><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn’t take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.<br><a id="more"></a></p></body></html>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://git-scm.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Git&lt;/a&gt; is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a &lt;strong&gt;.gitignore&lt;/strong&gt; config file. Sometime, git ignore doesn’t take effect after we add some files or folders to &lt;strong&gt;.gitignore&lt;/strong&gt;, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="-- [Tutorials, Git]" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials-Git/"/>
+    
+    
+      <category term="-- Git" scheme="http://blog.zhaoyongsheng.com/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Set Up Jupyter Notebook on Ubuntu 18.04</title>

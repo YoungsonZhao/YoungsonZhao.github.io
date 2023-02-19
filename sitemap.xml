@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/20/A-Method-To-Make-Git-Ignore-Take-Effect/</loc>
+    
+    <lastmod>2023-02-19T17:04:24.813Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/</loc>
     
     <lastmod>2023-02-19T15:26:00.545Z</lastmod>
