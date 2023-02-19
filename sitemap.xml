@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/</loc>
     
-    <lastmod>2023-02-19T14:41:53.021Z</lastmod>
+    <lastmod>2023-02-19T15:26:00.545Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2023/02/19/Solution-For-npm-s-Warning-Accessing-non-existent-property-column-of-module-exports-inside-circular-dependency/</loc>
+    <loc>http://blog.zhaoyongsheng.com/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/</loc>
     
-    <lastmod>2023-02-19T10:53:17.891Z</lastmod>
+    <lastmod>2023-02-19T14:55:32.853Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</loc>
+    
+    <lastmod>2023-02-19T14:45:58.274Z</lastmod>
     
   </url>
   
@@ -96,13 +103,6 @@
     <loc>http://blog.zhaoyongsheng.com/2019/11/30/Basic-Usage-of-Hexo/</loc>
     
     <lastmod>2023-02-11T16:04:10.027Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.zhaoyongsheng.com/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/</loc>
-    
-    <lastmod>2023-02-11T16:03:23.805Z</lastmod>
     
   </url>
   
