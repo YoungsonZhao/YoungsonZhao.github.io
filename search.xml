@@ -1008,4 +1008,22 @@ Logs can offer us useful information when there is something wrong during config
         <tag>-- SSH -- Git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Basic Usage of Git</title>
+    <url>/2023/02/23/Basic-Usage-of-Git/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In this article, I will introduce some useful skills of using git to manage version control.<br><span id="more"></span></p>
+<h3 id="Manage-Remote-Repository"><a href="#Manage-Remote-Repository" class="headerlink" title="Manage Remote Repository"></a>Manage Remote Repository</h3><h4 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h4><figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">git remote add origin ssh:<span class="regexp">//gi</span>t@gitlab.com:<span class="number">30001</span><span class="regexp">/yongsheng/</span>jupyter.git</span><br></pre></td></tr></tbody></table></figure>
+<p>The above command will add a remote repository to a git project named <strong>origin</strong>. We can add multiple remote repositories using different names, such <strong>backup</strong>, <strong>test</strong> and so on. </p>
+<h4 id="Change-URL"><a href="#Change-URL" class="headerlink" title="Change URL"></a>Change URL</h4><figure class="highlight dsconfig"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">ssh</span>://<span class="string">git</span>@<span class="string">gitlab</span>.<span class="string">com:30001/</span><span class="string">yongsheng</span>/<span class="string">jupyter</span>.<span class="string">git</span></span><br></pre></td></tr></tbody></table></figure>
+<p>The <strong>set-url</strong> option can change the url of an existing repository. It takes two parameters, one is the repository’s name and the other one is the new url of remote repository.</p>
+<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br></pre></td></tr></tbody></table></figure>
+<p>The <strong>rm</strong> option can remove an repository using its name.</p>
+</body></html>]]></content>
+      <categories>
+        <category>-- [Tutorials, Git]</category>
+      </categories>
+      <tags>
+        <tag>-- Git</tag>
+      </tags>
+  </entry>
 </search>
