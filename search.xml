@@ -1028,4 +1028,16 @@ Logs can offer us useful information when there is something wrong during config
         <tag>-- Git</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Coding Skills Of SwiftUI For Beginners</title>
+    <url>/2023/02/23/Coding-Skills-Of-SwiftUI-For-Beginners/</url>
+    <content><![CDATA[<html><head></head><body><p>This article records the problems I met when developing an ios app as a beginner and the corresponding solutions. Besides, there are some useful coding skills that deserve to share with you. If you are a beginner of SwiftUI, I hope this article will help you to learning SwiftUI quickly and easily.</p>
+<span id="more"></span></body></html>]]></content>
+      <categories>
+        <category>-- [Tutorials, SwiftUI]</category>
+      </categories>
+      <tags>
+        <tag>-- SwiftUI -- ios app</tag>
+      </tags>
+  </entry>
 </search>
