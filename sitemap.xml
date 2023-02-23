@@ -100,13 +100,6 @@
   </url>
   
   <url>
-    <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
-    
-    <lastmod>2023-02-11T16:08:27.503Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.zhaoyongsheng.com/2020/12/20/Click-Through-Rate-Prediction-Using-GBDT-With-Avazu-Dataset/</loc>
     
     <lastmod>2023-02-11T16:07:39.076Z</lastmod>
@@ -131,6 +124,13 @@
     <loc>http://blog.zhaoyongsheng.com/categories/index.html</loc>
     
     <lastmod>2023-02-11T16:01:56.505Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/02/08/Deploy-A-Django-Application-on-Ubuntu-Using-Apache-and-PostgreSQL/</loc>
+    
+    <lastmod>2023-02-07T17:51:54.000Z</lastmod>
     
   </url>
   
