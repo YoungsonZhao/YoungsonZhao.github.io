@@ -57,7 +57,8 @@
 <meta property="article:published_time" content="2023-02-19T17:52:22.000Z">
 <meta property="article:modified_time" content="2023-02-19T17:52:22.000Z">
 <meta property="article:author" content="Dr. Zhao">
-<meta property="article:tag" content="-- SSH -- Git">
+<meta property="article:tag" content="SSH">
+<meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/02/20/Configure-Host-for-SSH/">
@@ -261,8 +262,20 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials-SSH-Tutorials-Git/" itemprop="url" rel="index">
-                    <span itemprop="name">-- [Tutorials, SSH] -- [Tutorials, Git]</span>
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/SSH/" itemprop="url" rel="index">
+                    <span itemprop="name">SSH</span>
                   </a>
                 </span>
             </span>
@@ -294,7 +307,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>492</span>
+              <span>410</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -313,12 +326,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><strong>SSH</strong> is secure way to login a server. It is difficult to remember the IPs of several servers. In this tutorials, I will teach to setup host of <strong>SSH</strong> to login using hostname instead of IP.</p>
-<span id="more"></span>
-<h3 id="Create-Config-File"><a href="#Create-Config-File" class="headerlink" title="Create Config File"></a>Create Config File</h3><p>Create a custom ssh config file by the following command.</p>
-<figure class="highlight arcade"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></tbody></table></figure>
+        <html><head></head><body><p><strong>SSH</strong> is secure way to login a server. It is difficult to remember the IPs of several servers. In this tutorials, I will teach to setup host of <strong>SSH</strong> to login using hostname instead of IP.<br><span id="more"></span></p>
+<h3 id="Create-Config-File"><a href="#Create-Config-File" class="headerlink" title="Create Config File"></a>Create Config File</h3><p>Create a custom ssh config file by the following command.<br></p><figure class="highlight arcade"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h3 id="Add-Host"><a href="#Add-Host" class="headerlink" title="Add Host"></a>Add Host</h3><figure class="highlight crmsh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab.com</span><br><span class="line">    HostName <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line">    <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">    Port <span class="number">30001</span></span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></tbody></table></figure>
-<p>The above host is a ssh connect for git. With this host, we can use <strong>ssh://<a href="mailto:git@gitlab.com">git@gitlab.com</a>:30001/</strong> to clone and push.</p>
+<p>The above host is a ssh connect for git. With this host, we can use <strong>ssh://git@gitlab.com:30001/</strong> to clone and push.</p>
 </body></html>
     </div>
 
@@ -366,7 +377,8 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/SSH-Git/" rel="tag"><i class="fa fa-tag"></i> -- SSH -- Git</a>
+              <a href="/tags/SSH/" rel="tag"><i class="fa fa-tag"></i> SSH</a>
+              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
           </div>
 
         
@@ -449,7 +461,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

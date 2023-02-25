@@ -55,9 +55,9 @@
 <meta property="og:description" content="Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-19T16:55:52.000Z">
-<meta property="article:modified_time" content="2023-02-19T17:17:23.063Z">
+<meta property="article:modified_time" content="2023-02-19T16:55:52.000Z">
 <meta property="article:author" content="Dr. Zhao">
-<meta property="article:tag" content="-- Git">
+<meta property="article:tag" content="Gitß">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/02/20/A-Method-To-Make-Git-Ignore-Take-Effect/">
@@ -252,9 +252,8 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2023-02-20 00:55:52 / Modified: 01:17:23" itemprop="dateCreated datePublished" datetime="2023-02-20T00:55:52+08:00">2023-02-20</time>
+              <time title="Created: 2023-02-20 00:55:52" itemprop="dateCreated datePublished" datetime="2023-02-20T00:55:52+08:00">2023-02-20</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,8 +261,14 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials-Git/" itemprop="url" rel="index">
-                    <span itemprop="name">-- [Tutorials, Git]</span>
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
             </span>
@@ -295,7 +300,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>879</span>
+              <span>889</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -314,15 +319,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn’t take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.</p>
-<a id="more"></a>
-<p>Adding files or folders to <strong>.gitignore</strong> doesn’t remove them from git cache. We have to remove them from git cache manually.</p>
-<h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><p>First, add and commit every changed files.<br>Second, remove the ignore files from git cache using the following command.</p>
-<figure class="highlight delphi"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached <span class="keyword">file</span>.<span class="keyword">name</span></span><br></pre></td></tr></tbody></table></figure>
-<p>Third, commit the delete.</p>
-<figure class="highlight maxima"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"ignore file.name"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="folders"><a href="#folders" class="headerlink" title="folders"></a>folders</h3><p>Steps are similar with ignoring files. But the command that removes folders from git cache is different.</p>
-<figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -rf <span class="comment">--cached folder_name</span></span><br></pre></td></tr></tbody></table></figure>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn’t take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.<br><span id="more"></span><br>Adding files or folders to <strong>.gitignore</strong> doesn’t remove them from git cache. We have to remove them from git cache manually.</p>
+<h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><p>First, add and commit every changed files.<br>Second, remove the ignore files from git cache using the following command.<br></p><figure class="highlight delphi"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached <span class="keyword">file</span>.<span class="keyword">name</span></span><br></pre></td></tr></tbody></table></figure><br>Third, commit the delete.<br><figure class="highlight maxima"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"ignore file.name"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="folders"><a href="#folders" class="headerlink" title="folders"></a>folders</h3><p>Steps are similar with ignoring files. But the command that removes folders from git cache is different.<br></p><figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -rf <span class="comment">--cached folder_name</span></span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html>
     </div>
 
@@ -370,7 +369,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> -- Git</a>
+              <a href="/tags/Gits/" rel="tag"><i class="fa fa-tag"></i> Gitß</a>
           </div>
 
         
@@ -453,7 +452,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
