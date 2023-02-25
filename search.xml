@@ -1040,7 +1040,10 @@ Now we can visit the Django’s application via http:xxx.xxx.xxx.xxx:8080/admin/
 </ul>
 </li>
 </ul>
-<h3 id="Command-Lines"><a href="#Command-Lines" class="headerlink" title="Command Lines"></a>Command Lines</h3></body></html>]]></content>
+<h3 id="Command-Lines"><a href="#Command-Lines" class="headerlink" title="Command Lines"></a>Command Lines</h3><h4 id="Enable-Module"><a href="#Enable-Module" class="headerlink" title="Enable Module"></a>Enable Module</h4><figure class="highlight coq"><table><tbody><tr><td class="code"><pre><span class="line">a2enmod <span class="built_in">rewrite</span></span><br><span class="line">a2enmod header</span><br><span class="line">a2enmod ssl</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Enable-Site"><a href="#Enable-Site" class="headerlink" title="Enable Site"></a>Enable Site</h4><figure class="highlight actionscript"><table><tbody><tr><td class="code"><pre><span class="line">a2ensite <span class="number">001</span>-<span class="keyword">default</span></span><br></pre></td></tr></tbody></table></figure>
+<p>The site is defined in <strong>/etc/apache2/site_available</strong> with name <strong>001-default.conf</strong>.</p>
+</body></html>]]></content>
       <categories>
         <category>Tutorials</category>
         <category>Apache</category>
