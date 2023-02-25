@@ -300,14 +300,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>3.6k</span>
+              <span>3.9k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>3 mins.</span>
+              <span>4 mins.</span>
             </span>
 
         </div>
@@ -350,7 +350,10 @@
 <h3 id="Command-Lines"><a href="#Command-Lines" class="headerlink" title="Command Lines"></a>Command Lines</h3><h4 id="Enable-Module"><a href="#Enable-Module" class="headerlink" title="Enable Module"></a>Enable Module</h4><figure class="highlight coq"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a2enmod <span class="built_in">rewrite</span></span><br><span class="line">a2enmod header</span><br><span class="line">a2enmod ssl</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="Enable-Site"><a href="#Enable-Site" class="headerlink" title="Enable Site"></a>Enable Site</h4><figure class="highlight actionscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a2ensite <span class="number">001</span>-<span class="keyword">default</span></span><br></pre></td></tr></tbody></table></figure>
 <p>The site is defined in <strong>/etc/apache2/site_available</strong> with name <strong>001-default.conf</strong>.</p>
-</body></html>
+<h3 id="Problems-amp-Solutions"><a href="#Problems-amp-Solutions" class="headerlink" title="Problems &amp; Solutions"></a>Problems &amp; Solutions</h3><h4 id="Invalid-command-‘Header’-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration"><a href="#Invalid-command-‘Header’-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration" class="headerlink" title="Invalid command ‘Header’, perhaps misspelled or defined by a module not included in the server configuration"></a>Invalid command ‘Header’, perhaps misspelled or defined by a module not included in the server configuration</h4><p>The solution is enable <strong>header</strong> module.</p>
+<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Enabling <span class="keyword">module</span> headers.</span><br><span class="line">a2enmod headers</span><br><span class="line">service apache2 restart</span><br></pre></td></tr></tbody></table></figure>
+<p>Test <strong>header</strong> module.</p>
+<figure class="highlight 1c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apachectl -M <span class="string">| grep head</span></span><br><span class="line">headers_module (shared)</span><br><span class="line">Syntax OK</span><br></pre></td></tr></tbody></table></figure></body></html>
     </div>
 
     
@@ -448,7 +451,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Configuration"><span class="nav-number">1.</span> <span class="nav-text">Apache Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Site-Configuration"><span class="nav-number">2.</span> <span class="nav-text">Site Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-Lines"><span class="nav-number">3.</span> <span class="nav-text">Command Lines</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-Module"><span class="nav-number">3.1.</span> <span class="nav-text">Enable Module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-Site"><span class="nav-number">3.2.</span> <span class="nav-text">Enable Site</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Configuration"><span class="nav-number">1.</span> <span class="nav-text">Apache Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Site-Configuration"><span class="nav-number">2.</span> <span class="nav-text">Site Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-Lines"><span class="nav-number">3.</span> <span class="nav-text">Command Lines</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-Module"><span class="nav-number">3.1.</span> <span class="nav-text">Enable Module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-Site"><span class="nav-number">3.2.</span> <span class="nav-text">Enable Site</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problems-amp-Solutions"><span class="nav-number">4.</span> <span class="nav-text">Problems &amp; Solutions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Invalid-command-%E2%80%98Header%E2%80%99-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration"><span class="nav-number">4.1.</span> <span class="nav-text">Invalid command ‘Header’, perhaps misspelled or defined by a module not included in the server configuration</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
