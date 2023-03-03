@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/03/03/Coding-Skills-of-Django/</loc>
+    
+    <lastmod>2023-03-03T13:56:11.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/02/25/Deploy-Gitlab-Using-Docker-On-Synology-DS218/</loc>
     
     <lastmod>2023-02-25T14:33:45.000Z</lastmod>
