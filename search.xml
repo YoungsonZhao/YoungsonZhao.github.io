@@ -1202,4 +1202,22 @@ vi pip.conf<br>[global]<br>index-url = <a href="https://pypi.tuna.tsinghua.edu.c
         <tag>pip</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Using scipy and numpy in Django</title>
+    <url>/2023/05/08/Using-scipy-in-Django/</url>
+    <content><![CDATA[<html><head></head><body><p>When <strong>import scipy</strong> or <strong>import numpy as np</strong> in a Django project, it works very well in development mode. However, it will get stuck when deploy Django project using apache. In this article, I will show you how to solve this problem.</p>
+<span id="more"></span>
+<p>Some third party packages for Python which use C extension modules, and this includes scipy and numpy, will only work in the Python main interpreter and cannot be used in sub interpreters as mod_wsgi by default uses. The result can be thread deadlock, incorrect behavior or processes crashes. These is detailed in:<a href="http://code.google.com/p/modwsgi/wiki/ApplicationIssues#Python_Simplified_GIL_State_API">http://code.google.com/p/modwsgi/wiki/ApplicationIssues#Python_Simplified_GIL_State_API</a></p>
+<p>The workaround is to force the WSGI application to run in the main interpreter of the process using:</p>
+<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">WSGIApplicationGroup</span> <span class="variable">%{GLOBAL}</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Add the above line to the apache’s configure file, which is probably locate in <strong>/etc/apache/sites-available</strong>. And then reload apache service using:</p>
+<figure class="highlight jboss-cli"><table><tbody><tr><td class="code"><pre><span class="line">systemctl <span class="keyword">reload</span> apache2.service</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+      </tags>
+  </entry>
 </search>

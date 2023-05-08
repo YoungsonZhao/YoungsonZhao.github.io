@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/05/08/Using-scipy-in-Django/</loc>
+    
+    <lastmod>2023-05-08T12:19:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/05/07/Setup-Source-Of-pip-On-MacBook/</loc>
     
     <lastmod>2023-05-07T14:23:15.000Z</lastmod>
