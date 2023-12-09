@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.zhaoyongsheng.com/"/>
-  <updated>2023-05-08T12:19:01.000Z</updated>
+  <updated>2023-12-09T08:49:51.000Z</updated>
   <id>http://blog.zhaoyongsheng.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ROS2 Learning Notes - ROS2 Humble For Beginners</title>
+    <link href="http://blog.zhaoyongsheng.com/2023/12/09/ROS2-Learning-Notes-ROS2-Humble-For-Beginners/"/>
+    <id>http://blog.zhaoyongsheng.com/2023/12/09/ROS2-Learning-Notes-ROS2-Humble-For-Beginners/</id>
+    <published>2023-12-09T08:49:51.000Z</published>
+    <updated>2023-12-09T08:49:51.000Z</updated>
+    
+    <content type="html"><![CDATA[<html><head></head><body><p>本文为<strong>ROS 2</strong>初学者的学习笔记，主要记录了我学习ROS 2过程中的重要信息，防止遗漏。主要参考资料为<a href="https://docs.ros.org/en/humble/index.html">ROS 2: Humble</a>的官方文档和<a href="https://www.youtube.com/watch?v=0aPbWsyENA8&amp;list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy">ROS 2 Tutorials - ROS2 Humble For Beginners</a>。</p><span id="more"></span><h1 id="Intro-Install-and-Setup-ROS2-Humble"><a href="#Intro-Install-and-Setup-ROS2-Humble" class="headerlink" title="Intro: Install and Setup ROS2 Humble"></a>Intro: Install and Setup ROS2 Humble</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>请确保电脑已经安装了Xcode和brew。<br>安装依赖包</p><figure class="highlight mipsasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>asio assimp <span class="keyword">bison </span><span class="keyword">bullet </span>cmake console_bridge cppcheck</span><br><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>cunit <span class="keyword">eigen </span>freetype graphviz opencv openssl <span class="keyword">orocos-kdl </span>pcre poco</span><br><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>pyqt5 qt@<span class="number">5</span> sip spdlog tinyxml tinyxml2</span><br></pre></td></tr></tbody></table></figure><figure class="highlight scheme"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure><figure class="highlight scheme"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure><figure class="highlight scheme"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure><figure class="highlight scheme"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文为&lt;strong&gt;ROS 2&lt;/strong&gt;初学者的学习笔记，主要记录了我学习ROS 2过程中的重要信息，防止遗漏。主要参考资料为&lt;a href=&quot;https://docs.ros.org/en/humble/index.html&quot;&gt;ROS 2: Humble&lt;/a&gt;的官方文档和&lt;a href=&quot;https://www.youtube.com/watch?v=0aPbWsyENA8&amp;list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy&quot;&gt;ROS 2 Tutorials - ROS2 Humble For Beginners&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/"/>
+    
+      <category term="ROS" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/ROS/"/>
+    
+    
+      <category term="ROS" scheme="http://blog.zhaoyongsheng.com/tags/ROS/"/>
+    
+  </entry>
   
   <entry>
     <title>Using scipy and numpy in Django</title>
@@ -538,38 +562,6 @@
       <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
     
       <category term="Notes" scheme="http://blog.zhaoyongsheng.com/tags/Notes/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++ Tutorials - Debug Experience</title>
-    <link href="http://blog.zhaoyongsheng.com/2019/12/24/C-Coding-Debug-Log/"/>
-    <id>http://blog.zhaoyongsheng.com/2019/12/24/C-Coding-Debug-Log/</id>
-    <published>2019-12-24T15:28:39.000Z</published>
-    <updated>2023-02-07T15:11:06.819Z</updated>
-    
-    <content type="html"><![CDATA[<html><head></head><body><p>This article records the representative bugs I met when in c++ coding. The bugs are categorized as C++ standard library and the third-party open source libraries, such as OpenCV, PCL, QT. For each bug, I offer the corresponding solution. Therefore, this article is a debug reference and could help me to fix the bugs when I meet them again. </p><a id="more"></a><h2 id="C-Standard-Library"><a href="#C-Standard-Library" class="headerlink" title="C++ Standard Library"></a>C++ Standard Library</h2><h3 id="Linking-Error-1"><a href="#Linking-Error-1" class="headerlink" title="Linking Error 1"></a>Linking Error 1</h3><h4 id="Bug"><a href="#Bug" class="headerlink" title="Bug"></a>Bug</h4><figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">undefined reference <span class="keyword">to</span> symbol <span class="string">'pthread_create@@GLIBC_2.2.5'</span></span><br><span class="line">/lib/x86_64-linux-gnu/libpthread.<span class="keyword">so</span>.<span class="number">0</span>: error adding symbol<span class="variable">s:</span> DSO missing from <span class="keyword">command</span> <span class="built_in">line</span></span><br></pre></td></tr></tbody></table></figure><h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h4><figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">find_package</span>(Threads)</span><br><span class="line"><span class="keyword">target_link_libraries</span> (<span class="variable">${PROJECT_NAME}</span> <span class="variable">${CMAKE_THREAD_LIBS_INIT}</span>)</span><br></pre></td></tr></tbody></table></figure><h4 id="Bug-1"><a href="#Bug-1" class="headerlink" title="Bug"></a>Bug</h4><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invalid use of incomplete<span class="built_in"> type </span>‘class QDesktopWidget’</span><br></pre></td></tr></tbody></table></figure><h4 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution"></a>Solution</h4><p>It means that the compiler could not understand QDesktopWidget due to not including its definition file.</p><figure class="highlight autoit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QDesktopWidget&gt;</span></span></span><br></pre></td></tr></tbody></table></figure><h4 id="Bug-2"><a href="#Bug-2" class="headerlink" title="Bug"></a>Bug</h4><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error:<span class="built_in"> default </span>argument given <span class="keyword">for</span> parameter</span><br></pre></td></tr></tbody></table></figure><h4 id="Solution-2"><a href="#Solution-2" class="headerlink" title="Solution"></a>Solution</h4><p>You can declare default arguments in the class declaration or in the function definition, but not both.</p><figure class="highlight crystal"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span>(<span class="title">int</span></span> x /*= <span class="number">10</span>*<span class="regexp">/)</span></span><br></pre></td></tr></tbody></table></figure><h4 id="Bug-3"><a href="#Bug-3" class="headerlink" title="Bug"></a>Bug</h4><figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">segmentation</span><span class="selector-class">.cpp</span><span class="selector-pseudo">:1604</span><span class="selector-pseudo">:8</span>: <span class="selector-tag">error</span>: <span class="selector-tag">prototype</span> <span class="selector-tag">for</span> ‘<span class="selector-tag">double</span> <span class="selector-tag">BoxSegment</span><span class="selector-pseudo">::computeWeightedCovarianceMatrix(const</span> <span class="selector-tag">Ptr</span>&amp;, <span class="selector-tag">const</span> <span class="selector-tag">Eigen</span><span class="selector-pseudo">::Matrix</span>&lt;<span class="selector-tag">float</span>, 4, 1&gt;&amp;, <span class="selector-tag">const</span> <span class="selector-tag">std</span><span class="selector-pseudo">::vector</span>&lt;<span class="selector-tag">float</span>&gt;&amp;, <span class="selector-tag">Eigen</span><span class="selector-pseudo">::Matrix</span>&lt;<span class="selector-tag">float</span>, 3, 3&gt;&amp;)’ <span class="selector-tag">does</span> <span class="selector-tag">not</span> <span class="selector-tag">match</span> <span class="selector-tag">any</span> <span class="selector-tag">in</span> <span class="selector-tag">class</span> ‘<span class="selector-tag">BoxSegment</span>’</span><br><span class="line"> <span class="selector-tag">double</span> <span class="selector-tag">BoxSegment</span><span class="selector-pseudo">::compute(const</span> <span class="selector-tag">pcl</span><span class="selector-pseudo">::PointCloud</span>&lt;<span class="selector-tag">pcl</span><span class="selector-pseudo">::PointXYZ</span>&gt;<span class="selector-pseudo">::Ptr</span>&amp; <span class="selector-tag">src_cloud</span>,</span><br><span class="line">        ^~~~~~~~~~</span><br><span class="line"><span class="selector-tag">In</span> <span class="selector-tag">file</span> <span class="selector-tag">included</span> <span class="selector-tag">from</span> <span class="selector-tag">segmentation</span><span class="selector-class">.cpp</span><span class="selector-pseudo">:1</span><span class="selector-pseudo">:0</span>:</span><br><span class="line"><span class="selector-tag">segmentation</span><span class="selector-class">.h</span><span class="selector-pseudo">:120</span><span class="selector-pseudo">:11</span>: <span class="selector-tag">error</span>: <span class="selector-tag">candidate</span> <span class="selector-tag">is</span>: <span class="selector-tag">float</span> <span class="selector-tag">BoxSegment</span><span class="selector-pseudo">::computeWeightedCovarianceMatrix(const</span> <span class="selector-tag">Ptr</span>&amp;, <span class="selector-tag">const</span> <span class="selector-tag">Eigen</span><span class="selector-pseudo">::Matrix</span>&lt;<span class="selector-tag">float</span>, 4, 1&gt;&amp;, <span class="selector-tag">const</span> <span class="selector-tag">std</span><span class="selector-pseudo">::vector</span>&lt;<span class="selector-tag">float</span>&gt;&amp;, <span class="selector-tag">Eigen</span><span class="selector-pseudo">::Matrix</span>&lt;<span class="selector-tag">float</span>, 3, 3&gt;&amp;)</span><br><span class="line">     <span class="selector-tag">float</span> <span class="selector-tag">compute</span>(<span class="selector-tag">const</span> <span class="selector-tag">pcl</span><span class="selector-pseudo">::PointCloud</span>&lt;<span class="selector-tag">pcl</span><span class="selector-pseudo">::PointXYZ</span>&gt;<span class="selector-pseudo">::Ptr</span>&amp; <span class="selector-tag">src_cloud</span>,</span><br></pre></td></tr></tbody></table></figure><h4 id="Solution-3"><a href="#Solution-3" class="headerlink" title="Solution"></a>Solution</h4><p>The declaration and definition of a function in a class have to match with each other.</p><figure class="highlight zephir"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span> BoxSegment::compute(<span class="keyword">const</span> pcl::PointCloud&lt;pcl::PointXYZ&gt;::Ptr&amp; src_cloud,</span><br></pre></td></tr></tbody></table></figure><h2 id="OpenCV"><a href="#OpenCV" class="headerlink" title="OpenCV"></a>OpenCV</h2><h2 id="PCL"><a href="#PCL" class="headerlink" title="PCL"></a>PCL</h2><h2 id="QT"><a href="#QT" class="headerlink" title="QT"></a>QT</h2></body></html>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;This article records the representative bugs I met when in c++ coding. The bugs are categorized as C++ standard library and the third-party open source libraries, such as OpenCV, PCL, QT. For each bug, I offer the corresponding solution. Therefore, this article is a debug reference and could help me to fix the bugs when I meet them again. &lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/"/>
-    
-      <category term="C++" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/C/"/>
-    
-      <category term="Programming" scheme="http://blog.zhaoyongsheng.com/categories/Programming/"/>
-    
-      <category term="C++" scheme="http://blog.zhaoyongsheng.com/categories/Programming/C/"/>
-    
-    
-      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
-    
-      <category term="C++" scheme="http://blog.zhaoyongsheng.com/tags/C/"/>
-    
-      <category term="Debug" scheme="http://blog.zhaoyongsheng.com/tags/Debug/"/>
     
   </entry>
   

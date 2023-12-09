@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2023/12/09/ROS2-Learning-Notes-ROS2-Humble-For-Beginners/</loc>
+    
+    <lastmod>2023-12-09T08:49:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2023/05/08/Using-scipy-in-Django/</loc>
     
     <lastmod>2023-05-08T12:19:01.000Z</lastmod>
