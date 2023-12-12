@@ -1231,9 +1231,10 @@ vi pip.conf<br>[global]<br>index-url = <a href="https://pypi.tuna.tsinghua.edu.c
 <figure class="highlight cmake"><table><tbody><tr><td class="code"><pre><span class="line">pip <span class="keyword">install</span> -r requirement.txt</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="关闭System-Integrity-Protection-SIP"><a href="#关闭System-Integrity-Protection-SIP" class="headerlink" title="关闭System Integrity Protection(SIP)"></a>关闭System Integrity Protection(SIP)</h3><p>检查SIP的状态</p>
 <figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">csrutil status</span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果状态是enabled，则需要关闭。进入恢复模式，打开Terminal，使用以下命令关闭。</p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">csrutil disabled</span></span><br></pre></td></tr></tbody></table></figure>
 <figure class="highlight scheme"><table><tbody><tr><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight scheme"><table><tbody><tr><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight"><table><tbody><tr><td class="code"><pre><span class="line"></span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+<figure class="highlight scheme"><table><tbody><tr><td class="code"><pre><span class="line">```</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
       <categories>
         <category>Tutorials</category>
         <category>ROS</category>
