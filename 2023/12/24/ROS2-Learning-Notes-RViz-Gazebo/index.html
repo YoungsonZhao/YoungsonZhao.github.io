@@ -316,7 +316,7 @@
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>22 mins.</span>
+              <span>23 mins.</span>
             </span>
 
         </div>
@@ -347,7 +347,9 @@
 <figure class="highlight nestedtext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="string">header:</span></span><br><span class="line">    <span class="attribute">stamp</span><span class="punctuation">:</span></span><br><span class="line">      <span class="attribute">sec</span><span class="punctuation">:</span> <span class="string">1703555328</span></span><br><span class="line">      <span class="attribute">nanosec</span><span class="punctuation">:</span> <span class="string">545975035</span></span><br><span class="line">    <span class="attribute">frame_id</span><span class="punctuation">:</span> <span class="string">gripper_pole</span></span><br><span class="line">  <span class="attribute">child_frame_id</span><span class="punctuation">:</span> <span class="string">left_gripper</span></span><br><span class="line">  <span class="attribute">transform</span><span class="punctuation">:</span></span><br><span class="line">    <span class="attribute">translation</span><span class="punctuation">:</span></span><br><span class="line">      <span class="attribute">x</span><span class="punctuation">:</span> <span class="string">0.2</span></span><br><span class="line">      <span class="attribute">y</span><span class="punctuation">:</span> <span class="string">0.01</span></span><br><span class="line">      <span class="attribute">z</span><span class="punctuation">:</span> <span class="string">0.0</span></span><br><span class="line">    <span class="attribute">rotation</span><span class="punctuation">:</span></span><br><span class="line">      <span class="attribute">x</span><span class="punctuation">:</span> <span class="string">0.0</span></span><br><span class="line">      <span class="attribute">y</span><span class="punctuation">:</span> <span class="string">0.0</span></span><br><span class="line">      <span class="attribute">z</span><span class="punctuation">:</span> <span class="string">0.0</span></span><br><span class="line">      <span class="attribute">w</span><span class="punctuation">:</span> <span class="string">1.0</span></span><br></pre></td></tr></tbody></table></figure>
 <p>消息结构主要有三部分，<strong>header</strong>主要包括时间戳和帧id，<strong>child_frame_id</strong>主要是与当前<strong>tf</strong>刚性关联的子<strong>tf</strong>，<strong>transform</strong>表示了当前<strong>tf</strong>和child <strong>tf</strong>的平移旋转关系。<br>机器人的所有<strong>tf</strong>会以树状结构显示，具体可以使用以下指令查看。</p>
 <figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ros2</span> run tf2_tools view_frames</span><br><span class="line"><span class="attribute">open</span> frames_2023-<span class="number">12</span>-<span class="number">26</span>_09.<span class="number">52</span>.<span class="number">01</span>.pdf</span><br></pre></td></tr></tbody></table></figure>
-
+<p>除了查看<strong>urdf</strong>所定义的<strong>tf tree</strong>，我们还可以查看两个关节之间的变换关系。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="built_in">run</span> tf2_ros tf2_echo base_link horizontal_arm</span><br></pre></td></tr></tbody></table></figure>
+<p>上述指令可以实时查看两个关节之间的变换关系。</p>
 <h3 id="Create-a-URDF-File"><a href="#Create-a-URDF-File" class="headerlink" title="Create a URDF File"></a>Create a URDF File</h3><ul>
 <li>Unified Robot Description Format</li>
 <li>Used to generate TFs</li>
@@ -611,20 +613,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -692,13 +694,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">189k</span>
+    <span title="Symbols count total">193k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">2:52</span>
+    <span title="Reading time total">2:55</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>

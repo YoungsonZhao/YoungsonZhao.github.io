@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2024/02/03/ROS2-Learning-Notes-Moveit/</loc>
+    
+    <lastmod>2024-02-03T06:55:09.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2024/02/02/Config-Frp-Client-And-Auto-Start-As-A-Service/</loc>
+    
+    <lastmod>2024-02-02T05:23:37.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2024/01/21/ROS2-Learning-Notes-URDF-Xacro/</loc>
     
     <lastmod>2024-01-21T10:21:12.000Z</lastmod>
