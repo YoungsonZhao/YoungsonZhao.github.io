@@ -300,14 +300,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>21k</span>
+              <span>22k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>19 mins.</span>
+              <span>20 mins.</span>
             </span>
 
         </div>
@@ -338,7 +338,7 @@
 <h2 id="安装ROS2-Humble"><a href="#安装ROS2-Humble" class="headerlink" title="安装ROS2 Humble"></a>安装ROS2 Humble</h2><p><strong>ROS</strong>的全称是<strong>Robot Operation System</strong>，主要特点是分布式的结构，节点之间通过通信实现数据交换。ROS还提供了一系列即插即用的库。</p>
 <h3 id="按照官网教程安装"><a href="#按照官网教程安装" class="headerlink" title="按照官网教程安装"></a>按照官网教程安装</h3><p>ROS2 Humble支持在Ubuntu22.04上包安装，所以直接按照<a target="_blank" rel="noopener" href="https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html">官网教程</a>安装即可。</p>
 <h3 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h3><ul>
-<li>安装ROS工具包<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-gazebo-ros2-control</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-moveit</span><br></pre></td></tr></tbody></table></figure></li>
+<li>安装ROS工具包<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-gazebo-ros2-control</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-moveit</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-urdf-tutorial</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-tf2-tools</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-navigation2</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-nav2-bringup</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-turtlebot3</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-tf-transformations</span><br><span class="line">sudo apt-<span class="built_in">get</span> install python3-transforms3d</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-joint-trajectory-controller</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-forward-command-controller</span><br></pre></td></tr></tbody></table></figure></li>
 <li>安装Python编译工具–colcon<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">python3</span>-colcon-common-extensions</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.zsh"</span> &gt;&gt; ~/.zshrc</span><br></pre></td></tr></tbody></table></figure></li>
 <li>解决setuptools版本问题导致的warning<figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>lib<span class="regexp">/python3/</span>dist-packages<span class="regexp">/setuptools/</span>command/install.py:<span class="number">34</span>: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.</span><br><span class="line">  warnings.warn(</span><br></pre></td></tr></tbody></table></figure>
 setuptools默认安装的版本为59.6.0，需要降级为58.2.0。<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">pip</span> install setuptools==<span class="number">58</span>.<span class="number">2</span>.<span class="number">0</span></span><br></pre></td></tr></tbody></table></figure></li>
@@ -803,7 +803,7 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">2:55</span>
+    <span title="Reading time total">2:56</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
