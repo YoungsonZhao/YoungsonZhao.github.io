@@ -1,0 +1,36 @@
+--trusted-host mirrors.aliyun.com
+--extra-index-url http://mirrors.aliyun.com/pypi/simple/
+argcomplete
+catkin_pkg
+colcon-common-extensions
+coverage
+cryptography
+empy
+flake8
+flake8-blind-except
+flake8-builtins
+flake8-class-newline
+flake8-comprehensions
+flake8-deprecated
+flake8-docstrings 
+flake8-import-order 
+flake8-quotes
+importlib-metadata 
+lark 
+lxml
+matplotlib
+mock
+mypy
+netifaces
+nose
+pep8
+psutil
+pydocstyle
+pydot
+pygraphviz
+pyparsing
+pytest-mock
+rosdep
+rosdistro
+setuptools
+vcstool
