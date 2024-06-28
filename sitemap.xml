@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2024/06/28/Using-Ngnix-To-Deploy-A-File-Share-Service/</loc>
+    
+    <lastmod>2024-06-28T14:34:58.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.zhaoyongsheng.com/2024/06/28/Using-Baidu-Yun-Python-Client-In-Ubuntu-Server/</loc>
+    
+    <lastmod>2024-06-28T02:05:08.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2024/06/27/Using-Python-Virtual-Environment-In-Jupyter-Notebook/</loc>
     
     <lastmod>2024-06-27T15:16:01.000Z</lastmod>
