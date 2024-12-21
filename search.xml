@@ -45,7 +45,7 @@
 <h4 id="Install-Git"><a href="#Install-Git" class="headerlink" title="Install Git"></a>Install Git</h4><figure class="highlight applescript"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install git-core</span><br><span class="line">git <span class="comment">--version</span></span><br></pre></td></tr></tbody></table></figure>
 <p>If the git version is printed, it means that we have installed git successfully. Then we can go to next step.</p>
 <h4 id="Install-Node-js"><a href="#Install-Node-js" class="headerlink" title="Install Node.js"></a>Install Node.js</h4><p>Node.js is an asynchronous event-driven JavaScript runtime that can build scalable network applications. We can install it from source.</p>
-<figure class="highlight armasm"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">curl</span> -<span class="built_in">sL</span> https:<span class="comment">//deb.nodesource.com/setup_14.x | sudo -E bash -</span></span><br><span class="line"><span class="symbol">sudo</span> apt-<span class="meta">get</span> install -y nodejs</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight armasm"><table><tbody><tr><td class="code"><pre><span class="line"><span class="symbol">curl</span> -<span class="built_in">sL</span> https:<span class="comment">//deb.nodesource.com/setup_18.x | sudo -E bash -</span></span><br><span class="line"><span class="symbol">sudo</span> apt-<span class="meta">get</span> install -y nodejs</span><br></pre></td></tr></tbody></table></figure>
 <p>The above two steps can install nodejs and npm. We can verify the installation by printing the version of nodejs and npm.</p>
 <figure class="highlight coffeescript"><table><tbody><tr><td class="code"><pre><span class="line">nodejs -v</span><br><span class="line"><span class="built_in">npm</span> -v</span><br></pre></td></tr></tbody></table></figure>
 <p>If you come from China as me, you had better change the package source from the original one to the one maintained by taobao.</p>
@@ -864,15 +864,19 @@ The first column is the index, the second column is the label, the third row the
       </tags>
   </entry>
   <entry>
-    <title>Set Up Jupyter Notebook on Ubuntu 18.04</title>
+    <title>Set Up Jupyter Lab on Ubuntu 22.04</title>
     <url>/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="http://jupyter.org/">Jupyter Notebook</a> is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Julia, R, Haskell, and Ruby. It is often used for working with data, statistical modeling, and machine learning.</p>
+    <content><![CDATA[<html><head></head><body><p><a href="http://jupyter.org/">Jupyter Lab</a> is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Julia, R, Haskell, and Ruby. It is often used for working with data, statistical modeling, and machine learning.</p>
 <p>This tutorial will walk you through setting up Jupyter Notebook to run from an Ubuntu 18.04 server, as well as teach you how to connect to and use the Notebook. Jupyter Notebooks (or simply Notebooks) are documents produced by the Jupyter Notebook app which contain both computer code and rich text elements (paragraph, equations, figures, links, etc.) which aid in presenting and sharing reproducible research. In the final step of this guide, you will run Python 3 code using a Jupyter Notebook running on a remote server.</p>
 <span id="more"></span>
 <h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><p>Please make sure python3 and pip3 are installed. If not, install them using the following command.</p>
 <figure class="highlight vim"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt <span class="keyword">update</span></span><br><span class="line">sudo apt install <span class="keyword">python3</span>-pip <span class="keyword">python3</span>-dev</span><br></pre></td></tr></tbody></table></figure>
-<p>Then install jupyter notebook using pip3.</p>
+<p><del>Then install jupyter notebook using pip3.</del></p>
 <figure class="highlight cmake"><table><tbody><tr><td class="code"><pre><span class="line">pip <span class="keyword">install</span> notebook</span><br></pre></td></tr></tbody></table></figure>
+<p>Then install jupyter lab using pip3.</p>
+<figure class="highlight cmake"><table><tbody><tr><td class="code"><pre><span class="line">pip <span class="keyword">install</span> jupyterlab</span><br></pre></td></tr></tbody></table></figure>
+<p>Update PATH environment variable.</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=/home/robot/.local/bin${PATH:+:${PATH}}'</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></tbody></table></figure>
 <p>After installation, check the version of jupyter.</p>
 <figure class="highlight ada"><table><tbody><tr><td class="code"><pre><span class="line">jupyter <span class="comment">--version</span></span><br></pre></td></tr></tbody></table></figure>
 <p>If you see the following result, the jupyter notebook is installed successfully.</p>
@@ -911,9 +915,11 @@ The first column is the index, the second column is the label, the third row the
       <categories>
         <category>Tutorials</category>
         <category>Jupyter Notebook</category>
+        <category>Jupyter Lab</category>
       </categories>
       <tags>
         <tag>Jupyter Notebook</tag>
+        <tag>Jupyter Lab</tag>
       </tags>
   </entry>
   <entry>

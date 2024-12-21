@@ -47,17 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="Jupyter Notebook is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python">
+  <meta name="description" content="Jupyter Lab is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Jul">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Set Up Jupyter Notebook on Ubuntu 18.04">
+<meta property="og:title" content="Set Up Jupyter Lab on Ubuntu 22.04">
 <meta property="og:url" content="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/index.html">
 <meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
-<meta property="og:description" content="Jupyter Notebook is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python">
+<meta property="og:description" content="Jupyter Lab is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Jul">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-19T11:04:41.000Z">
 <meta property="article:modified_time" content="2023-02-19T11:04:41.000Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="Jupyter Notebook">
+<meta property="article:tag" content="Jupyter Lab">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/">
@@ -74,7 +75,7 @@
   };
 </script>
 
-  <title>Set Up Jupyter Notebook on Ubuntu 18.04 | Dr. Zhao's Blog</title>
+  <title>Set Up Jupyter Lab on Ubuntu 22.04 | Dr. Zhao's Blog</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
     <script>
@@ -243,7 +244,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          Set Up Jupyter Notebook on Ubuntu 18.04
+          Set Up Jupyter Lab on Ubuntu 22.04
         </h2>
 
         <div class="post-meta">
@@ -271,10 +272,16 @@
                     <span itemprop="name">Jupyter Notebook</span>
                   </a>
                 </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Jupyter-Notebook/Jupyter-Lab/" itemprop="url" rel="index">
+                    <span itemprop="name">Jupyter Lab</span>
+                  </a>
+                </span>
             </span>
 
           
-            <span id="/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" class="post-meta-item leancloud_visitors" data-flag-title="Set Up Jupyter Notebook on Ubuntu 18.04" title="Views">
+            <span id="/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" class="post-meta-item leancloud_visitors" data-flag-title="Set Up Jupyter Lab on Ubuntu 22.04" title="Views">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -300,14 +307,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>5.9k</span>
+              <span>6.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>5 mins.</span>
+              <span>6 mins.</span>
             </span>
 
         </div>
@@ -319,13 +326,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Notebook</a> is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Julia, R, Haskell, and Ruby. It is often used for working with data, statistical modeling, and machine learning.</p>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="http://jupyter.org/">Jupyter Lab</a> is an open-source web application that lets you create and share interactive code, visualizations, and more. This tool can be used with several programming languages, including Python, Julia, R, Haskell, and Ruby. It is often used for working with data, statistical modeling, and machine learning.</p>
 <p>This tutorial will walk you through setting up Jupyter Notebook to run from an Ubuntu 18.04 server, as well as teach you how to connect to and use the Notebook. Jupyter Notebooks (or simply Notebooks) are documents produced by the Jupyter Notebook app which contain both computer code and rich text elements (paragraph, equations, figures, links, etc.) which aid in presenting and sharing reproducible research. In the final step of this guide, you will run Python 3 code using a Jupyter Notebook running on a remote server.</p>
 <span id="more"></span>
 <h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><p>Please make sure python3 and pip3 are installed. If not, install them using the following command.</p>
 <figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt <span class="keyword">update</span></span><br><span class="line">sudo apt install <span class="keyword">python3</span>-pip <span class="keyword">python3</span>-dev</span><br></pre></td></tr></tbody></table></figure>
-<p>Then install jupyter notebook using pip3.</p>
+<p><del>Then install jupyter notebook using pip3.</del></p>
 <figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> notebook</span><br></pre></td></tr></tbody></table></figure>
+<p>Then install jupyter lab using pip3.</p>
+<figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> jupyterlab</span><br></pre></td></tr></tbody></table></figure>
+<p>Update PATH environment variable.</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=/home/robot/.local/bin${PATH:+:${PATH}}'</span> &gt;&gt; ~/.zshrc</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></tbody></table></figure>
 <p>After installation, check the version of jupyter.</p>
 <figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter <span class="comment">--version</span></span><br></pre></td></tr></tbody></table></figure>
 <p>If you see the following result, the jupyter notebook is installed successfully.</p>
@@ -395,7 +406,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" title="Set Up Jupyter Notebook on Ubuntu 18.04">http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</a>
+    <a href="http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/" title="Set Up Jupyter Lab on Ubuntu 22.04">http://blog.zhaoyongsheng.com/2023/02/19/Set-Up-Jupyter-Notebook-on-Ubuntu-18-04/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -408,6 +419,7 @@
           
           <div class="post-tags">
               <a href="/tags/Jupyter-Notebook/" rel="tag"><i class="fa fa-tag"></i> Jupyter Notebook</a>
+              <a href="/tags/Jupyter-Lab/" rel="tag"><i class="fa fa-tag"></i> Jupyter Lab</a>
           </div>
 
         
@@ -484,13 +496,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-count">69</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -558,7 +570,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">222k</span>
+    <span title="Symbols count total">223k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
