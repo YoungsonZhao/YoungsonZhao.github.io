@@ -56,6 +56,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://blog.zhaoyongsheng.com/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/In-Context-Examples-Accuracy.png">
 <meta property="og:image" content="http://blog.zhaoyongsheng.com/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Few-One-Zero-Shot-Fine-tuning.png">
+<meta property="og:image" content="http://blog.zhaoyongsheng.com/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/GPT-3-Model-Parameters.png">
 <meta property="article:published_time" content="2024-12-21T08:33:09.000Z">
 <meta property="article:modified_time" content="2024-12-21T08:33:09.000Z">
 <meta property="article:author" content="Dr. Zhao">
@@ -311,14 +312,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.3k</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
+              <span>2 mins.</span>
             </span>
 
         </div>
@@ -368,7 +369,24 @@
 </li>
 </ul>
 <p><img alt="Few-Shot VS. One-Shot VS. Zero-Shot VS. Fine-tuning" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Few-One-Zero-Shot-Fine-tuning.png"></p>
-<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<h4 id="Models-and-Architectures"><a href="#Models-and-Architectures" class="headerlink" title="Models and Architectures"></a>Models and Architectures</h4><p>GPT-3的模型架构与GPT-2的模型架构类似，包括参数初始化方法、预正则化方法、可逆的Token化方法，不同的是Transformer中的Attention模式。GPT-3的Attention模式与Sparse Transformer类似。<br>为了验证不同模型大小对性能的影响，GPT-3总共训练了3个参数量级8个模型，具体如下图所是：<br><img alt="GPT-3模型参数量" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/GPT-3-Model-Parameters.png"><br>GPT-3使用的Context Window为2048。<br>$$d_{model} = n_{heads} \times d_{head}$$<br>前向神经网络的参数量是Transformer特征向量的4倍，$d_{ff} = 4 \times d_{model}$。</p>
+<h4 id="Training-Datasets"><a href="#Training-Datasets" class="headerlink" title="Training Datasets"></a>Training Datasets</h4><p>用于训练GPT-3的数据集是Common Crawl,共计包含1TB字数的文本数据。为了保障数据集的质量做了如下处理：</p>
+<ul>
+<li><ol>
+<li>根据与高质量语料的相似度进行过滤</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>在文件层面进行了模糊去重</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>添加了一些高质量的参考语料，包括扩展版本的WebText数据集、两个互联网书库（Books1和Book2）以及英文版的维基百科。<br>Common Crawl数据集涵盖了2016-2019年的Web数据，过滤前的文本数据约45TB，过滤后有570GB，约有4000亿个Tokens。<br>在训练的时候，质量越高的数据被采样的概率越高，共计用了3000亿个Tokens进行训练（Common Crawl数据集的采样率小于1）。</li>
+</ol>
+</li>
+</ul>
+<h4 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h4><p>大参数量的模型需要使用大的Batch Size和小的Learning Rate进行训练。<br>GPT-3是使用V100集群进行分布式训练的，使用了混合模型并行化的方式来节省内存，包括矩阵相乘并行化和层间并行化。</p>
+<h4 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h4><h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/google-gemini/webtext">WebText</a></li>
 </ul>
@@ -472,7 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training"><span class="nav-number">1.</span> <span class="nav-text">GPT-1: Improving Language Understanding by Generative Pre-Training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-2-Language-Models-are-Unsupervised-Multitask-Learners"><span class="nav-number">2.</span> <span class="nav-text">GPT-2: Language Models are Unsupervised Multitask Learners</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-3-Language-Models-are-Few-Shot-Learners"><span class="nav-number">3.</span> <span class="nav-text">GPT-3: Language Models are Few-Shot Learners</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">3.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach"><span class="nav-number">3.2.</span> <span class="nav-text">Approach</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-4-GPT-4-Technical-Report"><span class="nav-number">4.</span> <span class="nav-text">GPT-4: GPT-4 Technical Report</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">5.</span> <span class="nav-text">数据集</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training"><span class="nav-number">1.</span> <span class="nav-text">GPT-1: Improving Language Understanding by Generative Pre-Training</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-2-Language-Models-are-Unsupervised-Multitask-Learners"><span class="nav-number">2.</span> <span class="nav-text">GPT-2: Language Models are Unsupervised Multitask Learners</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-3-Language-Models-are-Few-Shot-Learners"><span class="nav-number">3.</span> <span class="nav-text">GPT-3: Language Models are Few-Shot Learners</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">3.1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Approach"><span class="nav-number">3.2.</span> <span class="nav-text">Approach</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Models-and-Architectures"><span class="nav-number">3.2.1.</span> <span class="nav-text">Models and Architectures</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training-Datasets"><span class="nav-number">3.2.2.</span> <span class="nav-text">Training Datasets</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Training"><span class="nav-number">3.2.3.</span> <span class="nav-text">Training</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Evaluation"><span class="nav-number">3.2.4.</span> <span class="nav-text">Evaluation</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPT-4-GPT-4-Technical-Report"><span class="nav-number">4.</span> <span class="nav-text">GPT-4: GPT-4 Technical Report</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="nav-number">5.</span> <span class="nav-text">数据集</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -569,13 +587,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">224k</span>
+    <span title="Symbols count total">225k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:24</span>
+    <span title="Reading time total">3:25</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
