@@ -2450,7 +2450,19 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
     <url>/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/</url>
     <content><![CDATA[<html><head></head><body><p>本文主要是OpenAI的GPT系列论文的阅读笔记。</p>
 <span id="more"></span>
-<h2 id="GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training"><a href="#GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training" class="headerlink" title="GPT-1: Improving Language Understanding by Generative Pre-Training"></a>GPT-1: Improving Language Understanding by Generative Pre-Training</h2><h2 id="GPT-2-Language-Models-are-Unsupervised-Multitask-Learners"><a href="#GPT-2-Language-Models-are-Unsupervised-Multitask-Learners" class="headerlink" title="GPT-2: Language Models are Unsupervised Multitask Learners"></a>GPT-2: Language Models are Unsupervised Multitask Learners</h2><h2 id="GPT-3-Language-Models-are-Few-Shot-Learners"><a href="#GPT-3-Language-Models-are-Few-Shot-Learners" class="headerlink" title="GPT-3: Language Models are Few-Shot Learners"></a>GPT-3: Language Models are Few-Shot Learners</h2><h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2></body></html>]]></content>
+<h2 id="GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training"><a href="#GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training" class="headerlink" title="GPT-1: Improving Language Understanding by Generative Pre-Training"></a>GPT-1: Improving Language Understanding by Generative Pre-Training</h2><p>GPT-1的论文在2018年6月发布，GPT-1的模型参数量达到了1.17亿，训练数据量达到了40GB，训练成本达到了12.5万美元。</p>
+<h2 id="GPT-2-Language-Models-are-Unsupervised-Multitask-Learners"><a href="#GPT-2-Language-Models-are-Unsupervised-Multitask-Learners" class="headerlink" title="GPT-2: Language Models are Unsupervised Multitask Learners"></a>GPT-2: Language Models are Unsupervised Multitask Learners</h2><p>GPT-2的论文在2018年11月发布，GPT-2的模型参数量达到了1.5亿，训练数据量达到了1.5TB，训练成本达到了100万美元。</p>
+<h2 id="GPT-3-Language-Models-are-Few-Shot-Learners"><a href="#GPT-3-Language-Models-are-Few-Shot-Learners" class="headerlink" title="GPT-3: Language Models are Few-Shot Learners"></a>GPT-3: Language Models are Few-Shot Learners</h2><p>GPT-3的论文在2021年12月发布，GPT-3的模型参数量达到了1750亿，训练数据量达到了45TB，训练成本达到了1200万美元。GPT-3主要解决的是语言模型中的少样本学习问题。</p>
+<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
+<li>In-Context Learning<br>In-Context Learning (ICL)是将预训练模型的文本输入作为一种任务具象化的形式，将自然语言指令或者示例作为条件，然后预测后面输出的文本。</li>
+<li>Zero-shot VS. One-shot VS. Few-shot Learning<br>取决于模型推理时输入的示例数量。<br>![In-Context示例数量、模型大小与模型准确度的关系](n-Context Examples – Accuracy.png)<br>从上图可以的出结论：</li>
+</ul>
+<ol>
+<li>模型参数量越大，模型的准确度越高。</li>
+<li>不需要梯度训练和微调，仅仅提供更多的In-Context示例，也能显著提升模型的准确度。</li>
+<li>模型参数量越大，In-Context示例数量的边际收益越大。</li>
+</ol>
+<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2></body></html>]]></content>
       <categories>
         <category>Notes</category>
         <category>Deep Learning</category>
