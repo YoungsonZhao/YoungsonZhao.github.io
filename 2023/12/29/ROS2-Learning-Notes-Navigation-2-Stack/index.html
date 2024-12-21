@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="本文主要为ROS2导航功能模块的学习笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS2 Learning Notes Navigation 2 Stack">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="本文主要为ROS2导航功能模块的学习笔记。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/nav2_test.py">
+<meta property="article:published_time" content="2023-12-29T08:49:48.000Z">
+<meta property="article:modified_time" content="2023-12-29T08:49:48.000Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="ROS">
+<meta property="article:tag" content="Navigation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/nav2_test.py">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>ROS2 Learning Notes Navigation 2 Stack | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          ROS2 Learning Notes Navigation 2 Stack
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-12-29 16:49:48" itemprop="dateCreated datePublished" datetime="2023-12-29T16:49:48+08:00">2023-12-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/" class="post-meta-item leancloud_visitors" data-flag-title="ROS2 Learning Notes Navigation 2 Stack" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p>本文主要为ROS2导航功能模块的学习笔记。</p>
+<span id="more"></span>
+<h3 id="Navigation2-Stack"><a href="#Navigation2-Stack" class="headerlink" title="Navigation2 Stack"></a>Navigation2 Stack</h3><ul>
+<li>安装工具包<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-navigation2</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-nav2-bringup</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-turtlebot3</span><br></pre></td></tr></tbody></table></figure></li>
+<li>修复依赖问题<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">wget</span> http://archive.ubuntu.com/ubuntu/pool/universe/l/lua5.<span class="number">2</span>/liblua5.<span class="number">2</span>-<span class="number">0</span>_5.<span class="number">2</span>.<span class="number">4</span>-<span class="number">2</span>_amd64.deb</span><br><span class="line"><span class="attribute">sudo</span> dpkg -i liblua5.<span class="number">2</span>-<span class="number">0</span>_5.<span class="number">2</span>.<span class="number">4</span>-<span class="number">2</span>_amd64.deb</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h3 id="Generate-a-map-with-SLAM"><a href="#Generate-a-map-with-SLAM" class="headerlink" title="Generate a map with SLAM"></a>Generate a map with SLAM</h3><h4 id="Make-a-Robot-Move-in-the-World"><a href="#Make-a-Robot-Move-in-the-World" class="headerlink" title="Make a Robot Move in the World"></a>Make a Robot Move in the World</h4><ul>
+<li>配置环境变量<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vi ~/.zshrc</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">TURTLEBOT3_MODEL</span>=waffle</span><br></pre></td></tr></tbody></table></figure></li>
+<li>启动gazebo环境<figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="built_in">launch</span> turtlebot3_gazebo turtlebot3_world.<span class="built_in">launch</span>.py</span><br></pre></td></tr></tbody></table></figure></li>
+<li>启动键盘控制<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="built_in">run</span> turtlebot3_teleop teleop_keyboard</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="Create-and-Save-a-Map-with-SLAM"><a href="#Create-and-Save-a-Map-with-SLAM" class="headerlink" title="Create and Save a Map with SLAM"></a>Create and Save a Map with SLAM</h4><p>首先启动gazebo仿真环境，生成机器人。<br>然后启动<strong>cartographer</strong>。</p>
+<figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="built_in">launch</span> turtlebot3_cartographer cartographer.<span class="built_in">launch</span>.py use_sim_time:=True</span><br></pre></td></tr></tbody></table></figure>
+<p>启动键盘控制机器人在环境中移动就可以建图。<br>最后保存地图。</p>
+<figure class="highlight dockerfile"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="keyword">run</span><span class="language-bash"> nav2_map_server map_saver_cli -f maps/my_map</span></span><br></pre></td></tr></tbody></table></figure>
+<p>地图保存后可以使用<strong>gimp</strong>编辑保存。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install gimp</span><br><span class="line">gimp</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Navigation-in-Map"><a href="#Navigation-in-Map" class="headerlink" title="Navigation in Map"></a>Navigation in Map</h3><h4 id="Fix-Some-Errors"><a href="#Fix-Some-Errors" class="headerlink" title="Fix Some Errors"></a>Fix Some Errors</h4><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-rmw-cyclonedds-cpp</span><br><span class="line">sudo vi ~/.zshrc</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">RMW_IMPLEMENTATION</span>=rmw_cyclonedds_cpp</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd <span class="regexp">/opt/</span>ros<span class="regexp">/humble/</span>share<span class="regexp">/turtlebot3_navigation2/</span>param</span><br><span class="line">sudo vi waffle.yaml</span><br><span class="line"><span class="comment"># robot_model_type: "differential"</span></span><br><span class="line">robot_model_type: <span class="string">"nav2_amcl::DifferentialMotionModel"</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Navigation"><a href="#Navigation" class="headerlink" title="Navigation"></a>Navigation</h4><p>首先运行机器人的仿真环境，然后开启<strong>navigation</strong>节点</p>
+<figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="built_in">launch</span> turtlebot3_gazebo turtlebot3_world.<span class="built_in">launch</span>.py</span><br><span class="line">cd</span><br><span class="line">ros2 <span class="built_in">launch</span> turtlebot3_navigation2 navigation2.<span class="built_in">launch</span>.py use_sim_time:=True map:=maps/my_map.yaml</span><br></pre></td></tr></tbody></table></figure>
+<p>需要提供地图的配置文件，成功载入后使用<strong>2D Pose Estimation</strong>工具初始化机器人的位置。</p>
+<h4 id="Use-Experiences"><a href="#Use-Experiences" class="headerlink" title="Use Experiences"></a>Use Experiences</h4><p>在<strong>rqt</strong>的插件里面可以配置参数。</p>
+<p>Nav2架构</p>
+<p>输入：TF, Map, Sensor Data<br>目标： global planner –&gt; local planner(controller) –&gt; hardware controller</p>
+<p>Behavior Tree–&gt;决策树</p>
+<h4 id="Odometry"><a href="#Odometry" class="headerlink" title="Odometry"></a>Odometry</h4><p>根据底盘的运动信息定位机器人。<br>随着时间和距离有累积误差，但是短时间内定位很稳定。<br>map frame -&gt; odom frame -&gt; base_link。<br>根据轮子的编码器计算，根据速度计算位置。也可以使用<strong>diff_drive_controller</strong>实现。<br>还可以使用<strong>robot_localization</strong>包自己实现更复杂的算法, 发布<strong>filtered topic</strong>。<br>Topic名称为：<strong>odom</strong>，数据类型为<strong>nav_msgs/Odometry.msg</strong>。</p>
+<h4 id="Sensor-Data"><a href="#Sensor-Data" class="headerlink" title="Sensor Data"></a>Sensor Data</h4><ul>
+<li>wheel encoder</li>
+<li>lidar<br>发布<strong>sensor_msgs/msg/LaserScan</strong>消息，名字为<strong>scan</strong>。</li>
+<li>camera<br>发布<strong>sensor_msgs/msg/Image</strong>消息，名字为<strong>camera/image_raw</strong>。</li>
+</ul>
+<h4 id="Hardware-Controller"><a href="#Hardware-Controller" class="headerlink" title="Hardware Controller"></a>Hardware Controller</h4><p>发布的消息类型为<strong>geometry_msgs/Twist</strong>。<br>既可以自己实现电机驱动器，在这样的情况下，需要自己实现<strong>Odometry</strong>。<br>也可以使用ros2自带的<strong>diff_drive_controller</strong>。</p>
+<h4 id="slam-toolbox"><a href="#slam-toolbox" class="headerlink" title="slam_toolbox"></a>slam_toolbox</h4><p>除了使用<strong>cartographer</strong>建图，我们还可以使用<strong>slam_toolbox</strong>建图。步骤如下所示：</p>
+<figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ros2 <span class="built_in">launch</span> turtlebot3_gazebo turtlebot3_world.<span class="built_in">launch</span>.py</span><br><span class="line">ros2 <span class="built_in">launch</span> nav2_bringup navigation_launch.py use_sim_time:=True</span><br><span class="line">ros2 <span class="built_in">launch</span> slam_toolbox online_async_launch.py use_sim_time:=True</span><br><span class="line">ros2 <span class="built_in">run</span> rviz2 rviz2</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="tf-transformations"><a href="#tf-transformations" class="headerlink" title="tf_transformations"></a>tf_transformations</h4><ul>
+<li>安装<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-tf-transformations</span><br><span class="line">sudo apt-<span class="built_in">get</span> install python3-transforms3d</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="通过程序发送初始位置"><a href="#通过程序发送初始位置" class="headerlink" title="通过程序发送初始位置"></a>通过程序发送初始位置</h4><p>使用<strong>nav2</strong>提供的命令接口实现。</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="attribute">import</span> rclpy</span><br><span class="line"><span class="attribute">from</span> nav2_simple_commander.robot_navigator import BasicNavigator</span><br><span class="line"><span class="attribute">from</span> geometry_msgs.msg import PoseStamped</span><br><span class="line"><span class="attribute">import</span> tf_transformations</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attribute">def</span> main():</span><br><span class="line">    <span class="comment"># init</span></span><br><span class="line">    <span class="attribute">rclpy</span>.init()</span><br><span class="line">    <span class="attribute">nav</span> = BasicNavigator()</span><br><span class="line">    <span class="comment"># set initial pose</span></span><br><span class="line">    <span class="attribute">q_x</span>, q_y, q_z, q_w = tf_transformations.quaternion_from_euler(<span class="number">0</span>.<span class="number">0</span>, <span class="number">0</span>.<span class="number">0</span>, <span class="number">0</span>.<span class="number">0</span>)</span><br><span class="line">    <span class="attribute">initial_pose</span> = PoseStamped()</span><br><span class="line">    <span class="attribute">initial_pose</span>.header.frame_id = 'map'</span><br><span class="line">    <span class="attribute">initial_pose</span>.header.stamp = nav.get_clock().now().to_msg()</span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.position.x = <span class="number">0</span>.<span class="number">0</span></span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.position.y = <span class="number">0</span>.<span class="number">0</span></span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.position.z = <span class="number">0</span>.<span class="number">0</span></span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.orientation.x = q_x</span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.orientation.y = q_y</span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.orientation.z = q_z</span><br><span class="line">    <span class="attribute">initial_pose</span>.pose.orientation.w = q_w</span><br><span class="line"></span><br><span class="line">    <span class="attribute">nav</span>.setInitialPose(initial_pose=initial_pose)</span><br><span class="line">    <span class="attribute">nav</span>.waitUntilNav2Active()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># shutdown</span></span><br><span class="line">    <span class="attribute">rclpy</span>.shutdown()</span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="通过程序发送目标位置"><a href="#通过程序发送目标位置" class="headerlink" title="通过程序发送目标位置"></a>通过程序发送目标位置</h4><figure class="highlight gams"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python3</span><br><span class="line">import rclpy</span><br><span class="line">from nav2_simple_commander.robot_navigator import BasicNavigator</span><br><span class="line">from geometry_msgs.msg import PoseStamped</span><br><span class="line">import tf_transformations</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def main():</span><br><span class="line">    # init</span><br><span class="line">    rclpy.init()</span><br><span class="line">    nav = BasicNavigator()</span><br><span class="line">    # <span class="keyword">set</span> initial <span class="comment">pose</span></span><br><span class="line">    q_x, q_y, q_z, q_w <span class="comment">= tf_transformations.quaternion_from_euler(0.0, 0.0, 0.0)</span></span><br><span class="line">    initial_pose <span class="comment">= PoseStamped()</span></span><br><span class="line">    initial_pose.header.frame_id <span class="comment">=</span> <span class="comment">'map'</span></span><br><span class="line">    initial_pose.header.stamp <span class="comment">= nav.get_clock().now().to_msg()</span></span><br><span class="line">    initial_pose.pose.position.x <span class="comment">= 0.0</span></span><br><span class="line">    initial_pose.pose.position.y <span class="comment">= 0.0</span></span><br><span class="line">    initial_pose.pose.position.z <span class="comment">= 0.0</span></span><br><span class="line">    initial_pose.pose.orientation.x <span class="comment">= q_x</span></span><br><span class="line">    initial_pose.pose.orientation.y <span class="comment">= q_y</span></span><br><span class="line">    initial_pose.pose.orientation.z <span class="comment">= q_z</span></span><br><span class="line">    initial_pose.pose.orientation.w <span class="comment">= q_w</span></span><br><span class="line"></span><br><span class="line">    nav.setInitialPose(initial_pose=initial_pose)</span><br><span class="line">    nav.waitUntilNav2Active()</span><br><span class="line"></span><br><span class="line">    # <span class="keyword">set</span> <span class="comment">goal pose</span></span><br><span class="line">    q_x, q_y, q_z, q_w <span class="comment">= tf_transformations.quaternion_from_euler(0.0, 0.0, 1.57)</span></span><br><span class="line">    goal_pose <span class="comment">= PoseStamped()</span></span><br><span class="line">    goal_pose.header.frame_id <span class="comment">=</span> <span class="comment">'map'</span></span><br><span class="line">    goal_pose.header.stamp <span class="comment">= nav.get_clock().now().to_msg()</span></span><br><span class="line">    goal_pose.pose.position.x <span class="comment">= 3.5</span></span><br><span class="line">    goal_pose.pose.position.y <span class="comment">= 1.0</span></span><br><span class="line">    goal_pose.pose.position.z <span class="comment">= 0.0</span></span><br><span class="line">    goal_pose.pose.orientation.x <span class="comment">= q_x</span></span><br><span class="line">    goal_pose.pose.orientation.y <span class="comment">= q_y</span></span><br><span class="line">    goal_pose.pose.orientation.z <span class="comment">= q_z</span></span><br><span class="line">    goal_pose.pose.orientation.w <span class="comment">= q_w</span></span><br><span class="line">    nav.goToPose(goal_pose)</span><br><span class="line"></span><br><span class="line">    while <span class="comment">not nav.isTaskComplete():</span></span><br><span class="line">        feedback <span class="comment">= nav.getFeedback()</span></span><br><span class="line">        # print(feedback)</span><br><span class="line">    </span><br><span class="line">    # shutdown</span><br><span class="line">    rclpy.shutdown()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if <span class="comment">__name__ ==</span> <span class="comment">'__main__'</span><span class="comment">:</span></span><br><span class="line">    main()</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Waypoints发送一系列点"><a href="#Waypoints发送一系列点" class="headerlink" title="Waypoints发送一系列点"></a>Waypoints发送一系列点</h4><p><img alt="nav2_test.py" data-src="/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/nav2_test.py"></p>
+<h4 id="继续学习"><a href="#继续学习" class="headerlink" title="继续学习"></a>继续学习</h4><ul>
+<li>ros2_control</li>
+<li>robotic arm (moveit 2)</li>
+<li>advanced ros2 core concepts</li>
+</ul>
+</body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/" title="ROS2 Learning Notes Navigation 2 Stack">http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/ROS/" rel="tag"><i class="fa fa-tag"></i> ROS</a>
+              <a href="/tags/Navigation/" rel="tag"><i class="fa fa-tag"></i> Navigation</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/" rel="prev" title="Make Operation System ISO Installation File Using Systemback">
+      <i class="fa fa-chevron-left"></i> Make Operation System ISO Installation File Using Systemback
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/01/14/ROS2-Learning-Notes-Advanced-Concepts/" rel="next" title="ROS2 Learning Notes Advanced Concepts">
+      ROS2 Learning Notes Advanced Concepts <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigation2-Stack"><span class="nav-number">1.</span> <span class="nav-text">Navigation2 Stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-a-map-with-SLAM"><span class="nav-number">2.</span> <span class="nav-text">Generate a map with SLAM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Make-a-Robot-Move-in-the-World"><span class="nav-number">2.1.</span> <span class="nav-text">Make a Robot Move in the World</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-and-Save-a-Map-with-SLAM"><span class="nav-number">2.2.</span> <span class="nav-text">Create and Save a Map with SLAM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigation-in-Map"><span class="nav-number">3.</span> <span class="nav-text">Navigation in Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Fix-Some-Errors"><span class="nav-number">3.1.</span> <span class="nav-text">Fix Some Errors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Navigation"><span class="nav-number">3.2.</span> <span class="nav-text">Navigation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Use-Experiences"><span class="nav-number">3.3.</span> <span class="nav-text">Use Experiences</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Odometry"><span class="nav-number">3.4.</span> <span class="nav-text">Odometry</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sensor-Data"><span class="nav-number">3.5.</span> <span class="nav-text">Sensor Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hardware-Controller"><span class="nav-number">3.6.</span> <span class="nav-text">Hardware Controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slam-toolbox"><span class="nav-number">3.7.</span> <span class="nav-text">slam_toolbox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tf-transformations"><span class="nav-number">3.8.</span> <span class="nav-text">tf_transformations</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%A8%8B%E5%BA%8F%E5%8F%91%E9%80%81%E5%88%9D%E5%A7%8B%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.9.</span> <span class="nav-text">通过程序发送初始位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%A8%8B%E5%BA%8F%E5%8F%91%E9%80%81%E7%9B%AE%E6%A0%87%E4%BD%8D%E7%BD%AE"><span class="nav-number">3.10.</span> <span class="nav-text">通过程序发送目标位置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Waypoints%E5%8F%91%E9%80%81%E4%B8%80%E7%B3%BB%E5%88%97%E7%82%B9"><span class="nav-number">3.11.</span> <span class="nav-text">Waypoints发送一系列点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%A7%E7%BB%AD%E5%AD%A6%E4%B9%A0"><span class="nav-number">3.12.</span> <span class="nav-text">继续学习</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2023003977号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">222k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">3:22</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2023/12/29/ROS2-Learning-Notes-Navigation-2-Stack/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

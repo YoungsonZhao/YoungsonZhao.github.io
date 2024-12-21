@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="完成后端服务开发后，在业务上线之前，通常需要进行压力测试，以评估目前的服务器算力在不同QPS请求下的负载承受能力，以此做系统后端可靠性分析。Locust是基于Python接口的开源压力测试工具，本文将介绍如何使用该工具对后端服务器进行压力测试。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Usage Of Testing Tool Locust">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2024/08/22/Usage-Of-Testing-Tool-Locust/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="完成后端服务开发后，在业务上线之前，通常需要进行压力测试，以评估目前的服务器算力在不同QPS请求下的负载承受能力，以此做系统后端可靠性分析。Locust是基于Python接口的开源压力测试工具，本文将介绍如何使用该工具对后端服务器进行压力测试。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-22T02:06:02.000Z">
+<meta property="article:modified_time" content="2024-08-22T02:06:02.000Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="Tutorials">
+<meta property="article:tag" content="Testing Tool">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2024/08/22/Usage-Of-Testing-Tool-Locust/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Usage Of Testing Tool Locust | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2024/08/22/Usage-Of-Testing-Tool-Locust/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Usage Of Testing Tool Locust
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-08-22 10:06:02" itemprop="dateCreated datePublished" datetime="2024-08-22T10:06:02+08:00">2024-08-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Testing-Tool/" itemprop="url" rel="index">
+                    <span itemprop="name">Testing Tool</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2024/08/22/Usage-Of-Testing-Tool-Locust/" class="post-meta-item leancloud_visitors" data-flag-title="Usage Of Testing Tool Locust" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2024/08/22/Usage-Of-Testing-Tool-Locust/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2024/08/22/Usage-Of-Testing-Tool-Locust/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p>完成后端服务开发后，在业务上线之前，通常需要进行压力测试，以评估目前的服务器算力在不同QPS请求下的负载承受能力，以此做系统后端可靠性分析。<strong>Locust</strong>是基于Python接口的开源压力测试工具，本文将介绍如何使用该工具对后端服务器进行压力测试。</p>
+<span id="more"></span>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>可以直接使用<strong>pip</strong>包管理工具进行安装，如下所示：</p>
+<figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> locust</span><br></pre></td></tr></tbody></table></figure>
+<p>需要将<strong>Locust</strong>安装目录添加到<strong>PATH</strong>中，这样可以直接在<strong>terminal</strong>中使用<strong>locust</strong>指令。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">PATH</span>=<span class="string">"/home/parallels/.local/bin:<span class="variable">$PATH</span>"</span></span><br></pre></td></tr></tbody></table></figure>
+<p>安装完成后，可以通过如下指令查看并确认安装是否成功：</p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust -V</span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果看到以下信息，则表明安装成功。</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust</span> <span class="number">2</span>.<span class="number">31</span>.<span class="number">3</span> from /home/parallels/.local/lib/python3.<span class="number">10</span>/site-packages/locust (Python <span class="number">3</span>.<span class="number">10</span>.<span class="number">12</span>, OpenSSL <span class="number">3</span>.<span class="number">0</span>.<span class="number">2</span>)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="压测用例"><a href="#压测用例" class="headerlink" title="压测用例"></a>压测用例</h3><ul>
+<li>HttpUser<br>首先创建一个<strong>locustfile.py</strong>文件，并实现一个继承<strong>HttpUser</strong>的自定义测试类，<strong>Locust</strong>程序在同目录启动后会默认执行该测试用例。<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> response</span><br><span class="line"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between, constant</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ServoApiUser</span>(<span class="title class_ inherited__">HttpUser</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    User class that does requests to the locust web server running on localhost,</span></span><br><span class="line"><span class="string">    using the fast HTTP client</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    host = <span class="string">"https://www.yourwebsite.com"</span></span><br><span class="line">    wait_time = between(<span class="number">2</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="comment"># wait_time = constant(1)</span></span><br><span class="line">    <span class="comment"># some things you can configure on FastHttpUser</span></span><br><span class="line">    <span class="comment"># connection_timeout = 60.0</span></span><br><span class="line">    <span class="comment"># insecure = True</span></span><br><span class="line">    <span class="comment"># max_redirects = 5</span></span><br><span class="line">    <span class="comment"># max_retries = 1</span></span><br><span class="line">    <span class="comment"># network_timeout = 60.0</span></span><br><span class="line">    <span class="comment"># proxy_host = my-proxy.com</span></span><br><span class="line">    <span class="comment"># proxy_port = 8080</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_start</span>(<span class="params">self</span>):</span><br><span class="line">        self.client.headers = {</span><br><span class="line">            <span class="string">'Accept'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">            <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">            <span class="string">'Authorization'</span>: <span class="string">'TOKEN xxxxxxxxx'</span>,</span><br><span class="line">            <span class="string">'Cookie'</span>: <span class="string">'csrftoken=xxxxxxx'</span></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line"><span class="meta">    @task</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_card_info</span>(<span class="params">self</span>):</span><br><span class="line">        url = <span class="string">"/api/card_info/?stage=pregnancy&amp;level=user"</span></span><br><span class="line">        response = self.client.get(url=url, name=<span class="string">'get_card_info'</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"status code: {}"</span>.<span class="built_in">format</span>(response.status_code))</span><br><span class="line">        <span class="comment"># print("data: {}".format(response.json()))</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @task</span></span><br><span class="line">    <span class="comment"># def stats(self):</span></span><br><span class="line">    <span class="comment">#     self.client.get("/stats/requests")</span></span><br></pre></td></tr></tbody></table></figure>
+<strong>host</strong>参数可以设置测试服务器的地址。<br><strong>wait_time</strong>参数可以设置每个用户实例完成一个task之后，执行下一个task需要的等待时间，<strong>constant</strong>为固定等待时间，<strong>between</strong>为随机等待时间。该参数可以模拟不同用户随机访问的情况。<br><strong>on_start</strong>函数会在测试任务启动时运行一次，通常用户配置一些频繁使用但是测试过程中保持不变的参数变量，例如header。<br><strong>task</strong>decorator用于定义一个具体的测试任务，通常为一个<strong>api</strong>接口的<strong>POST</strong>、<strong>GET</strong>、<strong>DELETE、</strong>等request请求任务，用于用户自定义测试任务。</li>
+</ul>
+<h3 id="压测"><a href="#压测" class="headerlink" title="压测"></a>压测</h3><p>在<strong>locustfile.py</strong>同目录的<strong>terminal</strong>输入以下指令，即可启动压测。</p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust</span></span><br></pre></td></tr></tbody></table></figure>
+<p>在浏览器中访问<strong><a target="_blank" rel="noopener" href="http://0.0.0.0:8089/">http://0.0.0.0:8089</a></strong>即可开始压测。<br><strong>Number of Users</strong>用于配制压测的最高用户数量，配合<strong>wait_time</strong>即可估算出最高QPS<br>$$qps = \frac{UV}{wait_time}$$<br><strong>Ramp Up</strong>用户每秒钟用户增长的数量，用于测试访问用户不断增长情况下，服务器的性能表现。</p>
+</body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2024/08/22/Usage-Of-Testing-Tool-Locust/" title="Usage Of Testing Tool Locust">http://blog.zhaoyongsheng.com/2024/08/22/Usage-Of-Testing-Tool-Locust/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Tutorials/" rel="tag"><i class="fa fa-tag"></i> Tutorials</a>
+              <a href="/tags/Testing-Tool/" rel="tag"><i class="fa fa-tag"></i> Testing Tool</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/07/05/Learning-Note-Of-Vision-Transformer/" rel="prev" title="Learning Note Of Vision Transformer">
+      <i class="fa fa-chevron-left"></i> Learning Note Of Vision Transformer
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/10/02/Vision-Servo-Control-For-Robot-Manipulation/" rel="next" title="Vision Servo Control For Robot Manipulation">
+      Vision Servo Control For Robot Manipulation <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E6%B5%8B%E7%94%A8%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">压测用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E6%B5%8B"><span class="nav-number">3.</span> <span class="nav-text">压测</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2023003977号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">222k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">3:22</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2024/08/22/Usage-Of-Testing-Tool-Locust/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

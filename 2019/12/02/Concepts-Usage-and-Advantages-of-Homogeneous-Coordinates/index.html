@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="In mathematics history, homogeneous coordinates or projective coordinates were first introduced by August Ferdinand Möbius in 1827. They are a common system of coordinates used in projective geometry,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Concepts, Properties, and Usage of Homogeneous Coordinates">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="In mathematics history, homogeneous coordinates or projective coordinates were first introduced by August Ferdinand Möbius in 1827. They are a common system of coordinates used in projective geometry,">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/train.png">
+<meta property="article:published_time" content="2019-12-01T17:57:26.000Z">
+<meta property="article:modified_time" content="2019-12-01T17:57:26.000Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="Maths">
+<meta property="article:tag" content="Homogeneous">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/train.png">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Concepts, Properties, and Usage of Homogeneous Coordinates | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Concepts, Properties, and Usage of Homogeneous Coordinates
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-02 01:57:26" itemprop="dateCreated datePublished" datetime="2019-12-02T01:57:26+08:00">2019-12-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mathematics/" itemprop="url" rel="index">
+                    <span itemprop="name">Mathematics</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mathematics/Projective-Geometry/" itemprop="url" rel="index">
+                    <span itemprop="name">Projective Geometry</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer-Vision/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer Vision</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/" class="post-meta-item leancloud_visitors" data-flag-title="Concepts, Properties, and Usage of Homogeneous Coordinates" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>9.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>8 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p>In mathematics history, homogeneous coordinates or projective coordinates were first introduced by August Ferdinand Möbius in 1827. They are a common system of coordinates used in projective geometry, as Cartesian coordinates are used in Euclidean geometry. Nowadays, with the development of computer vision and computer graphics, projective geometry is widely used, and homogeneous coordinates is widely used in many algorithms. In this article, I will present you a brief introduction of homogeneous coordinates about its definitions, properties, usages, and advantages.</p>
+<span id="more"></span>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>In projective geometry, a 3D Euclidean coordinates space can be projected into a 2D projective coordinates space. This is what happens when we take a photo using a RGB camera. The projection is a kind of space compression or transformation that compresses a geometry structure in 3D space alongside the projective direction into a 2D space. For example, all the points in a line in 3D Euclidean geometry can be projected to a single point in projective geometry if the projective direction is alongside the line. In the scenario, using 2D Euclidean coordinates to express the point in projective geometry is not appropriate. Because we can not tell whether it is a 2D point or 3D line, it will confusing us. Homogeneous coordinates were proposed to effectively address this issue.</p>
+<p>For a finite 2D point $$P = {\left[ {\begin{array}{<em>{20}{c}}x&amp;y\end{array}} \right]^T}$$ in projective geometry, there must exist an infinite set of 3D points in Euclidean geometry that can project at the point $$P$$. To be exact, all the 3D points in the line parallel to the projective direction and passing through the projected 2D point satisfy the above condition. Therefore, if we use a 2D coordinate $${\left[ {\begin{array}{</em>{20}{c}}x&amp;y\end{array}} \right]^T}$$ to represent a infinite set of 3D points, the information of the third dimension is compressed alongside the projection direction. From the point view of mathematics, 2D coordinates is not a suitable tool to describe the projection of 3D points in projection geometry. However, if we add an extra dimension to $$P$$, then no information is lost during projection. Maybe, this is the main motivation of homogeneous coordinates.</p>
+<h2 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h2><p>For a finite 2D point $$P = {\left[ {\begin{array}{<em>{20}{c}}X&amp;Y\end{array}} \right]^T}$$, its homogeneous coordinates is defined as $${\left[ {\begin{array}{</em>{20}{c}}{x}&amp;{y}&amp;{w}\end{array}} \right]^T}$$ that satisfies Eq. $\eqref{eq1}$ for any $$w \ne 0$$. Since $$w$$ could be any none zero value in real space $$R$$, homogeneous coordinates keeps all the 3D information in Cartesian coordinates and can be used to describe the 3D-2D projection.<br>$$\begin{equation}<br>\left{ {\begin{array}{<em>{20}{c}}<br>{X = \frac{x}{w}}\<br>{Y = \frac{y}{w}}<br>\end{array}} \right.<br>\end{equation}\label{eq1}$$<br>According to the definition of homogeneous coordinates, we can get the homogeneous coordinates of a point $$P={\left[ {\begin{array}{</em>{20}{c}}X&amp;Y\end{array}} \right]^T}$$ in projective geometry, as shown in Eq. $\eqref{eq2}$.<br>$$\begin{equation}<br>{\left[ {\begin{array}{<em>{20}{c}}X&amp;Y\end{array}} \right]^T} \mapsto {w}\left[ {\begin{array}{</em>{20}{c}}<br>{X}&amp;{Y}&amp;1<br>\end{array}} \right]^T<br>\end{equation}\label{eq2}$$<br>Similarly, we can derive the definition of homogeneous coordinates of a 3D point in projective geometry as Eq. $\eqref{eq3}$.<br>$$\begin{equation}<br>{\left[ {\begin{array}{<em>{20}{c}}X&amp;Y&amp;Z\end{array}} \right]^T} \mapsto {w}\left[ {\begin{array}{</em>{20}{c}}<br>{X}&amp;{Y}&amp;{Z}&amp;1<br>\end{array}} \right]^T<br>\end{equation}\label{eq3}$$</p>
+<h2 id="Properties-and-Usage"><a href="#Properties-and-Usage" class="headerlink" title="Properties and Usage"></a>Properties and Usage</h2><h3 id="Scale-takes-no-effect-in-homogeneous-coordinates"><a href="#Scale-takes-no-effect-in-homogeneous-coordinates" class="headerlink" title="Scale takes no effect in homogeneous coordinates"></a>Scale takes no effect in homogeneous coordinates</h3><p>According to Eq. $\eqref{eq2}$, for a homogeneous coordinates $${w}\left[ {\begin{array}{<em>{20}{c}}{X}&amp;{Y}&amp;1\end{array}} \right]$$ when the $$w$$ changes its value, the corresponding Cartesian coordinates keeps constant $${\left[ {\begin{array}{</em>{20}{c}}X&amp;Y\end{array}} \right]^T}$$. That is to say, scale takes no effects in homogeneous coordinates. For simplicity, we can set $$w = 1$$ and ignore it in the mathematical expression. Equation $\eqref{eq2}$ can be formulated as Eq. $\eqref{eq4}$.<br>$$\begin{equation}<br>{\left[ {\begin{array}{<em>{20}{c}}X&amp;Y\end{array}} \right]^T} \mapsto \left[ {\begin{array}{</em>{20}{c}}<br>{X}&amp;{Y}&amp;1<br>\end{array}} \right]^T<br>\end{equation}\label{eq4}$$<br>Equation $\eqref{eq3}$ can be formulated as Eq. $\eqref{eq5}$.<br>$$\begin{equation}<br>{\left[ {\begin{array}{<em>{20}{c}}X&amp;Y&amp;Z\end{array}} \right]^T} \mapsto \left[ {\begin{array}{</em>{20}{c}}<br>{X}&amp;{Y}&amp;{Z}&amp;1<br>\end{array}} \right]^T<br>\end{equation}\label{eq5}$$</p>
+<h3 id="Express-infinite-point-without-using-infty"><a href="#Express-infinite-point-without-using-infty" class="headerlink" title="Express infinite point without using $$\infty$$"></a>Express infinite point without using $$\infty$$</h3><p>In Cartesian coordinates, we use $$\infty$$ to express a real value at infinity and use $${\left[ {\begin{array}{<em>{20}{c}}\infty&amp;\infty\end{array}} \right]^T}$$ to express a real 2D point at infinity. According to Eq. $\eqref{eq1}$, when $$w = 0$$, $$X$$ becomes $$\infty$$ and $$Y$$ also becomes $$\infty$$. That is to say, we can use $${\left[ {\begin{array}{</em>{20}{c}}{x}&amp;{y}&amp;{0}\end{array}} \right]^T}$$ to express a point at infinity in homogeneous coordinates. Noting that the original definition of homogeneous coordinates is $${\left[ {\begin{array}{*{20}{c}}{x}&amp;{y}&amp;{w}\end{array}} \right]^T}$$.</p>
+<p>Once a point reaches infinity, we immediately loss the direction information in Cartesian coordinates. It means that we don’t know from what direction the point reaches infinity. However, the homogeneous coordinates keeps the direction information at infinity because we still know the values of $$x$$ and $$y$$. In my opinion, this is the most magical property of homogeneous coordinates compared to Cartesian coordinates. </p>
+<h3 id="A-homogeneous-coordinates-represents-a-line"><a href="#A-homogeneous-coordinates-represents-a-line" class="headerlink" title="A homogeneous coordinates represents a line"></a>A homogeneous coordinates represents a line</h3><p>Besides the magical property at infinity, another property is that a point and a line have a uniform mathematical expression in projective space, which is also different with Cartesian coordinates. An intuitive explanation is that there exists a scalable variable in the definition of homogeneous coordinates, which makes <strong>a homogeneous coordinates have the ability to express a infinite set of points</strong>. The infinite set of points are all in one line. We can easily verify the above property by mathematical derivation. Equation $\eqref{eq6}$ defines a line in 2D space.<br>$$\begin{equation}<br>ax+by+c=0<br>\end{equation}\label{eq6}$$</p>
+<p>Define the coefficients of line $\eqref{eq6}$ as $$l = {\left[ {\begin{array}{<em>{20}{c}}a&amp;b&amp;c\end{array}} \right]^T}$$, then we can factorizing Eq. $\eqref{eq6}$ as:<br>$$\begin{equation}<br>{l^T}p = {p^T}l = 0<br>\end{equation}\label{eq7}$$<br>where $$p = {\left[ {\begin{array}{</em>{20}{c}}x&amp;y&amp;1\end{array}} \right]^T}$$ denotes all the points passing through the line defined by $$l$$. Obviously, $$p$$ is similar to the right part of Eq. $\eqref{eq4}$, which is is a homogeneous coordinates. In other words, <strong>a homogeneous coordinates represents a infinite set of points in a line</strong>. Moreover, Eq. $\eqref{eq7}$ shows that the line $$l$$ and the point $$p$$ are in accord with commutative law, which means that <strong>a line and a homogeneous coordinates have uniform mathematical representation</strong>.</p>
+<h3 id="Line-can-be-computed-by-the-cross-product-of-homogeneous-coordinates-of-two-different-points-in-it"><a href="#Line-can-be-computed-by-the-cross-product-of-homogeneous-coordinates-of-two-different-points-in-it" class="headerlink" title="Line can be computed by the cross product of homogeneous coordinates of two different points in it"></a>Line can be computed by the cross product of homogeneous coordinates of two different points in it</h3><p>According to the preceding conclusion and Eq. $\eqref{eq2}$, we substitute two points $$p_1 = {\left[ {\begin{array}{<em>{20}{c}}X_1&amp;Y_1&amp;s_1\end{array}} \right]^T}$$ and $$p_2 = {\left[ {\begin{array}{</em>{20}{c}}X_2&amp;Y_2&amp;s_2\end{array}} \right]^T}$$ into Eq. $\eqref{eq7}$ and get Eq. $\eqref{eq8}$.<br>$$\begin{equation}<br>\begin{array}{*{20}{c}}<br>{l^T{p_1} = {p_1}^Tl = 0}\<br>{l^T{p_2} = {p_2}^Tl = 0}<br>\end{array}<br>\end{equation}\label{eq8}$$</p>
+<p>We can easily obtain the solution of Eq. $\eqref{eq8}$ by computing the cross product of $$p_1$$ and $$p_2$$. Note that both $$p_1$$ and $$p_2$$ are homogeneous coordinates of different 2D points.<br>$$\begin{equation}<br>l=p_1 \times p_2<br>\end{equation}\label{eq9}$$</p>
+<h3 id="Homogeneous-coordinates-of-the-intersection-point-of-two-non-parallel-lines-also-can-be-computed-by-two-line’s-cross-product"><a href="#Homogeneous-coordinates-of-the-intersection-point-of-two-non-parallel-lines-also-can-be-computed-by-two-line’s-cross-product" class="headerlink" title="Homogeneous coordinates of the intersection point of two non-parallel lines also can be computed by two line’s cross product"></a>Homogeneous coordinates of the intersection point of two non-parallel lines also can be computed by two line’s cross product</h3><p>Swap $$l$$ and $$p$$, we can get Eq. $\eqref{eq10}$ from Eq. $\eqref{eq9}$.<br>$$\begin{equation}<br>p=l_1 \times l_2<br>\end{equation}\label{eq10}$$</p>
+<p>Note that $$p$$ is the homogeneous coordinates of the intersection point not the Cartesian coordinates.</p>
+<h3 id="There-exists-intersection-point-between-parallel-lines"><a href="#There-exists-intersection-point-between-parallel-lines" class="headerlink" title="There exists intersection point between parallel lines"></a>There exists intersection point between parallel lines</h3><p>As far as we know, there is no intersection point for two parallel lines in Cartesian coordinates. However, there exists a intersection point for two parallel lines in projective coordinates. Suppose the two parallel lines are $$l_1 = {\left[ {\begin{array}{<em>{20}{c}}a&amp;b&amp;c_1\end{array}} \right]^T}$$ and $$l_2 = {\left[ {\begin{array}{</em>{20}{c}}a&amp;b&amp;c_2\end{array}} \right]^T}$$, $$c_1 \neq c_2$$, and there exist two points passing through the two parallel lines correspondingly. We define the two points as $$p_1 = {\left[ {\begin{array}{<em>{20}{c}}X_1&amp;Y_1&amp;w_1\end{array}} \right]^T}$$ and $$p_2 = {\left[ {\begin{array}{</em>{20}{c}}X_2&amp;Y_2&amp;w_2\end{array}} \right]^T}$$ according to the original definition of homogeneous coordinates. Then we can get:<br>$$\begin{equation}<br>\begin{array}{*{20}{c}}<br>{a{X_1} + b{Y_1} + {c_1}{w_1} = 0}\<br>{a{X_2} + b{Y_2} + {c_2}{w_2} = 0}<br>\end{array}<br>\end{equation}\label{eq11}$$</p>
+<p>If there exist an intersection point between $$l_1$$ and $$l_2$$, it means that $${\left[ {\begin{array}{<em>{20}{c}}X_1&amp;Y_1&amp;w_1\end{array}} \right]^T} = {\left[ {\begin{array}{</em>{20}{c}}X_2&amp;Y_2&amp;w_2\end{array}} \right]^T}$$. Substitute $$w_1=0$$ and $$w_2=0$$ into Eq. $\eqref{eq11}$, and suppose $$X_1 = X_2 =X$$ and $$Y_1 = Y_2 = Y$$, we can get:<br>$$\begin{equation}<br>\begin{array}{*{20}{c}}<br>{a{X} + b{Y} = 0}\<br>{a{X} + b{Y} = 0}<br>\end{array}<br>\end{equation}\label{eq12}$$</p>
+<p>The solution of Eq. $\eqref{eq12}$ is $$X = b$$ and $$Y = -a$$, which indicates that $${\left[ {\begin{array}{*{20}{c}}b&amp;{ - a}&amp;0\end{array}} \right]^T}$$ is the solution of Eq. $\eqref{eq11}$. That is to say, two parallel lines have an intersection point in projective coordinates and the intersection point is at infinity. Fig. 1 gives us an intuitive explanation regarding the intersection point of two parallel lines in projective coordinates.<br><img alt="Fig. 1 Railway to infinity" data-src="/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/train.png"></p>
+</body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/" title="Concepts, Properties, and Usage of Homogeneous Coordinates">http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Maths/" rel="tag"><i class="fa fa-tag"></i> Maths</a>
+              <a href="/tags/Homogeneous/" rel="tag"><i class="fa fa-tag"></i> Homogeneous</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/" rel="prev" title="Build and Deploy Your Personal Blog Using Hexo, NexT, and GitHub">
+      <i class="fa fa-chevron-left"></i> Build and Deploy Your Personal Blog Using Hexo, NexT, and GitHub
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/" rel="next" title="Usage Experiences and Skills of Ubuntu">
+      Usage Experiences and Skills of Ubuntu <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Definition"><span class="nav-number">2.</span> <span class="nav-text">Definition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Properties-and-Usage"><span class="nav-number">3.</span> <span class="nav-text">Properties and Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Scale-takes-no-effect-in-homogeneous-coordinates"><span class="nav-number">3.1.</span> <span class="nav-text">Scale takes no effect in homogeneous coordinates</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Express-infinite-point-without-using-infty"><span class="nav-number">3.2.</span> <span class="nav-text">Express infinite point without using $$\infty$$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-homogeneous-coordinates-represents-a-line"><span class="nav-number">3.3.</span> <span class="nav-text">A homogeneous coordinates represents a line</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Line-can-be-computed-by-the-cross-product-of-homogeneous-coordinates-of-two-different-points-in-it"><span class="nav-number">3.4.</span> <span class="nav-text">Line can be computed by the cross product of homogeneous coordinates of two different points in it</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Homogeneous-coordinates-of-the-intersection-point-of-two-non-parallel-lines-also-can-be-computed-by-two-line%E2%80%99s-cross-product"><span class="nav-number">3.5.</span> <span class="nav-text">Homogeneous coordinates of the intersection point of two non-parallel lines also can be computed by two line’s cross product</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#There-exists-intersection-point-between-parallel-lines"><span class="nav-number">3.6.</span> <span class="nav-text">There exists intersection point between parallel lines</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2023003977号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">222k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">3:22</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="This article contains the configuration and command lines of Apache2.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basic Usage Of Apache">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2023/02/25/Basic-Usage-Of-Apache/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="This article contains the configuration and command lines of Apache2.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-02-25T12:11:54.000Z">
+<meta property="article:modified_time" content="2023-02-25T12:11:54.000Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="Apache">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2023/02/25/Basic-Usage-Of-Apache/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Basic Usage Of Apache | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2023/02/25/Basic-Usage-Of-Apache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Basic Usage Of Apache
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2023-02-25 20:11:54" itemprop="dateCreated datePublished" datetime="2023-02-25T20:11:54+08:00">2023-02-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Apache/" itemprop="url" rel="index">
+                    <span itemprop="name">Apache</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2023/02/25/Basic-Usage-Of-Apache/" class="post-meta-item leancloud_visitors" data-flag-title="Basic Usage Of Apache" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2023/02/25/Basic-Usage-Of-Apache/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2023/02/25/Basic-Usage-Of-Apache/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p>This article contains the configuration and command lines of <strong>Apache2</strong>.</p>
+<span id="more"></span>
+<h3 id="Apache-Configuration"><a href="#Apache-Configuration" class="headerlink" title="Apache Configuration"></a>Apache Configuration</h3><p>The config file of apache is <strong>/etc/apache2/apache2.conf</strong>.</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">WSGIPythonPath</span> /django/servo</span><br><span class="line"><span class="attribute">ServerName</span> <span class="number">127.0.0.1</span></span><br><span class="line"><span class="attribute">Header</span> set X-Frame-Options <span class="string">"allow from http://www.demo.com/"</span></span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>WSGIPythonPath /django/servo – let apache knows where to load the django project.</li>
+<li>ServerName 127.0.0.1 – local ip is recommended.</li>
+<li>Header set X-Frame-Options “allow from <a target="_blank" rel="noopener" href="http://www.demo.com/">http://www.demo.com/</a>“ – allow the page can be embedded in a <strong>frame</strong> from <strong><a target="_blank" rel="noopener" href="http://www.demo.com/">http://www.demo.com</a></strong>, undefined frames are forbidden. For more detail information, please visit <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/section/1190032">X-Frame-Options</a> or <a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/118166.html">URL Masking</a>.<br>The ports that apache is listening are defined in <strong>/etc/apache2/ports.conf</strong></li>
+</ul>
+<h3 id="Site-Configuration"><a href="#Site-Configuration" class="headerlink" title="Site Configuration"></a>Site Configuration</h3><p>The site configurations are in <strong>/etc/apache2/site-available</strong> and one file is for one site.</p>
+<ul>
+<li>Http Site<br>The default port for http host is <strong>80</strong>.<figure class="highlight gradle"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt;</span><br><span class="line">    # ServerName www.demo.com</span><br><span class="line">    # ServerAlias demo.com</span><br><span class="line">    # ServerAdmin demo.csc@gmail.com</span><br><span class="line"></span><br><span class="line">    WSGIScriptAlias <span class="regexp">/ /</span>django<span class="regexp">/servo/</span>servo/wsgi.py</span><br><span class="line">    WSGIPassAuthorization On</span><br><span class="line"></span><br><span class="line">    Alias <span class="regexp">/media/</span> <span class="regexp">/django/m</span>edia/</span><br><span class="line">    Alias <span class="regexp">/static/</span> <span class="regexp">/django/</span>servo<span class="regexp">/static/</span></span><br><span class="line"></span><br><span class="line">    &lt;Directory <span class="regexp">/django/m</span>edia&gt;</span><br><span class="line">         Require all granted</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Directory <span class="regexp">/django/</span>servo/<span class="keyword">static</span>&gt;</span><br><span class="line">         Require all granted</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">    # WSGIDaemonProcess blog python-home=<span class="regexp">/home/</span>sammy<span class="regexp">/myproject/my</span>projectenv python-path=<span class="regexp">/home/</span>sammy/myproject</span><br><span class="line">    # WSGIProcessGroup %{GLOBAL}</span><br><span class="line">    # WSGIDaemonProcess ziqiangxuetang.com python-path=<span class="regexp">/home/</span>tu<span class="regexp">/blog:/</span>home<span class="regexp">/tu/</span>.virtualenvs<span class="regexp">/blog/</span>lib<span class="regexp">/python2.7/</span>site-packages</span><br><span class="line">    # WSGIProcessGroup ziqiangxuetang.com</span><br><span class="line">    # WSGIApplicationGroup %{GLOBAL}</span><br><span class="line"></span><br><span class="line">    &lt;Directory <span class="regexp">/django/</span>servo/servo&gt;</span><br><span class="line">        &lt;Files wsgi.py&gt;</span><br><span class="line">            Require all granted</span><br><span class="line">        &lt;/Files&gt;</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">    ErrorLog ${APACHE_LOG_DIR}/error.log</span><br><span class="line">    CustomLog ${APACHE_LOG_DIR}/access.log combined</span><br><span class="line"></span><br><span class="line">    RewriteEngine on</span><br><span class="line">    RewriteCond   %{HTTPS} !=on </span><br><span class="line">    # Rewrite all urls</span><br><span class="line">    RewriteRule ^(.*)?$ https:<span class="comment">//%{SERVER_NAME}/$1 [R,L]</span></span><br><span class="line"> &lt;/VirtualHost&gt;</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>WSGIPassAuthorization On – make sure token is passed for authorization.</li>
+<li>RewriteEngine On – make sure all http request is rewritten to https request.<ul>
+<li>$1 – the content that the regression rule <strong>^(.*)?$</strong> extracts.</li>
+<li>^(.*)?$ – ignore the http prefix and the domain name</li>
+<li>SERVER_NAME – the domain name</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Https Site<figure class="highlight gradle"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">443</span>&gt;</span><br><span class="line">    # ServerName www.demo.com</span><br><span class="line">    # ServerAlias demo.com</span><br><span class="line">    # ServerAdmin demo.csc@gmail.com</span><br><span class="line"></span><br><span class="line">    WSGIScriptAlias <span class="regexp">/ /</span>django<span class="regexp">/servo/</span>servo/wsgi.py</span><br><span class="line">    WSGIPassAuthorization On</span><br><span class="line"></span><br><span class="line">    Alias <span class="regexp">/media/</span> <span class="regexp">/django/m</span>edia/</span><br><span class="line">    Alias <span class="regexp">/static/</span> <span class="regexp">/django/</span>servo<span class="regexp">/static/</span></span><br><span class="line"></span><br><span class="line">    &lt;Directory <span class="regexp">/django/m</span>edia&gt;</span><br><span class="line">         Require all granted</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Directory <span class="regexp">/django/</span>servo/<span class="keyword">static</span>&gt;</span><br><span class="line">         Require all granted</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line"></span><br><span class="line">    # WSGIDaemonProcess blog python-home=<span class="regexp">/home/</span>sammy<span class="regexp">/myproject/my</span>projectenv python-path=<span class="regexp">/home/</span>sammy/myproject</span><br><span class="line">    # WSGIProcessGroup %{GLOBAL}</span><br><span class="line">    # WSGIDaemonProcess ziqiangxuetang.com python-path=<span class="regexp">/home/</span>tu<span class="regexp">/blog:/</span>home<span class="regexp">/tu/</span>.virtualenvs<span class="regexp">/blog/</span>lib<span class="regexp">/python2.7/</span>site-packages</span><br><span class="line">    # WSGIProcessGroup ziqiangxuetang.com</span><br><span class="line">    # WSGIApplicationGroup %{GLOBAL}</span><br><span class="line"></span><br><span class="line">    &lt;Directory <span class="regexp">/django/</span>servo/servo&gt;</span><br><span class="line">            &lt;Files wsgi.py&gt;</span><br><span class="line">                Require all granted</span><br><span class="line">            &lt;/Files&gt;</span><br><span class="line">    &lt;/Directory&gt;</span><br><span class="line">    ErrorLog ${APACHE_LOG_DIR}/error.log</span><br><span class="line">    CustomLog ${APACHE_LOG_DIR}/access.log combined</span><br><span class="line">    SSLEngine on</span><br><span class="line">    # SSLCertificateFile directive is needed.</span><br><span class="line">    SSLCertificateFile    <span class="regexp">/path/</span>to<span class="regexp">/ssl/</span><span class="number">1234567</span>_www.demo.com_public.crt</span><br><span class="line">    SSLCertificateKeyFile <span class="regexp">/path/</span>to<span class="regexp">/ssl/</span><span class="number">1234567</span>_www.demo.com.key</span><br><span class="line"> &lt;/VirtualHost&gt;</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>SSLEngine on – Open SSL for Https, all we need is providing the <strong>SSLCertificateFile</strong> and the <strong>SSLCertificateKeyFile</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="Command-Lines"><a href="#Command-Lines" class="headerlink" title="Command Lines"></a>Command Lines</h3><h4 id="Enable-Module"><a href="#Enable-Module" class="headerlink" title="Enable Module"></a>Enable Module</h4><figure class="highlight coq"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a2enmod <span class="built_in">rewrite</span></span><br><span class="line">a2enmod header</span><br><span class="line">a2enmod ssl</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Enable-Site"><a href="#Enable-Site" class="headerlink" title="Enable Site"></a>Enable Site</h4><figure class="highlight actionscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a2ensite <span class="number">001</span>-<span class="keyword">default</span></span><br></pre></td></tr></tbody></table></figure>
+<p>The site is defined in <strong>/etc/apache2/site_available</strong> with name <strong>001-default.conf</strong>.</p>
+<h3 id="Problems-amp-Solutions"><a href="#Problems-amp-Solutions" class="headerlink" title="Problems &amp; Solutions"></a>Problems &amp; Solutions</h3><h4 id="Invalid-command-‘Header’-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration"><a href="#Invalid-command-‘Header’-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration" class="headerlink" title="Invalid command ‘Header’, perhaps misspelled or defined by a module not included in the server configuration"></a>Invalid command ‘Header’, perhaps misspelled or defined by a module not included in the server configuration</h4><p>The solution is enable <strong>header</strong> module.</p>
+<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Enabling <span class="keyword">module</span> headers.</span><br><span class="line">a2enmod headers</span><br><span class="line">service apache2 restart</span><br></pre></td></tr></tbody></table></figure>
+<p>Test <strong>header</strong> module.</p>
+<figure class="highlight 1c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apachectl -M <span class="string">| grep head</span></span><br><span class="line">headers_module (shared)</span><br><span class="line">Syntax OK</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Invalid-command-‘ProxyPass’-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration"><a href="#Invalid-command-‘ProxyPass’-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration" class="headerlink" title="Invalid command ‘ProxyPass’, perhaps misspelled or defined by a module not included in the server configuration"></a>Invalid command ‘ProxyPass’, perhaps misspelled or defined by a module not included in the server configuration</h4><p><strong>ProxyPass</strong> directive is defined in module <strong>proxy_http</strong>. We have to enable this module before using <strong>ProxyPass</strong></p>
+<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Enabling <span class="keyword">module</span> headers.</span><br><span class="line">a2enmod proxy_http</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="SSL-Certificate-Not-Trusted"><a href="#SSL-Certificate-Not-Trusted" class="headerlink" title="SSL Certificate Not Trusted"></a>SSL Certificate Not Trusted</h4><p>If the certificate is indeed signed by a trusted certificate authority (CA) and is not expired then such warning indicates the possibility that one of the intermediate/chain certificates is not installed on the web server in between the primary and root certificate. Add the following configuration to solve this problem.</p>
+<figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SSLCertificateChainFile <span class="regexp">/django/</span>servo<span class="regexp">/ssl/</span><span class="number">9123456</span>_www.example.com_chain.crt</span><br></pre></td></tr></tbody></table></figure></body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2023/02/25/Basic-Usage-Of-Apache/" title="Basic Usage Of Apache">http://blog.zhaoyongsheng.com/2023/02/25/Basic-Usage-Of-Apache/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Apache/" rel="tag"><i class="fa fa-tag"></i> Apache</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/23/Coding-Skills-Of-SwiftUI-For-Beginners/" rel="prev" title="Coding Skills Of SwiftUI For Beginners">
+      <i class="fa fa-chevron-left"></i> Coding Skills Of SwiftUI For Beginners
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/02/25/Deploy-Gitlab-Using-Docker-On-Synology-DS218/" rel="next" title="Deploy Gitlab Using Docker On Synology DS218+">
+      Deploy Gitlab Using Docker On Synology DS218+ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Apache-Configuration"><span class="nav-number">1.</span> <span class="nav-text">Apache Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Site-Configuration"><span class="nav-number">2.</span> <span class="nav-text">Site Configuration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-Lines"><span class="nav-number">3.</span> <span class="nav-text">Command Lines</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-Module"><span class="nav-number">3.1.</span> <span class="nav-text">Enable Module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-Site"><span class="nav-number">3.2.</span> <span class="nav-text">Enable Site</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Problems-amp-Solutions"><span class="nav-number">4.</span> <span class="nav-text">Problems &amp; Solutions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Invalid-command-%E2%80%98Header%E2%80%99-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration"><span class="nav-number">4.1.</span> <span class="nav-text">Invalid command ‘Header’, perhaps misspelled or defined by a module not included in the server configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Invalid-command-%E2%80%98ProxyPass%E2%80%99-perhaps-misspelled-or-defined-by-a-module-not-included-in-the-server-configuration"><span class="nav-number">4.2.</span> <span class="nav-text">Invalid command ‘ProxyPass’, perhaps misspelled or defined by a module not included in the server configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSL-Certificate-Not-Trusted"><span class="nav-number">4.3.</span> <span class="nav-text">SSL Certificate Not Trusted</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2023003977号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">222k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">3:22</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2023/02/25/Basic-Usage-Of-Apache/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>

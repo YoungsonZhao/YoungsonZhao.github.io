@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Ubuntu is a popular version of Linux with a desktop. It is easy to use and widely used in software and algorithm development. There are tens of thousands of open source softwares that support Ubuntu.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Usage Experiences and Skills of Ubuntu">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="Ubuntu is a popular version of Linux with a desktop. It is easy to use and widely used in software and algorithm development. There are tens of thousands of open source softwares that support Ubuntu.">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-12-04T14:39:11.000Z">
+<meta property="article:modified_time" content="2019-12-04T14:39:11.000Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="Ubuntu">
+<meta property="article:tag" content="tree">
+<meta property="article:tag" content="alien">
+<meta property="article:tag" content="history">
+<meta property="article:tag" content="wc">
+<meta property="article:tag" content="ssh">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Usage Experiences and Skills of Ubuntu | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Usage Experiences and Skills of Ubuntu
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-12-04 22:39:11" itemprop="dateCreated datePublished" datetime="2019-12-04T22:39:11+08:00">2019-12-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ubuntu/Commands/" itemprop="url" rel="index">
+                    <span itemprop="name">Commands</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Ubuntu/SSH/" itemprop="url" rel="index">
+                    <span itemprop="name">SSH</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/" class="post-meta-item leancloud_visitors" data-flag-title="Usage Experiences and Skills of Ubuntu" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>4.4k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>4 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://ubuntu.com/">Ubuntu</a> is a popular version of <a target="_blank" rel="noopener" href="https://www.linux.org/">Linux</a> with a desktop. It is easy to use and widely used in software and algorithm development. There are tens of thousands of open source softwares that support Ubuntu. As a researcher and algorithm engineer, I am using Ubuntu 16.04 and 18.04 to do research and development work. This post contains many useful experiences and skills in using Ubuntu that I want to share with you and make a documentation for myself at the same time.</p>
+<span id="more"></span>
+
+<h2 id="Command-Line"><a href="#Command-Line" class="headerlink" title="Command Line"></a>Command Line</h2><h3 id="Command-Line-History"><a href="#Command-Line-History" class="headerlink" title="Command Line History"></a>Command Line History</h3><p><strong>history</strong> command is used to list the commands we used in the terminal. </p>
+<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">history</span> #Show <span class="keyword">all</span> the <span class="keyword">history</span> commands</span><br><span class="line"><span class="keyword">history</span> | <span class="keyword">grep</span> <span class="string">"apt-get"</span> #Show <span class="keyword">all</span> the <span class="keyword">history</span> commands that contains apt-<span class="built_in">get</span></span><br><span class="line"><span class="keyword">history</span> | tee &gt; <span class="keyword">history</span>.hist #Show <span class="keyword">all</span> the <span class="keyword">history</span> commands <span class="built_in">and</span> output <span class="keyword">to</span> <span class="keyword">a</span> <span class="keyword">file</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Note that the symbol <strong>&gt;</strong> means output the stream to a file. It will create a new file or erase the existing contents if the file is already exits and write the stream to the beginning of the file. While the symbol <strong>&gt;&gt;</strong> will keep the existing contents and write the stream to the end of the file.</p>
+<h3 id="Word-Count"><a href="#Word-Count" class="headerlink" title="Word Count"></a>Word Count</h3><p>Ubuntu provides a command to count the word or line of a text content. The command is <strong>wc</strong>. For example, we can use this command to count the items of a directory.</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> | <span class="built_in">wc</span> -l</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Show-amp-Kill-Process"><a href="#Show-amp-Kill-Process" class="headerlink" title="Show &amp; Kill Process"></a>Show &amp; Kill Process</h3><h4 id="Show"><a href="#Show" class="headerlink" title="Show"></a>Show</h4><p>We can check all the running process using <strong>ps</strong> command</p>
+<figure class="highlight dos"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -<span class="built_in">aux</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Kill"><a href="#Kill" class="headerlink" title="Kill"></a>Kill</h4><figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">kill</span> -<span class="number">9</span><span class="meta"> [pid]</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Set-Default-Editor"><a href="#Set-Default-Editor" class="headerlink" title="Set Default Editor"></a>Set Default Editor</h4><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">update</span><span class="operator">-</span>alternatives <span class="comment">--config editor</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Run the above command, and you will see a list of editors as follows.</p>
+<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">There are <span class="number">4</span> choices <span class="keyword">for</span> the alternative editor (providing /usr/bin/editor). And <span class="built_in">input</span> the <span class="keyword">number</span> <span class="keyword">to</span> <span class="keyword">set</span> the default editor.</span><br><span class="line"></span><br><span class="line">  Selection    Path                Priority   Status</span><br><span class="line">------------------------------------------------------------</span><br><span class="line">* <span class="number">0</span>            /bin/nano            <span class="number">40</span>        auto <span class="keyword">mode</span></span><br><span class="line">  <span class="number">1</span>            /bin/ed             -<span class="number">100</span>       manual <span class="keyword">mode</span></span><br><span class="line">  <span class="number">2</span>            /bin/nano            <span class="number">40</span>        manual <span class="keyword">mode</span></span><br><span class="line">  <span class="number">3</span>            /usr/bin/<span class="keyword">vim</span>.basic   <span class="number">30</span>        manual <span class="keyword">mode</span></span><br><span class="line">  <span class="number">4</span>            /usr/bin/<span class="keyword">vim</span>.tiny    <span class="number">15</span>        manual <span class="keyword">mode</span></span><br><span class="line"></span><br><span class="line">Press <span class="symbol">&lt;enter&gt;</span> <span class="keyword">to</span> keep the current choice[*], <span class="built_in">or</span> <span class="built_in">type</span> selection <span class="keyword">number</span>:</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Kernel-Information"><a href="#Kernel-Information" class="headerlink" title="Kernel Information"></a>Kernel Information</h3><p><strong>uname</strong> can be used to print the kernel information.</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">uname</span> -r <span class="comment">#print kernel release</span></span><br><span class="line"><span class="built_in">uname</span> -v <span class="comment">#print kernel version</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h3><p>If we meet ssh command not found error, then we can fix it by installing openssh-server</p>
+<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="keyword">get</span> install openssh-<span class="keyword">server</span></span><br></pre></td></tr></tbody></table></figure>
+<p>The default port for ssh is <strong>22</strong>. Please make sure this port is authorized by firewall.</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> ufw <span class="literal">allow</span> <span class="number">22</span></span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Solution-for-disconnect-frequently"><a href="#Solution-for-disconnect-frequently" class="headerlink" title="Solution for disconnect frequently"></a>Solution for disconnect frequently</h4><p>When we connect a machine via ssh and don’t input any commands for a while, the ssh connection will be disconnected because the pipe is broken. We have to reconnect it via ssh command, which is quite annoying and wasting time. There are method to make ssh connection keep longer time.</p>
+<p>First, open the ssh config file using vim.</p>
+<figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi <span class="regexp">/etc/</span>ssh/sshd_config</span><br></pre></td></tr></tbody></table></figure>
+<p>And find the two lines:</p>
+<figure class="highlight 1c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#ClientAliveInterval 0</span></span><br><span class="line"><span class="meta">#ClientAliveCountMax 3</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Second, uncomment the two lines and set them as follows:</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ClientAliveInterval</span> <span class="number">30</span> </span><br><span class="line"><span class="attribute">ClientAliveCountMax</span> <span class="number">86400</span></span><br></pre></td></tr></tbody></table></figure>
+<p><strong>ClientAliveInterval 30</strong> – The client will send heartbeat data to the server every 30 seconds.<br><strong>ClientAliveCountMax 86400</strong> – The server will broken the connection automatically after 86400 seconds that not received heartbeat signals from client.<br>Third, restart the sshd service.</p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service sshd restart</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+<h3 id="Scan-LAN-IPs"><a href="#Scan-LAN-IPs" class="headerlink" title="Scan LAN IPs"></a>Scan LAN IPs</h3><p><em>nmap</em> is a tool scanning all the ips in a local network.</p>
+<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install <span class="keyword">nmap</span></span><br><span class="line"><span class="keyword">nmap</span> -sP <span class="number">192.168</span>.<span class="number">1.0</span>/<span class="number">24</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Module-Operation"><a href="#Module-Operation" class="headerlink" title="Module Operation"></a>Module Operation</h3><p><a target="_blank" rel="noopener" href="https://wiki.archlinux.org/index.php/Kernel_module">Kernel modules</a> are pieces of code that can be loaded and unloaded into the kernel upon demand. They extend the functionality of the kernel without the need to reboot the system.</p>
+<p>To create a kernel module, you can read <a target="_blank" rel="noopener" href="http://tldp.org/LDP/lkmpg/2.6/html/index.html">The Linux Kernel Module Programming Guide</a>. A module can be configured as built-in or loadable. To dynamically load or remove a module, it has to be configured as a loadable module in the kernel configuration.</p>
+<ul>
+<li>Load A Module<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo modprobe usbmon</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Unload A Module<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo rmmod usbmon</span></span><br><span class="line"><span class="attribute">sudo modprobe -r usbmon</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>List Modules<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo lsmod</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Print A Module’s Information<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo modinfo usbmon</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><h3 id="pip"><a href="#pip" class="headerlink" title="pip"></a>pip</h3><h4 id="Change-Source"><a href="#Change-Source" class="headerlink" title="Change Source"></a>Change Source</h4><p>Using the original source to install packages is usually slow and sometime it is unable to visit for users in China. We can change the source to speed the installation.</p>
+<ul>
+<li>Create a configuration file<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> ~/.pip/</span><br><span class="line"><span class="built_in">cd</span> .pip</span><br><span class="line"><span class="built_in">touch</span> pip.conf</span><br></pre></td></tr></tbody></table></figure></li>
+<li>Change source<br>Adding the target source url to the created configuration file.<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">vi</span> pip.<span class="keyword">conf</span></span><br><span class="line">[<span class="keyword">global</span>]</span><br><span class="line"><span class="built_in">index</span>-url = https://pypi.tuna.tsinghua.edu.<span class="keyword">cn</span>/simple</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h4 id="Install-Package-Using-A-Specified-Source"><a href="#Install-Package-Using-A-Specified-Source" class="headerlink" title="Install Package Using A Specified Source"></a>Install Package Using A Specified Source</h4><figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple matplotlib</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><h3 id="List-Contents-of-Directories-in-A-Tree-Like-Format"><a href="#List-Contents-of-Directories-in-A-Tree-Like-Format" class="headerlink" title="List Contents of Directories in A Tree-Like Format."></a>List Contents of Directories in A Tree-Like Format.</h3><p><strong>Tree</strong> is a recursive directory listing program that produces a depth indented listing of files, which is colorized ala dircolors if the LS_COLORS environment variable is set and output is to tty.</p>
+<figure class="highlight dos"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install <span class="built_in">tree</span></span><br><span class="line"><span class="built_in">tree</span></span><br><span class="line"><span class="built_in">tree</span> -d</span><br><span class="line"><span class="built_in">tree</span> -L <span class="number">1</span></span><br><span class="line"><span class="built_in">tree</span> -u</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="DEP-2-RPM-or-RPM-2-DEP"><a href="#DEP-2-RPM-or-RPM-2-DEP" class="headerlink" title="DEP 2 RPM or RPM 2 DEP"></a>DEP 2 RPM or RPM 2 DEP</h3><p><strong>alien</strong> is a program that converts between Red Hat rpm, Debian deb, Stampede slp, Slackware tgz, and Solaris pkg file formats. If you want to use a package from another linux distribution than the one you have installed on your system, you can use alien to convert it to your preferred package format and install it. It also supports LSB packages.</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> apt-get install alien</span><br><span class="line"><span class="attribute">sudo</span> alien toec-oep102d-<span class="number">1</span>.<span class="number">4</span>-<span class="number">4</span>.nd7.x86_64.rpm</span><br><span class="line"><span class="attribute">sudo</span> alien -r toec-oep102d_1.<span class="number">4</span>-<span class="number">5</span>_amd64.deb</span><br></pre></td></tr></tbody></table></figure>
+</body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/" title="Usage Experiences and Skills of Ubuntu">http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Ubuntu/" rel="tag"><i class="fa fa-tag"></i> Ubuntu</a>
+              <a href="/tags/tree/" rel="tag"><i class="fa fa-tag"></i> tree</a>
+              <a href="/tags/alien/" rel="tag"><i class="fa fa-tag"></i> alien</a>
+              <a href="/tags/history/" rel="tag"><i class="fa fa-tag"></i> history</a>
+              <a href="/tags/wc/" rel="tag"><i class="fa fa-tag"></i> wc</a>
+              <a href="/tags/ssh/" rel="tag"><i class="fa fa-tag"></i> ssh</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/12/02/Concepts-Usage-and-Advantages-of-Homogeneous-Coordinates/" rel="prev" title="Concepts, Properties, and Usage of Homogeneous Coordinates">
+      <i class="fa fa-chevron-left"></i> Concepts, Properties, and Usage of Homogeneous Coordinates
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/12/04/An-Intuitive-Understanding-of-Kullback-Leibler-Divergence-and-Cross-Entropy/" rel="next" title="An Intuitive Understanding of Entropy, Cross Entropy and Kullback Leibler Divergence">
+      An Intuitive Understanding of Entropy, Cross Entropy and Kullback Leibler Divergence <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Command-Line"><span class="nav-number">1.</span> <span class="nav-text">Command Line</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command-Line-History"><span class="nav-number">1.1.</span> <span class="nav-text">Command Line History</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Word-Count"><span class="nav-number">1.2.</span> <span class="nav-text">Word Count</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Show-amp-Kill-Process"><span class="nav-number">1.3.</span> <span class="nav-text">Show &amp; Kill Process</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Show"><span class="nav-number">1.3.1.</span> <span class="nav-text">Show</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kill"><span class="nav-number">1.3.2.</span> <span class="nav-text">Kill</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-Default-Editor"><span class="nav-number">1.3.3.</span> <span class="nav-text">Set Default Editor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kernel-Information"><span class="nav-number">1.4.</span> <span class="nav-text">Kernel Information</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssh"><span class="nav-number">1.5.</span> <span class="nav-text">ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Solution-for-disconnect-frequently"><span class="nav-number">1.5.1.</span> <span class="nav-text">Solution for disconnect frequently</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scan-LAN-IPs"><span class="nav-number">1.6.</span> <span class="nav-text">Scan LAN IPs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Module-Operation"><span class="nav-number">1.7.</span> <span class="nav-text">Module Operation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python"><span class="nav-number">2.</span> <span class="nav-text">Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pip"><span class="nav-number">2.1.</span> <span class="nav-text">pip</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Change-Source"><span class="nav-number">2.1.1.</span> <span class="nav-text">Change Source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Package-Using-A-Specified-Source"><span class="nav-number">2.1.2.</span> <span class="nav-text">Install Package Using A Specified Source</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">3.</span> <span class="nav-text">Others</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List-Contents-of-Directories-in-A-Tree-Like-Format"><span class="nav-number">3.1.</span> <span class="nav-text">List Contents of Directories in A Tree-Like Format.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DEP-2-RPM-or-RPM-2-DEP"><span class="nav-number">3.2.</span> <span class="nav-text">DEP 2 RPM or RPM 2 DEP</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">68</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2023003977号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">222k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">3:22</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2019/12/04/Usage-Experiences-and-Skills-of-Ubuntu/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
