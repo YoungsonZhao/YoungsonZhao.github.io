@@ -2455,8 +2455,9 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <h2 id="GPT-3-Language-Models-are-Few-Shot-Learners"><a href="#GPT-3-Language-Models-are-Few-Shot-Learners" class="headerlink" title="GPT-3: Language Models are Few-Shot Learners"></a>GPT-3: Language Models are Few-Shot Learners</h2><p>GPT-3的论文在2021年12月发布，GPT-3的模型参数量达到了1750亿，训练数据量达到了45TB，训练成本达到了1200万美元。GPT-3主要解决的是语言模型中的少样本学习问题。</p>
 <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
 <li>In-Context Learning<br>In-Context Learning (ICL)是将预训练模型的文本输入作为一种任务具象化的形式，将自然语言指令或者示例作为条件，然后预测后面输出的文本。</li>
-<li>Zero-shot VS. One-shot VS. Few-shot Learning<br>取决于模型推理时输入的示例数量。<br>![In-Context示例数量、模型大小与模型准确度的关系](In-Context Examples – Accuracy.png)<br>从上图可以的出结论：</li>
+<li>Zero-shot VS. One-shot VS. Few-shot Learning<br>取决于模型推理时输入的示例数量。</li>
 </ul>
+<p>![In-Context示例数量、模型大小与模型准确度的关系](In-Context Examples – Accuracy.png)<br>![  ](In-Context Examples – Accuracy.png)<br>从上图可以的出结论：</p>
 <ol>
 <li>模型参数量越大，模型的准确度越高。</li>
 <li>不需要梯度训练和微调，仅仅提供更多的In-Context示例，也能显著提升模型的准确度。</li>
@@ -2480,10 +2481,11 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 </ol>
 </li>
 <li><ol start="4">
-<li>Zero-Shot Learning<br>Zero-Shot Learning指的是在模型推理时没有提供任何示例作为条件，仅仅提供语言指令描述任务。<br>![Few-Shot VS. One-Shot VS. Zero-Shot](Few-One-Zero-Shot Learning.png)</li>
+<li>Zero-Shot Learning<br>Zero-Shot Learning指的是在模型推理时没有提供任何示例作为条件，仅仅提供语言指令描述任务。</li>
 </ol>
 </li>
 </ul>
+<p>![Few-Shot VS. One-Shot VS. Zero-Shot](Few-One-Zero-Shot Learning.png)<br><img data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Few-One-Zero-Shot.png"></p>
 <h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
