@@ -2445,4 +2445,21 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
         <tag>Markdown</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Roadmap To Learn Large Language Model Of GPT Series</title>
+    <url>/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/</url>
+    <content><![CDATA[<html><head></head><body><p>本文主要是OpenAI的GPT系列论文的阅读笔记。</p>
+<span id="more"></span>
+<h2 id="GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training"><a href="#GPT-1-Improving-Language-Understanding-by-Generative-Pre-Training" class="headerlink" title="GPT-1: Improving Language Understanding by Generative Pre-Training"></a>GPT-1: Improving Language Understanding by Generative Pre-Training</h2><h2 id="GPT-2-Language-Models-are-Unsupervised-Multitask-Learners"><a href="#GPT-2-Language-Models-are-Unsupervised-Multitask-Learners" class="headerlink" title="GPT-2: Language Models are Unsupervised Multitask Learners"></a>GPT-2: Language Models are Unsupervised Multitask Learners</h2><h2 id="GPT-3-Language-Models-are-Few-Shot-Learners"><a href="#GPT-3-Language-Models-are-Few-Shot-Learners" class="headerlink" title="GPT-3: Language Models are Few-Shot Learners"></a>GPT-3: Language Models are Few-Shot Learners</h2><h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2></body></html>]]></content>
+      <categories>
+        <category>Notes</category>
+        <category>Deep Learning</category>
+        <category>Papers</category>
+      </categories>
+      <tags>
+        <tag>GPT</tag>
+        <tag>LLM</tag>
+        <tag>NLP</tag>
+      </tags>
+  </entry>
 </search>
