@@ -2507,7 +2507,13 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <h4 id="Language-Modeling-Cloze-and-Completion-Tasks"><a href="#Language-Modeling-Cloze-and-Completion-Tasks" class="headerlink" title="Language Modeling, Cloze, and Completion Tasks"></a>Language Modeling, Cloze, and Completion Tasks</h4><h5 id="Language-Modeling"><a href="#Language-Modeling" class="headerlink" title="Language Modeling"></a>Language Modeling</h5><p>GPT-3仅仅使用Zero-shot Learning进行语言建模,就在PTB数据集上拿到了SOTA。</p>
 <h5 id="LAMBDA"><a href="#LAMBDA" class="headerlink" title="LAMBDA"></a>LAMBDA</h5><p>该数据集预测一段话最后一个字，用此用于测试长范围的语言模型性能。<br>该数据集的测试分析表明，随着模型参数量的增加，模型的Few-Shot性能会显著提升。<br><img alt="模型性能与参数量的关系" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Performance-wrt-Model-Size.png"></p>
 <h4 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h4><p>GPT-2由于模型能力的限制，只在英文数据集上进行了训练。GPT-3的训练数据集有93%的英文数据，有7%的其他语言数据，包括法语、德语和罗马语。</p>
-<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<h4 id="Winograd-Style-Tasks"><a href="#Winograd-Style-Tasks" class="headerlink" title="Winograd-Style Tasks"></a>Winograd-Style Tasks</h4><p>Winograd-Style Tasks是NLP中的经典任务，主要是根据上下文的语义决定代词的含义。</p>
+<h4 id="Common-Sense-Reasoning"><a href="#Common-Sense-Reasoning" class="headerlink" title="Common Sense Reasoning"></a>Common Sense Reasoning</h4><ul>
+<li>PhysicalQA：物理知识推理</li>
+<li>ARC：3-9年级科学考试中的多选题</li>
+<li>OpenBookQA：阅读理解</li>
+</ul>
+<h4 id="Reading-Comprehension"><a href="#Reading-Comprehension" class="headerlink" title="Reading Comprehension"></a>Reading Comprehension</h4><h4 id="SuperGLUE"><a href="#SuperGLUE" class="headerlink" title="SuperGLUE"></a>SuperGLUE</h4><h4 id="Natural-Language-Inference"><a href="#Natural-Language-Inference" class="headerlink" title="Natural Language Inference"></a>Natural Language Inference</h4><h4 id="Synthetic-and-Qualitative-Tasks"><a href="#Synthetic-and-Qualitative-Tasks" class="headerlink" title="Synthetic and Qualitative Tasks"></a>Synthetic and Qualitative Tasks</h4><h5 id="Arithmetic"><a href="#Arithmetic" class="headerlink" title="Arithmetic"></a>Arithmetic</h5><h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
 <li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn Tree Bank(PTB)</a></li>
@@ -2520,6 +2526,23 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <li><a href="https://ai.google.com/research/NaturalQuestions">Natural Questions</a></li>
 <li><a href="https://github.com/google-research-datasets/webquestions">WebQuestions</a></li>
 <li><a href="https://triviaqa.cs.washington.edu/">TriviaQA</a></li>
+<li><a href="https://arxiv.org/pdf/1706.03762.pdf">Winograd</a></li>
+<li><a href="https://arxiv.org/pdf/1706.03762.pdf">Winograde</a></li>
+<li><a href="">PhysicalQA</a></li>
+<li><a href="https://github.com/google-research-datasets/arc">ARC</a></li>
+<li><a href="https://stanfordnlp.github.io/coqa/">CoQA</a></li>
+<li><a href="https://rajpurkar.github.io/SQuAD-explorer/">QuAC</a></li>
+<li><a href="https://github.com/google-research-datasets/drop">DROP</a></li>
+<li><a href="">RACE</a></li>
+<li><a href="https://rajpurkar.github.io/SQuAD-explorer/">SQuAD</a></li>
+<li><a href="https://huggingface.co/datasets/webarchive/resolve/main/multinews.jsonl">MultiNews</a></li>
+<li><a href="https://openbookqa.org/">OpenBookQA</a></li>
+<li><a href="https://github.com/tliuhuan/COPA">COPA</a></li>
+<li><a href="https://github.com/allenai/record">ReCoRD</a></li>
+<li><a href="https://huggingface.co/datasets/webarchive/resolve/main/boolq.jsonl">BoolQ</a></li>
+<li><a href="https://huggingface.co/datasets/webarchive/resolve/main/multiRC.jsonl">MultiRC</a></li>
+<li><a href="https://huggingface.co/datasets/webarchive/resolve/main/rte.jsonl">RTE</a></li>
+<li><a href="https://huggingface.co/datasets/webarchive/resolve/main/anli.jsonl">ANLI</a></li>
 </ul>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="BLEU"><a href="#BLEU" class="headerlink" title="BLEU"></a>BLEU</h3><p>BLEU（Bilingual Evaluation Understudy）是自然语言处理 (NLP) 中一种常用的评估指标，主要用于衡量机器翻译系统生成文本的质量，由IBM的研究人员Kenney和Manning在2002年提出。BLEU通过计算生成文本与参考文本之间的相似度来评估翻译的准确性和流畅性。，来评估机器翻译的质量。</p>
 <p>以下是 BLEU 的核心思想及其计算方式：</p>
@@ -2637,6 +2660,129 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <li><strong>生成效率</strong>：在解码过程中，可能导致生成序列较长，影响模型推断速度。</li>
 </ol>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>BPE 是一种简单而高效的分词算法，能够生成兼具词语信息和灵活性的子词单元，在 NLP 中广泛应用，是现代语言模型的关键预处理步骤之一。</p>
+<h3 id="SuperGLUE基准测试集"><a href="#SuperGLUE基准测试集" class="headerlink" title="SuperGLUE基准测试集"></a>SuperGLUE基准测试集</h3><p>SuperGLUE（<strong>A Stickier Benchmark for General-Purpose Language Understanding Systems</strong>）是自然语言处理（NLP）领域中的一个基准测试集，用于评估模型在广泛的语言理解任务上的能力。它是对 GLUE（General Language Understanding Evaluation）的改进版，专门设计来挑战基于预训练语言模型（如 BERT、GPT）在多种语言理解任务上的性能，涵盖更复杂的推理和语义理解问题。</p>
+<h4 id="SuperGLUE-的核心组成"><a href="#SuperGLUE-的核心组成" class="headerlink" title="SuperGLUE 的核心组成"></a><strong>SuperGLUE 的核心组成</strong></h4><p>SuperGLUE 包含 8 个不同的任务，每个任务对应一种语言理解的核心能力。以下是每个任务的详细说明：</p>
+<h5 id="1-Boolean-Question-BoolQ"><a href="#1-Boolean-Question-BoolQ" class="headerlink" title="1. Boolean Question (BoolQ)"></a>1. <strong>Boolean Question (BoolQ)</strong></h5><ul>
+<li><strong>任务类型</strong>：二分类任务（Yes/No）。</li>
+<li><strong>目标</strong>：根据给定的段落和问题，判断答案是“是”还是“否”。</li>
+<li><strong>输入</strong>：一个段落（context）和一个自然语言问题（question）。</li>
+<li><strong>输出</strong>：布尔值（Yes/No）。</li>
+<li><strong>数据来源</strong>：从真实用户查询生成的问题，例如维基百科。</li>
+<li><strong>挑战</strong>：<ul>
+<li>问题的答案需要通过复杂推理和跨句子语义整合来确定。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="2-CommitmentBank-CB"><a href="#2-CommitmentBank-CB" class="headerlink" title="2. CommitmentBank (CB)"></a>2. <strong>CommitmentBank (CB)</strong></h5><ul>
+<li><strong>任务类型</strong>：三分类任务（Entailment / Neutral / Contradiction）。</li>
+<li><strong>目标</strong>：判断一个假设（hypothesis）是否从给定的文本段落（premise）中可以：<ol>
+<li>推出（Entailment），</li>
+<li>不确定（Neutral），</li>
+<li>或矛盾（Contradiction）。</li>
+</ol>
+</li>
+<li><strong>输入</strong>：一个前提句（premise）和一个假设句（hypothesis）。</li>
+<li><strong>输出</strong>：三分类标签。</li>
+<li><strong>数据来源</strong>：对语言学研究中的嵌套从句进行标注。</li>
+<li><strong>挑战</strong>：<ul>
+<li>涉及复杂的语义推理和句法关系。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="3-Choice-of-Plausible-Alternatives-COPA"><a href="#3-Choice-of-Plausible-Alternatives-COPA" class="headerlink" title="3. Choice of Plausible Alternatives (COPA)"></a>3. <strong>Choice of Plausible Alternatives (COPA)</strong></h5><ul>
+<li><strong>任务类型</strong>：因果推理（二选一）。</li>
+<li><strong>目标</strong>：判断给定的句子是否是因果链中的原因或结果，并从两个备选答案中选择一个。</li>
+<li><strong>输入</strong>：一个句子和两个备选答案。</li>
+<li><strong>输出</strong>：选择一个更可能的答案（1 或 2）。</li>
+<li><strong>数据来源</strong>：手动创建的因果推理数据。</li>
+<li><strong>挑战</strong>：<ul>
+<li>涉及因果关系的推理。</li>
+<li>候选答案具有一定的迷惑性。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="4-Multi-Sentence-Reading-Comprehension-ReCoRD"><a href="#4-Multi-Sentence-Reading-Comprehension-ReCoRD" class="headerlink" title="4. Multi-Sentence Reading Comprehension (ReCoRD)"></a>4. <strong>Multi-Sentence Reading Comprehension (ReCoRD)</strong></h5><ul>
+<li><strong>任务类型</strong>：填空问题。</li>
+<li><strong>目标</strong>：通过阅读长段落，选择填充问题空白的正确词语或短语。</li>
+<li><strong>输入</strong>：一个长段落和包含空白的句子。</li>
+<li><strong>输出</strong>：正确的词语或短语（从段落中选取）。</li>
+<li><strong>数据来源</strong>：新闻语料库。</li>
+<li><strong>挑战</strong>：<ul>
+<li>涉及跨句子关系的理解。</li>
+<li>候选答案可能具有语义相似性，增加了任务难度。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="5-Reading-Comprehension-with-Commonsense-Reasoning-RTE"><a href="#5-Reading-Comprehension-with-Commonsense-Reasoning-RTE" class="headerlink" title="5. Reading Comprehension with Commonsense Reasoning (RTE)"></a>5. <strong>Reading Comprehension with Commonsense Reasoning (RTE)</strong></h5><ul>
+<li><strong>任务类型</strong>：二分类任务（Entailment / Not Entailment）。</li>
+<li><strong>目标</strong>：判断假设（hypothesis）是否可以从前提句（premise）中推出。</li>
+<li><strong>输入</strong>：前提句和假设句。</li>
+<li><strong>输出</strong>：二分类标签（Entailment / Not Entailment）。</li>
+<li><strong>数据来源</strong>：多个现有的自然语言推理数据集。</li>
+<li><strong>挑战</strong>：<ul>
+<li>推理涉及隐含的背景知识和常识。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="6-Winograd-Schema-Challenge-WiC"><a href="#6-Winograd-Schema-Challenge-WiC" class="headerlink" title="6. Winograd Schema Challenge (WiC)"></a>6. <strong>Winograd Schema Challenge (WiC)</strong></h5><ul>
+<li><strong>任务类型</strong>：词义消歧。</li>
+<li><strong>目标</strong>：判断某个词在两个句子中的含义是否相同。</li>
+<li><strong>输入</strong>：两个句子和目标词。</li>
+<li><strong>输出</strong>：布尔值（Yes/No）。</li>
+<li><strong>数据来源</strong>：词义标注和上下文信息。</li>
+<li><strong>挑战</strong>：<ul>
+<li>涉及对多义词的准确语义判断。</li>
+<li>考验模型对上下文细微差别的理解。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="7-Winograd-Schema-Challenge-WSC"><a href="#7-Winograd-Schema-Challenge-WSC" class="headerlink" title="7. Winograd Schema Challenge (WSC)"></a>7. <strong>Winograd Schema Challenge (WSC)</strong></h5><ul>
+<li><strong>任务类型</strong>：共指消解。</li>
+<li><strong>目标</strong>：判断代词或名词短语的指代对象。</li>
+<li><strong>输入</strong>：一个句子，包含一个指代目标和两个候选对象。</li>
+<li><strong>输出</strong>：正确的指代对象。</li>
+<li><strong>数据来源</strong>：手工创建的共指消解数据。</li>
+<li><strong>挑战</strong>：<ul>
+<li>考察模型对代词解析和语义常识的理解。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h5 id="8-AX-b-BroadCoverage-Diagnostic"><a href="#8-AX-b-BroadCoverage-Diagnostic" class="headerlink" title="8. AX-b (BroadCoverage Diagnostic)"></a>8. <strong>AX-b (BroadCoverage Diagnostic)</strong></h5><ul>
+<li><strong>任务类型</strong>：对文本片段进行语言现象的诊断评估。</li>
+<li><strong>目标</strong>：分析模型在特定语言现象（如逻辑推理或世界知识推理）上的表现。</li>
+<li><strong>输入和输出</strong>：与其他任务类似，具体设计用于测试模型的弱点。</li>
+<li><strong>挑战</strong>：<ul>
+<li>设计针对性强，旨在暴露模型局限。</li>
+</ul>
+</li>
+</ul>
+<h4 id="SuperGLUE-的评价方式"><a href="#SuperGLUE-的评价方式" class="headerlink" title="SuperGLUE 的评价方式"></a><strong>SuperGLUE 的评价方式</strong></h4><ol>
+<li><strong>任务指标</strong>：<ul>
+<li>每个任务有特定的评估指标（如准确率、F1 分数等）。</li>
+</ul>
+</li>
+<li><strong>总体分数</strong>：<ul>
+<li>通过所有任务的加权平均分数评估模型整体性能。</li>
+</ul>
+</li>
+<li><strong>人类基准</strong>：<ul>
+<li>超过 GLUE 基准的人类水平设置为 SuperGLUE 的参考基线。</li>
+</ul>
+</li>
+</ol>
+<h4 id="SuperGLUE-的意义"><a href="#SuperGLUE-的意义" class="headerlink" title="SuperGLUE 的意义"></a><strong>SuperGLUE 的意义</strong></h4><ul>
+<li><strong>更高难度</strong>：SuperGLUE 设计了更复杂的语言理解任务，考验模型的推理能力、常识知识和语义理解。</li>
+<li><strong>推动研究</strong>：提供了统一的评估框架，促进了更强大和通用的语言理解模型的开发。</li>
+<li><strong>领域覆盖广</strong>：任务涉及多种语言理解能力，使模型需具备广泛的适应性。</li>
+</ul>
+<h4 id="模型挑战"><a href="#模型挑战" class="headerlink" title="模型挑战"></a><strong>模型挑战</strong></h4><p>虽然当前模型（如 T5、GPT-4 等）已经在部分任务上接近或超过人类水平，但在涉及常识推理、因果关系和细粒度语义分析的任务上，仍然存在改进空间。SuperGLUE 因此被视为推动 NLP 领域进步的重要基准之一。</p>
 </body></html>]]></content>
       <categories>
         <category>Notes</category>
