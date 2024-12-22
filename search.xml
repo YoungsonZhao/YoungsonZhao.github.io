@@ -2505,13 +2505,138 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <h4 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h4><p>大参数量的模型需要使用大的Batch Size和小的Learning Rate进行训练。<br>GPT-3是使用V100集群进行分布式训练的，使用了混合模型并行化的方式来节省内存，包括矩阵相乘并行化和层间并行化。</p>
 <h3 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h3><p>当模型结构、训练数据和训练方法高效时，模型的性能表现与算力成正相关。</p>
 <h4 id="Language-Modeling-Cloze-and-Completion-Tasks"><a href="#Language-Modeling-Cloze-and-Completion-Tasks" class="headerlink" title="Language Modeling, Cloze, and Completion Tasks"></a>Language Modeling, Cloze, and Completion Tasks</h4><h5 id="Language-Modeling"><a href="#Language-Modeling" class="headerlink" title="Language Modeling"></a>Language Modeling</h5><p>GPT-3仅仅使用Zero-shot Learning进行语言建模,就在PTB数据集上拿到了SOTA。</p>
-<h5 id="LAMBDA"><a href="#LAMBDA" class="headerlink" title="LAMBDA"></a>LAMBDA</h5><p>该数据集预测一段话最后一个字，用此用于测试长范围的语言模型性能。<br>该数据集的测试分析表明，随着模型参数量的增加，模型的Few-Shot性能会显著提升。</p>
+<h5 id="LAMBDA"><a href="#LAMBDA" class="headerlink" title="LAMBDA"></a>LAMBDA</h5><p>该数据集预测一段话最后一个字，用此用于测试长范围的语言模型性能。<br>该数据集的测试分析表明，随着模型参数量的增加，模型的Few-Shot性能会显著提升。<br><img alt="模型性能与参数量的关系" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Performance-wrt-Model-Size.png"></p>
+<h4 id="Translation"><a href="#Translation" class="headerlink" title="Translation"></a>Translation</h4><p>GPT-2由于模型能力的限制，只在英文数据集上进行了训练。GPT-3的训练数据集有93%的英文数据，有7%的其他语言数据，包括法语、德语和罗马语。</p>
 <h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
 <li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn Tree Bank(PTB)</a></li>
 <li><a href="https://github.com/google-research-datasets/lambada">LAMBDA</a></li>
+<li><a href="https://github.com/hendrycks/naturalamp">HellaSwag</a></li>
+<li><a href="https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset">WikiText-103</a></li>
+<li><a href="https://www.gutenberg.org/">Books1</a></li>
+<li><a href="https://www.gutenberg.org/">Books2</a></li>
+<li><a href="https://github.com/google-research-datasets/story-cloze">StoryCloze</a></li>
+<li><a href="https://ai.google.com/research/NaturalQuestions">Natural Questions</a></li>
+<li><a href="https://github.com/google-research-datasets/webquestions">WebQuestions</a></li>
+<li><a href="https://triviaqa.cs.washington.edu/">TriviaQA</a></li>
 </ul>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="BLEU"><a href="#BLEU" class="headerlink" title="BLEU"></a>BLEU</h3><p>BLEU（Bilingual Evaluation Understudy）是自然语言处理 (NLP) 中一种常用的评估指标，主要用于衡量机器翻译系统生成文本的质量，由IBM的研究人员Kenney和Manning在2002年提出。BLEU通过计算生成文本与参考文本之间的相似度来评估翻译的准确性和流畅性。，来评估机器翻译的质量。</p>
+<p>以下是 BLEU 的核心思想及其计算方式：</p>
+<h4 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h4><ol>
+<li><p><strong>N-gram 匹配</strong>：<br>BLEU 通过计算生成文本与参考文本之间的 n-gram 匹配情况来衡量质量。n-gram 是文本中连续 n 个词的序列（例如，”the cat” 是一个 2-gram）。BLEU 会分别计算 1-gram、2-gram、3-gram 等的匹配情况。</p>
+</li>
+<li><p>**精确率 (Precision)**：<br>BLEU 计算生成文本中 n-gram 与参考文本中 n-gram 的匹配比例。例如，如果生成文本包含 10 个 2-gram，而其中 6 个在参考文本中出现，则 2-gram 的精确率为 60%。</p>
+</li>
+<li><p>**惩罚机制 (Brevity Penalty)**：<br>为了避免生成系统通过过于简短的输出（例如，重复参考中的高频词）获得高分，BLEU 引入了长度惩罚。如果生成文本的长度明显短于参考文本，BLEU 分数会降低。</p>
+</li>
+</ol>
+<h4 id="计算步骤"><a href="#计算步骤" class="headerlink" title="计算步骤"></a>计算步骤</h4><ol>
+<li><p><strong>计算 n-gram 的精确率</strong>：<br>$$<br>P_n = \frac{\text{生成文本中与参考文本匹配的 n-gram 数}}{\text{生成文本中的 n-gram 总数}}<br>$$</p>
+</li>
+<li><p><strong>几何平均精确率</strong>：<br>对不同 n-gram（如 1-gram 到 4-gram）的精确率取几何平均：<br>$$<br>\text{Precision}<em>{\text{geometric mean}} = \left( \prod</em>{n=1}^{N} P_n \right)^{1/N}<br>$$</p>
+</li>
+<li><p>**长度惩罚 (Brevity Penalty, BP)**：<br>如果生成文本长度 ( c ) 小于参考文本长度 ( r )，引入惩罚因子：<br>$$<br>BP =<br>\begin{cases}<br>1 &amp; \text{如果 } c &gt; r \<br>e^{1 - r/c} &amp; \text{如果 } c \leq r<br>\end{cases}<br>$$</p>
+</li>
+<li><p><strong>最终 BLEU 分数</strong>：<br>将几何平均精确率和惩罚因子相结合：<br>$$<br>BLEU = BP \cdot \exp\left(\sum_{n=1}^{N} w_n \cdot \log P_n \right)<br>$$<br>其中 ( w_n ) 是 n-gram 的权重（通常均分，如 ( w_n = 1/N )）。</p>
+</li>
+</ol>
+<h4 id="优点与局限性"><a href="#优点与局限性" class="headerlink" title="优点与局限性"></a>优点与局限性</h4><p><strong>优点</strong>：</p>
+<ul>
+<li>自动化评估，计算快速。</li>
+<li>与参考翻译的直接比较，适用于多种语言。</li>
+</ul>
+<p><strong>局限性</strong>：</p>
+<ol>
+<li><strong>忽略语义</strong>：BLEU 只关心 n-gram 的表面匹配，不考虑语义。</li>
+<li><strong>依赖参考翻译</strong>：如果参考翻译质量不好，BLEU 分数也会受到影响。</li>
+<li><strong>长文本适用性弱</strong>：对段落或整篇文章的翻译，BLEU 可能无法全面反映质量。</li>
+</ol>
+<h3 id="BPE"><a href="#BPE" class="headerlink" title="BPE"></a>BPE</h3><p>BPE（Byte Pair Encoding）是一种基于数据压缩技术的<strong>子词分割算法</strong>，广泛应用于自然语言处理（NLP）任务中，尤其是神经机器翻译和预训练语言模型。其核心思想是通过递归地合并频率最高的字符对或子词对，逐步构建适应语料分布的子词单元，从而在减少词表大小和处理未登录词（OOV）问题之间取得平衡。</p>
+<h4 id="为什么需要-BPE？"><a href="#为什么需要-BPE？" class="headerlink" title="为什么需要 BPE？"></a>为什么需要 BPE？</h4><p>传统的分词方法（如按词分割或按字符分割）存在以下问题：</p>
+<ol>
+<li><strong>按词分割</strong>：<ul>
+<li>词表会非常大，难以处理。</li>
+<li>对低频词表现不好，容易导致 OOV（Out-Of-Vocabulary，未登录词）。</li>
+</ul>
+</li>
+<li><strong>按字符分割</strong>：<ul>
+<li>词表很小，但上下文关系的学习难度大。</li>
+<li>生成的序列太长，影响模型效率。</li>
+</ul>
+</li>
+</ol>
+<p><strong>BPE</strong> 通过将高频的字符序列合并为子词单元，既降低了词表大小，又能捕捉常见词的整体信息，解决了上述问题。</p>
+<h4 id="BPE-的基本原理"><a href="#BPE-的基本原理" class="headerlink" title="BPE 的基本原理"></a>BPE 的基本原理</h4><p>BPE 的核心思想是<strong>基于频率的合并</strong>：从初始字符开始，将出现频率最高的字符对逐步合并为新的子词单元，直到达到预定义的分词单元数量或其他停止条件。</p>
+<h5 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a>算法步骤：</h5><ol>
+<li><p><strong>初始化</strong>：</p>
+<ul>
+<li>将训练语料中的每个单词分解为字符序列，并在每个单词的末尾添加特殊标记（如 <code>▁</code> 表示词的开头）。</li>
+<li>例如：<code>hello world</code> → <code>h e l l o ▁ w o r l d</code></li>
+</ul>
+</li>
+<li><p><strong>统计字符对的频率</strong>：</p>
+<ul>
+<li>计算语料中每对相邻字符的频率。</li>
+<li>例如：<code>h e l l o</code> 中，<code>he</code>、<code>el</code>、<code>ll</code>、<code>lo</code> 是字符对，统计其出现次数。</li>
+</ul>
+</li>
+<li><p><strong>合并频率最高的字符对</strong>：</p>
+<ul>
+<li>找到频率最高的字符对，将其合并为新的子词单元。</li>
+<li>例如：如果 <code>ll</code> 是频率最高的对，则合并为 <code>ll</code>，更新序列为：<code>h e ll o</code>.</li>
+</ul>
+</li>
+<li><p><strong>重复步骤 2 和 3</strong>：</p>
+<ul>
+<li>每次合并后重新统计频率，直到达到预定义的子词单元数量。</li>
+</ul>
+</li>
+<li><p><strong>生成子词词表</strong>：</p>
+<ul>
+<li>记录所有生成的子词单元，作为最终的分词词表。</li>
+</ul>
+</li>
+</ol>
+<h5 id="算法实现："><a href="#算法实现：" class="headerlink" title="算法实现："></a>算法实现：</h5><p>BPE 的核心可以表示为以下伪代码：</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="code"><pre><span class="line">输入：语料 D，目标子词表大小 V</span><br><span class="line">初始化：将 D 分解为字符序列 S</span><br><span class="line"><span class="keyword">while</span> |S| &lt; V:</span><br><span class="line">    统计 S 中所有相邻字符对的频率</span><br><span class="line">    找到频率最高的字符对 <span class="keyword">a</span>, b</span><br><span class="line">    将 <span class="keyword">a</span>, b 合并为新的子词单元 ab</span><br><span class="line">    更新 S 中的所有出现</span><br><span class="line">输出：最终的子词词表 S</span><br></pre></td></tr></tbody></table></figure>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><p>假设我们对以下单词应用 BPE：<code>low</code>, <code>lowest</code>, <code>new</code>, <code>newer</code>.</p>
+<ol>
+<li><p><strong>初始状态</strong>：</p>
+<figure class="highlight excel"><table><tbody><tr><td class="code"><pre><span class="line">l o w</span><br><span class="line">l o w e s <span class="built_in">t</span></span><br><span class="line"><span class="built_in">n</span> e w</span><br><span class="line"><span class="built_in">n</span> e w e r</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>统计字符对频率</strong>：</p>
+<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">l</span> o: <span class="number">2</span>, o w: <span class="number">2</span>, w e: <span class="number">2</span>, e s: <span class="number">1</span>, s t: <span class="number">1</span>, n e: <span class="number">2</span>, e w: <span class="number">2</span>, w e: <span class="number">2</span></span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><strong>合并频率最高的对</strong>：</p>
+<ul>
+<li>假设 <code>o w</code> 频率最高，合并为 <code>ow</code>：<figure class="highlight excel"><table><tbody><tr><td class="code"><pre><span class="line">l ow</span><br><span class="line">l ow e s <span class="built_in">t</span></span><br><span class="line"><span class="built_in">n</span> e w</span><br><span class="line"><span class="built_in">n</span> e w e r</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+</li>
+<li><p><strong>重复以上步骤</strong>：</p>
+<ul>
+<li>合并后重新统计频率并合并，直到达到预定义的子词单元数量。</li>
+</ul>
+</li>
+</ol>
+<h4 id="BPE-在-NLP-中的应用"><a href="#BPE-在-NLP-中的应用" class="headerlink" title="BPE 在 NLP 中的应用"></a>BPE 在 NLP 中的应用</h4><ol>
+<li><strong>机器翻译</strong>：如 Transformer 中，BPE 被用作标准分词方法，以减少 OOV 现象并提高模型的泛化能力。</li>
+<li><strong>预训练模型</strong>：如 GPT 和 BERT，BPE 用于构建子词词表，兼顾词表大小与覆盖率。</li>
+<li><strong>多语言任务</strong>：BPE 在多语言模型中尤其有效，能够生成语言无关的统一词表。</li>
+</ol>
+<h4 id="优点与局限性-1"><a href="#优点与局限性-1" class="headerlink" title="优点与局限性"></a>优点与局限性</h4><p><strong>优点</strong>：</p>
+<ol>
+<li><strong>词表大小灵活</strong>：通过限制词表大小 ( V )，可以在效率与表达能力之间取得平衡。</li>
+<li><strong>处理未登录词（OOV）</strong>：将罕见词分解为子词单元，从而减少 OOV 的发生。</li>
+<li><strong>语言无关性</strong>：BPE 是基于频率的统计方法，不依赖具体语言规则。</li>
+</ol>
+<p><strong>局限性</strong>：</p>
+<ol>
+<li><strong>固定词表</strong>：训练好的子词词表对新领域的适应性有限。</li>
+<li><strong>上下文独立性</strong>：合并规则是基于全局频率的，而不考虑上下文。</li>
+<li><strong>生成效率</strong>：在解码过程中，可能导致生成序列较长，影响模型推断速度。</li>
+</ol>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>BPE 是一种简单而高效的分词算法，能够生成兼具词语信息和灵活性的子词单元，在 NLP 中广泛应用，是现代语言模型的关键预处理步骤之一。</p>
 </body></html>]]></content>
       <categories>
         <category>Notes</category>
