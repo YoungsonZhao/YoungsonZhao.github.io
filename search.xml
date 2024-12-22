@@ -2485,7 +2485,7 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 </ol>
 </li>
 </ul>
-<p><img alt="Few-Shot VS. One-Shot VS. Zero-Shot VS. Fine-tuning" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Few-One-Zero-Shot-Fine-tuning.png"></p>
+<p><img alt="Few-Shot VS. One-Shot VS. Zero-Shot VS. Fine-tuning" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/Few-One-Zero-Shot.png"></p>
 <h4 id="Models-and-Architectures"><a href="#Models-and-Architectures" class="headerlink" title="Models and Architectures"></a>Models and Architectures</h4><p>GPT-3的模型架构与GPT-2的模型架构类似，包括参数初始化方法、预正则化方法、可逆的Token化方法，不同的是Transformer中的Attention模式。GPT-3的Attention模式与Sparse Transformer类似。<br>为了验证不同模型大小对性能的影响，GPT-3总共训练了3个参数量级8个模型，具体如下图所是：<br><img alt="GPT-3模型参数量" data-src="/2024/12/21/Roadmap-To-Learn-Large-Language-Model-Of-GPT-Series/GPT-3-Model-Parameters.png"><br>GPT-3使用的Context Window为2048。<br>$$d_{model} = n_{heads} \times d_{head}$$<br>前向神经网络的参数量是Transformer特征向量的4倍，$d_{ff} = 4 \times d_{model}$。</p>
 <h4 id="Training-Datasets"><a href="#Training-Datasets" class="headerlink" title="Training Datasets"></a>Training Datasets</h4><p>用于训练GPT-3的数据集是Common Crawl,共计包含1TB字数的文本数据。为了保障数据集的质量做了如下处理：</p>
 <ul>
@@ -2503,9 +2503,14 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 </li>
 </ul>
 <h4 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h4><p>大参数量的模型需要使用大的Batch Size和小的Learning Rate进行训练。<br>GPT-3是使用V100集群进行分布式训练的，使用了混合模型并行化的方式来节省内存，包括矩阵相乘并行化和层间并行化。</p>
-<h4 id="Evaluation"><a href="#Evaluation" class="headerlink" title="Evaluation"></a>Evaluation</h4><h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<h3 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h3><p>当模型结构、训练数据和训练方法高效时，模型的性能表现与算力成正相关。</p>
+<h4 id="Language-Modeling-Cloze-and-Completion-Tasks"><a href="#Language-Modeling-Cloze-and-Completion-Tasks" class="headerlink" title="Language Modeling, Cloze, and Completion Tasks"></a>Language Modeling, Cloze, and Completion Tasks</h4><h5 id="Language-Modeling"><a href="#Language-Modeling" class="headerlink" title="Language Modeling"></a>Language Modeling</h5><p>GPT-3仅仅使用Zero-shot Learning进行语言建模,就在PTB数据集上拿到了SOTA。</p>
+<h5 id="LAMBDA"><a href="#LAMBDA" class="headerlink" title="LAMBDA"></a>LAMBDA</h5><p>该数据集预测一段话最后一个字，用此用于测试长范围的语言模型性能。<br>该数据集的测试分析表明，随着模型参数量的增加，模型的Few-Shot性能会显著提升。</p>
+<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
+<li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn Tree Bank(PTB)</a></li>
+<li><a href="https://github.com/google-research-datasets/lambada">LAMBDA</a></li>
 </ul>
 </body></html>]]></content>
       <categories>
