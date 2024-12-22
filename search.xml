@@ -2521,6 +2521,7 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <li>Reversed words</li>
 </ul>
 <h5 id="SAT-Analogies"><a href="#SAT-Analogies" class="headerlink" title="SAT Analogies"></a>SAT Analogies</h5><h5 id="News-Article-Generation"><a href="#News-Article-Generation" class="headerlink" title="News Article Generation"></a>News Article Generation</h5><p>通过测试人类是否能区分文章是人写的还是大模型写的来评估大模型在这方面的能力。175B的GPT-3生成的文章参与测试的80个人判断准确率仅52%，意味着GPT-3生成的文章已经基本达到人类水平。</p>
+<h5 id="Correcting-English-Grammar"><a href="#Correcting-English-Grammar" class="headerlink" title="Correcting English Grammar"></a>Correcting English Grammar</h5><h4 id="Measuring-and-Preventing-Memorization-of-Benchmarks"><a href="#Measuring-and-Preventing-Memorization-of-Benchmarks" class="headerlink" title="Measuring and Preventing Memorization of Benchmarks"></a>Measuring and Preventing Memorization of Benchmarks</h4><p>由于训练模型的数据来自互联网，因此基准测试集中的测试数据很可能也包含在模型训练数据中。</p>
 <h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
