@@ -2513,7 +2513,15 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <li>ARC：3-9年级科学考试中的多选题</li>
 <li>OpenBookQA：阅读理解</li>
 </ul>
-<h4 id="Reading-Comprehension"><a href="#Reading-Comprehension" class="headerlink" title="Reading Comprehension"></a>Reading Comprehension</h4><h4 id="SuperGLUE"><a href="#SuperGLUE" class="headerlink" title="SuperGLUE"></a>SuperGLUE</h4><h4 id="Natural-Language-Inference"><a href="#Natural-Language-Inference" class="headerlink" title="Natural Language Inference"></a>Natural Language Inference</h4><h4 id="Synthetic-and-Qualitative-Tasks"><a href="#Synthetic-and-Qualitative-Tasks" class="headerlink" title="Synthetic and Qualitative Tasks"></a>Synthetic and Qualitative Tasks</h4><h5 id="Arithmetic"><a href="#Arithmetic" class="headerlink" title="Arithmetic"></a>Arithmetic</h5><h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<h4 id="Reading-Comprehension"><a href="#Reading-Comprehension" class="headerlink" title="Reading Comprehension"></a>Reading Comprehension</h4><h4 id="SuperGLUE"><a href="#SuperGLUE" class="headerlink" title="SuperGLUE"></a>SuperGLUE</h4><h4 id="Natural-Language-Inference"><a href="#Natural-Language-Inference" class="headerlink" title="Natural Language Inference"></a>Natural Language Inference</h4><h4 id="Synthetic-and-Qualitative-Tasks"><a href="#Synthetic-and-Qualitative-Tasks" class="headerlink" title="Synthetic and Qualitative Tasks"></a>Synthetic and Qualitative Tasks</h4><h5 id="Arithmetic"><a href="#Arithmetic" class="headerlink" title="Arithmetic"></a>Arithmetic</h5><h5 id="Word-Scrambling-and-Manipulation-Tasks"><a href="#Word-Scrambling-and-Manipulation-Tasks" class="headerlink" title="Word Scrambling and Manipulation Tasks"></a>Word Scrambling and Manipulation Tasks</h5><ul>
+<li>Cycle letters in word</li>
+<li>Anagrams of all but first and last character</li>
+<li>Anagrams of all but first and last two characters</li>
+<li>Random insertion in word</li>
+<li>Reversed words</li>
+</ul>
+<h5 id="SAT-Analogies"><a href="#SAT-Analogies" class="headerlink" title="SAT Analogies"></a>SAT Analogies</h5><h5 id="News-Article-Generation"><a href="#News-Article-Generation" class="headerlink" title="News Article Generation"></a>News Article Generation</h5><p>通过测试人类是否能区分文章是人写的还是大模型写的来评估大模型在这方面的能力。175B的GPT-3生成的文章参与测试的80个人判断准确率仅52%，意味着GPT-3生成的文章已经基本达到人类水平。</p>
+<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
 <li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn Tree Bank(PTB)</a></li>
@@ -2631,10 +2639,8 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <li><p><strong>统计字符对频率</strong>：</p>
 <figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">l</span> o: <span class="number">2</span>, o w: <span class="number">2</span>, w e: <span class="number">2</span>, e s: <span class="number">1</span>, s t: <span class="number">1</span>, n e: <span class="number">2</span>, e w: <span class="number">2</span>, w e: <span class="number">2</span></span><br></pre></td></tr></tbody></table></figure>
 </li>
-<li><p><strong>合并频率最高的对</strong>：</p>
-<ul>
-<li>假设 <code>o w</code> 频率最高，合并为 <code>ow</code>：<figure class="highlight excel"><table><tbody><tr><td class="code"><pre><span class="line">l ow</span><br><span class="line">l ow e s <span class="built_in">t</span></span><br><span class="line"><span class="built_in">n</span> e w</span><br><span class="line"><span class="built_in">n</span> e w e r</span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
+<li><p><strong>合并频率最高的对</strong>：<br>假设 <code>o w</code> 频率最高，合并为 <code>ow</code>：</p>
+  <figure class="highlight excel"><table><tbody><tr><td class="code"><pre><span class="line">l ow</span><br><span class="line">l ow e s <span class="built_in">t</span></span><br><span class="line"><span class="built_in">n</span> e w</span><br><span class="line"><span class="built_in">n</span> e w e r</span><br></pre></td></tr></tbody></table></figure>
 </li>
 <li><p><strong>重复以上步骤</strong>：</p>
 <ul>
