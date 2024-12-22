@@ -2522,7 +2522,8 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 </ul>
 <h5 id="SAT-Analogies"><a href="#SAT-Analogies" class="headerlink" title="SAT Analogies"></a>SAT Analogies</h5><h5 id="News-Article-Generation"><a href="#News-Article-Generation" class="headerlink" title="News Article Generation"></a>News Article Generation</h5><p>通过测试人类是否能区分文章是人写的还是大模型写的来评估大模型在这方面的能力。175B的GPT-3生成的文章参与测试的80个人判断准确率仅52%，意味着GPT-3生成的文章已经基本达到人类水平。</p>
 <h5 id="Correcting-English-Grammar"><a href="#Correcting-English-Grammar" class="headerlink" title="Correcting English Grammar"></a>Correcting English Grammar</h5><h4 id="Measuring-and-Preventing-Memorization-of-Benchmarks"><a href="#Measuring-and-Preventing-Memorization-of-Benchmarks" class="headerlink" title="Measuring and Preventing Memorization of Benchmarks"></a>Measuring and Preventing Memorization of Benchmarks</h4><p>由于训练模型的数据来自互联网，因此基准测试集中的测试数据很可能也包含在模型训练数据中。</p>
-<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
+<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><p>GPT-4是一个多模态大模型，可以同时处理文本和图像，并生成文本。<br>GPT-4是使用RLHF（Reinforcement Learning from Human Feedback）进行微调的。<br>GPT-4的贡献在于OpenAI开发了深度学习栈基础设置和最优化算法，让不同尺度的模型表现变得可以预测。基于这项技术，OpenAI可以以1/1000的算力训练和评估模型。</p>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
 <li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn Tree Bank(PTB)</a></li>
@@ -2790,6 +2791,95 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <li><strong>领域覆盖广</strong>：任务涉及多种语言理解能力，使模型需具备广泛的适应性。</li>
 </ul>
 <h4 id="模型挑战"><a href="#模型挑战" class="headerlink" title="模型挑战"></a><strong>模型挑战</strong></h4><p>虽然当前模型（如 T5、GPT-4 等）已经在部分任务上接近或超过人类水平，但在涉及常识推理、因果关系和细粒度语义分析的任务上，仍然存在改进空间。SuperGLUE 因此被视为推动 NLP 领域进步的重要基准之一。</p>
+<h3 id="MMLU基准测试集"><a href="#MMLU基准测试集" class="headerlink" title="MMLU基准测试集"></a>MMLU基准测试集</h3><p><strong>MMLU (Massive Multitask Language Understanding)</strong> 是一个用于评估语言模型多任务能力的基准测试集。它专门设计用于测试大语言模型（如 GPT 系列）的 <strong>多任务学习（multitask learning）</strong> 和 <strong>通用语言理解能力（general language understanding）</strong>。MMLU 基准测试集涵盖了多种不同类型的任务，从常见的分类、推理任务到更加专业的知识领域（如医学、法律等）的应用，能够全面地评估语言模型在各种场景下的表现。</p>
+<h4 id="MMLU-基准测试集的构成"><a href="#MMLU-基准测试集的构成" class="headerlink" title="MMLU 基准测试集的构成"></a><strong>MMLU 基准测试集的构成</strong></h4><p>MMLU 基准测试集包括多种类型的任务，以下是几个主要类别的任务和一些常见的子任务：</p>
+<ol>
+<li><p><strong>常识推理</strong>：</p>
+<ul>
+<li>测试语言模型在日常常识方面的理解。</li>
+<li>示例任务：回答关于世界常识的问题（如历史事件、人物、科学常识等）。</li>
+</ul>
+</li>
+<li><p><strong>数学与逻辑推理</strong>：</p>
+<ul>
+<li>包含算术、代数、几何等数学问题的解答。</li>
+<li>示例任务：解决数学运算问题（例如基础的加减乘除，甚至更复杂的几何和代数问题）。</li>
+</ul>
+</li>
+<li><p><strong>科学与技术理解</strong>：</p>
+<ul>
+<li>测试模型在物理、化学、生物学等科学领域的知识理解。</li>
+<li>示例任务：解答关于物理学原理、化学反应、生物学概念等问题。</li>
+</ul>
+</li>
+<li><p><strong>专业领域知识</strong>：</p>
+<ul>
+<li>涉及法律、医学、金融等专业领域的任务。</li>
+<li>示例任务：法律案件分析、医学症状诊断、财务报告分析等。</li>
+</ul>
+</li>
+<li><p><strong>语言学任务</strong>：</p>
+<ul>
+<li>涉及语法、语义分析和推理的任务。</li>
+<li>示例任务：句法分析、语义关系提取、情感分析等。</li>
+</ul>
+</li>
+<li><p><strong>阅读理解与推理</strong>：</p>
+<ul>
+<li>包括从文章或段落中提取信息并进行推理。</li>
+<li>示例任务：阅读理解（给定一段文章后回答相关问题）和推理任务（基于文章进行逻辑推理）。</li>
+</ul>
+</li>
+<li><p><strong>文化与历史</strong>：</p>
+<ul>
+<li>任务涉及对文化、历史、地理和人类社会的理解。</li>
+<li>示例任务：回答历史事件的具体细节或文化现象的解读。</li>
+</ul>
+</li>
+</ol>
+<h4 id="MMLU的主要特点"><a href="#MMLU的主要特点" class="headerlink" title="MMLU的主要特点"></a><strong>MMLU的主要特点</strong></h4><ul>
+<li><strong>多样性</strong>：MMLU 涵盖了从基础的语言理解任务到复杂的推理、专业知识领域的任务，涉及多个领域和知识层面。</li>
+<li><strong>难度范围广</strong>：包含了从容易到困难不等的任务，帮助测试模型在不同难度级别下的能力。</li>
+<li><strong>高质量问题</strong>：问题通常经过精心设计，涵盖了广泛的知识，确保测试的全面性和代表性。</li>
+<li><strong>标准化的评估</strong>：通过统一的任务和标准化的评分体系，可以比较不同语言模型在同一基准上的表现。</li>
+</ul>
+<h4 id="MMLU基准测试集的评价标准"><a href="#MMLU基准测试集的评价标准" class="headerlink" title="MMLU基准测试集的评价标准"></a><strong>MMLU基准测试集的评价标准</strong></h4><p>MMLU 基准测试的性能通常使用 <strong>准确率（Accuracy）</strong> 来衡量。对于每个任务，模型给出的答案会根据是否正确进行评分，最终通过加权平均计算出各任务的综合准确率。</p>
+<ul>
+<li><strong>任务的加权</strong>：MMLU 通常会为不同类型的任务设定不同的权重，以确保最终的评分能够准确反映模型的综合能力。</li>
+<li><strong>样本量</strong>：每个任务中的问题通常有多个样本，这些样本被设计为具有挑战性的，确保评估结果具有代表性。</li>
+</ul>
+<h4 id="MMLU的应用"><a href="#MMLU的应用" class="headerlink" title="MMLU的应用"></a><strong>MMLU的应用</strong></h4><p>MMLU 的设计使其成为测试大型语言模型多任务能力和理解深度的标准工具。它的应用主要体现在以下几个方面：</p>
+<ol>
+<li><strong>语言模型的综合能力评估</strong>：通过全面评估模型在多种任务中的表现，MMLU 可以帮助研究人员和工程师了解模型的通用语言理解能力。</li>
+<li><strong>模型之间的比较</strong>：MMLU 提供了一个统一的测试标准，可以用来比较不同模型的性能，尤其是不同规模、架构的语言模型之间。</li>
+<li><strong>多任务学习研究</strong>：MMLU 对于探索和优化多任务学习有重要意义。它帮助研究人员测试在多个任务上训练模型时的效果，评估模型如何从多个任务中进行泛化。</li>
+</ol>
+<h4 id="MMLU基准测试的例子"><a href="#MMLU基准测试的例子" class="headerlink" title="MMLU基准测试的例子"></a><strong>MMLU基准测试的例子</strong></h4><h5 id="例1：常识推理任务"><a href="#例1：常识推理任务" class="headerlink" title="例1：常识推理任务"></a><strong>例1：常识推理任务</strong></h5><p>任务：哪个国家位于北美洲？</p>
+<ul>
+<li>选项：A) 加拿大 B) 德国 C) 巴西 D) 中国</li>
+<li>正确答案：A) 加拿大</li>
+</ul>
+<h5 id="例2：数学任务"><a href="#例2：数学任务" class="headerlink" title="例2：数学任务"></a><strong>例2：数学任务</strong></h5><p>任务：5x + 3 = 23, 求x的值。</p>
+<ul>
+<li>选项：A) 3 B) 4 C) 5 D) 2</li>
+<li>正确答案：B) 4</li>
+</ul>
+<h5 id="例3：法律任务"><a href="#例3：法律任务" class="headerlink" title="例3：法律任务"></a><strong>例3：法律任务</strong></h5><p>任务：根据美国宪法，谁是最高法院的法官？</p>
+<ul>
+<li>选项：A) 总统 B) 最高法院首席法官 C) 美国国会 D) 各州州长</li>
+<li>正确答案：B) 最高法院首席法官</li>
+</ul>
+<h5 id="例4：科学任务"><a href="#例4：科学任务" class="headerlink" title="例4：科学任务"></a><strong>例4：科学任务</strong></h5><p>任务：光合作用是如何发生的？</p>
+<ul>
+<li>选项：A) 利用太阳光将水和二氧化碳转化为氧气和葡萄糖 B) 通过细胞呼吸 C) 通过蒸发 D) 通过化学反应</li>
+<li>正确答案：A) 利用太阳光将水和二氧化碳转化为氧气和葡萄糖</li>
+</ul>
+<h4 id="MMLU的挑战和改进"><a href="#MMLU的挑战和改进" class="headerlink" title="MMLU的挑战和改进"></a><strong>MMLU的挑战和改进</strong></h4><ol>
+<li><strong>任务设计的复杂性</strong>：随着语言模型变得越来越强大，测试集的任务设计也需要不断提升，以确保能够衡量模型的深度理解和推理能力。</li>
+<li><strong>多样化的测试</strong>：MMLU 还可以进一步扩展，涵盖更多样化的领域和任务，尤其是跨模态任务（如图像、视频等）的结合。</li>
+<li><strong>不平衡性</strong>：不同任务的难度不均衡，可能导致一些模型在某些任务上表现突出，而在另一些任务上表现较差。</li>
+</ol>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a><strong>总结</strong></h4><p>MMLU（Massive Multitask Language Understanding）是一个综合性强、覆盖面广的基准测试集，旨在评估语言模型在各种任务上的表现。它通过涉及常识推理、数学、科学、法律等多种任务，全面衡量模型的多任务学习能力，成为衡量大规模语言模型通用能力的重要工具。</p>
 </body></html>]]></content>
       <categories>
         <category>Notes</category>
