@@ -2609,12 +2609,43 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
 <h5 id="Correcting-English-Grammar"><a href="#Correcting-English-Grammar" class="headerlink" title="Correcting English Grammar"></a>Correcting English Grammar</h5><h4 id="Measuring-and-Preventing-Memorization-of-Benchmarks"><a href="#Measuring-and-Preventing-Memorization-of-Benchmarks" class="headerlink" title="Measuring and Preventing Memorization of Benchmarks"></a>Measuring and Preventing Memorization of Benchmarks</h4><p>由于训练模型的数据来自互联网，因此基准测试集中的测试数据很可能也包含在模型训练数据中。</p>
 <h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><p>GPT-4是一个多模态大模型，可以同时处理文本和图像，并生成文本。<br>GPT-4是使用RLHF（Reinforcement Learning from Human Feedback）进行微调的。<br>GPT-4的贡献在于OpenAI开发了深度学习栈基础设置和最优化算法，让不同尺度的模型表现变得可以预测。基于这项技术，OpenAI可以以1/1000的算力训练和评估模型。<br>GPT-4训练的数据集来自2021年9月之前的数据。<br>Rule based reward models(RBRM)是GPT-4模型Zero-shot的分类器。这个模型在RLHF微调阶段提供额外的信号，来校准GPT-4的输出行为。<br>RBRM的输入包含三部分：1. Prompt；2. 模型的输出；3. 人类定义的评估规则集合。</p>
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
-<li><a href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
-<li><a href="https://github.com/google-gemini/webtext">WebText</a></li>
-<li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn Tree Bank(PTB)</a></li>
-<li><a href="https://github.com/google-research-datasets/lambada">LAMBDA</a></li>
-<li><a href="https://github.com/hendrycks/naturalamp">HellaSwag</a></li>
-<li><a href="https://einstein.ai/research/the-wikitext-long-term-dependency-language-modeling-dataset">WikiText-103</a></li>
+<li><a href="https://commoncrawl.org/get-started">Common Crawl</a><ul>
+<li>Over 250 billion pages spanning 17 years.</li>
+<li>Free and open corpus since 2007.</li>
+<li>Cited in over 10,000 research papers.</li>
+<li>3–5 billion new pages added each month.</li>
+</ul>
+</li>
+<li><a href="https://paperswithcode.com/dataset/webtext">WebText</a><ul>
+<li>WebText is an internal OpenAI corpus created by scraping web pages with emphasis on document quality. The authors scraped all outbound links from Reddit which received at least 3 karma.</li>
+<li>WebText contains the text subset of these 45 million links. It consists of over 8 million documents for a total of 40 GB of text.</li>
+<li>All Wikipedia documents were removed from WebText since it is a common data source for other datasets.</li>
+</ul>
+</li>
+<li><a href="https://skylion007.github.io/OpenWebTextCorpus/">OpenWebText</a><ul>
+<li>The release of a beta version of Open WebText – an open source effort to reproduce OpenAI’s WebText dataset.</li>
+<li><a href="https://huggingface.co/datasets/Skylion007/openwebtext">Download</a></li>
+</ul>
+</li>
+<li><a href="https://catalog.ldc.upenn.edu/LDC99T42">Penn TreeBank(PTB)</a><ul>
+<li>The Penn Treebank (PTB) project selected 2,499 stories from a three year Wall Street Journal (WSJ) collection of 98,732 stories for syntactic annotation. These 2,499 stories have been distributed in both Treebank-2 (LDC95T7) and Treebank-3 (LDC99T42) releases of PTB. Treebank-2 includes the raw text for each story. Three “map” files are available in a compressed file (pennTB_tipster_wsj_map.tar.gz) as an additional download for users who have licensed Treebank-2 and provide the relation between the 2,499 PTB filenames and the corresponding WSJ DOCNO strings in TIPSTER.</li>
+</ul>
+</li>
+<li><a href="https://zenodo.org/records/2630551#.YFJVaWT7S_w">LAMBDA</a><ul>
+<li>We introduce LAMBADA, a dataset to evaluate the capabilities of computational models for text understanding by means of a word prediction task. LAMBADA is a collection of narrative passages sharing the characteristic that human subjects are able to guess their last word if they are exposed to the whole passage, but not if they only see the last sentence preceding the target word. To succeed on LAMBADA, computational models cannot simply rely on local context, but must be able to keep track of information in the broader discourse. We show that LAMBADA exemplifies a wide range of linguistic phenomena, and that none of several state-of-the-art language models reaches accuracy above 1% on this novel benchmark. We thus propose LAMBADA as a challenging test set, meant to encourage the development of new models capable of genuine understanding of broad context in natural language text.</li>
+</ul>
+</li>
+<li><a href="https://rowanzellers.com/hellaswag/">HellaSwag</a><ul>
+<li>Pick the best ending to the context.</li>
+<li>We achieve this via Adversarial Filtering (AF), a data collection paradigm wherein a series of discriminators iteratively select an adversarial set of machine-generated wrong answers.</li>
+</ul>
+</li>
+<li><a href="https://huggingface.co/datasets/Salesforce/wikitext">WikiText-103</a><ul>
+<li>The WikiText language modeling dataset is a collection of over 100 million tokens extracted from the set of verified Good and Featured articles on Wikipedia. The dataset is available under the Creative Commons Attribution-ShareAlike License.</li>
+<li>Compared to the preprocessed version of Penn Treebank (PTB), WikiText-2 is over 2 times larger and WikiText-103 is over 110 times larger.</li>
+<li>The WikiText dataset also features a far larger vocabulary and retains the original case, punctuation and numbers - all of which are removed in PTB. As it is composed of full articles, the dataset is well suited for models that can take advantage of long term dependencies.</li>
+</ul>
+</li>
 <li><a href="https://www.gutenberg.org/">Books1</a></li>
 <li><a href="https://www.gutenberg.org/">Books2</a></li>
 <li><a href="https://github.com/google-research-datasets/story-cloze">StoryCloze</a></li>
