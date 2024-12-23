@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.zhaoyongsheng.com/"/>
-  <updated>2024-12-21T08:33:09.000Z</updated>
+  <updated>2024-12-23T15:38:41.000Z</updated>
   <id>http://blog.zhaoyongsheng.com/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Architecture Of Transformer And PyTorch Implementation</title>
+    <link href="http://blog.zhaoyongsheng.com/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/"/>
+    <id>http://blog.zhaoyongsheng.com/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/</id>
+    <published>2024-12-23T15:38:41.000Z</published>
+    <updated>2024-12-23T15:38:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<html><head></head><body><p>本文详细介绍了Transformer的模型架构，以及如何使用PyTorch实现Transformer模型。</p><span id="more"></span><h3 id="Layer-Normalization"><a href="#Layer-Normalization" class="headerlink" title="Layer Normalization"></a><strong>Layer Normalization</strong></h3><p><strong>Layer Normalization</strong>（层归一化）是一种常用于深度学习模型的正则化技术，特别是在序列建模和自然语言处理任务中。它旨在通过标准化每一层的激活值来提高模型的训练稳定性和收敛速度。</p><h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a><strong>基本原理</strong></h4><p>在神经网络中，每一层的激活值可能因输入数据的变化而幅度不一，这种变化被称为<strong>内部分布漂移（Internal Covariate Shift）</strong>。Layer Normalization 通过对每一层的神经元输出进行标准化，减少这种漂移的影响。</p><p>Layer Normalization 的标准化是针对<strong>层的维度</strong>（即神经元的集合）进行的，而不是像 Batch Normalization 针对<strong>样本的维度</strong>。具体而言，对于每个输入样本，Layer Normalization 会对其当前层的激活值进行归一化处理。</p><hr><h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a><strong>数学表达</strong></h4><p>假设某层的输入是一个向量 $\mathbf{h} = [h_1, h_2, …, h_d]$，其中 $d$ 是该层的神经元数。Layer Normalization 的计算过程如下：</p><ol><li><p><strong>计算均值和方差</strong>：<br>$$<br>\mu = \frac{1}{d} \sum_{i=1}^d h_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (h_i - \mu)^2<br>$$</p></li><li><p><strong>标准化</strong>：<br>$$<br>\hat{h}_i = \frac{h_i - \mu}{\sqrt{\sigma^2 + \epsilon}}<br>$$<br>其中，$\epsilon$ 是一个小常数，用于防止分母为零。</p></li><li><p><strong>添加可学习参数</strong>（仿射变换）：<br>$$<br>h_i^{\text{norm}} = \gamma \hat{h}_i + \beta<br>$$<br>其中，$\gamma$ 和 $\beta$ 是可学习参数，用于恢复网络的表达能力。</p></li></ol><hr><h4 id="与-Batch-Normalization-的对比"><a href="#与-Batch-Normalization-的对比" class="headerlink" title="与 Batch Normalization 的对比"></a><strong>与 Batch Normalization 的对比</strong></h4><table><thead><tr><th>特性</th><th>Layer Normalization</th><th>Batch Normalization</th></tr></thead><tbody><tr><td><strong>归一化维度</strong></td><td>每层神经元（样本内部）</td><td>样本维度（批次内的样本间）</td></tr><tr><td><strong>依赖批大小</strong></td><td>不依赖</td><td>依赖批大小</td></tr><tr><td><strong>适用场景</strong></td><td>RNN、Transformer 等序列模型</td><td>CNN 等需要大批量训练的模型</td></tr><tr><td><strong>计算开销</strong></td><td>较小</td><td>可能较大</td></tr></tbody></table><hr><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol><li><strong>适用于小批量或单样本训练</strong>：因为不依赖批次统计信息，Layer Normalization 能很好地适用于小批量甚至单样本训练。</li><li><strong>改善收敛性</strong>：通过减少激活值的变化，模型更容易收敛。</li><li><strong>在序列任务中的优势</strong>：特别适合 Recurrent Neural Network（RNN）和 Transformer，因为它不会破坏时间步的依赖关系。</li></ol><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a><strong>应用场景</strong></h4><ul><li>Transformer 中广泛使用（例如 BERT 和 GPT 模型）。</li><li>在序列建模（如语言模型、时间序列预测）和小批量训练任务中效果显著。</li></ul><p>通过 Layer Normalization，深度学习模型可以更快地学习、避免梯度爆炸或消失，并增强泛化能力。</p></body></html>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文详细介绍了Transformer的模型架构，以及如何使用PyTorch实现Transformer模型。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/"/>
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/"/>
+    
+      <category term="Pytorch" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/"/>
+    
+      <category term="Transformer" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/Transformer/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/tags/Deep-Learning/"/>
+    
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
+    
+      <category term="Pytorch" scheme="http://blog.zhaoyongsheng.com/tags/Pytorch/"/>
+    
+      <category term="Transformer" scheme="http://blog.zhaoyongsheng.com/tags/Transformer/"/>
+    
+  </entry>
   
   <entry>
     <title>Roadmap To Learn Large Language Model Of GPT Series</title>
@@ -548,34 +582,6 @@
     
     
       <category term="Django" scheme="http://blog.zhaoyongsheng.com/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Setup Source Of pip On MacBook</title>
-    <link href="http://blog.zhaoyongsheng.com/2023/05/07/Setup-Source-Of-pip-On-MacBook/"/>
-    <id>http://blog.zhaoyongsheng.com/2023/05/07/Setup-Source-Of-pip-On-MacBook/</id>
-    <published>2023-05-07T14:23:15.000Z</published>
-    <updated>2023-05-07T14:23:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<html><head></head><body><p>The default index url of <strong>pip</strong> is <a href="https://pypi.org/simple">https://pypi.org/simple</a>, which is slow for Chinese users. In this article, I will show you how to configure the index url to sources in China globally.</p><span id="more"></span><h3 id="Sources-In-China"><a href="#Sources-In-China" class="headerlink" title="Sources In China"></a>Sources In China</h3><p>There are several sources managed by organized by institutions in China.</p><ul><li>清华：&nbsp;<a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a></li><li>阿里云：&nbsp;<a href="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/</a></li><li>中国科技大学 &nbsp;<a href="https://pypi.mirrors.ustc.edu.cn/simple/">https://pypi.mirrors.ustc.edu.cn/simple/</a></li><li>华中理工大学：&nbsp;<a href="http://pypi.hustunique.com/">http://pypi.hustunique.com/</a></li><li>山东理工大学：&nbsp;<a href="http://pypi.sdutlinux.org/">http://pypi.sdutlinux.org/</a></li><li>豆瓣：&nbsp;<a href="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/</a><figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">### Use Temporarily</span><br></pre></td></tr></tbody></table></figure>pip install package -i <a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a><figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">### Configuration</span><br><span class="line">#### Create Configure File</span><br></pre></td></tr></tbody></table></figure>cd<br>mkdir .pip<br>cd .pip<br>touch pip.conf<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#### Configure</span><br></pre></td></tr></tbody></table></figure>vi pip.conf<br>[global]<br>index-url = <a href="https://pypi.tuna.tsinghua.edu.cn/simple">https://pypi.tuna.tsinghua.edu.cn/simple</a><br>[install]<br>trusted-host = <a href="https://pypi.tuna.tsinghua.edu.cn/">https://pypi.tuna.tsinghua.edu.cn/</a></li></ul><p>```</p></body></html>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;The default index url of &lt;strong&gt;pip&lt;/strong&gt; is &lt;a href=&quot;https://pypi.org/simple&quot;&gt;https://pypi.org/simple&lt;/a&gt;, which is slow for Chinese users. In this article, I will show you how to configure the index url to sources in China globally.&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/"/>
-    
-      <category term="Python" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Python/"/>
-    
-      <category term="pip" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/pip/"/>
-    
-    
-      <category term="Python" scheme="http://blog.zhaoyongsheng.com/tags/Python/"/>
-    
-      <category term="pip" scheme="http://blog.zhaoyongsheng.com/tags/pip/"/>
     
   </entry>
   
