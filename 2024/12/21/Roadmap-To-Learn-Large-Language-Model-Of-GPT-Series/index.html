@@ -313,7 +313,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>9.9k</span>
+              <span>10k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -406,7 +406,7 @@
 </ul>
 <h5 id="SAT-Analogies"><a href="#SAT-Analogies" class="headerlink" title="SAT Analogies"></a>SAT Analogies</h5><h5 id="News-Article-Generation"><a href="#News-Article-Generation" class="headerlink" title="News Article Generation"></a>News Article Generation</h5><p>通过测试人类是否能区分文章是人写的还是大模型写的来评估大模型在这方面的能力。175B的GPT-3生成的文章参与测试的80个人判断准确率仅52%，意味着GPT-3生成的文章已经基本达到人类水平。</p>
 <h5 id="Correcting-English-Grammar"><a href="#Correcting-English-Grammar" class="headerlink" title="Correcting English Grammar"></a>Correcting English Grammar</h5><h4 id="Measuring-and-Preventing-Memorization-of-Benchmarks"><a href="#Measuring-and-Preventing-Memorization-of-Benchmarks" class="headerlink" title="Measuring and Preventing Memorization of Benchmarks"></a>Measuring and Preventing Memorization of Benchmarks</h4><p>由于训练模型的数据来自互联网，因此基准测试集中的测试数据很可能也包含在模型训练数据中。</p>
-<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><p>GPT-4是一个多模态大模型，可以同时处理文本和图像，并生成文本。<br>GPT-4是使用RLHF（Reinforcement Learning from Human Feedback）进行微调的。<br>GPT-4的贡献在于OpenAI开发了深度学习栈基础设置和最优化算法，让不同尺度的模型表现变得可以预测。基于这项技术，OpenAI可以以1/1000的算力训练和评估模型。</p>
+<h2 id="GPT-4-GPT-4-Technical-Report"><a href="#GPT-4-GPT-4-Technical-Report" class="headerlink" title="GPT-4: GPT-4 Technical Report"></a>GPT-4: GPT-4 Technical Report</h2><p>GPT-4是一个多模态大模型，可以同时处理文本和图像，并生成文本。<br>GPT-4是使用RLHF（Reinforcement Learning from Human Feedback）进行微调的。<br>GPT-4的贡献在于OpenAI开发了深度学习栈基础设置和最优化算法，让不同尺度的模型表现变得可以预测。基于这项技术，OpenAI可以以1/1000的算力训练和评估模型。<br>GPT-4训练的数据集来自2021年9月之前的数据。<br>Rule based reward models(RBRM)是GPT-4模型Zero-shot的分类器。这个模型在RLHF微调阶段提供额外的信号，来校准GPT-4的输出行为。<br>RBRM的输入包含三部分：1. Prompt；2. 模型的输出；3. 人类定义的评估规则集合。</p>
 <h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://commoncrawl.org/the-data/get-started/">Common Crawl</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/google-gemini/webtext">WebText</a></li>
@@ -437,6 +437,7 @@
 <li><a target="_blank" rel="noopener" href="https://huggingface.co/datasets/webarchive/resolve/main/multiRC.jsonl">MultiRC</a></li>
 <li><a target="_blank" rel="noopener" href="https://huggingface.co/datasets/webarchive/resolve/main/rte.jsonl">RTE</a></li>
 <li><a target="_blank" rel="noopener" href="https://huggingface.co/datasets/webarchive/resolve/main/anli.jsonl">ANLI</a></li>
+<li><a target="_blank" rel="noopener" href="https://huggingface.co/datasets/webarchive/resolve/main/triviaqa.jsonl">TruthfulQA</a></li>
 </ul>
 <h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><h3 id="BLEU"><a href="#BLEU" class="headerlink" title="BLEU"></a>BLEU</h3><p>BLEU（Bilingual Evaluation Understudy）是自然语言处理 (NLP) 中一种常用的评估指标，主要用于衡量机器翻译系统生成文本的质量，由IBM的研究人员Kenney和Manning在2002年提出。BLEU通过计算生成文本与参考文本之间的相似度来评估翻译的准确性和流畅性。，来评估机器翻译的质量。</p>
 <p>以下是 BLEU 的核心思想及其计算方式：</p>
