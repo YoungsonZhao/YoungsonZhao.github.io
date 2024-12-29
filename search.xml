@@ -273,37 +273,6 @@ Second, if the current version of Hexo is lower than 4.2.1 then upgrade Hexo usi
       </tags>
   </entry>
   <entry>
-    <title>PCL Tutorials - From Mathematics to Code Snippets</title>
-    <url>/2019/12/10/PCL-Tutorials/</url>
-    <content><![CDATA[<html><head></head><body><p>The <a href="http://www.pointclouds.org/">Point Cloud Library</a> (<a href="http://www.pointclouds.org/">PCL</a>) is a large scale, open project for point cloud processing. The PCL framework contains numerous state-of-the-art algorithms including filtering, feature estimation, surface reconstruction, registration, model fitting and segmentation. PCL is cross-platform, and has been successfully compiled and deployed on Linux, MacOS, Windows, and Android/iOS. To simplify development, PCL is split into a series of smaller code libraries, that can be compiled separately. This modularity is important for distributing PCL on platforms with reduced computational or size constraints. In this article, I will provide a series of tutorials of how to use a variety of PCL modules to process point cloud data, which could help you to quickly build, verify, and deploy new 3D perception algorithms. </p>
-<span id="more"></span>
-<h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><h3 id="Load-PCD-Files"><a href="#Load-PCD-Files" class="headerlink" title="Load PCD Files"></a>Load PCD Files</h3><h3 id="Save-PCD-Files"><a href="#Save-PCD-Files" class="headerlink" title="Save PCD Files"></a>Save PCD Files</h3><h2 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h2><p>There are multiple visualization tools in PCL, of which <a href="http://docs.pointclouds.org/trunk/classpcl_1_1visualization_1_1_p_c_l_visualizer.html">PCLVisualizer</a> is a powerful one. It is developed based on VTK and it provides many useful customization interfaces, which is the main reason I prefer to use it.</p>
-<h3 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h3><figure class="highlight zephir"><table><tbody><tr><td class="code"><pre><span class="line">#include &lt;pcl/io/pcd_io.h&gt;</span><br><span class="line">#include &lt;pcl/point_types.h&gt;</span><br><span class="line">#include &lt;pcl/visualization/pcl_visualizer.h&gt;</span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span><br><span class="line">{</span><br><span class="line">    std::string file_path(<span class="string">"../data/demo.pcd"</span>);</span><br><span class="line"></span><br><span class="line">    pcl::PointCloud&lt;pcl::PointXYZ&gt;::Ptr cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZ&gt;);</span><br><span class="line">    <span class="keyword">if</span>(pcl::io::loadPCDFile&lt;pcl::PointXYZ&gt;(file_path, *cloud) == <span class="number">-1</span>)</span><br><span class="line">    {</span><br><span class="line">        std::cout &lt;&lt; <span class="string">"Could not load the PCD file: "</span> &lt;&lt; file_path &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    boost::shared_ptr&lt;pcl::visualization::PCLVisualizer&gt; viewer(<span class="keyword">new</span> pcl::visualization::PCLVisualizer(<span class="string">"PCD Viewer"</span>));</span><br><span class="line">    viewer-&gt;setBackgroundColor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    viewer-&gt;addCoordinateSystem(<span class="number">1.0</span>);</span><br><span class="line">    viewer-&gt;initCameraParameters();</span><br><span class="line">    viewer-&gt;addPointCloud&lt;pcl::PointXYZ&gt;(cloud, file_path);</span><br><span class="line">    viewer-&gt;setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, <span class="number">2</span>, file_path);</span><br><span class="line">    viewer-&gt;setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, <span class="number">1.0</span>, file_path);</span><br><span class="line">    viewer-&gt;spin();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Customization"><a href="#Customization" class="headerlink" title="Customization"></a>Customization</h3><h4 id="Add-amp-Remove-PointCloud"><a href="#Add-amp-Remove-PointCloud" class="headerlink" title="Add &amp; Remove PointCloud"></a>Add &amp; Remove PointCloud</h4><figure class="highlight xl"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">viewer</span>-&gt;</span>addPointCloud&lt;pcl::PointXYZ&gt;(cloud, file_path);</span><br><span class="line"><span class="function"><span class="title">viewer</span>-&gt;</span>removePointCloud(file_path)</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="Add-Coordinate"><a href="#Add-Coordinate" class="headerlink" title="Add Coordinate"></a>Add Coordinate</h4><figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">viewer</span>-&gt;addCoordinateSystem(<span class="number">1</span>.<span class="number">0</span>);</span><br></pre></td></tr></tbody></table></figure>
-<p>Note that the color of the added coordinate system is red, green, and blue. Red axis represents x direction. Green axis represents y direction. And Blue axis represents z direction.</p>
-<h4 id="Set-Point-Size"><a href="#Set-Point-Size" class="headerlink" title="Set Point Size"></a>Set Point Size</h4><figure class="highlight reasonml"><table><tbody><tr><td class="code"><pre><span class="line">viewer-&gt;set<span class="constructor">PointCloudRenderingProperties(<span class="params">pcl</span>::<span class="params">visualization</span>::PCL_VISUALIZER_POINT_SIZE, 2, <span class="params">file_path</span>)</span>;</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="Set-Opacity"><a href="#Set-Opacity" class="headerlink" title="Set Opacity"></a>Set Opacity</h4><figure class="highlight reasonml"><table><tbody><tr><td class="code"><pre><span class="line">viewer-&gt;set<span class="constructor">PointCloudRenderingProperties(<span class="params">pcl</span>::<span class="params">visualization</span>::PCL_VISUALIZER_OPACITY, 1.0, <span class="params">file_path</span>)</span>;</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="Set-Point-Color"><a href="#Set-Point-Color" class="headerlink" title="Set Point Color"></a>Set Point Color</h4><figure class="highlight rust"><table><tbody><tr><td class="code"><pre><span class="line">pcl::visualization::PointCloudColorHandlerCustom&lt;pcl::PointXYZ&gt; <span class="title function_ invoke__">x_color</span>(cloud_x, <span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">viewer_x<span class="punctuation">-&gt;</span>addPointCloud&lt;pcl::PointXYZ&gt;(cloud_x, x_color, <span class="string">"cloud_x"</span>);</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Mouse-Event"><a href="#Mouse-Event" class="headerlink" title="Mouse Event"></a>Mouse Event</h3><h3 id="Keyboard-Event"><a href="#Keyboard-Event" class="headerlink" title="Keyboard Event"></a>Keyboard Event</h3><h2 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h2><h3 id="PassThrough"><a href="#PassThrough" class="headerlink" title="PassThrough"></a>PassThrough</h3><p><a href="http://docs.pointclouds.org/1.8.0/classpcl_1_1_pass_through.html#details">PassThrough</a> is a simple but useful filter that select points in a point cloud based on the limit intervals on one dimensional axis. It iterates through the entire input point cloud, automatically filtering non-finite points and the points outside the interval specified by <strong>setFilterLimits()</strong>, which applies only to the field specified by <strong>setFilterFieldName()</strong>.</p>
-<figure class="highlight lasso"><table><tbody><tr><td class="code"><pre><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud_x (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud_xy (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud_xyz (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line"><span class="comment">// code to load pcd</span></span><br><span class="line"></span><br><span class="line">pcl<span class="type">::PassThrough</span>&lt;pcl<span class="type">::PointXYZ</span>&gt; pass;</span><br><span class="line"><span class="comment">// select points in x direction</span></span><br><span class="line">pass.setInputCloud (cloud);</span><br><span class="line">pass.setFilterFieldName(<span class="string">"x"</span>);</span><br><span class="line">pass.setFilterLimits(<span class="number">-1.0</span>, <span class="number">1.0</span>);</span><br><span class="line">pass.filter (*cloud_x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// select points in y direction</span></span><br><span class="line">pass.setInputCloud(cloud_x);</span><br><span class="line">pass.setFilterFieldName(<span class="string">"y"</span>);</span><br><span class="line">pass.setFilterLimits(<span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">pass.filter (*cloud_xy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// select points in z direction</span></span><br><span class="line">pass.setInputCloud(cloud_xy);</span><br><span class="line">pass.setFilterFieldName(<span class="string">"z"</span>);</span><br><span class="line">pass.setFilterLimits(<span class="number">-1.5</span>, <span class="number">-0.5</span>);</span><br><span class="line">pass.filter (*cloud_xyz);</span><br></pre></td></tr></tbody></table></figure>
-
-
-
-<h2 id="Segmentation"><a href="#Segmentation" class="headerlink" title="Segmentation"></a>Segmentation</h2></body></html>]]></content>
-      <categories>
-        <category>Tutorials</category>
-        <category>Point Cloud Library</category>
-        <category>Perception</category>
-        <category>3D</category>
-      </categories>
-      <tags>
-        <tag>Point Cloud Library</tag>
-        <tag>Tutorials</tag>
-        <tag>PCL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Ubuntu 18.04 Installation and Development Environment Setups</title>
     <url>/2019/12/07/Ubuntu-19-04-Installation-and-Development-Environment-Setups/</url>
     <content><![CDATA[<html><head></head><body><p>In this article, I will show the detailed installation and configuration of Ubuntu 18.04 step by step using command lines. The development environment contains OpenCV, PCL, CUDA, Tensorflow, and so on, which is suitable for computer vision and deep learning scientific researchers and engineers.</p>
@@ -485,9 +454,40 @@ Test is GPU available<figure class="highlight vim"><table><tbody><tr><td class="
         <category>C++</category>
       </categories>
       <tags>
-        <tag>Tutorials</tag>
         <tag>C++</tag>
+        <tag>Tutorials</tag>
         <tag>Debug</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PCL Tutorials - From Mathematics to Code Snippets</title>
+    <url>/2019/12/10/PCL-Tutorials/</url>
+    <content><![CDATA[<html><head></head><body><p>The <a href="http://www.pointclouds.org/">Point Cloud Library</a> (<a href="http://www.pointclouds.org/">PCL</a>) is a large scale, open project for point cloud processing. The PCL framework contains numerous state-of-the-art algorithms including filtering, feature estimation, surface reconstruction, registration, model fitting and segmentation. PCL is cross-platform, and has been successfully compiled and deployed on Linux, MacOS, Windows, and Android/iOS. To simplify development, PCL is split into a series of smaller code libraries, that can be compiled separately. This modularity is important for distributing PCL on platforms with reduced computational or size constraints. In this article, I will provide a series of tutorials of how to use a variety of PCL modules to process point cloud data, which could help you to quickly build, verify, and deploy new 3D perception algorithms. </p>
+<span id="more"></span>
+<h2 id="IO"><a href="#IO" class="headerlink" title="IO"></a>IO</h2><h3 id="Load-PCD-Files"><a href="#Load-PCD-Files" class="headerlink" title="Load PCD Files"></a>Load PCD Files</h3><h3 id="Save-PCD-Files"><a href="#Save-PCD-Files" class="headerlink" title="Save PCD Files"></a>Save PCD Files</h3><h2 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h2><p>There are multiple visualization tools in PCL, of which <a href="http://docs.pointclouds.org/trunk/classpcl_1_1visualization_1_1_p_c_l_visualizer.html">PCLVisualizer</a> is a powerful one. It is developed based on VTK and it provides many useful customization interfaces, which is the main reason I prefer to use it.</p>
+<h3 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h3><figure class="highlight zephir"><table><tbody><tr><td class="code"><pre><span class="line">#include &lt;pcl/io/pcd_io.h&gt;</span><br><span class="line">#include &lt;pcl/point_types.h&gt;</span><br><span class="line">#include &lt;pcl/visualization/pcl_visualizer.h&gt;</span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span><br><span class="line">{</span><br><span class="line">    std::string file_path(<span class="string">"../data/demo.pcd"</span>);</span><br><span class="line"></span><br><span class="line">    pcl::PointCloud&lt;pcl::PointXYZ&gt;::Ptr cloud(<span class="keyword">new</span> pcl::PointCloud&lt;pcl::PointXYZ&gt;);</span><br><span class="line">    <span class="keyword">if</span>(pcl::io::loadPCDFile&lt;pcl::PointXYZ&gt;(file_path, *cloud) == <span class="number">-1</span>)</span><br><span class="line">    {</span><br><span class="line">        std::cout &lt;&lt; <span class="string">"Could not load the PCD file: "</span> &lt;&lt; file_path &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line">    boost::shared_ptr&lt;pcl::visualization::PCLVisualizer&gt; viewer(<span class="keyword">new</span> pcl::visualization::PCLVisualizer(<span class="string">"PCD Viewer"</span>));</span><br><span class="line">    viewer-&gt;setBackgroundColor(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    viewer-&gt;addCoordinateSystem(<span class="number">1.0</span>);</span><br><span class="line">    viewer-&gt;initCameraParameters();</span><br><span class="line">    viewer-&gt;addPointCloud&lt;pcl::PointXYZ&gt;(cloud, file_path);</span><br><span class="line">    viewer-&gt;setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_POINT_SIZE, <span class="number">2</span>, file_path);</span><br><span class="line">    viewer-&gt;setPointCloudRenderingProperties(pcl::visualization::PCL_VISUALIZER_OPACITY, <span class="number">1.0</span>, file_path);</span><br><span class="line">    viewer-&gt;spin();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Customization"><a href="#Customization" class="headerlink" title="Customization"></a>Customization</h3><h4 id="Add-amp-Remove-PointCloud"><a href="#Add-amp-Remove-PointCloud" class="headerlink" title="Add &amp; Remove PointCloud"></a>Add &amp; Remove PointCloud</h4><figure class="highlight xl"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">viewer</span>-&gt;</span>addPointCloud&lt;pcl::PointXYZ&gt;(cloud, file_path);</span><br><span class="line"><span class="function"><span class="title">viewer</span>-&gt;</span>removePointCloud(file_path)</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Add-Coordinate"><a href="#Add-Coordinate" class="headerlink" title="Add Coordinate"></a>Add Coordinate</h4><figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">viewer</span>-&gt;addCoordinateSystem(<span class="number">1</span>.<span class="number">0</span>);</span><br></pre></td></tr></tbody></table></figure>
+<p>Note that the color of the added coordinate system is red, green, and blue. Red axis represents x direction. Green axis represents y direction. And Blue axis represents z direction.</p>
+<h4 id="Set-Point-Size"><a href="#Set-Point-Size" class="headerlink" title="Set Point Size"></a>Set Point Size</h4><figure class="highlight reasonml"><table><tbody><tr><td class="code"><pre><span class="line">viewer-&gt;set<span class="constructor">PointCloudRenderingProperties(<span class="params">pcl</span>::<span class="params">visualization</span>::PCL_VISUALIZER_POINT_SIZE, 2, <span class="params">file_path</span>)</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Set-Opacity"><a href="#Set-Opacity" class="headerlink" title="Set Opacity"></a>Set Opacity</h4><figure class="highlight reasonml"><table><tbody><tr><td class="code"><pre><span class="line">viewer-&gt;set<span class="constructor">PointCloudRenderingProperties(<span class="params">pcl</span>::<span class="params">visualization</span>::PCL_VISUALIZER_OPACITY, 1.0, <span class="params">file_path</span>)</span>;</span><br></pre></td></tr></tbody></table></figure>
+<h4 id="Set-Point-Color"><a href="#Set-Point-Color" class="headerlink" title="Set Point Color"></a>Set Point Color</h4><figure class="highlight rust"><table><tbody><tr><td class="code"><pre><span class="line">pcl::visualization::PointCloudColorHandlerCustom&lt;pcl::PointXYZ&gt; <span class="title function_ invoke__">x_color</span>(cloud_x, <span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">viewer_x<span class="punctuation">-&gt;</span>addPointCloud&lt;pcl::PointXYZ&gt;(cloud_x, x_color, <span class="string">"cloud_x"</span>);</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Mouse-Event"><a href="#Mouse-Event" class="headerlink" title="Mouse Event"></a>Mouse Event</h3><h3 id="Keyboard-Event"><a href="#Keyboard-Event" class="headerlink" title="Keyboard Event"></a>Keyboard Event</h3><h2 id="Filters"><a href="#Filters" class="headerlink" title="Filters"></a>Filters</h2><h3 id="PassThrough"><a href="#PassThrough" class="headerlink" title="PassThrough"></a>PassThrough</h3><p><a href="http://docs.pointclouds.org/1.8.0/classpcl_1_1_pass_through.html#details">PassThrough</a> is a simple but useful filter that select points in a point cloud based on the limit intervals on one dimensional axis. It iterates through the entire input point cloud, automatically filtering non-finite points and the points outside the interval specified by <strong>setFilterLimits()</strong>, which applies only to the field specified by <strong>setFilterFieldName()</strong>.</p>
+<figure class="highlight lasso"><table><tbody><tr><td class="code"><pre><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud_x (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud_xy (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line">pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;<span class="type">::Ptr</span> cloud_xyz (<span class="literal">new</span> pcl<span class="type">::PointCloud</span>&lt;pcl<span class="type">::PointXYZ</span>&gt;);</span><br><span class="line"><span class="comment">// code to load pcd</span></span><br><span class="line"></span><br><span class="line">pcl<span class="type">::PassThrough</span>&lt;pcl<span class="type">::PointXYZ</span>&gt; pass;</span><br><span class="line"><span class="comment">// select points in x direction</span></span><br><span class="line">pass.setInputCloud (cloud);</span><br><span class="line">pass.setFilterFieldName(<span class="string">"x"</span>);</span><br><span class="line">pass.setFilterLimits(<span class="number">-1.0</span>, <span class="number">1.0</span>);</span><br><span class="line">pass.filter (*cloud_x);</span><br><span class="line"></span><br><span class="line"><span class="comment">// select points in y direction</span></span><br><span class="line">pass.setInputCloud(cloud_x);</span><br><span class="line">pass.setFilterFieldName(<span class="string">"y"</span>);</span><br><span class="line">pass.setFilterLimits(<span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">pass.filter (*cloud_xy);</span><br><span class="line"></span><br><span class="line"><span class="comment">// select points in z direction</span></span><br><span class="line">pass.setInputCloud(cloud_xy);</span><br><span class="line">pass.setFilterFieldName(<span class="string">"z"</span>);</span><br><span class="line">pass.setFilterLimits(<span class="number">-1.5</span>, <span class="number">-0.5</span>);</span><br><span class="line">pass.filter (*cloud_xyz);</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h2 id="Segmentation"><a href="#Segmentation" class="headerlink" title="Segmentation"></a>Segmentation</h2></body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>Point Cloud Library</category>
+        <category>Perception</category>
+        <category>3D</category>
+      </categories>
+      <tags>
+        <tag>Tutorials</tag>
+        <tag>Point Cloud Library</tag>
+        <tag>PCL</tag>
       </tags>
   </entry>
   <entry>
@@ -571,6 +571,21 @@ Test is GPU available<figure class="highlight vim"><table><tbody><tr><td class="
       </tags>
   </entry>
   <entry>
+    <title>C++ Tutorials - Learning Notes for Beginners</title>
+    <url>/2020/03/12/CPlusPlus-Learning-Notes/</url>
+    <content><![CDATA[<html><head></head><body><p>Add it latter</p>
+<span id="more"></span>
+<h3 id="System-APIs"><a href="#System-APIs" class="headerlink" title="System APIs"></a>System APIs</h3><h4 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h4><h4 id="system"><a href="#system" class="headerlink" title="system"></a>system</h4><h4 id="getcwd"><a href="#getcwd" class="headerlink" title="getcwd"></a>getcwd</h4><h4 id="gettimeoftoday"><a href="#gettimeoftoday" class="headerlink" title="gettimeoftoday"></a>gettimeoftoday</h4><h3 id="Build-In-APIs"><a href="#Build-In-APIs" class="headerlink" title="Build-In APIs"></a>Build-In APIs</h3><h4 id="undef"><a href="#undef" class="headerlink" title="undef"></a>undef</h4><h3 id="Third-Party"><a href="#Third-Party" class="headerlink" title="Third-Party"></a>Third-Party</h3></body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>C++</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+        <tag>Tutorials</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Tensorflow Tutorials - Learning Notes for Beginners</title>
     <url>/2020/02/26/Tensorflow-Learning-Notes/</url>
     <content><![CDATA[<html><head></head><body><p>Tensorflow is a popular end to end deep learning platform developed and maintained by google. It has a whole ecosystem from prototype verification to model deployment. It integrates high level Keras API which could let us build and train models quickly and easily. Besides, it also has low level APIs, which enable us to custom model conveniently. Tensorflow is welcome to researchers and engineers since it is released and thus is widely used in both scientific research and industrial applications. Many state-of-the-art works had published open sources in Tensorflow. In this article, I will write down the key notes during learning Tensorflow. </p>
@@ -626,21 +641,6 @@ Test is GPU available<figure class="highlight vim"><table><tbody><tr><td class="
         <tag>Python</tag>
         <tag>Notes</tag>
         <tag>Tensorflow</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C++ Tutorials - Learning Notes for Beginners</title>
-    <url>/2020/03/12/CPlusPlus-Learning-Notes/</url>
-    <content><![CDATA[<html><head></head><body><p>Add it latter</p>
-<span id="more"></span>
-<h3 id="System-APIs"><a href="#System-APIs" class="headerlink" title="System APIs"></a>System APIs</h3><h4 id="signal"><a href="#signal" class="headerlink" title="signal"></a>signal</h4><h4 id="system"><a href="#system" class="headerlink" title="system"></a>system</h4><h4 id="getcwd"><a href="#getcwd" class="headerlink" title="getcwd"></a>getcwd</h4><h4 id="gettimeoftoday"><a href="#gettimeoftoday" class="headerlink" title="gettimeoftoday"></a>gettimeoftoday</h4><h3 id="Build-In-APIs"><a href="#Build-In-APIs" class="headerlink" title="Build-In APIs"></a>Build-In APIs</h3><h4 id="undef"><a href="#undef" class="headerlink" title="undef"></a>undef</h4><h3 id="Third-Party"><a href="#Third-Party" class="headerlink" title="Third-Party"></a>Third-Party</h3></body></html>]]></content>
-      <categories>
-        <category>Tutorials</category>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>Tutorials</tag>
-        <tag>C++</tag>
       </tags>
   </entry>
   <entry>
@@ -734,37 +734,6 @@ The first column is the index, the second column is the label, the third row the
         <tag>Matplotlib</tag>
         <tag>Seaborn</tag>
         <tag>XGBoost</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Basic Usage of PostgreSQL</title>
-    <url>/2023/02/11/Basic-Usage-of-PostgreSQL/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://www.postgresql.org/">PostgreSQL</a> is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. Here I will introduce some basic commands of PostgreSQL</p>
-<span id="more"></span>
-<h2 id="Default-User"><a href="#Default-User" class="headerlink" title="Default User"></a>Default User</h2><p>PostgreSQL creates a default user named <strong>postgres</strong> for you after installation. The default user has full access to PostgreSQL’s database, including creating a new database, reading data from a database, and updating data into a database. </p>
-<h3 id="Reset-Password"><a href="#Reset-Password" class="headerlink" title="Reset Password"></a>Reset Password</h3><p>If we want to use PostgreSQL in Django applications, the password is required. However, the default user <strong>postgres</strong> doesn’t have a password and we must set password for <strong>postgres</strong>.</p>
-<figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> postgres <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql <span class="keyword">restart</span> / systemctl <span class="keyword">restart</span> postgresql</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="Basic-Command"><a href="#Basic-Command" class="headerlink" title="Basic Command"></a>Basic Command</h2><ul>
-<li>Check status<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">service postgresql status</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Start psql with user postgres<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">sudo -u postgres psql</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Create Database<figure class="highlight n1ql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> servo;</span><br></pre></td></tr></tbody></table></figure></li>
-<li>List Databases<figure class="highlight livescript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">\l</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>List Users<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">\<span class="built_in">du</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Connect to database<figure class="highlight livescript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">\c</span> servo</span><br></pre></td></tr></tbody></table></figure></li>
-<li>List tables<figure class="highlight css"><table><tbody><tr><td class="code"><pre><span class="line">\<span class="selector-tag">dt</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Quit<figure class="highlight css"><table><tbody><tr><td class="code"><pre><span class="line">\<span class="selector-tag">q</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Show data<figure class="highlight axapta"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure></li>
-<li>Show data directory<figure class="highlight abnf"><table><tbody><tr><td class="code"><pre><span class="line">show data_directory<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h2 id="Backup-amp-Restore"><a href="#Backup-amp-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2><h3 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h3><figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h3><figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres pg_restore -Fc -d servo &lt; /var/lib/postgresql/servo.bak</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
-      <categories>
-        <category>Tutorials</category>
-        <category>PostgreSQL</category>
-        <category>Django</category>
-      </categories>
-      <tags>
-        <tag>PostgreSQL</tag>
       </tags>
   </entry>
   <entry>
@@ -879,9 +848,40 @@ Logs can offer us useful information when there is something wrong during config
       </categories>
       <tags>
         <tag>Ubuntu</tag>
-        <tag>PostgreSQL</tag>
         <tag>Django</tag>
         <tag>Apache</tag>
+        <tag>PostgreSQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Basic Usage of PostgreSQL</title>
+    <url>/2023/02/11/Basic-Usage-of-PostgreSQL/</url>
+    <content><![CDATA[<html><head></head><body><p><a href="https://www.postgresql.org/">PostgreSQL</a> is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. Here I will introduce some basic commands of PostgreSQL</p>
+<span id="more"></span>
+<h2 id="Default-User"><a href="#Default-User" class="headerlink" title="Default User"></a>Default User</h2><p>PostgreSQL creates a default user named <strong>postgres</strong> for you after installation. The default user has full access to PostgreSQL’s database, including creating a new database, reading data from a database, and updating data into a database. </p>
+<h3 id="Reset-Password"><a href="#Reset-Password" class="headerlink" title="Reset Password"></a>Reset Password</h3><p>If we want to use PostgreSQL in Django applications, the password is required. However, the default user <strong>postgres</strong> doesn’t have a password and we must set password for <strong>postgres</strong>.</p>
+<figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> postgres <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql <span class="keyword">restart</span> / systemctl <span class="keyword">restart</span> postgresql</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Basic-Command"><a href="#Basic-Command" class="headerlink" title="Basic Command"></a>Basic Command</h2><ul>
+<li>Check status<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">service postgresql status</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Start psql with user postgres<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">sudo -u postgres psql</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Create Database<figure class="highlight n1ql"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> servo;</span><br></pre></td></tr></tbody></table></figure></li>
+<li>List Databases<figure class="highlight livescript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">\l</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>List Users<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">\<span class="built_in">du</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Connect to database<figure class="highlight livescript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="string">\c</span> servo</span><br></pre></td></tr></tbody></table></figure></li>
+<li>List tables<figure class="highlight css"><table><tbody><tr><td class="code"><pre><span class="line">\<span class="selector-tag">dt</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Quit<figure class="highlight css"><table><tbody><tr><td class="code"><pre><span class="line">\<span class="selector-tag">q</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Show data<figure class="highlight axapta"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure></li>
+<li>Show data directory<figure class="highlight abnf"><table><tbody><tr><td class="code"><pre><span class="line">show data_directory<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="Backup-amp-Restore"><a href="#Backup-amp-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2><h3 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h3><figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h3><figure class="highlight pgsql"><table><tbody><tr><td class="code"><pre><span class="line">sudo -u postgres pg_restore -Fc -d servo &lt; /var/lib/postgresql/servo.bak</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>PostgreSQL</category>
+        <category>Django</category>
+      </categories>
+      <tags>
+        <tag>PostgreSQL</tag>
       </tags>
   </entry>
   <entry>
@@ -1285,30 +1285,6 @@ vi pip.conf<br>[global]<br>index-url = <a href="https://pypi.tuna.tsinghua.edu.c
       </tags>
   </entry>
   <entry>
-    <title>Make Operation System ISO Installation File Using Systemback</title>
-    <url>/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/</url>
-    <content><![CDATA[<html><head></head><body><p>本文主要讲解如何使用<strong>systemback</strong>打包操作系统，并制作U盘启动盘。</p>
-<span id="more"></span>
-<h3 id="安装systemback"><a href="#安装systemback" class="headerlink" title="安装systemback"></a>安装systemback</h3><p>通过以下指令安装：</p>
-<figure class="highlight routeros"><table><tbody><tr><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "deb [arch=amd64] https://mirrors.bwbot.org/ stable main" &gt; /etc/apt/sources.list.d/systemback.list'</span></span><br><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key 50B2C005A67B264F</span><br><span class="line">sudo apt-<span class="built_in">get</span> update</span><br><span class="line">sudo apt-<span class="built_in">get</span><span class="built_in"> upgrade</span></span><br><span class="line"><span class="built_in"></span>sudo apt-<span class="built_in">get</span> install systemback</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="删除firefox"><a href="#删除firefox" class="headerlink" title="删除firefox"></a>删除firefox</h3><p><strong>FireFox</strong>浏览器会导致<strong>systemback</strong>制作系统盘报错，因此删除之。</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">sudo snap remove firefox</span><br><span class="line"><span class="built_in">cd</span> snap</span><br><span class="line"><span class="built_in">rm</span> -rf firefox</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="制作系统盘"><a href="#制作系统盘" class="headerlink" title="制作系统盘"></a>制作系统盘</h3><p>在terminal中输入以下指令打开<strong>systemback</strong></p>
-<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">systemback-sustart</span></span><br></pre></td></tr></tbody></table></figure>
-<p>在弹出的对话框中选择<strong>Live system create</strong>按钮。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/live-system-create.png"><br>在弹出的对话框中将安装iso文件重命名为<strong>ubuntu-22.04-robot</strong>，勾选<strong>include user data files</strong>，然后点击<strong>create new</strong>。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/create-new.png"></p>
-<h3 id="写入U盘"><a href="#写入U盘" class="headerlink" title="写入U盘"></a>写入U盘</h3><p>在iso文件制作成功后，插入U盘，可以将其写入U盘。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/write-to-target"></p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>U盘启动后，选择第一项进入系统后，在terminal中使用<strong>systemback-sustart</strong>命令启动，然后选在<strong>system install</strong>即可安装系统。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/system-install.png"></p>
-</body></html>]]></content>
-      <categories>
-        <category>Ubuntu</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>OS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ROS2 Learning Notes - ROS2 Humble For Beginners</title>
     <url>/2023/12/09/ROS2-Learning-Notes-ROS2-Humble-For-Beginners/</url>
     <content><![CDATA[<html><head></head><body><p>本文为<strong>ROS 2</strong>初学者的学习笔记，主要记录了我学习ROS 2过程中的重要信息，防止遗漏。主要参考资料为<a href="https://docs.ros.org/en/humble/index.html">ROS 2: Humble</a>的官方文档和<a href="https://www.youtube.com/watch?v=0aPbWsyENA8&amp;list=PLLSegLrePWgJudpPUof4-nVFHGkB62Izy">ROS 2 Tutorials - ROS2 Humble For Beginners</a>。</p>
@@ -1598,6 +1574,30 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
       </categories>
       <tags>
         <tag>ROS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Make Operation System ISO Installation File Using Systemback</title>
+    <url>/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/</url>
+    <content><![CDATA[<html><head></head><body><p>本文主要讲解如何使用<strong>systemback</strong>打包操作系统，并制作U盘启动盘。</p>
+<span id="more"></span>
+<h3 id="安装systemback"><a href="#安装systemback" class="headerlink" title="安装systemback"></a>安装systemback</h3><p>通过以下指令安装：</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "deb [arch=amd64] https://mirrors.bwbot.org/ stable main" &gt; /etc/apt/sources.list.d/systemback.list'</span></span><br><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key 50B2C005A67B264F</span><br><span class="line">sudo apt-<span class="built_in">get</span> update</span><br><span class="line">sudo apt-<span class="built_in">get</span><span class="built_in"> upgrade</span></span><br><span class="line"><span class="built_in"></span>sudo apt-<span class="built_in">get</span> install systemback</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="删除firefox"><a href="#删除firefox" class="headerlink" title="删除firefox"></a>删除firefox</h3><p><strong>FireFox</strong>浏览器会导致<strong>systemback</strong>制作系统盘报错，因此删除之。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">sudo snap remove firefox</span><br><span class="line"><span class="built_in">cd</span> snap</span><br><span class="line"><span class="built_in">rm</span> -rf firefox</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="制作系统盘"><a href="#制作系统盘" class="headerlink" title="制作系统盘"></a>制作系统盘</h3><p>在terminal中输入以下指令打开<strong>systemback</strong></p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">systemback-sustart</span></span><br></pre></td></tr></tbody></table></figure>
+<p>在弹出的对话框中选择<strong>Live system create</strong>按钮。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/live-system-create.png"><br>在弹出的对话框中将安装iso文件重命名为<strong>ubuntu-22.04-robot</strong>，勾选<strong>include user data files</strong>，然后点击<strong>create new</strong>。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/create-new.png"></p>
+<h3 id="写入U盘"><a href="#写入U盘" class="headerlink" title="写入U盘"></a>写入U盘</h3><p>在iso文件制作成功后，插入U盘，可以将其写入U盘。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/write-to-target"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>U盘启动后，选择第一项进入系统后，在terminal中使用<strong>systemback-sustart</strong>命令启动，然后选在<strong>system install</strong>即可安装系统。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/system-install.png"></p>
+</body></html>]]></content>
+      <categories>
+        <category>Ubuntu</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
@@ -2024,6 +2024,41 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
       </tags>
   </entry>
   <entry>
+    <title>Config Frp Client And Auto-Start As A Service</title>
+    <url>/2024/02/02/Config-Frp-Client-And-Auto-Start-As-A-Service/</url>
+    <content><![CDATA[<html><head></head><body><p><strong>Frp</strong>是一个搭建隧道实现内网穿透的常用工具，在之前的<a href="https://youngsonzhao.github.io/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/">笔记</a>中我们已经讲了如何在服务器配置<strong>frps</strong>和在路由器配置<strong>frpc</strong>。今天主要记录一下如何在<strong>Ubuntu 22.04</strong>系统上配置<strong>frpc</strong>，实现<strong>ssh</strong>远程登陆访问。</p>
+<span id="more"></span>
+<h3 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h3><p><a href="https://github.com/fatedier/frp">Frp</a>代码托管在github上，我们可以到<a href="https://github.com/fatedier/frp/releases">release</a>下载对应操作系统版本的最新包。</p>
+<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/fatedier/</span>frp<span class="regexp">/releases/</span>download<span class="regexp">/v0.54.0/</span>frp_0.<span class="number">54.0</span>_linux_amd64.tar.gz</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>下载好的包是已经编译好的可执行文件，我们只需要将其放置在指定文件夹下即可.</p>
+<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">mkdir</span> .frp</span><br><span class="line"><span class="attribute">cd</span> .frp</span><br><span class="line"><span class="attribute">tar</span> -xzf frp_0.<span class="number">54</span>.<span class="number">0</span>_linux_amd64.tar.gz</span><br><span class="line"><span class="attribute">cd</span> frp_0.<span class="number">54</span>.<span class="number">0</span>_linux_amd64</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p>配置客户端需要创建一个<strong>frpc.ini</strong>的配置文件，在配置中首先配置<strong>frps</strong>的ip地址，端口号和token，然后配置本地的端口号和服务端的转发端口即可。</p>
+<figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">1.1</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">1234</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for authentication</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">12345678</span></span><br><span class="line"></span><br><span class="line"><span class="section">[ssh]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">2222</span></span><br></pre></td></tr></tbody></table></figure>
+<p>由于需要ssh登陆，所以本地端口为22，服务端端口为2222。</p>
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>将<strong>frpc</strong>设置为服务的形式，可以保证开启自启动。<br>首先进入到目录内。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/systemd/system</span><br><span class="line">sudo <span class="built_in">touch</span> frpc.service</span><br><span class="line">sudo gedit frpc.service</span><br></pre></td></tr></tbody></table></figure>
+<p>然后配置服务。</p>
+<figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=My Frp Client Service - %i</span><br><span class="line"><span class="attr">After</span>=network.target syslog.target</span><br><span class="line"><span class="attr">Wants</span>=network.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">Restart</span>=<span class="literal">on</span>-failure</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">5</span>s</span><br><span class="line"><span class="attr">ExecStart</span>=/bin/bash -c <span class="string">'/home/robot/.frp/frp_0.54.0_linux_amd64/frpc -c /home/robot/.frp/frp_0.54.0_linux_amd64/frpc.ini'</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></tbody></table></figure>
+<p>最后运行服务。</p>
+<figure class="highlight nsis"><table><tbody><tr><td class="code"><pre><span class="line">sudo <span class="params">system</span>ctl enable frpc.service</span><br><span class="line">sudo <span class="params">system</span>ctl start frpc.service</span><br><span class="line">sudo <span class="params">system</span>ctl status frpc.service</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>Ubuntu 22.04默认ssh连接是关闭的，需要打开端口，开启ssh连接。<br>首先明确指明ssh连接的端口为22。</p>
+<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">sudo vi <span class="regexp">/etc/</span>ssh/ssh_config</span><br><span class="line">port <span class="number">22</span></span><br></pre></td></tr></tbody></table></figure>
+<p>然后开启22端口。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install openssh-server</span><br><span class="line">ufw <span class="built_in">enable</span></span><br><span class="line">sudo ufw <span class="built_in">enable</span></span><br><span class="line">sudo ufw allow 22/tcp</span><br></pre></td></tr></tbody></table></figure>
+<p>上述配置完成后，在任意终端，通过ssh指令登陆即可。</p>
+<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> robot@<span class="number">192.168.1.2</span> -p <span class="number">2222</span></span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>Ubuntu</category>
+        <category>Frp</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>SSH</tag>
+        <tag>Frp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>ROS2 Learning Notes URDF &amp; Xacro</title>
     <url>/2024/01/21/ROS2-Learning-Notes-URDF-Xacro/</url>
     <content><![CDATA[<html><head></head><body><p><strong>URDF</strong>是“<strong>Unified Robot Description Format</strong>”的缩写，在<strong>ROS</strong>中用于定义机器人，格式为<strong>xml</strong>。<a href="http://wiki.ros.org/xacro">xacro</a>是”<strong>XML Macros</strong>“的缩写，可以扩展<strong>xml</strong>语言，通过定义变量、函数，引入文件的形式提升代码的可读性。本文主要讲解<strong>urdf</strong>和<strong>xacro</strong>的基本用法。</p>
@@ -2168,41 +2203,6 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
         <tag>ROS</tag>
         <tag>URDF</tag>
         <tag>Xacro</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Config Frp Client And Auto-Start As A Service</title>
-    <url>/2024/02/02/Config-Frp-Client-And-Auto-Start-As-A-Service/</url>
-    <content><![CDATA[<html><head></head><body><p><strong>Frp</strong>是一个搭建隧道实现内网穿透的常用工具，在之前的<a href="https://youngsonzhao.github.io/2023/02/15/Expose-Local-Devices-Behind-A-NAT-To-The-Internet-Using-FRP/">笔记</a>中我们已经讲了如何在服务器配置<strong>frps</strong>和在路由器配置<strong>frpc</strong>。今天主要记录一下如何在<strong>Ubuntu 22.04</strong>系统上配置<strong>frpc</strong>，实现<strong>ssh</strong>远程登陆访问。</p>
-<span id="more"></span>
-<h3 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h3><p><a href="https://github.com/fatedier/frp">Frp</a>代码托管在github上，我们可以到<a href="https://github.com/fatedier/frp/releases">release</a>下载对应操作系统版本的最新包。</p>
-<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/fatedier/</span>frp<span class="regexp">/releases/</span>download<span class="regexp">/v0.54.0/</span>frp_0.<span class="number">54.0</span>_linux_amd64.tar.gz</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h3><p>下载好的包是已经编译好的可执行文件，我们只需要将其放置在指定文件夹下即可.</p>
-<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">mkdir</span> .frp</span><br><span class="line"><span class="attribute">cd</span> .frp</span><br><span class="line"><span class="attribute">tar</span> -xzf frp_0.<span class="number">54</span>.<span class="number">0</span>_linux_amd64.tar.gz</span><br><span class="line"><span class="attribute">cd</span> frp_0.<span class="number">54</span>.<span class="number">0</span>_linux_amd64</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Config"><a href="#Config" class="headerlink" title="Config"></a>Config</h3><p>配置客户端需要创建一个<strong>frpc.ini</strong>的配置文件，在配置中首先配置<strong>frps</strong>的ip地址，端口号和token，然后配置本地的端口号和服务端的转发端口即可。</p>
-<figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">192.168</span>.<span class="number">1.1</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">1234</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># for authentication</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">12345678</span></span><br><span class="line"></span><br><span class="line"><span class="section">[ssh]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">2222</span></span><br></pre></td></tr></tbody></table></figure>
-<p>由于需要ssh登陆，所以本地端口为22，服务端端口为2222。</p>
-<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>将<strong>frpc</strong>设置为服务的形式，可以保证开启自启动。<br>首先进入到目录内。</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/systemd/system</span><br><span class="line">sudo <span class="built_in">touch</span> frpc.service</span><br><span class="line">sudo gedit frpc.service</span><br></pre></td></tr></tbody></table></figure>
-<p>然后配置服务。</p>
-<figure class="highlight ini"><table><tbody><tr><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=My Frp Client Service - %i</span><br><span class="line"><span class="attr">After</span>=network.target syslog.target</span><br><span class="line"><span class="attr">Wants</span>=network.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">Restart</span>=<span class="literal">on</span>-failure</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">5</span>s</span><br><span class="line"><span class="attr">ExecStart</span>=/bin/bash -c <span class="string">'/home/robot/.frp/frp_0.54.0_linux_amd64/frpc -c /home/robot/.frp/frp_0.54.0_linux_amd64/frpc.ini'</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></tbody></table></figure>
-<p>最后运行服务。</p>
-<figure class="highlight nsis"><table><tbody><tr><td class="code"><pre><span class="line">sudo <span class="params">system</span>ctl enable frpc.service</span><br><span class="line">sudo <span class="params">system</span>ctl start frpc.service</span><br><span class="line">sudo <span class="params">system</span>ctl status frpc.service</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h3><p>Ubuntu 22.04默认ssh连接是关闭的，需要打开端口，开启ssh连接。<br>首先明确指明ssh连接的端口为22。</p>
-<figure class="highlight awk"><table><tbody><tr><td class="code"><pre><span class="line">sudo vi <span class="regexp">/etc/</span>ssh/ssh_config</span><br><span class="line">port <span class="number">22</span></span><br></pre></td></tr></tbody></table></figure>
-<p>然后开启22端口。</p>
-<figure class="highlight routeros"><table><tbody><tr><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install openssh-server</span><br><span class="line">ufw <span class="built_in">enable</span></span><br><span class="line">sudo ufw <span class="built_in">enable</span></span><br><span class="line">sudo ufw allow 22/tcp</span><br></pre></td></tr></tbody></table></figure>
-<p>上述配置完成后，在任意终端，通过ssh指令登陆即可。</p>
-<figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">ssh</span> robot@<span class="number">192.168.1.2</span> -p <span class="number">2222</span></span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
-      <categories>
-        <category>Tutorials</category>
-        <category>Ubuntu</category>
-        <category>Frp</category>
-      </categories>
-      <tags>
-        <tag>Ubuntu</tag>
-        <tag>SSH</tag>
-        <tag>Frp</tag>
       </tags>
   </entry>
   <entry>
@@ -2494,40 +2494,139 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
       </tags>
   </entry>
   <entry>
-    <title>Basic Usage of Hexo</title>
-    <url>/2019/11/30/Basic-Usage-of-Hexo/</url>
-    <content><![CDATA[<html><head></head><body><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+    <title>Architecture Of Transformer And PyTorch Implementation</title>
+    <url>/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/</url>
+    <content><![CDATA[<html><head></head><body><p>本文详细介绍<a href="https://user.phil.hhu.de/~cwurm/wp-content/uploads/2020/01/7181-attention-is-all-you-need.pdf">Attention Is All You Need</a>论文中Transformer模型架构、各个模块的数学原理、输入输出、参数规模，以及PyTorch实现。</p>
 <span id="more"></span>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p><img alt="Transformer模型结构图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/transformer-architecture.png"><br>原始的Transformer模型是<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>的经典结构，<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>分别由$N_e$个<strong>Encoder Block</strong>和$N_d$个<strong>Decoder Block</strong>残差堆叠组成。编码器的输入是源序列，尺寸是(batch_size, src_seq_len)，输出是Encoder Embedding，尺寸是(batch_size, src_seq_len, embed_size)，解码器的输入是目标序列，尺寸是(batch_size, tgt_seq_len)和Encoder Embedding，输出是Decoder Embedding，尺寸是(batch_size, seq_len, embed_size)。</p>
+<h2 id="模块实现"><a href="#模块实现" class="headerlink" title="模块实现"></a>模块实现</h2><h3 id="Input-Embedding"><a href="#Input-Embedding" class="headerlink" title="Input Embedding"></a><strong>Input Embedding</strong></h3><p><strong>Input Embedding</strong>（输入嵌入）是将离散Token序列转换为连续向量序列的过程。Transformer模型的输入是文本字符串，首先利用<a href="">Tokenizer</a>将文本转换为Token序列，然后利用<a href="">nn.Embedding</a>将每一个Token保存为一个embed_size维的Embedding向量。<strong>nn.Embedding</strong>本质是一个Lookup Table，Key是Token，Value是Embedding向量，关键参数有两个，vocab_size表示词表中的Token数量, embed_size表示Embedding向量的维度。</p>
+<p>Input Embedding是(vocab_size, embed_size)的参数矩阵，在模型训练时会同步更新该参数矩阵。如果想要冻结Input Embedding的参数矩阵，可以设置embedding.weight.requires_grad = False。Input Embedding的实现代码如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">InputEmbedding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Embedding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, vocab_size: <span class="built_in">int</span>, embed_size: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the embedding layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            vocab_size: size of the vocabulary</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            None</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(InputEmbedding, self).__init__()</span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.embedding = nn.Embedding(vocab_size, embed_size)</span><br><span class="line">        self.embedding.weight.data.uniform_(-<span class="number">0.1</span>, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the embedding layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            embedded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> self.embedding(x) * math.sqrt(self.embed_size)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a><strong>Positional Encoding</strong></h3><p><strong>Positional Encoding</strong>（位置编码）是Transformer模型中用于给每个Token添加位置信息的机制。由于Transformer模型中没有循环神经网络（RNN）中的序列位置顺序信息，因此需要通过位置编码来提供序列的顺序信息，在论文中使用了正弦和余弦函数来编码位置信息。<br>在 Transformer 模型中，<strong>Positional Encoding (位置编码)</strong> 用于为输入序列引入位置信息，以弥补自注意力机制（Self-Attention）缺少序列顺序感知能力的不足。它的设计基于正弦和余弦函数的数学原理，使得不同位置的编码具有可解析的相对位置信息。</p>
+<h4 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a><strong>数学公式</strong></h4><p>给定一个位置 $pos$ 和一个维度 $i$（嵌入向量的第 $i$ 个维度），位置编码的值由以下公式定义：<br>$$<br>PE(pos, k) =<br>\begin{cases}<br>\sin\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i \<br>\cos\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i+1<br>\end{cases}<br>$$<br>其中</p>
+<ul>
+<li>$pos$ 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。</li>
+<li>$k$ 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。</li>
+<li>$d_{model}$ 是Embedding的维度（embed_size）。<br><img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></li>
+</ul>
+<h4 id="位置编码可视化"><a href="#位置编码可视化" class="headerlink" title="位置编码可视化"></a><strong>位置编码可视化</strong></h4><p>不同序列长度和嵌入特征维度下的位置编码可视化如下：<br><img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"><br><img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"><br><img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"></p>
+<ol>
+<li><p><strong>频率范围：</strong></p>
+<ul>
+<li>分母中的 $10000^{\frac{2i}{d_{model}}}$ 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。</li>
+<li>这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。</li>
+<li>对于每个维度 $i$，通过不同的频率编码（由 $10000^{\frac{2i}{d_{model}}}$ 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。</li>
+<li>嵌入特征的维度（embed_size）越高，位置编码的信息丰富度越大。</li>
+</ul>
+</li>
+<li><p><strong>正弦与余弦函数：</strong></p>
+<ul>
+<li>使用正弦和余弦为奇数维度和偶数维度生成不同的变化模式。</li>
+<li>正弦和余弦函数可以保证位置编码的值在[-1, 1]范围内。</li>
+</ul>
+</li>
+</ol>
+<h4 id="核心性质"><a href="#核心性质" class="headerlink" title="核心性质"></a><strong>核心性质</strong></h4><ol>
+<li><p><strong>位置相关性：</strong><br>位置编码的设计确保了任意两个位置之间的相对位置信息可以被简单计算：<br>$$<br>PE(pos_1) - PE(pos_2)<br>$$<br>这一性质帮助模型直接捕获相对位置。</p>
+</li>
+<li><p><strong>平移不变性：</strong><br>周期性正弦和余弦函数使得位置编码对输入序列的长度具有平移不变性。</p>
+</li>
+<li><p><strong>无需训练：</strong></p>
+<ul>
+<li>位置编码的值是通过公式计算的，无需学习参数。这减少了模型参数量，同时保持了良好的泛化能力。</li>
+</ul>
+</li>
+</ol>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><ol>
+<li><p><strong>捕获绝对与相对位置信息：</strong></p>
+<ul>
+<li>通过对所有位置进行唯一编码，模型可以直接感知绝对位置。</li>
+<li>正弦与余弦函数的对偶特性还允许模型通过简单的向量操作获取相对位置信息。</li>
+</ul>
+</li>
+<li><p><strong>轻量级实现：</strong></p>
+<ul>
+<li>无需引入额外的训练参数。</li>
+</ul>
+</li>
+<li><p><strong>泛化性：</strong></p>
+<ul>
+<li>使用数学公式定义的编码能推广到比训练时更长的序列，适合处理变长输入。</li>
+</ul>
+</li>
+</ol>
+<h3 id="改进与替代方法"><a href="#改进与替代方法" class="headerlink" title="改进与替代方法"></a><strong>改进与替代方法</strong></h3><p>尽管正弦-余弦位置编码有诸多优点，但在后续研究中，也提出了许多替代方法：</p>
+<ol>
+<li><strong>可学习的位置编码：</strong><br>通过将位置编码视为可学习的参数矩阵，使模型在特定任务上更具适应性。</li>
+<li><strong>相对位置编码（Relative Positional Encoding）：</strong><br>提取位置之间的相对关系，如 Transformer-XL 和 T5 中的改进版本。</li>
+<li><strong>旋转位置编码（RoPE, Rotary Positional Embedding）：</strong><br>在 Transformers 中通过旋转操作高效捕获相对位置信息。</li>
+</ol>
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><strong>具体实现</strong></h4><p>为了提升计算效率，将位置编码中的频率系数做如下优化：<br>$$<br>\begin{align}<br>\frac{1}{10000^{\frac{2i}{d_{model}}}} &amp;=  \<br>  &amp;= \exp(\log(\frac{1}{10000^{\frac{2i}{d_{model}}}})) \<br>  &amp;= \exp(\log({10000^{\frac{2i}{d_{model}}}}^{-1})) \<br>  &amp;= \exp(-1 * \log({10000^{\frac{2i}{d_{model}}}})) \<br>  &amp;= \exp(-1 * {\frac{2i}{d_{model}}} * \log(10000)) \<br>  &amp;= \exp(-{\frac{\log(10000)}{d_{model}}} * {2i})<br>\end{align}<br>$$</p>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionalEncoding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Positional encoding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embed_size: <span class="built_in">int</span>, seq_len: <span class="built_in">int</span>, dropout: <span class="built_in">float</span> = <span class="number">0.1</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string">            max_len: maximum length of the input sequence</span></span><br><span class="line"><span class="string">            dropout: dropout rate</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(PositionalEncoding, self).__init__()</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.seq_len = seq_len</span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create positional encoding, a matrix of shape (seq_len, embed_size)</span></span><br><span class="line">        pe = torch.zeros(seq_len, embed_size)</span><br><span class="line">        pos = torch.arange(<span class="number">0</span>, seq_len, dtype=torch.<span class="built_in">float</span>).unsqueeze(<span class="number">1</span>) <span class="comment"># (seq_len, 1), unsqueeze: add a new dimension</span></span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, embed_size, <span class="number">2</span>).<span class="built_in">float</span>() * (-math.log(<span class="number">10000.0</span>) / embed_size)) <span class="comment"># (embed_size/2,)</span></span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(pos * div_term)</span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(pos * div_term)</span><br><span class="line">        <span class="comment"># self.pe = self.pe.unsqueeze(0).transpose(0, 1) # (seq_len, 1, embed_size)</span></span><br><span class="line">        pe = pe.unsqueeze(<span class="number">0</span>) <span class="comment"># (1, seq_len, embed_size), 1 for batch size</span></span><br><span class="line">        self.register_buffer(<span class="string">'pe'</span>, pe) <span class="comment"># register buffer, so it doesn't need to be trained but can be saved</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            positional encoded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># x = x + self.pe[:, :x.size(1), :].requires_grad(False)</span></span><br><span class="line">        x = x + self.pe[:, :x.size(<span class="number">1</span>), :].detach()</span><br><span class="line">        <span class="keyword">return</span> self.dropout(x)</span><br></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h2 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h2><p>Basically, <a href="https://hexo.io/">Hexo</a> supports <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> and it can automatically compile Markdown to static webpage. </p>
-<h3 id="Insert-Images"><a href="#Insert-Images" class="headerlink" title="Insert Images"></a>Insert Images</h3><p>There are multiple ways that can insert images in Markdown, such as using absolute path, relative path, or url path. In Hexo, we can simply put the images we want to inert in <strong>source/images</strong> and insert it using the following command.</p>
-<figure class="highlight arcade"><table><tbody><tr><td class="code"><pre><span class="line">![descriptions](<span class="regexp">/images/im</span>age_example.jpg)</span><br></pre></td></tr></tbody></table></figure>
-<p>This method is easy to use. However, if we have huge amounts of images in our blog, it would be difficult to efficiently manage them.<br>Luckily, Hexo provides a more organized way to many images on a post-per-post basis. We first turn on this convenient approach by setting the <strong>post_assert_folder</strong> setting in <strong>_config.yml</strong> to true.</p>
-<figure class="highlight yaml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">post_assert_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
-<p>With asset folder management enabled, Hexo will create a folder every time you make a new post with the <strong>hexo new [layout] <title></title></strong> command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow. Then we can insert images using the following command.</p>
-<figure class="highlight scss"><table><tbody><tr><td class="code"><pre><span class="line">!<span class="selector-attr">[descriptions]</span>(image.jpg)</span><br></pre></td></tr></tbody></table></figure>
-<p>More info: <a href="https://hexo.io/docs/asset-folders.html">Assert Folders</a></p>
-<h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.</p>
-<figure class="highlight applescript"><table><tbody><tr><td class="code"><pre><span class="line">[Download <span class="built_in">file</span>](<span class="built_in">file</span>.example)</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+<h3 id="Layer-Normalization"><a href="#Layer-Normalization" class="headerlink" title="Layer Normalization"></a><strong>Layer Normalization</strong></h3><p><strong>Layer Normalization</strong>（层归一化）是一种常用于深度学习模型的正则化技术，特别是在序列建模和自然语言处理任务中。它旨在通过标准化每一层的激活值来提高模型的训练稳定性和收敛速度。</p>
+<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a><strong>基本原理</strong></h4><p>在神经网络中，每一层的激活值可能因输入数据的变化而幅度不一，这种变化被称为<strong>内部分布漂移（Internal Covariate Shift）</strong>。Layer Normalization 通过对每一层的神经元输出进行标准化，减少这种漂移的影响。</p>
+<p>Layer Normalization 的标准化是针对<strong>层的维度</strong>（即神经元的集合）进行的，而不是像 Batch Normalization 针对<strong>样本的维度</strong>。具体而言，对于每个输入样本，Layer Normalization 会对其当前层的激活值进行归一化处理。</p>
+<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a><strong>数学表达</strong></h4><p>假设某层的输入是一个向量 $\mathbf{h} = [h_1, h_2, …, h_d]$，其中 $d$ 是该层的神经元数。Layer Normalization 的计算过程如下：</p>
+<ol>
+<li><p><strong>计算均值和方差</strong>：<br>$$<br>\mu = \frac{1}{d} \sum_{i=1}^d h_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (h_i - \mu)^2<br>$$</p>
+</li>
+<li><p><strong>标准化</strong>：<br>$$<br>\hat{h}_i = \frac{h_i - \mu}{\sqrt{\sigma^2 + \epsilon}}<br>$$<br>其中，$\epsilon$ 是一个小常数，用于防止分母为零。</p>
+</li>
+<li><p><strong>添加可学习参数</strong>（仿射变换）：<br>$$<br>h_i^{\text{norm}} = \gamma \hat{h}_i + \beta<br>$$<br>其中，$\gamma$ 和 $\beta$ 是可学习参数，用于恢复网络的表达能力。</p>
+</li>
+</ol>
+<h4 id="与-Batch-Normalization-的对比"><a href="#与-Batch-Normalization-的对比" class="headerlink" title="与 Batch Normalization 的对比"></a><strong>与 Batch Normalization 的对比</strong></h4><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Layer Normalization</th>
+<th>Batch Normalization</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>归一化维度</strong></td>
+<td>每层神经元（样本内部）</td>
+<td>样本维度（批次内的样本间）</td>
+</tr>
+<tr>
+<td><strong>依赖批大小</strong></td>
+<td>不依赖</td>
+<td>依赖批大小</td>
+</tr>
+<tr>
+<td><strong>适用场景</strong></td>
+<td>RNN、Transformer 等序列模型</td>
+<td>CNN 等需要大批量训练的模型</td>
+</tr>
+<tr>
+<td><strong>计算开销</strong></td>
+<td>较小</td>
+<td>可能较大</td>
+</tr>
+</tbody></table>
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol>
+<li><strong>适用于小批量或单样本训练</strong>：因为不依赖批次统计信息，Layer Normalization 能很好地适用于小批量甚至单样本训练。</li>
+<li><strong>改善收敛性</strong>：通过减少激活值的变化，模型更容易收敛。</li>
+<li><strong>在序列任务中的优势</strong>：特别适合 Recurrent Neural Network（RNN）和 Transformer，因为它不会破坏时间步的依赖关系。</li>
+</ol>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a><strong>应用场景</strong></h4><ul>
+<li>Transformer 中广泛使用（例如 BERT 和 GPT 模型）。</li>
+<li>在序列建模（如语言模型、时间序列预测）和小批量训练任务中效果显著。</li>
+</ul>
+<p>通过 Layer Normalization，深度学习模型可以更快地学习、避免梯度爆炸或消失，并增强泛化能力。</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">Epoch</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">0</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=5.7891]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">1</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">1</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.3471]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">2</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">2</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.2629]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">3</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">3</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.50it/s, loss=5.1802]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">4</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">4</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=4.5534]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">5</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">5</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=3.7544]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">6</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">6</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.6769]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">7</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">7</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.51it/s, loss=3.1740]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">8</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">8</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.52it/s, loss=1.5529]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">9</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">9</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=1.5789]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">10</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">10</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.2088]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">11</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">11</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.8507]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">12</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">12</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:58&lt;00:00,  5.53it/s, loss=1.6555]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">13</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">13</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.7904]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">14</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">14</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=2.1260]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">15</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">15</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6503]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">16</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">16</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.1801]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">17</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">17</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6803]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">18</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">18</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.0962]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">19</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">19</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=1.8696]</span></span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
       <categories>
         <category>Tutorials</category>
-        <category>Hexo</category>
+        <category>Deep Learning</category>
+        <category>Pytorch</category>
+        <category>Transformer</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
-        <tag>NexT</tag>
-        <tag>Markdown</tag>
+        <tag>Deep Learning</tag>
+        <tag>Tutorials</tag>
+        <tag>Pytorch</tag>
+        <tag>Transformer</tag>
       </tags>
   </entry>
   <entry>
@@ -3045,139 +3144,40 @@ Server的回调函数返回值类型为<strong>void</strong>，且有两个入�
       </tags>
   </entry>
   <entry>
-    <title>Architecture Of Transformer And PyTorch Implementation</title>
-    <url>/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/</url>
-    <content><![CDATA[<html><head></head><body><p>本文详细介绍<a href="https://user.phil.hhu.de/~cwurm/wp-content/uploads/2020/01/7181-attention-is-all-you-need.pdf">Attention Is All You Need</a>论文中Transformer模型架构、各个模块的数学原理、输入输出、参数规模，以及PyTorch实现。</p>
+    <title>Basic Usage of Hexo</title>
+    <url>/2019/11/30/Basic-Usage-of-Hexo/</url>
+    <content><![CDATA[<html><head></head><body><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
 <span id="more"></span>
-<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p><img alt="Transformer模型结构图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/transformer-architecture.png"><br>原始的Transformer模型是<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>的经典结构，<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>分别由$N_e$个<strong>Encoder Block</strong>和$N_d$个<strong>Decoder Block</strong>残差堆叠组成。编码器的输入是源序列，尺寸是(batch_size, src_seq_len)，输出是Encoder Embedding，尺寸是(batch_size, src_seq_len, embed_size)，解码器的输入是目标序列，尺寸是(batch_size, tgt_seq_len)和Encoder Embedding，输出是Decoder Embedding，尺寸是(batch_size, seq_len, embed_size)。</p>
-<h2 id="模块实现"><a href="#模块实现" class="headerlink" title="模块实现"></a>模块实现</h2><h3 id="Input-Embedding"><a href="#Input-Embedding" class="headerlink" title="Input Embedding"></a><strong>Input Embedding</strong></h3><p><strong>Input Embedding</strong>（输入嵌入）是将离散Token序列转换为连续向量序列的过程。Transformer模型的输入是文本字符串，首先利用<a href="">Tokenizer</a>将文本转换为Token序列，然后利用<a href="">nn.Embedding</a>将每一个Token保存为一个embed_size维的Embedding向量。<strong>nn.Embedding</strong>本质是一个Lookup Table，Key是Token，Value是Embedding向量，关键参数有两个，vocab_size表示词表中的Token数量, embed_size表示Embedding向量的维度。</p>
-<p>Input Embedding是(vocab_size, embed_size)的参数矩阵，在模型训练时会同步更新该参数矩阵。如果想要冻结Input Embedding的参数矩阵，可以设置embedding.weight.requires_grad = False。Input Embedding的实现代码如下：</p>
-<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">InputEmbedding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Embedding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, vocab_size: <span class="built_in">int</span>, embed_size: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the embedding layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            vocab_size: size of the vocabulary</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            None</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(InputEmbedding, self).__init__()</span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.embedding = nn.Embedding(vocab_size, embed_size)</span><br><span class="line">        self.embedding.weight.data.uniform_(-<span class="number">0.1</span>, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the embedding layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            embedded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> self.embedding(x) * math.sqrt(self.embed_size)</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a><strong>Positional Encoding</strong></h3><p><strong>Positional Encoding</strong>（位置编码）是Transformer模型中用于给每个Token添加位置信息的机制。由于Transformer模型中没有循环神经网络（RNN）中的序列位置顺序信息，因此需要通过位置编码来提供序列的顺序信息，在论文中使用了正弦和余弦函数来编码位置信息。<br>在 Transformer 模型中，<strong>Positional Encoding (位置编码)</strong> 用于为输入序列引入位置信息，以弥补自注意力机制（Self-Attention）缺少序列顺序感知能力的不足。它的设计基于正弦和余弦函数的数学原理，使得不同位置的编码具有可解析的相对位置信息。</p>
-<h4 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a><strong>数学公式</strong></h4><p>给定一个位置 $pos$ 和一个维度 $i$（嵌入向量的第 $i$ 个维度），位置编码的值由以下公式定义：<br>$$<br>PE(pos, k) =<br>\begin{cases}<br>\sin\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i \<br>\cos\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i+1<br>\end{cases}<br>$$<br>其中</p>
-<ul>
-<li>$pos$ 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。</li>
-<li>$k$ 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。</li>
-<li>$d_{model}$ 是Embedding的维度（embed_size）。<br><img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></li>
-</ul>
-<h4 id="位置编码可视化"><a href="#位置编码可视化" class="headerlink" title="位置编码可视化"></a><strong>位置编码可视化</strong></h4><p>不同序列长度和嵌入特征维度下的位置编码可视化如下：<br><img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"><br><img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"><br><img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"></p>
-<ol>
-<li><p><strong>频率范围：</strong></p>
-<ul>
-<li>分母中的 $10000^{\frac{2i}{d_{model}}}$ 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。</li>
-<li>这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。</li>
-<li>对于每个维度 $i$，通过不同的频率编码（由 $10000^{\frac{2i}{d_{model}}}$ 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。</li>
-<li>嵌入特征的维度（embed_size）越高，位置编码的信息丰富度越大。</li>
-</ul>
-</li>
-<li><p><strong>正弦与余弦函数：</strong></p>
-<ul>
-<li>使用正弦和余弦为奇数维度和偶数维度生成不同的变化模式。</li>
-<li>正弦和余弦函数可以保证位置编码的值在[-1, 1]范围内。</li>
-</ul>
-</li>
-</ol>
-<h4 id="核心性质"><a href="#核心性质" class="headerlink" title="核心性质"></a><strong>核心性质</strong></h4><ol>
-<li><p><strong>位置相关性：</strong><br>位置编码的设计确保了任意两个位置之间的相对位置信息可以被简单计算：<br>$$<br>PE(pos_1) - PE(pos_2)<br>$$<br>这一性质帮助模型直接捕获相对位置。</p>
-</li>
-<li><p><strong>平移不变性：</strong><br>周期性正弦和余弦函数使得位置编码对输入序列的长度具有平移不变性。</p>
-</li>
-<li><p><strong>无需训练：</strong></p>
-<ul>
-<li>位置编码的值是通过公式计算的，无需学习参数。这减少了模型参数量，同时保持了良好的泛化能力。</li>
-</ul>
-</li>
-</ol>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><ol>
-<li><p><strong>捕获绝对与相对位置信息：</strong></p>
-<ul>
-<li>通过对所有位置进行唯一编码，模型可以直接感知绝对位置。</li>
-<li>正弦与余弦函数的对偶特性还允许模型通过简单的向量操作获取相对位置信息。</li>
-</ul>
-</li>
-<li><p><strong>轻量级实现：</strong></p>
-<ul>
-<li>无需引入额外的训练参数。</li>
-</ul>
-</li>
-<li><p><strong>泛化性：</strong></p>
-<ul>
-<li>使用数学公式定义的编码能推广到比训练时更长的序列，适合处理变长输入。</li>
-</ul>
-</li>
-</ol>
-<h3 id="改进与替代方法"><a href="#改进与替代方法" class="headerlink" title="改进与替代方法"></a><strong>改进与替代方法</strong></h3><p>尽管正弦-余弦位置编码有诸多优点，但在后续研究中，也提出了许多替代方法：</p>
-<ol>
-<li><strong>可学习的位置编码：</strong><br>通过将位置编码视为可学习的参数矩阵，使模型在特定任务上更具适应性。</li>
-<li><strong>相对位置编码（Relative Positional Encoding）：</strong><br>提取位置之间的相对关系，如 Transformer-XL 和 T5 中的改进版本。</li>
-<li><strong>旋转位置编码（RoPE, Rotary Positional Embedding）：</strong><br>在 Transformers 中通过旋转操作高效捕获相对位置信息。</li>
-</ol>
-<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><strong>具体实现</strong></h4><p>为了提升计算效率，将位置编码中的频率系数做如下优化：<br>$$<br>\begin{align}<br>\frac{1}{10000^{\frac{2i}{d_{model}}}} &amp;=  \<br>  &amp;= \exp(\log(\frac{1}{10000^{\frac{2i}{d_{model}}}})) \<br>  &amp;= \exp(\log({10000^{\frac{2i}{d_{model}}}}^{-1})) \<br>  &amp;= \exp(-1 * \log({10000^{\frac{2i}{d_{model}}}})) \<br>  &amp;= \exp(-1 * {\frac{2i}{d_{model}}} * \log(10000)) \<br>  &amp;= \exp(-{\frac{\log(10000)}{d_{model}}} * {2i})<br>\end{align}<br>$$</p>
-<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionalEncoding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Positional encoding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embed_size: <span class="built_in">int</span>, seq_len: <span class="built_in">int</span>, dropout: <span class="built_in">float</span> = <span class="number">0.1</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string">            max_len: maximum length of the input sequence</span></span><br><span class="line"><span class="string">            dropout: dropout rate</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(PositionalEncoding, self).__init__()</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.seq_len = seq_len</span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create positional encoding, a matrix of shape (seq_len, embed_size)</span></span><br><span class="line">        pe = torch.zeros(seq_len, embed_size)</span><br><span class="line">        pos = torch.arange(<span class="number">0</span>, seq_len, dtype=torch.<span class="built_in">float</span>).unsqueeze(<span class="number">1</span>) <span class="comment"># (seq_len, 1), unsqueeze: add a new dimension</span></span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, embed_size, <span class="number">2</span>).<span class="built_in">float</span>() * (-math.log(<span class="number">10000.0</span>) / embed_size)) <span class="comment"># (embed_size/2,)</span></span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(pos * div_term)</span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(pos * div_term)</span><br><span class="line">        <span class="comment"># self.pe = self.pe.unsqueeze(0).transpose(0, 1) # (seq_len, 1, embed_size)</span></span><br><span class="line">        pe = pe.unsqueeze(<span class="number">0</span>) <span class="comment"># (1, seq_len, embed_size), 1 for batch size</span></span><br><span class="line">        self.register_buffer(<span class="string">'pe'</span>, pe) <span class="comment"># register buffer, so it doesn't need to be trained but can be saved</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            positional encoded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># x = x + self.pe[:, :x.size(1), :].requires_grad(False)</span></span><br><span class="line">        x = x + self.pe[:, :x.size(<span class="number">1</span>), :].detach()</span><br><span class="line">        <span class="keyword">return</span> self.dropout(x)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="Layer-Normalization"><a href="#Layer-Normalization" class="headerlink" title="Layer Normalization"></a><strong>Layer Normalization</strong></h3><p><strong>Layer Normalization</strong>（层归一化）是一种常用于深度学习模型的正则化技术，特别是在序列建模和自然语言处理任务中。它旨在通过标准化每一层的激活值来提高模型的训练稳定性和收敛速度。</p>
-<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a><strong>基本原理</strong></h4><p>在神经网络中，每一层的激活值可能因输入数据的变化而幅度不一，这种变化被称为<strong>内部分布漂移（Internal Covariate Shift）</strong>。Layer Normalization 通过对每一层的神经元输出进行标准化，减少这种漂移的影响。</p>
-<p>Layer Normalization 的标准化是针对<strong>层的维度</strong>（即神经元的集合）进行的，而不是像 Batch Normalization 针对<strong>样本的维度</strong>。具体而言，对于每个输入样本，Layer Normalization 会对其当前层的激活值进行归一化处理。</p>
-<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a><strong>数学表达</strong></h4><p>假设某层的输入是一个向量 $\mathbf{h} = [h_1, h_2, …, h_d]$，其中 $d$ 是该层的神经元数。Layer Normalization 的计算过程如下：</p>
-<ol>
-<li><p><strong>计算均值和方差</strong>：<br>$$<br>\mu = \frac{1}{d} \sum_{i=1}^d h_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (h_i - \mu)^2<br>$$</p>
-</li>
-<li><p><strong>标准化</strong>：<br>$$<br>\hat{h}_i = \frac{h_i - \mu}{\sqrt{\sigma^2 + \epsilon}}<br>$$<br>其中，$\epsilon$ 是一个小常数，用于防止分母为零。</p>
-</li>
-<li><p><strong>添加可学习参数</strong>（仿射变换）：<br>$$<br>h_i^{\text{norm}} = \gamma \hat{h}_i + \beta<br>$$<br>其中，$\gamma$ 和 $\beta$ 是可学习参数，用于恢复网络的表达能力。</p>
-</li>
-</ol>
-<h4 id="与-Batch-Normalization-的对比"><a href="#与-Batch-Normalization-的对比" class="headerlink" title="与 Batch Normalization 的对比"></a><strong>与 Batch Normalization 的对比</strong></h4><table>
-<thead>
-<tr>
-<th>特性</th>
-<th>Layer Normalization</th>
-<th>Batch Normalization</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>归一化维度</strong></td>
-<td>每层神经元（样本内部）</td>
-<td>样本维度（批次内的样本间）</td>
-</tr>
-<tr>
-<td><strong>依赖批大小</strong></td>
-<td>不依赖</td>
-<td>依赖批大小</td>
-</tr>
-<tr>
-<td><strong>适用场景</strong></td>
-<td>RNN、Transformer 等序列模型</td>
-<td>CNN 等需要大批量训练的模型</td>
-</tr>
-<tr>
-<td><strong>计算开销</strong></td>
-<td>较小</td>
-<td>可能较大</td>
-</tr>
-</tbody></table>
-<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol>
-<li><strong>适用于小批量或单样本训练</strong>：因为不依赖批次统计信息，Layer Normalization 能很好地适用于小批量甚至单样本训练。</li>
-<li><strong>改善收敛性</strong>：通过减少激活值的变化，模型更容易收敛。</li>
-<li><strong>在序列任务中的优势</strong>：特别适合 Recurrent Neural Network（RNN）和 Transformer，因为它不会破坏时间步的依赖关系。</li>
-</ol>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a><strong>应用场景</strong></h4><ul>
-<li>Transformer 中广泛使用（例如 BERT 和 GPT 模型）。</li>
-<li>在序列建模（如语言模型、时间序列预测）和小批量训练任务中效果显著。</li>
-</ul>
-<p>通过 Layer Normalization，深度学习模型可以更快地学习、避免梯度爆炸或消失，并增强泛化能力。</p>
-<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><figure class="highlight apache"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">Epoch</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">0</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=5.7891]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">1</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">1</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.3471]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">2</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">2</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.2629]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">3</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">3</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.50it/s, loss=5.1802]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">4</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">4</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=4.5534]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">5</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">5</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=3.7544]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">6</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">6</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.6769]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">7</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">7</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.51it/s, loss=3.1740]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">8</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">8</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.52it/s, loss=1.5529]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">9</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">9</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=1.5789]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">10</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">10</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.2088]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">11</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">11</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.8507]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">12</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">12</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:58&lt;00:00,  5.53it/s, loss=1.6555]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">13</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">13</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.7904]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">14</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">14</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=2.1260]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">15</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">15</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6503]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">16</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">16</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.1801]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">17</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">17</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6803]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">18</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">18</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.0962]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">19</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">19</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=1.8696]</span></span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></tbody></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></tbody></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></tbody></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h2 id="Writing"><a href="#Writing" class="headerlink" title="Writing"></a>Writing</h2><p>Basically, <a href="https://hexo.io/">Hexo</a> supports <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a> and it can automatically compile Markdown to static webpage. </p>
+<h3 id="Insert-Images"><a href="#Insert-Images" class="headerlink" title="Insert Images"></a>Insert Images</h3><p>There are multiple ways that can insert images in Markdown, such as using absolute path, relative path, or url path. In Hexo, we can simply put the images we want to inert in <strong>source/images</strong> and insert it using the following command.</p>
+<figure class="highlight arcade"><table><tbody><tr><td class="code"><pre><span class="line">![descriptions](<span class="regexp">/images/im</span>age_example.jpg)</span><br></pre></td></tr></tbody></table></figure>
+<p>This method is easy to use. However, if we have huge amounts of images in our blog, it would be difficult to efficiently manage them.<br>Luckily, Hexo provides a more organized way to many images on a post-per-post basis. We first turn on this convenient approach by setting the <strong>post_assert_folder</strong> setting in <strong>_config.yml</strong> to true.</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attr">post_assert_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></tbody></table></figure>
+<p>With asset folder management enabled, Hexo will create a folder every time you make a new post with the <strong>hexo new [layout] <title></title></strong> command. This asset folder will have the same name as the markdown file associated with the post. Place all assets related to your post into the associated folder, and you will be able to reference them using a relative path, making for an easier and more convenient workflow. Then we can insert images using the following command.</p>
+<figure class="highlight scss"><table><tbody><tr><td class="code"><pre><span class="line">!<span class="selector-attr">[descriptions]</span>(image.jpg)</span><br></pre></td></tr></tbody></table></figure>
+<p>More info: <a href="https://hexo.io/docs/asset-folders.html">Assert Folders</a></p>
+<h3 id="File-download-links"><a href="#File-download-links" class="headerlink" title="File download links"></a>File download links</h3><p>Similar with inserting images, we can put files we want to share in the same fold and share it using the following markdown command.</p>
+<figure class="highlight applescript"><table><tbody><tr><td class="code"><pre><span class="line">[Download <span class="built_in">file</span>](<span class="built_in">file</span>.example)</span><br></pre></td></tr></tbody></table></figure></body></html>]]></content>
       <categories>
         <category>Tutorials</category>
-        <category>Deep Learning</category>
-        <category>Pytorch</category>
-        <category>Transformer</category>
+        <category>Hexo</category>
       </categories>
       <tags>
-        <tag>Deep Learning</tag>
-        <tag>Tutorials</tag>
-        <tag>Pytorch</tag>
-        <tag>Transformer</tag>
+        <tag>Hexo</tag>
+        <tag>NexT</tag>
+        <tag>Markdown</tag>
       </tags>
   </entry>
 </search>
