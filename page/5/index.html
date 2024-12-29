@@ -304,7 +304,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.9k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -323,7 +323,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks at different time. The existing Ubuntu’s grub file will be overwritten during the installation of new operation system. When the installation failed or the new installed operation system broken, the grub file may be broken, which results in that the existing Ubuntu can not boot. Fortunately, there are methods to repair the broken grub file and restore the existing Ubuntu system. In this article, I will briefly introduce one useful method, which helps me to save my Ubuntu 16.04.</p>
+          <p>For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks at different time. The existing Ubuntu's grub file will be overwritten during the installation of new operation system. When the installation failed or the new installed operation system broken, the grub file may be broken, which results in that the existing Ubuntu can not boot. Fortunately, there are methods to repair the broken grub file and restore the existing Ubuntu system. In this article, I will briefly introduce one useful method, which helps me to save my Ubuntu 16.04.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/12/07/Repair-Grub-and-Restore-Ubuntu/#more" rel="contents">
@@ -697,7 +697,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>4.4k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -820,7 +820,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>9.2k</span>
+              <span>9.1k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -956,7 +956,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>A personal blog is a useful tool that could help us to record and share our ideas, research work, coding experiences, learning notes, and so on. Nowadays, there are many open source frameworks and online platforms that provide blog service, which could help people build and deploy personal blog easily and quickly either free or not. In this article, I will introduce a popular method to build and deploy our personal blog using <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>, <a target="_blank" rel="noopener" href="https://theme-next.org/">NexT</a>, and <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">GitHub</a> step by step. If you follow the succeeding instructions step by step, you will build a well-designed personal blog and deploy it on the Internet as well. Let’s start right now. </p>
+          <p>A personal blog is a useful tool that could help us to record and share our ideas, research work, coding experiences, learning notes, and so on. Nowadays, there are many open source frameworks and online platforms that provide blog service, which could help people build and deploy personal blog easily and quickly either free or not. In this article, I will introduce a popular method to build and deploy our personal blog using <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>, <a target="_blank" rel="noopener" href="https://theme-next.org/">NexT</a>, and <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo">GitHub</a> step by step. If you follow the succeeding instructions step by step, you will build a well-designed personal blog and deploy it on the Internet as well. Let's start right now.</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/12/01/Build-and-Deploy-Your-Personal-Blog-Using-Hexo-NexT-and-GitHub/#more" rel="contents">
@@ -1227,7 +1227,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -1334,10 +1334,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

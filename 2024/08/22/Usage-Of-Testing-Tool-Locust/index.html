@@ -320,23 +320,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>完成后端服务开发后，在业务上线之前，通常需要进行压力测试，以评估目前的服务器算力在不同QPS请求下的负载承受能力，以此做系统后端可靠性分析。<strong>Locust</strong>是基于Python接口的开源压力测试工具，本文将介绍如何使用该工具对后端服务器进行压力测试。</p>
-<span id="more"></span>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>可以直接使用<strong>pip</strong>包管理工具进行安装，如下所示：</p>
-<figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> locust</span><br></pre></td></tr></tbody></table></figure>
-<p>需要将<strong>Locust</strong>安装目录添加到<strong>PATH</strong>中，这样可以直接在<strong>terminal</strong>中使用<strong>locust</strong>指令。</p>
-<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">PATH</span>=<span class="string">"/home/parallels/.local/bin:<span class="variable">$PATH</span>"</span></span><br></pre></td></tr></tbody></table></figure>
-<p>安装完成后，可以通过如下指令查看并确认安装是否成功：</p>
-<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust -V</span></span><br></pre></td></tr></tbody></table></figure>
-<p>如果看到以下信息，则表明安装成功。</p>
-<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust</span> <span class="number">2</span>.<span class="number">31</span>.<span class="number">3</span> from /home/parallels/.local/lib/python3.<span class="number">10</span>/site-packages/locust (Python <span class="number">3</span>.<span class="number">10</span>.<span class="number">12</span>, OpenSSL <span class="number">3</span>.<span class="number">0</span>.<span class="number">2</span>)</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="压测用例"><a href="#压测用例" class="headerlink" title="压测用例"></a>压测用例</h3><ul>
-<li>HttpUser<br>首先创建一个<strong>locustfile.py</strong>文件，并实现一个继承<strong>HttpUser</strong>的自定义测试类，<strong>Locust</strong>程序在同目录启动后会默认执行该测试用例。<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> response</span><br><span class="line"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between, constant</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ServoApiUser</span>(<span class="title class_ inherited__">HttpUser</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    User class that does requests to the locust web server running on localhost,</span></span><br><span class="line"><span class="string">    using the fast HTTP client</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    host = <span class="string">"https://www.yourwebsite.com"</span></span><br><span class="line">    wait_time = between(<span class="number">2</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="comment"># wait_time = constant(1)</span></span><br><span class="line">    <span class="comment"># some things you can configure on FastHttpUser</span></span><br><span class="line">    <span class="comment"># connection_timeout = 60.0</span></span><br><span class="line">    <span class="comment"># insecure = True</span></span><br><span class="line">    <span class="comment"># max_redirects = 5</span></span><br><span class="line">    <span class="comment"># max_retries = 1</span></span><br><span class="line">    <span class="comment"># network_timeout = 60.0</span></span><br><span class="line">    <span class="comment"># proxy_host = my-proxy.com</span></span><br><span class="line">    <span class="comment"># proxy_port = 8080</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_start</span>(<span class="params">self</span>):</span><br><span class="line">        self.client.headers = {</span><br><span class="line">            <span class="string">'Accept'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">            <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">            <span class="string">'Authorization'</span>: <span class="string">'TOKEN xxxxxxxxx'</span>,</span><br><span class="line">            <span class="string">'Cookie'</span>: <span class="string">'csrftoken=xxxxxxx'</span></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line"><span class="meta">    @task</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_card_info</span>(<span class="params">self</span>):</span><br><span class="line">        url = <span class="string">"/api/card_info/?stage=pregnancy&amp;level=user"</span></span><br><span class="line">        response = self.client.get(url=url, name=<span class="string">'get_card_info'</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"status code: {}"</span>.<span class="built_in">format</span>(response.status_code))</span><br><span class="line">        <span class="comment"># print("data: {}".format(response.json()))</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @task</span></span><br><span class="line">    <span class="comment"># def stats(self):</span></span><br><span class="line">    <span class="comment">#     self.client.get("/stats/requests")</span></span><br></pre></td></tr></tbody></table></figure>
-<strong>host</strong>参数可以设置测试服务器的地址。<br><strong>wait_time</strong>参数可以设置每个用户实例完成一个task之后，执行下一个task需要的等待时间，<strong>constant</strong>为固定等待时间，<strong>between</strong>为随机等待时间。该参数可以模拟不同用户随机访问的情况。<br><strong>on_start</strong>函数会在测试任务启动时运行一次，通常用户配置一些频繁使用但是测试过程中保持不变的参数变量，例如header。<br><strong>task</strong>decorator用于定义一个具体的测试任务，通常为一个<strong>api</strong>接口的<strong>POST</strong>、<strong>GET</strong>、<strong>DELETE、</strong>等request请求任务，用于用户自定义测试任务。</li>
-</ul>
-<h3 id="压测"><a href="#压测" class="headerlink" title="压测"></a>压测</h3><p>在<strong>locustfile.py</strong>同目录的<strong>terminal</strong>输入以下指令，即可启动压测。</p>
-<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust</span></span><br></pre></td></tr></tbody></table></figure>
-<p>在浏览器中访问<strong><a target="_blank" rel="noopener" href="http://0.0.0.0:8089/">http://0.0.0.0:8089</a></strong>即可开始压测。<br><strong>Number of Users</strong>用于配制压测的最高用户数量，配合<strong>wait_time</strong>即可估算出最高QPS<br>$$qps = \frac{UV}{wait_time}$$<br><strong>Ramp Up</strong>用户每秒钟用户增长的数量，用于测试访问用户不断增长情况下，服务器的性能表现。</p>
+        <html><head></head><body><p>完成后端服务开发后，在业务上线之前，通常需要进行压力测试，以评估目前的服务器算力在不同QPS请求下的负载承受能力，以此做系统后端可靠性分析。<strong>Locust</strong>是基于Python接口的开源压力测试工具，本文将介绍如何使用该工具对后端服务器进行压力测试。 <span id="more"></span> ### 安装 可以直接使用<strong>pip</strong>包管理工具进行安装，如下所示： </p><figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> locust</span><br></pre></td></tr></tbody></table></figure> 需要将<strong>Locust</strong>安装目录添加到<strong>PATH</strong>中，这样可以直接在<strong>terminal</strong>中使用<strong>locust</strong>指令。 <figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.zshrc</span><br><span class="line"><span class="built_in">export</span> <span class="attribute">PATH</span>=<span class="string">"/home/parallels/.local/bin:<span class="variable">$PATH</span>"</span></span><br></pre></td></tr></tbody></table></figure> 安装完成后，可以通过如下指令查看并确认安装是否成功： <figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust -V</span></span><br></pre></td></tr></tbody></table></figure> 如果看到以下信息，则表明安装成功。 <figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust</span> <span class="number">2</span>.<span class="number">31</span>.<span class="number">3</span> from /home/parallels/.local/lib/python3.<span class="number">10</span>/site-packages/locust (Python <span class="number">3</span>.<span class="number">10</span>.<span class="number">12</span>, OpenSSL <span class="number">3</span>.<span class="number">0</span>.<span class="number">2</span>)</span><br></pre></td></tr></tbody></table></figure> ### 压测用例 * HttpUser 首先创建一个<strong>locustfile.py</strong>文件，并实现一个继承<strong>HttpUser</strong>的自定义测试类，<strong>Locust</strong>程序在同目录启动后会默认执行该测试用例。 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> response</span><br><span class="line"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpUser, task, between, constant</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ServoApiUser</span>(<span class="title class_ inherited__">HttpUser</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    User class that does requests to the locust web server running on localhost,</span></span><br><span class="line"><span class="string">    using the fast HTTP client</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    host = <span class="string">"https://www.yourwebsite.com"</span></span><br><span class="line">    wait_time = between(<span class="number">2</span>, <span class="number">5</span>)</span><br><span class="line">    <span class="comment"># wait_time = constant(1)</span></span><br><span class="line">    <span class="comment"># some things you can configure on FastHttpUser</span></span><br><span class="line">    <span class="comment"># connection_timeout = 60.0</span></span><br><span class="line">    <span class="comment"># insecure = True</span></span><br><span class="line">    <span class="comment"># max_redirects = 5</span></span><br><span class="line">    <span class="comment"># max_retries = 1</span></span><br><span class="line">    <span class="comment"># network_timeout = 60.0</span></span><br><span class="line">    <span class="comment"># proxy_host = my-proxy.com</span></span><br><span class="line">    <span class="comment"># proxy_port = 8080</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">on_start</span>(<span class="params">self</span>):</span><br><span class="line">        self.client.headers = {</span><br><span class="line">            <span class="string">'Accept'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">            <span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>,</span><br><span class="line">            <span class="string">'Authorization'</span>: <span class="string">'TOKEN xxxxxxxxx'</span>,</span><br><span class="line">            <span class="string">'Cookie'</span>: <span class="string">'csrftoken=xxxxxxx'</span></span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line"><span class="meta">    @task</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_card_info</span>(<span class="params">self</span>):</span><br><span class="line">        url = <span class="string">"/api/card_info/?stage=pregnancy&amp;level=user"</span></span><br><span class="line">        response = self.client.get(url=url, name=<span class="string">'get_card_info'</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"status code: {}"</span>.<span class="built_in">format</span>(response.status_code))</span><br><span class="line">        <span class="comment"># print("data: {}".format(response.json()))</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># @task</span></span><br><span class="line">    <span class="comment"># def stats(self):</span></span><br><span class="line">    <span class="comment">#     self.client.get("/stats/requests")</span></span><br></pre></td></tr></tbody></table></figure> <strong>host</strong>参数可以设置测试服务器的地址。 <strong>wait_time</strong>参数可以设置每个用户实例完成一个task之后，执行下一个task需要的等待时间，<strong>constant</strong>为固定等待时间，<strong>between</strong>为随机等待时间。该参数可以模拟不同用户随机访问的情况。 <strong>on_start</strong>函数会在测试任务启动时运行一次，通常用户配置一些频繁使用但是测试过程中保持不变的参数变量，例如header。 <strong>task</strong>decorator用于定义一个具体的测试任务，通常为一个<strong>api</strong>接口的<strong>POST</strong>、<strong>GET</strong>、<strong>DELETE、</strong>等request请求任务，用于用户自定义测试任务。 ### 压测 在<strong>locustfile.py</strong>同目录的<strong>terminal</strong>输入以下指令，即可启动压测。 <figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">locust</span></span><br></pre></td></tr></tbody></table></figure> 在浏览器中访问<strong>http://0.0.0.0:8089</strong>即可开始压测。 <strong>Number of Users</strong>用于配制压测的最高用户数量，配合<strong>wait_time</strong>即可估算出最高QPS <span class="math display">\[qps = \frac{UV}{wait\_time}\]</span> <strong>Ramp Up</strong>用户每秒钟用户增长的数量，用于测试访问用户不断增长情况下，服务器的性能表现。<p></p>
 </body></html>
     </div>
 
@@ -439,7 +423,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E6%B5%8B%E7%94%A8%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">压测用例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E6%B5%8B"><span class="nav-number">3.</span> <span class="nav-text">压测</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -536,7 +519,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -643,10 +626,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

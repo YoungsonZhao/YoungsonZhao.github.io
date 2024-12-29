@@ -302,7 +302,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>223</span>
+              <span>226</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -321,9 +321,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://moveit.ros.org/">MoveIt</a>是机器人运动规划与控制的重要开源包，本文主要讲解<strong>MoveIt</strong>的使用步骤和经验。</p>
-<span id="more"></span>
-<h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-joint-trajectory-controller</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-forward-command-controller</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-joint-state-broadcaster</span><br></pre></td></tr></tbody></table></figure></body></html>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://moveit.ros.org/">MoveIt</a>是机器人运动规划与控制的重要开源包，本文主要讲解<strong>MoveIt</strong>的使用步骤和经验。 <span id="more"></span> ### Installation </p><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-joint-trajectory-controller</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-forward-command-controller</span><br><span class="line">sudo apt-<span class="built_in">get</span> install ros-humble-joint-state-broadcaster</span><br></pre></td></tr></tbody></table></figure><p></p>
+</body></html>
     </div>
 
     
@@ -426,7 +425,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Installation"><span class="nav-number">1.</span> <span class="nav-text">Installation</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -523,7 +521,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -630,10 +628,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

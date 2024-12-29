@@ -340,126 +340,139 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>本文详细介绍<a target="_blank" rel="noopener" href="https://user.phil.hhu.de/~cwurm/wp-content/uploads/2020/01/7181-attention-is-all-you-need.pdf">Attention Is All You Need</a>论文中Transformer模型架构、各个模块的数学原理、输入输出、参数规模，以及PyTorch实现。</p>
-<span id="more"></span>
-<h2 id="模型架构"><a href="#模型架构" class="headerlink" title="模型架构"></a>模型架构</h2><p><img alt="Transformer模型结构图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/transformer-architecture.png"><br>原始的Transformer模型是<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>的经典结构，<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>分别由$N_e$个<strong>Encoder Block</strong>和$N_d$个<strong>Decoder Block</strong>残差堆叠组成。编码器的输入是源序列，尺寸是(batch_size, src_seq_len)，输出是Encoder Embedding，尺寸是(batch_size, src_seq_len, embed_size)，解码器的输入是目标序列，尺寸是(batch_size, tgt_seq_len)和Encoder Embedding，输出是Decoder Embedding，尺寸是(batch_size, seq_len, embed_size)。</p>
-<h2 id="模块实现"><a href="#模块实现" class="headerlink" title="模块实现"></a>模块实现</h2><h3 id="Input-Embedding"><a href="#Input-Embedding" class="headerlink" title="Input Embedding"></a><strong>Input Embedding</strong></h3><p><strong>Input Embedding</strong>（输入嵌入）是将离散Token序列转换为连续向量序列的过程。Transformer模型的输入是文本字符串，首先利用<a href="">Tokenizer</a>将文本转换为Token序列，然后利用<a href="">nn.Embedding</a>将每一个Token保存为一个embed_size维的Embedding向量。<strong>nn.Embedding</strong>本质是一个Lookup Table，Key是Token，Value是Embedding向量，关键参数有两个，vocab_size表示词表中的Token数量, embed_size表示Embedding向量的维度。</p>
+        <html><head></head><body><p>本文详细介绍<a target="_blank" rel="noopener" href="https://user.phil.hhu.de/~cwurm/wp-content/uploads/2020/01/7181-attention-is-all-you-need.pdf">Attention Is All You Need</a>论文中Transformer模型架构、各个模块的数学原理、输入输出、参数规模，以及PyTorch实现。 <span id="more"></span> ## 模型架构 <img alt="Transformer模型结构图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/transformer-architecture.png"> 原始的Transformer模型是<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>的经典结构，<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>分别由<span class="math inline">\(N_e\)</span>个<strong>Encoder Block</strong>和<span class="math inline">\(N_d\)</span>个<strong>Decoder Block</strong>残差堆叠组成。编码器的输入是源序列，尺寸是(batch_size, src_seq_len)，输出是Encoder Embedding，尺寸是(batch_size, src_seq_len, embed_size)，解码器的输入是目标序列，尺寸是(batch_size, tgt_seq_len)和Encoder Embedding，输出是Decoder Embedding，尺寸是(batch_size, seq_len, embed_size)。</p>
+<h2 id="模块实现">模块实现</h2>
+<h3 id="input-embedding"><strong>Input Embedding</strong></h3>
+<p><strong>Input Embedding</strong>（输入嵌入）是将离散Token序列转换为连续向量序列的过程。Transformer模型的输入是文本字符串，首先利用<a href="">Tokenizer</a>将文本转换为Token序列，然后利用<a href="">nn.Embedding</a>将每一个Token保存为一个embed_size维的Embedding向量。<strong>nn.Embedding</strong>本质是一个Lookup Table，Key是Token，Value是Embedding向量，关键参数有两个，vocab_size表示词表中的Token数量, embed_size表示Embedding向量的维度。</p>
 <p>Input Embedding是(vocab_size, embed_size)的参数矩阵，在模型训练时会同步更新该参数矩阵。如果想要冻结Input Embedding的参数矩阵，可以设置embedding.weight.requires_grad = False。Input Embedding的实现代码如下：</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">InputEmbedding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Embedding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, vocab_size: <span class="built_in">int</span>, embed_size: <span class="built_in">int</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the embedding layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            vocab_size: size of the vocabulary</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            None</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(InputEmbedding, self).__init__()</span><br><span class="line">        self.vocab_size = vocab_size</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.embedding = nn.Embedding(vocab_size, embed_size)</span><br><span class="line">        self.embedding.weight.data.uniform_(-<span class="number">0.1</span>, <span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the embedding layer.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            embedded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> self.embedding(x) * math.sqrt(self.embed_size)</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Positional-Encoding"><a href="#Positional-Encoding" class="headerlink" title="Positional Encoding"></a><strong>Positional Encoding</strong></h3><p><strong>Positional Encoding</strong>（位置编码）是Transformer模型中用于给每个Token添加位置信息的机制。由于Transformer模型中没有循环神经网络（RNN）中的序列位置顺序信息，因此需要通过位置编码来提供序列的顺序信息，在论文中使用了正弦和余弦函数来编码位置信息。<br>在 Transformer 模型中，<strong>Positional Encoding (位置编码)</strong> 用于为输入序列引入位置信息，以弥补自注意力机制（Self-Attention）缺少序列顺序感知能力的不足。它的设计基于正弦和余弦函数的数学原理，使得不同位置的编码具有可解析的相对位置信息。</p>
-<h4 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a><strong>数学公式</strong></h4><p>给定一个位置 $pos$ 和一个维度 $i$（嵌入向量的第 $i$ 个维度），位置编码的值由以下公式定义：<br>$$<br>PE(pos, k) =<br>\begin{cases}<br>\sin\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i \<br>\cos\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i+1<br>\end{cases}<br>$$<br>其中</p>
-<ul>
-<li>$pos$ 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。</li>
-<li>$k$ 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。</li>
-<li>$d_{model}$ 是Embedding的维度（embed_size）。<br><img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></li>
-</ul>
-<h4 id="位置编码可视化"><a href="#位置编码可视化" class="headerlink" title="位置编码可视化"></a><strong>位置编码可视化</strong></h4><p>不同序列长度和嵌入特征维度下的位置编码可视化如下：<br><img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"><br><img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"><br><img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"></p>
-<ol>
-<li><p><strong>频率范围：</strong></p>
-<ul>
-<li>分母中的 $10000^{\frac{2i}{d_{model}}}$ 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。</li>
-<li>这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。</li>
-<li>对于每个维度 $i$，通过不同的频率编码（由 $10000^{\frac{2i}{d_{model}}}$ 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。</li>
-<li>嵌入特征的维度（embed_size）越高，位置编码的信息丰富度越大。</li>
-</ul>
-</li>
-<li><p><strong>正弦与余弦函数：</strong></p>
+<h3 id="positional-encoding"><strong>Positional Encoding</strong></h3>
+<p><strong>Positional Encoding</strong>（位置编码）是Transformer模型中用于给每个Token添加位置信息的机制。由于Transformer模型中没有循环神经网络（RNN）中的序列位置顺序信息，因此需要通过位置编码来提供序列的顺序信息，在论文中使用了正弦和余弦函数来编码位置信息。 在 Transformer 模型中，<strong>Positional Encoding (位置编码)</strong> 用于为输入序列引入位置信息，以弥补自注意力机制（Self-Attention）缺少序列顺序感知能力的不足。它的设计基于正弦和余弦函数的数学原理，使得不同位置的编码具有可解析的相对位置信息。</p>
+<h4 id="数学公式"><strong>数学公式</strong></h4>
+<p>给定一个位置 <span class="math inline">\(pos\)</span> 和一个维度 <span class="math inline">\(i\)</span>（嵌入向量的第 <span class="math inline">\(i\)</span> 个维度），位置编码的值由以下公式定义： <span class="math display">\[
+PE(pos, k) = 
+\begin{cases} 
+\sin\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i \\
+\cos\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i+1
+\end{cases}
+\]</span> 其中 - <span class="math inline">\(pos\)</span> 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。 - <span class="math inline">\(k\)</span> 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。 - <span class="math inline">\(d_{model}\)</span> 是Embedding的维度（embed_size）。 <img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></p>
+<h4 id="位置编码可视化"><strong>位置编码可视化</strong></h4>
+<p>不同序列长度和嵌入特征维度下的位置编码可视化如下： <img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"> <img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"> <img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"> 1. <strong>频率范围：</strong> - 分母中的 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。 - 这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。 - 对于每个维度 <span class="math inline">\(i\)</span>，通过不同的频率编码（由 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。 - 嵌入特征的维度（embed_size）越高，位置编码的信息丰富度越大。</p>
+<ol start="2" type="1">
+<li><strong>正弦与余弦函数：</strong>
 <ul>
 <li>使用正弦和余弦为奇数维度和偶数维度生成不同的变化模式。</li>
 <li>正弦和余弦函数可以保证位置编码的值在[-1, 1]范围内。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<h4 id="核心性质"><a href="#核心性质" class="headerlink" title="核心性质"></a><strong>核心性质</strong></h4><ol>
-<li><p><strong>位置相关性：</strong><br>位置编码的设计确保了任意两个位置之间的相对位置信息可以被简单计算：<br>$$<br>PE(pos_1) - PE(pos_2)<br>$$<br>这一性质帮助模型直接捕获相对位置。</p>
-</li>
-<li><p><strong>平移不变性：</strong><br>周期性正弦和余弦函数使得位置编码对输入序列的长度具有平移不变性。</p>
-</li>
+<h4 id="核心性质"><strong>核心性质</strong></h4>
+<ol type="1">
+<li><p><strong>位置相关性：</strong> 位置编码的设计确保了任意两个位置之间的相对位置信息可以被简单计算： <span class="math display">\[
+PE(pos_1) - PE(pos_2)
+\]</span> 这一性质帮助模型直接捕获相对位置。</p></li>
+<li><p><strong>平移不变性：</strong> 周期性正弦和余弦函数使得位置编码对输入序列的长度具有平移不变性。</p></li>
 <li><p><strong>无需训练：</strong></p>
 <ul>
 <li>位置编码的值是通过公式计算的，无需学习参数。这减少了模型参数量，同时保持了良好的泛化能力。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a><strong>优点</strong></h3><ol>
-<li><p><strong>捕获绝对与相对位置信息：</strong></p>
+<h3 id="优点"><strong>优点</strong></h3>
+<ol type="1">
+<li><strong>捕获绝对与相对位置信息：</strong>
 <ul>
 <li>通过对所有位置进行唯一编码，模型可以直接感知绝对位置。</li>
 <li>正弦与余弦函数的对偶特性还允许模型通过简单的向量操作获取相对位置信息。</li>
-</ul>
-</li>
-<li><p><strong>轻量级实现：</strong></p>
+</ul></li>
+<li><strong>轻量级实现：</strong>
 <ul>
 <li>无需引入额外的训练参数。</li>
-</ul>
-</li>
-<li><p><strong>泛化性：</strong></p>
+</ul></li>
+<li><strong>泛化性：</strong>
 <ul>
 <li>使用数学公式定义的编码能推广到比训练时更长的序列，适合处理变长输入。</li>
-</ul>
-</li>
+</ul></li>
 </ol>
-<h3 id="改进与替代方法"><a href="#改进与替代方法" class="headerlink" title="改进与替代方法"></a><strong>改进与替代方法</strong></h3><p>尽管正弦-余弦位置编码有诸多优点，但在后续研究中，也提出了许多替代方法：</p>
-<ol>
-<li><strong>可学习的位置编码：</strong><br>通过将位置编码视为可学习的参数矩阵，使模型在特定任务上更具适应性。</li>
-<li><strong>相对位置编码（Relative Positional Encoding）：</strong><br>提取位置之间的相对关系，如 Transformer-XL 和 T5 中的改进版本。</li>
-<li><strong>旋转位置编码（RoPE, Rotary Positional Embedding）：</strong><br>在 Transformers 中通过旋转操作高效捕获相对位置信息。</li>
-</ol>
-<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a><strong>具体实现</strong></h4><p>为了提升计算效率，将位置编码中的频率系数做如下优化：<br>$$<br>\begin{align}<br>\frac{1}{10000^{\frac{2i}{d_{model}}}} &amp;=  \<br>  &amp;= \exp(\log(\frac{1}{10000^{\frac{2i}{d_{model}}}})) \<br>  &amp;= \exp(\log({10000^{\frac{2i}{d_{model}}}}^{-1})) \<br>  &amp;= \exp(-1 * \log({10000^{\frac{2i}{d_{model}}}})) \<br>  &amp;= \exp(-1 * {\frac{2i}{d_{model}}} * \log(10000)) \<br>  &amp;= \exp(-{\frac{\log(10000)}{d_{model}}} * {2i})<br>\end{align}<br>$$</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionalEncoding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Positional encoding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embed_size: <span class="built_in">int</span>, seq_len: <span class="built_in">int</span>, dropout: <span class="built_in">float</span> = <span class="number">0.1</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string">            max_len: maximum length of the input sequence</span></span><br><span class="line"><span class="string">            dropout: dropout rate</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(PositionalEncoding, self).__init__()</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.seq_len = seq_len</span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create positional encoding, a matrix of shape (seq_len, embed_size)</span></span><br><span class="line">        pe = torch.zeros(seq_len, embed_size)</span><br><span class="line">        pos = torch.arange(<span class="number">0</span>, seq_len, dtype=torch.<span class="built_in">float</span>).unsqueeze(<span class="number">1</span>) <span class="comment"># (seq_len, 1), unsqueeze: add a new dimension</span></span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, embed_size, <span class="number">2</span>).<span class="built_in">float</span>() * (-math.log(<span class="number">10000.0</span>) / embed_size)) <span class="comment"># (embed_size/2,)</span></span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(pos * div_term)</span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(pos * div_term)</span><br><span class="line">        <span class="comment"># self.pe = self.pe.unsqueeze(0).transpose(0, 1) # (seq_len, 1, embed_size)</span></span><br><span class="line">        pe = pe.unsqueeze(<span class="number">0</span>) <span class="comment"># (1, seq_len, embed_size), 1 for batch size</span></span><br><span class="line">        self.register_buffer(<span class="string">'pe'</span>, pe) <span class="comment"># register buffer, so it doesn't need to be trained but can be saved</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            positional encoded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># x = x + self.pe[:, :x.size(1), :].requires_grad(False)</span></span><br><span class="line">        x = x + self.pe[:, :x.size(<span class="number">1</span>), :].detach()</span><br><span class="line">        <span class="keyword">return</span> self.dropout(x)</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="Layer-Normalization"><a href="#Layer-Normalization" class="headerlink" title="Layer Normalization"></a><strong>Layer Normalization</strong></h3><p><strong>Layer Normalization</strong>（层归一化）是一种常用于深度学习模型的正则化技术，特别是在序列建模和自然语言处理任务中。它旨在通过标准化每一层的激活值来提高模型的训练稳定性和收敛速度。</p>
-<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a><strong>基本原理</strong></h4><p>在神经网络中，每一层的激活值可能因输入数据的变化而幅度不一，这种变化被称为<strong>内部分布漂移（Internal Covariate Shift）</strong>。Layer Normalization 通过对每一层的神经元输出进行标准化，减少这种漂移的影响。</p>
+<h3 id="改进与替代方法"><strong>改进与替代方法</strong></h3>
+<p>尽管正弦-余弦位置编码有诸多优点，但在后续研究中，也提出了许多替代方法： 1. <strong>可学习的位置编码：</strong><br>
+通过将位置编码视为可学习的参数矩阵，使模型在特定任务上更具适应性。 2. <strong>相对位置编码（Relative Positional Encoding）：</strong><br>
+提取位置之间的相对关系，如 Transformer-XL 和 T5 中的改进版本。 3. <strong>旋转位置编码（RoPE, Rotary Positional Embedding）：</strong><br>
+在 Transformers 中通过旋转操作高效捕获相对位置信息。</p>
+<h4 id="具体实现"><strong>具体实现</strong></h4>
+<p>为了提升计算效率，将位置编码中的频率系数做如下优化： <span class="math display">\[
+\begin{align}
+\frac{1}{10000^{\frac{2i}{d_{model}}}} &amp;=  \\
+  &amp;= \exp(\log(\frac{1}{10000^{\frac{2i}{d_{model}}}})) \\
+  &amp;= \exp(\log({10000^{\frac{2i}{d_{model}}}}^{-1})) \\
+  &amp;= \exp(-1 * \log({10000^{\frac{2i}{d_{model}}}})) \\
+  &amp;= \exp(-1 * {\frac{2i}{d_{model}}} * \log(10000)) \\
+  &amp;= \exp(-{\frac{\log(10000)}{d_{model}}} * {2i})
+\end{align}
+\]</span> </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionalEncoding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Positional encoding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embed_size: <span class="built_in">int</span>, seq_len: <span class="built_in">int</span>, dropout: <span class="built_in">float</span> = <span class="number">0.1</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string">            max_len: maximum length of the input sequence</span></span><br><span class="line"><span class="string">            dropout: dropout rate</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(PositionalEncoding, self).__init__()</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.seq_len = seq_len</span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create positional encoding, a matrix of shape (seq_len, embed_size)</span></span><br><span class="line">        pe = torch.zeros(seq_len, embed_size)</span><br><span class="line">        pos = torch.arange(<span class="number">0</span>, seq_len, dtype=torch.<span class="built_in">float</span>).unsqueeze(<span class="number">1</span>) <span class="comment"># (seq_len, 1), unsqueeze: add a new dimension</span></span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, embed_size, <span class="number">2</span>).<span class="built_in">float</span>() * (-math.log(<span class="number">10000.0</span>) / embed_size)) <span class="comment"># (embed_size/2,)</span></span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(pos * div_term)</span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(pos * div_term)</span><br><span class="line">        <span class="comment"># self.pe = self.pe.unsqueeze(0).transpose(0, 1) # (seq_len, 1, embed_size)</span></span><br><span class="line">        pe = pe.unsqueeze(<span class="number">0</span>) <span class="comment"># (1, seq_len, embed_size), 1 for batch size</span></span><br><span class="line">        self.register_buffer(<span class="string">'pe'</span>, pe) <span class="comment"># register buffer, so it doesn't need to be trained but can be saved</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            positional encoded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># x = x + self.pe[:, :x.size(1), :].requires_grad(False)</span></span><br><span class="line">        x = x + self.pe[:, :x.size(<span class="number">1</span>), :].detach()</span><br><span class="line">        <span class="keyword">return</span> self.dropout(x)</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="layer-normalization"><strong>Layer Normalization</strong></h3>
+<p><strong>Layer Normalization</strong>（层归一化）是一种常用于深度学习模型的正则化技术，特别是在序列建模和自然语言处理任务中。它旨在通过标准化每一层的激活值来提高模型的训练稳定性和收敛速度。</p>
+<h4 id="基本原理"><strong>基本原理</strong></h4>
+<p>在神经网络中，每一层的激活值可能因输入数据的变化而幅度不一，这种变化被称为<strong>内部分布漂移（Internal Covariate Shift）</strong>。Layer Normalization 通过对每一层的神经元输出进行标准化，减少这种漂移的影响。</p>
 <p>Layer Normalization 的标准化是针对<strong>层的维度</strong>（即神经元的集合）进行的，而不是像 Batch Normalization 针对<strong>样本的维度</strong>。具体而言，对于每个输入样本，Layer Normalization 会对其当前层的激活值进行归一化处理。</p>
-<h4 id="数学表达"><a href="#数学表达" class="headerlink" title="数学表达"></a><strong>数学表达</strong></h4><p>假设某层的输入是一个向量 $\mathbf{h} = [h_1, h_2, …, h_d]$，其中 $d$ 是该层的神经元数。Layer Normalization 的计算过程如下：</p>
-<ol>
-<li><p><strong>计算均值和方差</strong>：<br>$$<br>\mu = \frac{1}{d} \sum_{i=1}^d h_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (h_i - \mu)^2<br>$$</p>
-</li>
-<li><p><strong>标准化</strong>：<br>$$<br>\hat{h}_i = \frac{h_i - \mu}{\sqrt{\sigma^2 + \epsilon}}<br>$$<br>其中，$\epsilon$ 是一个小常数，用于防止分母为零。</p>
-</li>
-<li><p><strong>添加可学习参数</strong>（仿射变换）：<br>$$<br>h_i^{\text{norm}} = \gamma \hat{h}_i + \beta<br>$$<br>其中，$\gamma$ 和 $\beta$ 是可学习参数，用于恢复网络的表达能力。</p>
-</li>
+<h4 id="数学表达"><strong>数学表达</strong></h4>
+<p>假设某层的输入是一个向量 <span class="math inline">\(\mathbf{h} = [h_1, h_2, ..., h_d]\)</span>，其中 <span class="math inline">\(d\)</span> 是该层的神经元数。Layer Normalization 的计算过程如下：</p>
+<ol type="1">
+<li><p><strong>计算均值和方差</strong>： <span class="math display">\[
+\mu = \frac{1}{d} \sum_{i=1}^d h_i, \quad \sigma^2 = \frac{1}{d} \sum_{i=1}^d (h_i - \mu)^2
+\]</span></p></li>
+<li><p><strong>标准化</strong>： <span class="math display">\[
+\hat{h}_i = \frac{h_i - \mu}{\sqrt{\sigma^2 + \epsilon}}
+\]</span> 其中，<span class="math inline">\(\epsilon\)</span> 是一个小常数，用于防止分母为零。</p></li>
+<li><p><strong>添加可学习参数</strong>（仿射变换）： <span class="math display">\[
+h_i^{\text{norm}} = \gamma \hat{h}_i + \beta
+\]</span> 其中，<span class="math inline">\(\gamma\)</span> 和 <span class="math inline">\(\beta\)</span> 是可学习参数，用于恢复网络的表达能力。</p></li>
 </ol>
-<h4 id="与-Batch-Normalization-的对比"><a href="#与-Batch-Normalization-的对比" class="headerlink" title="与 Batch Normalization 的对比"></a><strong>与 Batch Normalization 的对比</strong></h4><table>
+<h4 id="与-batch-normalization-的对比"><strong>与 Batch Normalization 的对比</strong></h4>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>特性</th>
 <th>Layer Normalization</th>
 <th>Batch Normalization</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr class="odd">
 <td><strong>归一化维度</strong></td>
 <td>每层神经元（样本内部）</td>
 <td>样本维度（批次内的样本间）</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>依赖批大小</strong></td>
 <td>不依赖</td>
 <td>依赖批大小</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><strong>适用场景</strong></td>
 <td>RNN、Transformer 等序列模型</td>
 <td>CNN 等需要大批量训练的模型</td>
 </tr>
-<tr>
+<tr class="even">
 <td><strong>计算开销</strong></td>
 <td>较小</td>
 <td>可能较大</td>
 </tr>
-</tbody></table>
-<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a><strong>优点</strong></h4><ol>
+</tbody>
+</table>
+<h4 id="优点-1"><strong>优点</strong></h4>
+<ol type="1">
 <li><strong>适用于小批量或单样本训练</strong>：因为不依赖批次统计信息，Layer Normalization 能很好地适用于小批量甚至单样本训练。</li>
 <li><strong>改善收敛性</strong>：通过减少激活值的变化，模型更容易收敛。</li>
 <li><strong>在序列任务中的优势</strong>：特别适合 Recurrent Neural Network（RNN）和 Transformer，因为它不会破坏时间步的依赖关系。</li>
 </ol>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a><strong>应用场景</strong></h4><ul>
+<h4 id="应用场景"><strong>应用场景</strong></h4>
+<ul>
 <li>Transformer 中广泛使用（例如 BERT 和 GPT 模型）。</li>
 <li>在序列建模（如语言模型、时间序列预测）和小批量训练任务中效果显著。</li>
 </ul>
 <p>通过 Layer Normalization，深度学习模型可以更快地学习、避免梯度爆炸或消失，并增强泛化能力。</p>
-<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Epoch</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">0</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=5.7891]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">1</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">1</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.3471]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">2</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">2</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.2629]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">3</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">3</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.50it/s, loss=5.1802]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">4</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">4</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=4.5534]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">5</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">5</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=3.7544]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">6</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">6</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.6769]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">7</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">7</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.51it/s, loss=3.1740]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">8</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">8</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.52it/s, loss=1.5529]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">9</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">9</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=1.5789]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">10</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">10</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.2088]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">11</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">11</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.8507]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">12</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">12</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:58&lt;00:00,  5.53it/s, loss=1.6555]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">13</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">13</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.7904]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">14</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">14</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=2.1260]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">15</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">15</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6503]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">16</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">16</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.1801]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">17</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">17</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6803]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">18</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">18</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.0962]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">19</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">19</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=1.8696]</span></span><br></pre></td></tr></tbody></table></figure></body></html>
+<h2 id="训练">训练</h2>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Epoch</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">0</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=5.7891]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">1</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">1</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.3471]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">2</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">2</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.49it/s, loss=4.2629]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">3</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">3</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:02&lt;00:00,  5.50it/s, loss=5.1802]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">4</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">4</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=4.5534]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">5</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">5</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:01&lt;00:00,  5.50it/s, loss=3.7544]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">6</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">6</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.6769]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">7</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">7</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.51it/s, loss=3.1740]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">8</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">8</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:59&lt;00:00,  5.52it/s, loss=1.5529]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">9</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">9</span>: <span class="number">100</span>%|█████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=1.5789]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">10</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">10</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [11:00&lt;00:00,  5.51it/s, loss=2.2088]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">11</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">11</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.8507]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">12</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">12</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:58&lt;00:00,  5.53it/s, loss=1.6555]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">13</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">13</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=1.7904]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">14</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">14</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:57&lt;00:00,  5.53it/s, loss=2.1260]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">15</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">15</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6503]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">16</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">16</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.1801]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">17</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">17</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.6803]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">18</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">18</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=2.0962]</span></span><br><span class="line"><span class="attribute">Epoch</span> <span class="number">19</span></span><br><span class="line"><span class="attribute">Processing</span> epoch  <span class="number">19</span>: <span class="number">100</span>%|████| <span class="number">3638</span>/<span class="number">3638</span><span class="meta"> [10:56&lt;00:00,  5.54it/s, loss=1.8696]</span></span><br></pre></td></tr></tbody></table></figure>
+</body></html>
     </div>
 
     
@@ -560,7 +573,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">模型架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">模块实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-Embedding"><span class="nav-number">2.1.</span> <span class="nav-text">Input Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Positional-Encoding"><span class="nav-number">2.2.</span> <span class="nav-text">Positional Encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F"><span class="nav-number">2.2.1.</span> <span class="nav-text">数学公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">2.2.2.</span> <span class="nav-text">位置编码可视化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%A7%E8%B4%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">核心性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E4%B8%8E%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">改进与替代方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.4.1.</span> <span class="nav-text">具体实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer-Normalization"><span class="nav-number">2.5.</span> <span class="nav-text">Layer Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">2.5.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E8%A1%A8%E8%BE%BE"><span class="nav-number">2.5.2.</span> <span class="nav-text">数学表达</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E-Batch-Normalization-%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.5.3.</span> <span class="nav-text">与 Batch Normalization 的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-1"><span class="nav-number">2.5.4.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.5.5.</span> <span class="nav-text">应用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">3.</span> <span class="nav-text">训练</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">模块实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#input-embedding"><span class="nav-number">1.1.</span> <span class="nav-text">Input Embedding</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#positional-encoding"><span class="nav-number">1.2.</span> <span class="nav-text">Positional Encoding</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">数学公式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">1.2.2.</span> <span class="nav-text">位置编码可视化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%80%A7%E8%B4%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">核心性质</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E4%B8%8E%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">改进与替代方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.1.</span> <span class="nav-text">具体实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#layer-normalization"><span class="nav-number">1.5.</span> <span class="nav-text">Layer Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.1.</span> <span class="nav-text">基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E8%A1%A8%E8%BE%BE"><span class="nav-number">1.5.2.</span> <span class="nav-text">数学表达</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E-batch-normalization-%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.5.3.</span> <span class="nav-text">与 Batch Normalization 的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-1"><span class="nav-number">1.5.4.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.5.5.</span> <span class="nav-text">应用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%AD%E7%BB%83"><span class="nav-number">2.</span> <span class="nav-text">训练</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -657,7 +670,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -764,10 +777,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

@@ -307,7 +307,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>493</span>
+              <span>416</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -326,12 +326,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><strong>SSH</strong> is secure way to login a server. It is difficult to remember the IPs of several servers. In this tutorials, I will teach to setup host of <strong>SSH</strong> to login using hostname instead of IP.</p>
-<span id="more"></span>
-<h3 id="Create-Config-File"><a href="#Create-Config-File" class="headerlink" title="Create Config File"></a>Create Config File</h3><p>Create a custom ssh config file by the following command.</p>
-<figure class="highlight arcade"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Add-Host"><a href="#Add-Host" class="headerlink" title="Add Host"></a>Add Host</h3><figure class="highlight crmsh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab.com</span><br><span class="line">    HostName <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line">    <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">    Port <span class="number">30001</span></span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></tbody></table></figure>
-<p>The above host is a ssh connect for git. With this host, we can use <strong>ssh://<a href="mailto:git@gitlab.com">git@gitlab.com</a>:30001/</strong> to clone and push.</p>
+        <html><head></head><body><p><strong>SSH</strong> is secure way to login a server. It is difficult to remember the IPs of several servers. In this tutorials, I will teach to setup host of <strong>SSH</strong> to login using hostname instead of IP. <span id="more"></span> ### Create Config File Create a custom ssh config file by the following command. </p><figure class="highlight arcade"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></tbody></table></figure> ### Add Host <figure class="highlight crmsh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab.com</span><br><span class="line">    HostName <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line">    <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">    Port <span class="number">30001</span></span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></tbody></table></figure> The above host is a ssh connect for git. With this host, we can use <strong>ssh://git@gitlab.com:30001/</strong> to clone and push.<p></p>
 </body></html>
     </div>
 
@@ -434,7 +429,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-Config-File"><span class="nav-number">1.</span> <span class="nav-text">Create Config File</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Add-Host"><span class="nav-number">2.</span> <span class="nav-text">Add Host</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -531,7 +525,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -638,10 +632,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

@@ -327,34 +327,55 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>视觉伺服是多自由度机械臂灵巧作业领域经典运动控制算法之一，常用于对精细作业和范化作业，例如利用视觉伺服实现对接线面板和USB接口的插拔。视觉伺服算法的核心思想是利用视觉反馈信息，对机械臂末端执行器进行实时位置和姿态调整，以实现精确的运动控制。视觉伺服通常分为两类，一类是基于图像特征的视觉伺服（IBVS），另一类是基于位置姿态的视觉伺服（PBVS）。本文将介绍这两种视觉伺服算法的基本原理和实现方法。</p>
-<span id="more"></span>
-<h2 id="背景理论"><a href="#背景理论" class="headerlink" title="背景理论"></a>背景理论</h2><p>视觉伺服本质上是一个在坐标转换（平移、旋转）运动空间的非线性优化问题，因此会用到<strong>Gauss-Newton</strong>非线性优化算法和<strong>Jacobian矩阵</strong>。</p>
-<h3 id="非线性优化问题"><a href="#非线性优化问题" class="headerlink" title="非线性优化问题"></a>非线性优化问题</h3><p>将最优化问题的目标函数表示为$f(x)$，其中$f(x)$二阶连续可微，那么最优化的问题可以转化：<br>$${argmin}_{x}f(x)$$<br>即求解$f(x)$的最小值以及对应的$x^{*}$。<br>复杂的非线性最优化问题，$f(x)$一般为高维非线性方程组，$x$为多维向量，即$x \in \mathbb{R}^n$，$f(x) \in \mathbb{R}^m$，其中$m \geq n$。</p>
-<p>对于机械臂视觉伺服运动控制问题，上述非线性优化问题可以表示为：<br>$$x = \begin{bmatrix}t &amp; r \end{bmatrix}$$<br>其中$t$表示坐标转换空间中的平移向量，维度为$[3x1]$，$r$表示坐标转换空间中的旋转向量，维度为$[3x1]$。<br>$$f(x) = x_{target} - x_{current}$$<br>或者<br>$$f(x) = x_{target}^{-1} x_{current}$$<br>公式选择取决于参考坐标系的选择，已经视觉伺服方式的选择，具体请见<strong>视觉伺服</strong>章节。</p>
-<h3 id="Jacobian矩阵"><a href="#Jacobian矩阵" class="headerlink" title="Jacobian矩阵"></a>Jacobian矩阵</h3><p>对于复杂的非线性目标函数，在数学上直接求解解析解比较复杂，一般通过一级泰勒公式展开进行线性化近似，即：<br>$$f(x+\Delta x) \approx f(x) + J(x)\Delta x$$<br>其中，$J(x)$为$f(x)$在$x$处偏导数$\frac{\partial f(x)}{\partial x}$，称为Jacobian矩阵，$\Delta x$为增量。</p>
-<p>假设$f(x) \in \mathbb{R}^m$，$x \in \mathbb{R}^n$，则雅可比矩阵表示的是$\mathbb{R}^n$空间到$\mathbb{R}^m$空间的线性映射，是一个$[m×n]$的矩阵，换句话讲其重要意义在于它表现了一个多变数向量函数的最佳线性逼近，公式为：<br>$$J(x) = \frac{\partial f(x)}{\partial x} =<br>\begin{bmatrix}<br>\frac{\partial f(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f(x)}{\partial x_{n}}<br>\end{bmatrix} =<br>\begin{bmatrix}<br>\frac{\partial f_{1}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{1}(x)}{\partial x_{n}} \<br>\vdots &amp; \ddots &amp; \vdots \<br>\frac{\partial f_{m}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{m}(x)}{\partial x_{n}} \<br>\end{bmatrix}$$<br>一级泰勒公式展开线性逼近公式可以描述为矩阵形式：<br>$$<br>\begin{bmatrix}<br>f_{1}(x + \Delta x) \ \vdots \ f_{m}(x + \Delta x)<br>\end{bmatrix} =<br>\begin{bmatrix}<br>f_{1}(x) \ \vdots \ f_{m}(x)<br>\end{bmatrix} +<br>\begin{bmatrix}<br>\frac{\partial f_{1}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{1}(x)}{\partial x_{n}} \<br>\vdots &amp; \ddots &amp; \vdots \<br>\frac{\partial f_{m}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{m}(x)}{\partial x_{n}} \<br>\end{bmatrix}<br>\begin{bmatrix}<br>\Delta x_{1} \ \vdots \ \Delta x_{n}<br>\end{bmatrix}<br>$$</p>
-<p>如果 $m = n$，那么雅可比矩阵是一个$[nxn]$方阵。于是我们可以取它的行列式，称为雅可比行列式。</p>
-<ul>
-<li>参考链接</li>
-</ul>
+        <html><head></head><body><p>视觉伺服是多自由度机械臂灵巧作业领域经典运动控制算法之一，常用于对精细作业和范化作业，例如利用视觉伺服实现对接线面板和USB接口的插拔。视觉伺服算法的核心思想是利用视觉反馈信息，对机械臂末端执行器进行实时位置和姿态调整，以实现精确的运动控制。视觉伺服通常分为两类，一类是基于图像特征的视觉伺服（IBVS），另一类是基于位置姿态的视觉伺服（PBVS）。本文将介绍这两种视觉伺服算法的基本原理和实现方法。 <span id="more"></span> ## 背景理论 视觉伺服本质上是一个在坐标转换（平移、旋转）运动空间的非线性优化问题，因此会用到<strong>Gauss-Newton</strong>非线性优化算法和<strong>Jacobian矩阵</strong>。 ### 非线性优化问题 将最优化问题的目标函数表示为<span class="math inline">\(f(x)\)</span>，其中<span class="math inline">\(f(x)\)</span>二阶连续可微，那么最优化的问题可以转化： <span class="math display">\[{argmin}_{x}f(x)\]</span> 即求解<span class="math inline">\(f(x)\)</span>的最小值以及对应的<span class="math inline">\(x^{*}\)</span>。 复杂的非线性最优化问题，<span class="math inline">\(f(x)\)</span>一般为高维非线性方程组，<span class="math inline">\(x\)</span>为多维向量，即<span class="math inline">\(x \in \mathbb{R}^n\)</span>，<span class="math inline">\(f(x) \in \mathbb{R}^m\)</span>，其中<span class="math inline">\(m \geq n\)</span>。</p>
+<p>对于机械臂视觉伺服运动控制问题，上述非线性优化问题可以表示为： <span class="math display">\[x = \begin{bmatrix}t &amp; r \end{bmatrix}\]</span> 其中<span class="math inline">\(t\)</span>表示坐标转换空间中的平移向量，维度为<span class="math inline">\([3x1]\)</span>，<span class="math inline">\(r\)</span>表示坐标转换空间中的旋转向量，维度为<span class="math inline">\([3x1]\)</span>。 <span class="math display">\[f(x) = x_{target} - x_{current}\]</span> 或者 <span class="math display">\[f(x) = x_{target}^{-1} x_{current}\]</span> 公式选择取决于参考坐标系的选择，已经视觉伺服方式的选择，具体请见<strong>视觉伺服</strong>章节。</p>
+<h3 id="jacobian矩阵">Jacobian矩阵</h3>
+<p>对于复杂的非线性目标函数，在数学上直接求解解析解比较复杂，一般通过一级泰勒公式展开进行线性化近似，即： <span class="math display">\[f(x+\Delta x) \approx f(x) + J(x)\Delta x\]</span> 其中，<span class="math inline">\(J(x)\)</span>为<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(x\)</span>处偏导数<span class="math inline">\(\frac{\partial f(x)}{\partial x}\)</span>，称为Jacobian矩阵，<span class="math inline">\(\Delta x\)</span>为增量。</p>
+<p>假设<span class="math inline">\(f(x) \in \mathbb{R}^m\)</span>，<span class="math inline">\(x \in \mathbb{R}^n\)</span>，则雅可比矩阵表示的是<span class="math inline">\(\mathbb{R}^n\)</span>空间到<span class="math inline">\(\mathbb{R}^m\)</span>空间的线性映射，是一个<span class="math inline">\([m×n]\)</span>的矩阵，换句话讲其重要意义在于它表现了一个多变数向量函数的最佳线性逼近，公式为： <span class="math display">\[J(x) = \frac{\partial f(x)}{\partial x} = 
+\begin{bmatrix}
+\frac{\partial f(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f(x)}{\partial x_{n}}
+\end{bmatrix} = 
+\begin{bmatrix}
+\frac{\partial f_{1}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{1}(x)}{\partial x_{n}} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_{m}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{m}(x)}{\partial x_{n}} \\
+\end{bmatrix}\]</span> 一级泰勒公式展开线性逼近公式可以描述为矩阵形式： <span class="math display">\[
+\begin{bmatrix}
+f_{1}(x + \Delta x) \\ \vdots \\ f_{m}(x + \Delta x)
+\end{bmatrix} = 
+\begin{bmatrix}
+f_{1}(x) \\ \vdots \\ f_{m}(x)
+\end{bmatrix} + 
+\begin{bmatrix}
+\frac{\partial f_{1}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{1}(x)}{\partial x_{n}} \\
+\vdots &amp; \ddots &amp; \vdots \\
+\frac{\partial f_{m}(x)}{\partial x_{1}} &amp; \cdots &amp; \frac{\partial f_{m}(x)}{\partial x_{n}} \\
+\end{bmatrix}
+\begin{bmatrix}
+\Delta x_{1} \\ \vdots \\ \Delta x_{n}
+\end{bmatrix} 
+\]</span></p>
+<p>如果 <span class="math inline">\(m = n\)</span>，那么雅可比矩阵是一个<span class="math inline">\([nxn]\)</span>方阵。于是我们可以取它的行列式，称为雅可比行列式。 * 参考链接</p>
 <p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-hans/%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5">Jacobian Matrix</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/gwplovekimi/article/details/104977255">雅各比矩阵和机械臂关节坐标转换</a></p>
-<h3 id="Gauss-Newton非线性优化"><a href="#Gauss-Newton非线性优化" class="headerlink" title="Gauss-Newton非线性优化"></a>Gauss-Newton非线性优化</h3><p>对于大部分非线性优化问题，一般很难直接得到解析解。在数学上可以使用<strong>Gauss-Newton</strong>算法通过循环迭代地方式获取非线性方程组的数值解，其基本思想是从给定的初始值$x^{0}$开始，沿着梯度下降的方向，循环迭代直至目标函数达到或者接近最优值。</p>
-<p>基于一级泰勒公式展开线性逼近方程，可以将最优化问题转换为关于$\Delta x$的线性最小二乘问题：<br>$$argmin_{x}\frac{1}{2} \Vert f(x) + J(x)\Delta x \Vert^2$$<br>其中，$J(x)$为$f(x)$在$x$处偏导数$\frac{\partial f(x)}{\partial x}$，称为Jacobian矩阵，$\Delta x$为增量。</p>
+<h3 id="gauss-newton非线性优化">Gauss-Newton非线性优化</h3>
+<p>对于大部分非线性优化问题，一般很难直接得到解析解。在数学上可以使用<strong>Gauss-Newton</strong>算法通过循环迭代地方式获取非线性方程组的数值解，其基本思想是从给定的初始值<span class="math inline">\(x^{0}\)</span>开始，沿着梯度下降的方向，循环迭代直至目标函数达到或者接近最优值。</p>
+<p>基于一级泰勒公式展开线性逼近方程，可以将最优化问题转换为关于<span class="math inline">\(\Delta x\)</span>的线性最小二乘问题： <span class="math display">\[argmin_{x}\frac{1}{2} \Vert f(x) + J(x)\Delta x \Vert^2\]</span> 其中，<span class="math inline">\(J(x)\)</span>为<span class="math inline">\(f(x)\)</span>在<span class="math inline">\(x\)</span>处偏导数<span class="math inline">\(\frac{\partial f(x)}{\partial x}\)</span>，称为Jacobian矩阵，<span class="math inline">\(\Delta x\)</span>为增量。</p>
 <p>注意：<strong>Gauss-Newton</strong>算法必须要转换成最小二乘问题进行求解。</p>
-<p>求取上述公式相对于$\Delta x$的导数，并令导数等于0，即可得到最优解。推导过程如下所示：</p>
-<p>已知公式：$\Vert X \Vert^2 = X^TX$，其中$X$为矩阵。</p>
-<p>可以将最小二乘函数转化为：<br>$$<br>\begin{align}<br>\frac{1}{2} \Vert f(x) + J(x)\Delta x \Vert^2 &amp;= (f(x) + J(x)\Delta x)^T(f(x) + J(x)\Delta x) \<br>&amp;= f(x)^Tf(x) + \Delta x^TJ(x)^Tf(x) + f(x)^TJ(x)\Delta x + \Delta x^TJ(x)^TJ(x)\Delta x<br>\end{align}<br>$$<br>已知矩阵求导公式$\frac{\partial x^Ta}{\partial x}=\frac{\partial a^Tx}{\partial x} = a$，$\frac{}{}$<br>$$</p>
-<p>$$<br>迭代公式为：</p>
-<ul>
-<li>参考链接</li>
-</ul>
+<p>求取上述公式相对于<span class="math inline">\(\Delta x\)</span>的导数，并令导数等于0，即可得到最优解。推导过程如下所示：</p>
+<p>已知公式：<span class="math inline">\(\Vert X \Vert^2 = X^TX\)</span>，其中<span class="math inline">\(X\)</span>为矩阵。</p>
+<p>可以将最小二乘函数转化为： <span class="math display">\[
+\begin{align}
+\frac{1}{2} \Vert f(x) + J(x)\Delta x \Vert^2 &amp;= (f(x) + J(x)\Delta x)^T(f(x) + J(x)\Delta x) \\
+&amp;= f(x)^Tf(x) + \Delta x^TJ(x)^Tf(x) + f(x)^TJ(x)\Delta x + \Delta x^TJ(x)^TJ(x)\Delta x
+\end{align}
+\]</span> 已知矩阵求导公式<span class="math inline">\(\frac{\partial x^Ta}{\partial x}=\frac{\partial a^Tx}{\partial x} = a\)</span>，<span class="math inline">\(\frac{}{}\)</span> $$</p>
+<p>$$ 迭代公式为： * 参考链接</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/482540286?utm_id=0">Bundle Adjustment 重投影误差模型及相应雅克比公式推导</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bingjianing/p/9093054.html">Jacobian矩阵、Hessian矩阵和Newton’s method</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/bingjianing/p/9093054.html">Jacobian矩阵、Hessian矩阵和Newton's method</a></p>
 <p><a target="_blank" rel="noopener" href="https://loopvoid.github.io/2018/04/28/Jacobian%E7%9F%A9%E9%98%B5%E4%B8%8EHessian%E7%9F%A9%E9%98%B5%E4%B8%8E%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98/">Jacobian矩阵与Hessian矩阵与最小二乘</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/273729929">矩阵求导</a></p>
-<h2 id="视觉伺服"><a href="#视觉伺服" class="headerlink" title="视觉伺服"></a>视觉伺服</h2><h3 id="基于位置的视觉伺服（PBVS）"><a href="#基于位置的视觉伺服（PBVS）" class="headerlink" title="基于位置的视觉伺服（PBVS）"></a>基于位置的视觉伺服（PBVS）</h3><h3 id="基于图像的视觉伺服（IBVS）"><a href="#基于图像的视觉伺服（IBVS）" class="headerlink" title="基于图像的视觉伺服（IBVS）"></a>基于图像的视觉伺服（IBVS）</h3></body></html>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/273729929">矩阵求导</a> ## 视觉伺服 ### 基于位置的视觉伺服（PBVS） ### 基于图像的视觉伺服（IBVS）</p>
+</body></html>
     </div>
 
     
@@ -457,7 +478,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%90%86%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">背景理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.</span> <span class="nav-text">非线性优化问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jacobian%E7%9F%A9%E9%98%B5"><span class="nav-number">1.2.</span> <span class="nav-text">Jacobian矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gauss-Newton%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96"><span class="nav-number">1.3.</span> <span class="nav-text">Gauss-Newton非线性优化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E8%A7%89%E4%BC%BA%E6%9C%8D"><span class="nav-number">2.</span> <span class="nav-text">视觉伺服</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E4%BD%8D%E7%BD%AE%E7%9A%84%E8%A7%86%E8%A7%89%E4%BC%BA%E6%9C%8D%EF%BC%88PBVS%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">基于位置的视觉伺服（PBVS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E5%83%8F%E7%9A%84%E8%A7%86%E8%A7%89%E4%BC%BA%E6%9C%8D%EF%BC%88IBVS%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">基于图像的视觉伺服（IBVS）</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#jacobian%E7%9F%A9%E9%98%B5"><span class="nav-number">1.</span> <span class="nav-text">Jacobian矩阵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gauss-newton%E9%9D%9E%E7%BA%BF%E6%80%A7%E4%BC%98%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">Gauss-Newton非线性优化</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -554,7 +575,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -661,10 +682,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

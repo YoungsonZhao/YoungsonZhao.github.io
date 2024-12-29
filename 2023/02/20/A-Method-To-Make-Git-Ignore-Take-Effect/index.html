@@ -300,7 +300,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>889</span>
+              <span>895</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -319,15 +319,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don’t want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn’t take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working.</p>
-<span id="more"></span>
-<p>Adding files or folders to <strong>.gitignore</strong> doesn’t remove them from git cache. We have to remove them from git cache manually.</p>
-<h3 id="files"><a href="#files" class="headerlink" title="files"></a>files</h3><p>First, add and commit every changed files.<br>Second, remove the ignore files from git cache using the following command.</p>
-<figure class="highlight delphi"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached <span class="keyword">file</span>.<span class="keyword">name</span></span><br></pre></td></tr></tbody></table></figure>
-<p>Third, commit the delete.</p>
-<figure class="highlight maxima"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"ignore file.name"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="folders"><a href="#folders" class="headerlink" title="folders"></a>folders</h3><p>Steps are similar with ignoring files. But the command that removes folders from git cache is different.</p>
-<figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -rf <span class="comment">--cached folder_name</span></span><br></pre></td></tr></tbody></table></figure>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In a git repository, if there are some files or folders that we don't want to handle by git, we can ignore them by setup a <strong>.gitignore</strong> config file. Sometime, git ignore doesn't take effect after we add some files or folders to <strong>.gitignore</strong>, especially when the files or folders we add have already been tracked by git. In this tutorial, I will show you how to fix the problem of git ignore not working. <span id="more"></span> Adding files or folders to <strong>.gitignore</strong> doesn't remove them from git cache. We have to remove them from git cache manually. ### files First, add and commit every changed files. Second, remove the ignore files from git cache using the following command. </p><figure class="highlight delphi"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm --cached <span class="keyword">file</span>.<span class="keyword">name</span></span><br></pre></td></tr></tbody></table></figure> Third, commit the delete. <figure class="highlight maxima"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">"ignore file.name"</span></span><br><span class="line">git <span class="built_in">push</span> <span class="built_in">origin</span> master</span><br></pre></td></tr></tbody></table></figure> ### folders Steps are similar with ignoring files. But the command that removes folders from git cache is different. <figure class="highlight ada"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -rf <span class="comment">--cached folder_name</span></span><br></pre></td></tr></tbody></table></figure><p></p>
 </body></html>
     </div>
 
@@ -429,7 +421,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#files"><span class="nav-number">1.</span> <span class="nav-text">files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#folders"><span class="nav-number">2.</span> <span class="nav-text">folders</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -526,7 +517,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -633,10 +624,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

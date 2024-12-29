@@ -335,32 +335,101 @@
       
         <html><head></head><body><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Information_theory">Information Theory</a> is initially proposed in a landmark paper <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/A_Mathematical_Theory_of_Communication">A Mathematical Theory of Communication</a> published by <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a>. One of the most important concepts in information theory is <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Entropy">Entropy</a>. It is used to describe the degree of disorder or uncertainty, which is analogous to the definition used in statistical thermodynamics. From the point view of probability, entropy evaluates how much information a probability distribution can carry. Based on the definition of entropy, people further proposed <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross_entropy">Cross Entropy</a> and <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence">Kullback Leibler (KL) Divergence</a> to address the issues of information analysis between two different probability distributions. They are good metric that could measure the similarity or distance between two probability distributions, therefore they are widely used in machine learning and deep learning. In this article, I want to provide you an intuitive understanding of entropy, cross entropy and kullback-leibler divergence.</p>
 <span id="more"></span>
-<h2 id="Entropy"><a href="#Entropy" class="headerlink" title="Entropy"></a>Entropy</h2><p>In the context of Information Theory, how to understand the definition of entropy, the degree of disorder or uncertainty? I try to present an intuitive explanation from the following several aspects.</p>
-<h3 id="Probability-Certainty-and-Uncertainty"><a href="#Probability-Certainty-and-Uncertainty" class="headerlink" title="Probability, Certainty and Uncertainty"></a>Probability, Certainty and Uncertainty</h3><p>In mathematics, a probability is defined to describe the chance an event will happen. The larger a probability is, the more chance an event will happen. And the more chance an event will happen, the more certainty an event is, correspondingly, the less uncertainty an event is. Define the probability of an event is $$p$$, then the certainty is $$p$$ and the uncertainty is $$\frac{1}{p}$$. Note that $$p=0$$ means that the uncertainty is infinity. A probability distribution describe the chances of a series of events will happen, which is more general in real world.  </p>
-<h3 id="Information"><a href="#Information" class="headerlink" title="Information"></a>Information</h3><p>What’s the definition of information? There must be different definitions of information from different point of view. However, in my opinion, information is what we do not know or do not expect. For example, if we don’t know how to use an device, then its instruction manual will give us the right information. What’s the relationship between information and certainty from the point of view of probability? The more certainty an event is, the more information the event contains and the less extra information we need to clear the event’s uncertainty. For example, assuming we live in a world that the probability of rainy day is 1, then we have all the information regarding to rainy probability and the weather forecast is useless in this scenario because we do not need extra information to clear the uncertainty of the rainy event. It is the same when we live in a world that the probability of rainy day is 0. As far as we can see, certainty is positively related to information. The larger the certainty of an event is, the more information that the event has and the less extra information we need to make it clear.</p>
-<h3 id="Uncertainty-and-Entropy"><a href="#Uncertainty-and-Entropy" class="headerlink" title="Uncertainty and Entropy"></a>Uncertainty and Entropy</h3><p>I believe you already understand the basic concepts of probability, certainty, uncertainty, information and their correlations with each other. Let’s take another example to further explain their relationships with respect to uncertainty and entropy. If Jack tells us he lives in China. We can say that the probability he lives in South China is 0.5, North China is 0.5. The message Jack tells us has more uncertainty, and we need extra information to know whether he lives in South China or not. If Jack tells us he lives in Shanghai, the message Jack tells us has less uncertainty because we already know he lives in South China without extra information. </p>
-<p>The extra information is what we called uncertainty. Information theory is proposed by Claude Shannon to address the issues how to efficiently communicate the extra information with others. In modern digital world, information theory address the issues of how many bits we need to clear the uncertainty when we communicate with others. As far as we know, one bit has two states 0 or 1. Therefore, we can use one bit to reduce the uncertainty by dividing 2. That is to say we can use the bits to measure the uncertainty. The more bits we need, the larger the uncertainty is. </p>
-<p>For example, if the weather has two equal-probability events, rainy and sunny, each one has 0.5 probability to happen, then we can use 1 bit to clear the rainy event’s uncertainty or sunny event’s uncertainty. The value of the one bit is 1 means that the weather is rainy and 0 means that the weather is not rainy. The same is for sunny event. We can formulate the above conclusion as Eq. $\eqref{eq1}$.<br>$$<br>\begin{equation}<br>\frac{1}{0.5}=2^1<br>\label{eq1}<br>\end{equation}<br>$$<br>The expected uncertainty (bit count) of the weather with two equal-probability events is $$0.5<em>1 + 0.5</em>1 = 1$$.</p>
-<p>Similarly, if the weather has eight equal-probability events, each one has 0.125 probability to happen, then we can use 3 bit to clear the each event’s uncertainty. We can formulate it as Eq. $\eqref{eq2}$.<br>$$<br>\begin{equation}<br>\frac{1}{0.125}=2^3<br>\label{eq2}<br>\end{equation}<br>$$<br>The expected uncertainty (bits count) of the weather with eight equal-probability events is $$\sum_{i=1}^{8}{0.125*3} = 3$$.</p>
-<p>In conclusion, if the probability of one event is $$p$$, then we can use Eg. $\eqref{eq3}$ compute the bits we need to clear the event’s uncertainty.<br>$$<br>\begin{equation}<br>\frac{1}{p}=2^n<br>\label{eq3}<br>\end{equation}<br>$$<br>where $$n=\log_{2}{\frac{1}{p}}$$ denotes the bit count.</p>
-<p>If the weather has two nonequal-probability events, rainy event has 0.25 probability to happen and sunny event has 0.75 probability to happen, how many bits we need to clear the weather’s uncertainty? We first compute the needed bits to clear the rainy event’s uncertainty, as shown in Eg. $\eqref{eq4}$<br>$$<br>\begin{equation}<br>n_{rainy}=\log_{2}{\frac{1}{0.25}}<br>\label{eq4}<br>\end{equation}<br>$$<br>Then we compute the needed bits to clear the sunny event’s uncertainty, as shown in Eg. $\eqref{eq5}$<br>$$<br>\begin{equation}<br>n_{sunny}=\log_{2}{\frac{1}{0.75}}<br>\label{eq5}<br>\end{equation}<br>$$<br>The expected uncertainty (bits count) of the weather is $$0.25<em>n_{rainy} + 0.75</em>n_{sunny} \approx 0.81$$.</p>
-<p>In the context of Information Theory, Entropy is defined to evaluate the amount of extra information we need to clear the uncertainty of a series of events given its probability distribution. According to Eq. $\eqref{eq3}$, $\eqref{eq4}$, $\eqref{eq5}$, we derive the mathematical formulation of entropy as Eg. $\eqref{6}$<br>$$<br>\begin{equation}<br>H(P)=-\sum_{i}{p_{i}log_{2}{p_{i}}}<br>\label{eq6}<br>\end{equation}<br>$$<br>where $$H(P)$$ denotes the entropy given $$P$$ probability distribution.</p>
-<p>Generally, we use $$log$$ to replace $$log_{2}$$, we derive the general formulation of entropy as Eq. $\eqref{eq7}$.<br>$$<br>\begin{equation}<br>H(P)=-\sum_{i}{p_{i}\log{p_{i}}}<br>\label{eq7}<br>\end{equation}<br>$$</p>
-<h2 id="Cross-Entropy"><a href="#Cross-Entropy" class="headerlink" title="Cross Entropy"></a>Cross Entropy</h2><p>According to the preceding sections, we understand that entropy $$H(P)$$ evaluates the degree of uncertainty of a probability distribution $$P$$. That is to say, it evaluates the distance in bits between the uncertain state formulated by a probability distribution and the corresponding certain state. Analogically, cross entropy evaluates the distance in bits between the uncertain state formulated by a probability distribution $$Q$$ and the corresponding certain state, given a target probability distribution $$P$$. Eq. $\eqref{eq8}$ defines the cross entropy.<br>$$<br>\begin{equation}<br>H({P,,Q}) =  - \sum_{i}{p_{i} \log{q_{i}}}<br>\label{eq8}<br>\end{equation}<br>$$<br>where $$\log{q_{i}}$$ denotes the uncertainty (bits count) of each events formulated by the probability distribution $$Q$$ and $$p_{i}$$ denotes the target real probability distribution. Note that the cross entropy is an absolute entropy of probability distribution $$Q$$ given probability distribution $$P$$ because we use the absolute uncertainty $$\log{q_{i}}$$ for each event. To some extent, it is similar to the conditional probability distribution. It measures the total bits we need to clear the uncertainty of probability distribution $$Q$$, given $$P$$.</p>
-<h2 id="Kullback-Leibler-Divergence"><a href="#Kullback-Leibler-Divergence" class="headerlink" title="Kullback-Leibler Divergence"></a>Kullback-Leibler Divergence</h2><p>Both entropy and cross entropy evaluate the total bits needed to clear the total uncertainty of a probability distribution. How much bits we need in order to make a probability distribution $$Q$$ identical to the target one $$P$$. Kullback–Leibler Divergence is proposed to address this issue. It is a measurement of how one probability distribution $$Q$$ is similar with a target probability distribution $$P$$.<br>$$<br>\begin{equation}<br>{D_{kl}}({p | q }) = -\sum_{i = 0} {p_{i}[ {\log {q_{i}} - \log{p_{i}}}]}<br>\label{eq9}<br>\end{equation}<br>$$<br>Eq. $\eqref{eq9}$ defines the Kullback-Leibler Divergence.</p>
-<p>The more common way to see Kullback-Leibler divergence written is as follows:<br>$$<br>\begin{equation}<br>{D_{kl}}({p | q }) = -\sum_{i = 0} {p_{i}[ {\log\frac{q_{i}}{p_{i}}}]}<br>\label{eq10}<br>\end{equation}<br>$$</p>
-<p>Kullback-Leibler divergence is a relative entropy of a probability distribution $$Q$$ with respect to $$P$$. If $${D_{kl}}({p | q })$$ is equal to $$0$$, then we can say that the probability distribution $$Q$$ is identical to $$P$$. </p>
-<p>Compare Eq. $\eqref{eq9}$, $\eqref{eq7}$, and $\eqref{eq8}$, we can derive:<br>$$<br>\begin{equation}<br>{D_{kl}}( {P | Q}) = H({P,,Q}) - H(P)<br>\label{eq11}<br>\end{equation}<br>$$<br>From Eq. $\eqref{eq11}$, we draw a conclusion that the cross entropy of $$Q$$ and $$P$$ is same with the entropy $$P$$ when $${D_{kl}}({p | q })$$ is equal to $$0$$. </p>
-<p>In the context of machine learning and deep learning, cross entropy loss is a famous loss in solving classification problems, which we want the predicted probability distribution same as the real one. Eq. $\eqref{eq11}$ gives us a clear explanation why we can obtain the optimal solution by minimizing the cross entropy. </p>
-<h3 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a>Properties</h3><ul>
-<li>The Kullback–Leibler divergence is always non-negative.<br>$$<br>\begin{equation}<br>{D_{kl}}\left( {P\left| Q \right.} \right) \ge 0<br>\end{equation}<br>$$</li>
-<li>The Kullback–Leibler divergence does not conform to commutative law.<br>$$<br>\begin{equation}<br>{D_{kl}}\left( {P\left| Q \right.} \right) \ne {D_{kl}}\left( {Q\left| P \right.} \right)<br>\end{equation}<br>$$</li>
+<h2 id="entropy">Entropy</h2>
+<p>In the context of Information Theory, how to understand the definition of entropy, the degree of disorder or uncertainty? I try to present an intuitive explanation from the following several aspects. ### Probability, Certainty and Uncertainty In mathematics, a probability is defined to describe the chance an event will happen. The larger a probability is, the more chance an event will happen. And the more chance an event will happen, the more certainty an event is, correspondingly, the less uncertainty an event is. Define the probability of an event is <span class="math display">\[p\]</span>, then the certainty is <span class="math display">\[p\]</span> and the uncertainty is <span class="math display">\[\frac{1}{p}\]</span>. Note that <span class="math display">\[p=0\]</span> means that the uncertainty is infinity. A probability distribution describe the chances of a series of events will happen, which is more general in real world.</p>
+<h3 id="information">Information</h3>
+<p>What's the definition of information? There must be different definitions of information from different point of view. However, in my opinion, information is what we do not know or do not expect. For example, if we don't know how to use an device, then its instruction manual will give us the right information. What's the relationship between information and certainty from the point of view of probability? The more certainty an event is, the more information the event contains and the less extra information we need to clear the event's uncertainty. For example, assuming we live in a world that the probability of rainy day is 1, then we have all the information regarding to rainy probability and the weather forecast is useless in this scenario because we do not need extra information to clear the uncertainty of the rainy event. It is the same when we live in a world that the probability of rainy day is 0. As far as we can see, certainty is positively related to information. The larger the certainty of an event is, the more information that the event has and the less extra information we need to make it clear.</p>
+<h3 id="uncertainty-and-entropy">Uncertainty and Entropy</h3>
+<p>I believe you already understand the basic concepts of probability, certainty, uncertainty, information and their correlations with each other. Let's take another example to further explain their relationships with respect to uncertainty and entropy. If Jack tells us he lives in China. We can say that the probability he lives in South China is 0.5, North China is 0.5. The message Jack tells us has more uncertainty, and we need extra information to know whether he lives in South China or not. If Jack tells us he lives in Shanghai, the message Jack tells us has less uncertainty because we already know he lives in South China without extra information.</p>
+<p>The extra information is what we called uncertainty. Information theory is proposed by Claude Shannon to address the issues how to efficiently communicate the extra information with others. In modern digital world, information theory address the issues of how many bits we need to clear the uncertainty when we communicate with others. As far as we know, one bit has two states 0 or 1. Therefore, we can use one bit to reduce the uncertainty by dividing 2. That is to say we can use the bits to measure the uncertainty. The more bits we need, the larger the uncertainty is.</p>
+<p>For example, if the weather has two equal-probability events, rainy and sunny, each one has 0.5 probability to happen, then we can use 1 bit to clear the rainy event's uncertainty or sunny event's uncertainty. The value of the one bit is 1 means that the weather is rainy and 0 means that the weather is not rainy. The same is for sunny event. We can formulate the above conclusion as Eq. <span class="math inline">\(\eqref{eq1}\)</span>. <span class="math display">\[
+\begin{equation}
+\frac{1}{0.5}=2^1
+\label{eq1}
+\end{equation}
+\]</span> The expected uncertainty (bit count) of the weather with two equal-probability events is <span class="math display">\[0.5*1 + 0.5*1 = 1\]</span>.</p>
+<p>Similarly, if the weather has eight equal-probability events, each one has 0.125 probability to happen, then we can use 3 bit to clear the each event's uncertainty. We can formulate it as Eq. <span class="math inline">\(\eqref{eq2}\)</span>. <span class="math display">\[
+\begin{equation}
+\frac{1}{0.125}=2^3
+\label{eq2}
+\end{equation}
+\]</span> The expected uncertainty (bits count) of the weather with eight equal-probability events is <span class="math display">\[\sum_{i=1}^{8}{0.125*3} = 3\]</span>.</p>
+<p>In conclusion, if the probability of one event is <span class="math display">\[p\]</span>, then we can use Eg. <span class="math inline">\(\eqref{eq3}\)</span> compute the bits we need to clear the event's uncertainty. <span class="math display">\[
+\begin{equation}
+\frac{1}{p}=2^n
+\label{eq3}
+\end{equation}
+\]</span> where <span class="math display">\[n=\log_{2}{\frac{1}{p}}\]</span> denotes the bit count.</p>
+<p>If the weather has two nonequal-probability events, rainy event has 0.25 probability to happen and sunny event has 0.75 probability to happen, how many bits we need to clear the weather's uncertainty? We first compute the needed bits to clear the rainy event's uncertainty, as shown in Eg. <span class="math inline">\(\eqref{eq4}\)</span> <span class="math display">\[
+\begin{equation}
+n_{rainy}=\log_{2}{\frac{1}{0.25}}
+\label{eq4}
+\end{equation}
+\]</span> Then we compute the needed bits to clear the sunny event's uncertainty, as shown in Eg. <span class="math inline">\(\eqref{eq5}\)</span> <span class="math display">\[
+\begin{equation}
+n_{sunny}=\log_{2}{\frac{1}{0.75}}
+\label{eq5}
+\end{equation}
+\]</span> The expected uncertainty (bits count) of the weather is <span class="math display">\[0.25*n_{rainy} + 0.75*n_{sunny} \approx 0.81\]</span>.</p>
+<p>In the context of Information Theory, Entropy is defined to evaluate the amount of extra information we need to clear the uncertainty of a series of events given its probability distribution. According to Eq. <span class="math inline">\(\eqref{eq3}\)</span>, <span class="math inline">\(\eqref{eq4}\)</span>, <span class="math inline">\(\eqref{eq5}\)</span>, we derive the mathematical formulation of entropy as Eg. <span class="math inline">\(\eqref{6}\)</span> <span class="math display">\[
+\begin{equation}
+H(P)=-\sum_{i}{p_{i}log_{2}{p_{i}}}
+\label{eq6}
+\end{equation}
+\]</span> where <span class="math display">\[H(P)\]</span> denotes the entropy given <span class="math display">\[P\]</span> probability distribution.</p>
+<p>Generally, we use <span class="math display">\[log\]</span> to replace <span class="math display">\[log_{2}\]</span>, we derive the general formulation of entropy as Eq. <span class="math inline">\(\eqref{eq7}\)</span>. <span class="math display">\[
+\begin{equation}
+H(P)=-\sum_{i}{p_{i}\log{p_{i}}}
+\label{eq7}
+\end{equation}
+\]</span></p>
+<h2 id="cross-entropy">Cross Entropy</h2>
+<p>According to the preceding sections, we understand that entropy <span class="math display">\[H(P)\]</span> evaluates the degree of uncertainty of a probability distribution <span class="math display">\[P\]</span>. That is to say, it evaluates the distance in bits between the uncertain state formulated by a probability distribution and the corresponding certain state. Analogically, cross entropy evaluates the distance in bits between the uncertain state formulated by a probability distribution <span class="math display">\[Q\]</span> and the corresponding certain state, given a target probability distribution <span class="math display">\[P\]</span>. Eq. <span class="math inline">\(\eqref{eq8}\)</span> defines the cross entropy. <span class="math display">\[
+\begin{equation}
+H({P,\,Q}) =  - \sum_{i}{p_{i} \log{q_{i}}}
+\label{eq8}
+\end{equation}
+\]</span> where <span class="math display">\[\log{q_{i}}\]</span> denotes the uncertainty (bits count) of each events formulated by the probability distribution <span class="math display">\[Q\]</span> and <span class="math display">\[p_{i}\]</span> denotes the target real probability distribution. Note that the cross entropy is an absolute entropy of probability distribution <span class="math display">\[Q\]</span> given probability distribution <span class="math display">\[P\]</span> because we use the absolute uncertainty <span class="math display">\[\log{q_{i}}\]</span> for each event. To some extent, it is similar to the conditional probability distribution. It measures the total bits we need to clear the uncertainty of probability distribution <span class="math display">\[Q\]</span>, given <span class="math display">\[P\]</span>.</p>
+<h2 id="kullback-leibler-divergence">Kullback-Leibler Divergence</h2>
+<p>Both entropy and cross entropy evaluate the total bits needed to clear the total uncertainty of a probability distribution. How much bits we need in order to make a probability distribution <span class="math display">\[Q\]</span> identical to the target one <span class="math display">\[P\]</span>. Kullback–Leibler Divergence is proposed to address this issue. It is a measurement of how one probability distribution <span class="math display">\[Q\]</span> is similar with a target probability distribution <span class="math display">\[P\]</span>. <span class="math display">\[
+\begin{equation}
+{D_{kl}}({p \| q }) = -\sum_{i = 0} {p_{i}[ {\log {q_{i}} - \log{p_{i}}}]}
+\label{eq9}
+\end{equation}
+\]</span> Eq. <span class="math inline">\(\eqref{eq9}\)</span> defines the Kullback-Leibler Divergence.</p>
+<p>The more common way to see Kullback-Leibler divergence written is as follows: <span class="math display">\[
+\begin{equation}
+{D_{kl}}({p \| q }) = -\sum_{i = 0} {p_{i}[ {\log\frac{q_{i}}{p_{i}}}]}
+\label{eq10}
+\end{equation}
+\]</span></p>
+<p>Kullback-Leibler divergence is a relative entropy of a probability distribution <span class="math display">\[Q\]</span> with respect to <span class="math display">\[P\]</span>. If <span class="math display">\[{D_{kl}}({p \| q })\]</span> is equal to <span class="math display">\[0\]</span>, then we can say that the probability distribution <span class="math display">\[Q\]</span> is identical to <span class="math display">\[P\]</span>.</p>
+<p>Compare Eq. <span class="math inline">\(\eqref{eq9}\)</span>, <span class="math inline">\(\eqref{eq7}\)</span>, and <span class="math inline">\(\eqref{eq8}\)</span>, we can derive: <span class="math display">\[
+\begin{equation}
+{D_{kl}}( {P \| Q}) = H({P,\,Q}) - H(P)
+\label{eq11}
+\end{equation}
+\]</span> From Eq. <span class="math inline">\(\eqref{eq11}\)</span>, we draw a conclusion that the cross entropy of <span class="math display">\[Q\]</span> and <span class="math display">\[P\]</span> is same with the entropy <span class="math display">\[P\]</span> when <span class="math display">\[{D_{kl}}({p \| q })\]</span> is equal to <span class="math display">\[0\]</span>.</p>
+<p>In the context of machine learning and deep learning, cross entropy loss is a famous loss in solving classification problems, which we want the predicted probability distribution same as the real one. Eq. <span class="math inline">\(\eqref{eq11}\)</span> gives us a clear explanation why we can obtain the optimal solution by minimizing the cross entropy.</p>
+<h3 id="properties">Properties</h3>
+<ul>
+<li>The Kullback–Leibler divergence is always non-negative. <span class="math display">\[
+\begin{equation}
+{D_{kl}}\left( {P\left\| Q \right.} \right) \ge 0
+\end{equation}
+\]</span></li>
+<li>The Kullback–Leibler divergence does not conform to commutative law. <span class="math display">\[
+\begin{equation}
+{D_{kl}}\left( {P\left\| Q \right.} \right) \ne {D_{kl}}\left( {Q\left\| P \right.} \right)
+\end{equation}
+\]</span></li>
 </ul>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<h2 id="references">References</h2>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://eranraviv.com/intuitive-explanation-of-entropy/">https://eranraviv.com/intuitive-explanation-of-entropy/</a></li>
 <li><a target="_blank" rel="noopener" href="https://math.stackexchange.com/questions/331103/intuitive-explanation-of-entropy">https://math.stackexchange.com/questions/331103/intuitive-explanation-of-entropy</a></li>
 <li><a target="_blank" rel="noopener" href="http://hanj.cs.illinois.edu/cs412/bk3/KL-divergence.pdf">http://hanj.cs.illinois.edu/cs412/bk3/KL-divergence.pdf</a></li>
-<li><a target="_blank" rel="noopener" href="https://medium.com/@cotra.marko/making-sense-of-the-kullback-leibler-kl-divergence-b0d57ee10e0a">https://medium.com/@cotra.marko/making-sense-of-the-kullback-leibler-kl-divergence-b0d57ee10e0a</a></li>
+<li><span class="citation" data-cites="cotra.marko/making-sense-of-the-kullback-leibler-kl-divergence-b0d57ee10e0a">[https://medium.com/@cotra.marko/making-sense-of-the-kullback-leibler-kl-divergence-b0d57ee10e0a]</span>(https://medium.com/<span class="citation" data-cites="cotra.marko/making-sense-of-the-kullback-leibler-kl-divergence-b0d57ee10e0a">@cotra.marko/making-sense-of-the-kullback-leibler-kl-divergence-b0d57ee10e0a</span>)</li>
 </ul>
 </body></html>
     </div>
@@ -465,7 +534,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Entropy"><span class="nav-number">1.</span> <span class="nav-text">Entropy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Probability-Certainty-and-Uncertainty"><span class="nav-number">1.1.</span> <span class="nav-text">Probability, Certainty and Uncertainty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Information"><span class="nav-number">1.2.</span> <span class="nav-text">Information</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Uncertainty-and-Entropy"><span class="nav-number">1.3.</span> <span class="nav-text">Uncertainty and Entropy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cross-Entropy"><span class="nav-number">2.</span> <span class="nav-text">Cross Entropy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kullback-Leibler-Divergence"><span class="nav-number">3.</span> <span class="nav-text">Kullback-Leibler Divergence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Properties"><span class="nav-number">3.1.</span> <span class="nav-text">Properties</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#entropy"><span class="nav-number">1.</span> <span class="nav-text">Entropy</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#information"><span class="nav-number">1.1.</span> <span class="nav-text">Information</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uncertainty-and-entropy"><span class="nav-number">1.2.</span> <span class="nav-text">Uncertainty and Entropy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cross-entropy"><span class="nav-number">2.</span> <span class="nav-text">Cross Entropy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kullback-leibler-divergence"><span class="nav-number">3.</span> <span class="nav-text">Kullback-Leibler Divergence</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#properties"><span class="nav-number">3.1.</span> <span class="nav-text">Properties</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#references"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -562,7 +631,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -669,10 +738,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

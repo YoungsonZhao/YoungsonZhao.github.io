@@ -308,7 +308,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.9k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -327,25 +327,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks at different time. The existing Ubuntu’s grub file will be overwritten during the installation of new operation system. When the installation failed or the new installed operation system broken, the grub file may be broken, which results in that the existing Ubuntu can not boot. Fortunately, there are methods to repair the broken grub file and restore the existing Ubuntu system. In this article, I will briefly introduce one useful method, which helps me to save my Ubuntu 16.04.</p>
+        <html><head></head><body><p>For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks at different time. The existing Ubuntu's grub file will be overwritten during the installation of new operation system. When the installation failed or the new installed operation system broken, the grub file may be broken, which results in that the existing Ubuntu can not boot. Fortunately, there are methods to repair the broken grub file and restore the existing Ubuntu system. In this article, I will briefly introduce one useful method, which helps me to save my Ubuntu 16.04.</p>
 <span id="more"></span>
-
-<h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>When the grub file is broken, the following message will be prompted in terminal during booting.</p>
-<figure class="highlight subunit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>: unknow filesystem</span><br><span class="line">grub &gt;</span><br></pre></td></tr></tbody></table></figure>
-<figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">If you see a similar message when you boot a ubuntu system, <span class="keyword">it</span> indicates <span class="keyword">that</span> <span class="keyword">the</span> operation system's grub <span class="built_in">file</span> was broken. You can use <span class="keyword">the</span> following method <span class="keyword">to</span> repair <span class="keyword">the</span> grub <span class="built_in">file</span>. I have tested <span class="keyword">that</span> this method <span class="keyword">is</span> valid.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Solution </span></span><br><span class="line"></span><br><span class="line">* Check partition</span><br></pre></td></tr></tbody></table></figure>
-<p>grub &gt; ls</p>
-<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">We</span> will see <span class="literal">all</span> the partitions <span class="literal">on</span> disk.</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<p>(hd0) (hd0,gpt0) (hd0,gpt1) (hd0,gpt2) …</p>
-<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* Find <span class="keyword">the</span> root <span class="built_in">directory</span> <span class="keyword">of</span> Ubuntu </span><br><span class="line">List contents <span class="keyword">of</span> every partition <span class="keyword">until</span> we find <span class="keyword">the</span> root <span class="built_in">directory</span> <span class="keyword">of</span> <span class="keyword">the</span> Ubuntu <span class="keyword">system</span> we want <span class="built_in">to</span> restore.</span><br></pre></td></tr></tbody></table></figure>
-<p>grub &gt; ls (hd0,gpt1)/<br>grub &gt; ls (hd0,gpt2)/<br>grub &gt; ls (hd0,gpt3)/</p>
-<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If we see <span class="keyword">the</span> following message, we find where <span class="keyword">the</span> root <span class="built_in">directory</span> is.</span><br></pre></td></tr></tbody></table></figure>
-<p>grub &gt; ./ ../ tmp/ bin/ lib/ proc/ boot/ lib32/ root/ lib64/ run/ lost+found/ sbin/ usr/ media/ srv/ var/ dev/ mnt/ vmlinuz/ etc/ vmlinuz.old sys/ opt/</p>
-<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* <span class="keyword">Set</span> booting <span class="keyword">partition</span></span><br></pre></td></tr></tbody></table></figure>
-<p>grub &gt; set root=(hd0,gpt3)<br>grub &gt; set prefix=(hd0,gpt3)/boot/grub<br>grub &gt; insmod normal<br>grub &gt; normal</p>
-<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The Ubuntu <span class="keyword">system</span> would booting successfully <span class="keyword">and</span> we can <span class="keyword">login</span> now.</span><br><span class="line"></span><br><span class="line">* <span class="keyword">Update</span> grub file</span><br></pre></td></tr></tbody></table></figure>
-<p>sudo update-grub<br>sudo grub-install /dev/sda<br>reboot</p>
-<pre><code>If you could not repair the grub file and restore the Ubuntu operation system, please do not hesitate to leave a comment. Thank you very much.
-</code></pre>
+<h2 id="problem">Problem</h2>
+<p>When the grub file is broken, the following message will be prompted in terminal during booting. </p><figure class="highlight subunit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>: unknow filesystem</span><br><span class="line">grub &gt;</span><br></pre></td></tr></tbody></table></figure> <figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">If you see a similar message when you boot a ubuntu system, <span class="keyword">it</span> indicates <span class="keyword">that</span> <span class="keyword">the</span> operation system's grub <span class="built_in">file</span> was broken. You can use <span class="keyword">the</span> following method <span class="keyword">to</span> repair <span class="keyword">the</span> grub <span class="built_in">file</span>. I have tested <span class="keyword">that</span> this method <span class="keyword">is</span> valid.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Solution </span></span><br><span class="line"></span><br><span class="line">* Check partition</span><br></pre></td></tr></tbody></table></figure> grub &gt; ls <figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">We</span> will see <span class="literal">all</span> the partitions <span class="literal">on</span> disk.</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure> (hd0) (hd0,gpt0) (hd0,gpt1) (hd0,gpt2) ... <figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* Find <span class="keyword">the</span> root <span class="built_in">directory</span> <span class="keyword">of</span> Ubuntu </span><br><span class="line">List contents <span class="keyword">of</span> every partition <span class="keyword">until</span> we find <span class="keyword">the</span> root <span class="built_in">directory</span> <span class="keyword">of</span> <span class="keyword">the</span> Ubuntu <span class="keyword">system</span> we want <span class="built_in">to</span> restore.</span><br></pre></td></tr></tbody></table></figure> grub &gt; ls (hd0,gpt1)/ grub &gt; ls (hd0,gpt2)/ grub &gt; ls (hd0,gpt3)/ <figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If we see <span class="keyword">the</span> following message, we find where <span class="keyword">the</span> root <span class="built_in">directory</span> is.</span><br></pre></td></tr></tbody></table></figure> grub &gt; ./ ../ tmp/ bin/ lib/ proc/ boot/ lib32/ root/ lib64/ run/ lost+found/ sbin/ usr/ media/ srv/ var/ dev/ mnt/ vmlinuz/ etc/ vmlinuz.old sys/ opt/ <figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* <span class="keyword">Set</span> booting <span class="keyword">partition</span></span><br></pre></td></tr></tbody></table></figure> grub &gt; set root=(hd0,gpt3) grub &gt; set prefix=(hd0,gpt3)/boot/grub grub &gt; insmod normal grub &gt; normal <figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The Ubuntu <span class="keyword">system</span> would booting successfully <span class="keyword">and</span> we can <span class="keyword">login</span> now.</span><br><span class="line"></span><br><span class="line">* <span class="keyword">Update</span> grub file</span><br></pre></td></tr></tbody></table></figure> sudo update-grub sudo grub-install /dev/sda reboot ``` If you could not repair the grub file and restore the Ubuntu operation system, please do not hesitate to leave a comment. Thank you very much.<p></p>
 </body></html>
     </div>
 
@@ -449,7 +434,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.</span> <span class="nav-text">Problem</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#problem"><span class="nav-number">1.</span> <span class="nav-text">Problem</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -546,7 +531,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -653,10 +638,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

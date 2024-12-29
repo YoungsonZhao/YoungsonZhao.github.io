@@ -306,7 +306,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.1k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -325,25 +325,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.postgresql.org/">PostgreSQL</a> is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. Here I will introduce some basic commands of PostgreSQL</p>
-<span id="more"></span>
-<h2 id="Default-User"><a href="#Default-User" class="headerlink" title="Default User"></a>Default User</h2><p>PostgreSQL creates a default user named <strong>postgres</strong> for you after installation. The default user has full access to PostgreSQL’s database, including creating a new database, reading data from a database, and updating data into a database. </p>
-<h3 id="Reset-Password"><a href="#Reset-Password" class="headerlink" title="Reset Password"></a>Reset Password</h3><p>If we want to use PostgreSQL in Django applications, the password is required. However, the default user <strong>postgres</strong> doesn’t have a password and we must set password for <strong>postgres</strong>.</p>
-<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> postgres <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql <span class="keyword">restart</span> / systemctl <span class="keyword">restart</span> postgresql</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="Basic-Command"><a href="#Basic-Command" class="headerlink" title="Basic Command"></a>Basic Command</h2><ul>
-<li>Check status<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service postgresql status</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Start psql with user postgres<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo -u postgres psql</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Create Database<figure class="highlight n1ql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> servo;</span><br></pre></td></tr></tbody></table></figure></li>
-<li>List Databases<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\l</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>List Users<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="built_in">du</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Connect to database<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\c</span> servo</span><br></pre></td></tr></tbody></table></figure></li>
-<li>List tables<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">dt</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Quit<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">q</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Show data<figure class="highlight axapta"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure></li>
-<li>Show data directory<figure class="highlight abnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show data_directory<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure></li>
-</ul>
-<h2 id="Backup-amp-Restore"><a href="#Backup-amp-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2><h3 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h3><figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure>
-<h3 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h3><figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_restore -Fc -d servo &lt; /var/lib/postgresql/servo.bak</span><br></pre></td></tr></tbody></table></figure></body></html>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.postgresql.org/">PostgreSQL</a> is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. Here I will introduce some basic commands of PostgreSQL <span id="more"></span> ## Default User PostgreSQL creates a default user named <strong>postgres</strong> for you after installation. The default user has full access to PostgreSQL's database, including creating a new database, reading data from a database, and updating data into a database. ### Reset Password If we want to use PostgreSQL in Django applications, the password is required. However, the default user <strong>postgres</strong> doesn't have a password and we must set password for <strong>postgres</strong>. </p><figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> postgres <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql <span class="keyword">restart</span> / systemctl <span class="keyword">restart</span> postgresql</span><br></pre></td></tr></tbody></table></figure> ## Basic Command * Check status <figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service postgresql status</span></span><br></pre></td></tr></tbody></table></figure> * Start psql with user postgres <figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo -u postgres psql</span></span><br></pre></td></tr></tbody></table></figure> * Create Database <figure class="highlight n1ql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> servo;</span><br></pre></td></tr></tbody></table></figure> * List Databases <figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\l</span></span><br></pre></td></tr></tbody></table></figure> * List Users <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="built_in">du</span></span><br></pre></td></tr></tbody></table></figure> * Connect to database <figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\c</span> servo</span><br></pre></td></tr></tbody></table></figure> * List tables <figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">dt</span></span><br></pre></td></tr></tbody></table></figure> * Quit <figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">q</span></span><br></pre></td></tr></tbody></table></figure> * Show data <figure class="highlight axapta"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure> * Show data directory <figure class="highlight abnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show data_directory<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure> ## Backup &amp; Restore ### Backup <figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure> ### Restore <figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_restore -Fc -d servo &lt; /var/lib/postgresql/servo.bak</span><br></pre></td></tr></tbody></table></figure><p></p>
+</body></html>
     </div>
 
     
@@ -444,7 +427,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Default-User"><span class="nav-number">1.</span> <span class="nav-text">Default User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reset-Password"><span class="nav-number">1.1.</span> <span class="nav-text">Reset Password</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Command"><span class="nav-number">2.</span> <span class="nav-text">Basic Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backup-amp-Restore"><span class="nav-number">3.</span> <span class="nav-text">Backup &amp; Restore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Backup"><span class="nav-number">3.1.</span> <span class="nav-text">Backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Restore"><span class="nav-number">3.2.</span> <span class="nav-text">Restore</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -541,7 +523,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -648,10 +630,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

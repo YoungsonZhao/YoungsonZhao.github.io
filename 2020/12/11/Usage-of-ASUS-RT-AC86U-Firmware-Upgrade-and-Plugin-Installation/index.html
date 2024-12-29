@@ -324,18 +324,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.asus.com/us/Networking/RT-AC86U/">Asus RT-AC86U</a> is a professional dual band gigabit WiFi router, which has arm structure. Moreover, it has officially supported open source firmware, which has much more powerful functions, such like running official and third-part plugins on it. In this article, I will show you how to upgrade its firmware to highly customized version, install shadowsocks plugin and config v2ray service.</p>
-<span id="more"></span>
-<p>NOTE： There is a reset button on the back of Asus RT-AC86U, if there is anything wrong when upgrading the firmware, we can hold the button for seconds (maybe 30s) to reset the router.</p>
-<p>The recommended firmware is developed based on <a target="_blank" rel="noopener" href="https://github.com/RMerl/asuswrt-merlin.ng">asuswrt-merlin</a>, and we can download it at <a target="_blank" rel="noopener" href="https://koolshare.cn/thread-127878-1-1.html">koolshare</a>.</p>
-<ul>
-<li>Firmware Upgrade<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Login ASUS RT-AC86U</span><br><span class="line">系统管理 -&gt; 固件升级 -&gt; 上传</span><br></pre></td></tr></tbody></table></figure>
-Choose the downloaded firmware and upload, it will automatically upgrade to the uploaded version. The process takes about 1-2 mins.</li>
-<li>Install Shadowsocks Plugin<br>All the plugins are managed in software center. For some reason, we can not download and install shadowsocks from the software center directly and we have to download the <a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss_history_package/tree/master/fancyss_hnd">source code</a> and install it manually. <figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">软件中心 -&gt; 离线安装 -&gt; 上传并安装</span><br></pre></td></tr></tbody></table></figure>
-<img data-src="/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/shadowsocks.png"><br>Probably, it could prompt that “illegal keywords is detected and could not install”. In this scenario, we have to login the router through ssh and install it using command line.<br>First, we have to open the ssh function.<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">系统管理 -&gt; 系统设置 -&gt; 启用SSH (LAN only)</span><br></pre></td></tr></tbody></table></figure>
-Second, login using a computer in lan and install.<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ssh admin@10.10.10.1</span><br><span class="line">sed -i <span class="string">'s/\tdetect_package/\t# detect_package/g'</span> /koolshare/scripts/ks_tar_install.sh</span><br><span class="line"><span class="built_in">cd</span> /tmp/upload</span><br><span class="line">tar -xzf shadowsocks_1.9.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> shadowsocks</span><br><span class="line"><span class="built_in">chmod</span> +x install.sh</span><br><span class="line">./install.sh</span><br></pre></td></tr></tbody></table></figure>
-After running the above command line, we will sea the shadowsocks plugin in software center. If we want to use the v2ray function, we have to config virtual memory for a better performance. Prepare an USB storage (USB 3.0 is recommended) and format it as ext4. Then download and install the virtual memory plugin directly from software center.</li>
-</ul>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.asus.com/us/Networking/RT-AC86U/">Asus RT-AC86U</a> is a professional dual band gigabit WiFi router, which has arm structure. Moreover, it has officially supported open source firmware, which has much more powerful functions, such like running official and third-part plugins on it. In this article, I will show you how to upgrade its firmware to highly customized version, install shadowsocks plugin and config v2ray service. <span id="more"></span> NOTE： There is a reset button on the back of Asus RT-AC86U, if there is anything wrong when upgrading the firmware, we can hold the button for seconds (maybe 30s) to reset the router.</p>
+<p>The recommended firmware is developed based on <a target="_blank" rel="noopener" href="https://github.com/RMerl/asuswrt-merlin.ng">asuswrt-merlin</a>, and we can download it at <a target="_blank" rel="noopener" href="https://koolshare.cn/thread-127878-1-1.html">koolshare</a>. * Firmware Upgrade </p><figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Login ASUS RT-AC86U</span><br><span class="line">系统管理 -&gt; 固件升级 -&gt; 上传</span><br></pre></td></tr></tbody></table></figure> Choose the downloaded firmware and upload, it will automatically upgrade to the uploaded version. The process takes about 1-2 mins. * Install Shadowsocks Plugin All the plugins are managed in software center. For some reason, we can not download and install shadowsocks from the software center directly and we have to download the <a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss_history_package/tree/master/fancyss_hnd">source code</a> and install it manually. <figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">软件中心 -&gt; 离线安装 -&gt; 上传并安装</span><br></pre></td></tr></tbody></table></figure> <img data-src="/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/shadowsocks.png"> Probably, it could prompt that "illegal keywords is detected and could not install". In this scenario, we have to login the router through ssh and install it using command line. First, we have to open the ssh function. <figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">系统管理 -&gt; 系统设置 -&gt; 启用SSH (LAN only)</span><br></pre></td></tr></tbody></table></figure> Second, login using a computer in lan and install. <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ssh admin@10.10.10.1</span><br><span class="line">sed -i <span class="string">'s/\tdetect_package/\t# detect_package/g'</span> /koolshare/scripts/ks_tar_install.sh</span><br><span class="line"><span class="built_in">cd</span> /tmp/upload</span><br><span class="line">tar -xzf shadowsocks_1.9.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> shadowsocks</span><br><span class="line"><span class="built_in">chmod</span> +x install.sh</span><br><span class="line">./install.sh</span><br></pre></td></tr></tbody></table></figure> After running the above command line, we will sea the shadowsocks plugin in software center. If we want to use the v2ray function, we have to config virtual memory for a better performance. Prepare an USB storage (USB 3.0 is recommended) and format it as ext4. Then download and install the virtual memory plugin directly from software center.<p></p>
 </body></html>
     </div>
 
@@ -536,7 +526,7 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -643,10 +633,53 @@ After running the above command line, we will sea the shadowsocks plugin in soft
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

@@ -300,7 +300,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>733</span>
+              <span>748</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -319,14 +319,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In this article, I will introduce some useful skills of using git to manage version control.</p>
-<span id="more"></span>
-<h3 id="Manage-Remote-Repository"><a href="#Manage-Remote-Repository" class="headerlink" title="Manage Remote Repository"></a>Manage Remote Repository</h3><h4 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h4><figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin ssh:<span class="regexp">//gi</span>t@gitlab.com:<span class="number">30001</span><span class="regexp">/yongsheng/</span>jupyter.git</span><br></pre></td></tr></tbody></table></figure>
-<p>The above command will add a remote repository to a git project named <strong>origin</strong>. We can add multiple remote repositories using different names, such <strong>backup</strong>, <strong>test</strong> and so on. </p>
-<h4 id="Change-URL"><a href="#Change-URL" class="headerlink" title="Change URL"></a>Change URL</h4><figure class="highlight dsconfig"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">ssh</span>://<span class="string">git</span>@<span class="string">gitlab</span>.<span class="string">com:30001/</span><span class="string">yongsheng</span>/<span class="string">jupyter</span>.<span class="string">git</span></span><br></pre></td></tr></tbody></table></figure>
-<p>The <strong>set-url</strong> option can change the url of an existing repository. It takes two parameters, one is the repository’s name and the other one is the new url of remote repository.</p>
-<h4 id="Delete"><a href="#Delete" class="headerlink" title="Delete"></a>Delete</h4><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br></pre></td></tr></tbody></table></figure>
-<p>The <strong>rm</strong> option can remove an repository using its name.</p>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In this article, I will introduce some useful skills of using git to manage version control. <span id="more"></span> ### Manage Remote Repository #### Add </p><figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin ssh:<span class="regexp">//gi</span>t@gitlab.com:<span class="number">30001</span><span class="regexp">/yongsheng/</span>jupyter.git</span><br></pre></td></tr></tbody></table></figure> The above command will add a remote repository to a git project named <strong>origin</strong>. We can add multiple remote repositories using different names, such <strong>backup</strong>, <strong>test</strong> and so on. #### Change URL <figure class="highlight dsconfig"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">ssh</span>://<span class="string">git</span>@<span class="string">gitlab</span>.<span class="string">com:30001/</span><span class="string">yongsheng</span>/<span class="string">jupyter</span>.<span class="string">git</span></span><br></pre></td></tr></tbody></table></figure> The <strong>set-url</strong> option can change the url of an existing repository. It takes two parameters, one is the repository's name and the other one is the new url of remote repository. #### Delete <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote <span class="built_in">rm</span> origin</span><br></pre></td></tr></tbody></table></figure> The <strong>rm</strong> option can remove an repository using its name.<p></p>
 </body></html>
     </div>
 
@@ -428,7 +421,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Manage-Remote-Repository"><span class="nav-number">1.</span> <span class="nav-text">Manage Remote Repository</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Add"><span class="nav-number">1.1.</span> <span class="nav-text">Add</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Change-URL"><span class="nav-number">1.2.</span> <span class="nav-text">Change URL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Delete"><span class="nav-number">1.3.</span> <span class="nav-text">Delete</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -525,7 +517,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">246k</span>
+    <span title="Symbols count total">245k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
@@ -632,10 +624,53 @@
 
   
       
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/katex.min.css">
-  <script src="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.js"></script>
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0/dist/contrib/copy-tex.min.css">
+<script type="text/x-mathjax-config">
 
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
