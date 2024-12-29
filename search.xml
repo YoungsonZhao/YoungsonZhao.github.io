@@ -1590,9 +1590,9 @@ PE(pos, k) =
 \sin\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i \\
 \cos\left(\frac{1}{10000^{\frac{2i}{d_{model}}}} * pos\right)&amp; \text{if } k = 2i+1
 \end{cases}
-\]</span> 其中 - <span class="math inline">\(pos\)</span> 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。 - <span class="math inline">\(k\)</span> 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。 - <span class="math inline">\(d_{model}\)</span> 是Embedding的维度（embed_size）。 <img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></p>
+\]</span> 其中 * <span class="math inline">\(pos\)</span> 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。 * <span class="math inline">\(k\)</span> 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。 * <span class="math inline">\(d_{model}\)</span> 是Embedding的维度（embed_size）。 <img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></p>
 <h4 id="位置编码可视化"><strong>位置编码可视化</strong></h4>
-<p>不同序列长度和嵌入特征维度下的位置编码可视化如下： <img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"> <img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"> <img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"> 1. <strong>频率范围：</strong> - 分母中的 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。 - 这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。 - 对于每个维度 <span class="math inline">\(i\)</span>，通过不同的频率编码（由 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。 - 嵌入特征的维度（embed_size）越高，位置编码的信息丰富度越大。</p>
+<p>不同序列长度和嵌入特征维度下的位置编码可视化如下： <img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"> <img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"> <img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"> 1. <strong>频率范围：</strong> * 分母中的 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。 * 这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。 * 对于每个维度 <span class="math inline">\(i\)</span>，通过不同的频率编码（由 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。 * 嵌入特征的维度（embed_size）越高，位置编码的粒度越细，信息丰富度越大。</p>
 <ol start="2" type="1">
 <li><strong>正弦与余弦函数：</strong>
 <ul>
@@ -1602,46 +1602,42 @@ PE(pos, k) =
 </ol>
 <h4 id="核心性质"><strong>核心性质</strong></h4>
 <ol type="1">
-<li><p><strong>位置相关性：</strong> 位置编码的设计确保了任意两个位置之间的相对位置信息可以被简单计算： <span class="math display">\[
+<li><strong>绝对与相对位置：</strong>
+<ul>
+<li>位置编码是对所有位置<span class="math inline">\((pos, k)\)</span>的绝对编码，且编码唯一（由嵌入特征维度决定）。</li>
+<li>位置编码的设计确保了任意两个位置之间的相对位置信息可以被简单计算： <span class="math display">\[
 PE(pos_1) - PE(pos_2)
-\]</span> 这一性质帮助模型直接捕获相对位置。</p></li>
-<li><p><strong>平移不变性：</strong> 周期性正弦和余弦函数使得位置编码对输入序列的长度具有平移不变性。</p></li>
-<li><p><strong>无需训练：</strong></p>
+\]</span> 这一性质帮助模型直接捕获相对位置。</li>
+</ul></li>
+<li><strong>序列长度无关：</strong>
+<ul>
+<li>由于正弦函数和余弦函数是周期性函数，其频率系数由嵌入特征的维度（embed_size）和嵌入特征的索引（<span class="math inline">\(2i\)</span>）决定，因此位置编码的值与序列长度无关，位置编码可以为任意长度的序列编码，且相同序列索引（<span class="math inline">\(pos\)</span>）的位置编码相同。</li>
+<li></li>
+</ul></li>
+<li><strong>无需训练：</strong>
 <ul>
 <li>位置编码的值是通过公式计算的，无需学习参数。这减少了模型参数量，同时保持了良好的泛化能力。</li>
 </ul></li>
 </ol>
-<h3 id="优点"><strong>优点</strong></h3>
-<ol type="1">
-<li><strong>捕获绝对与相对位置信息：</strong>
-<ul>
-<li>通过对所有位置进行唯一编码，模型可以直接感知绝对位置。</li>
-<li>正弦与余弦函数的对偶特性还允许模型通过简单的向量操作获取相对位置信息。</li>
-</ul></li>
-<li><strong>轻量级实现：</strong>
-<ul>
-<li>无需引入额外的训练参数。</li>
-</ul></li>
-<li><strong>泛化性：</strong>
-<ul>
-<li>使用数学公式定义的编码能推广到比训练时更长的序列，适合处理变长输入。</li>
-</ul></li>
-</ol>
 <h3 id="改进与替代方法"><strong>改进与替代方法</strong></h3>
 <p>尽管正弦-余弦位置编码有诸多优点，但在后续研究中，也提出了许多替代方法： 1. <strong>可学习的位置编码：</strong><br>
-通过将位置编码视为可学习的参数矩阵，使模型在特定任务上更具适应性。 2. <strong>相对位置编码（Relative Positional Encoding）：</strong><br>
-提取位置之间的相对关系，如 Transformer-XL 和 T5 中的改进版本。 3. <strong>旋转位置编码（RoPE, Rotary Positional Embedding）：</strong><br>
-在 Transformers 中通过旋转操作高效捕获相对位置信息。</p>
+通过将位置编码视为可学习的参数矩阵，使模型在特定任务上更具适应性。</p>
+<ol start="2" type="1">
+<li><p><strong>相对位置编码（Relative Positional Encoding）：</strong><br>
+提取位置之间的相对关系，如 Transformer-XL 和 T5 中的改进版本。</p></li>
+<li><p><strong>旋转位置编码（RoPE, Rotary Positional Embedding）：</strong><br>
+在 Transformers 中通过旋转操作高效捕获相对位置信息。</p></li>
+</ol>
 <h4 id="具体实现"><strong>具体实现</strong></h4>
 <p>为了提升计算效率，将位置编码中的频率系数做如下优化： <span class="math display">\[
-\begin{align}
-\frac{1}{10000^{\frac{2i}{d_{model}}}} &amp;=  \\
+\begin{align*}
+\frac{1}{10000^{\frac{2i}{d_{model}}}}
   &amp;= \exp(\log(\frac{1}{10000^{\frac{2i}{d_{model}}}})) \\
   &amp;= \exp(\log({10000^{\frac{2i}{d_{model}}}}^{-1})) \\
   &amp;= \exp(-1 * \log({10000^{\frac{2i}{d_{model}}}})) \\
   &amp;= \exp(-1 * {\frac{2i}{d_{model}}} * \log(10000)) \\
   &amp;= \exp(-{\frac{\log(10000)}{d_{model}}} * {2i})
-\end{align}
+\end{align*}
 \]</span> </p><figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PositionalEncoding</span>(nn.Module):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Positional encoding layer for input tokens.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, embed_size: <span class="built_in">int</span>, seq_len: <span class="built_in">int</span>, dropout: <span class="built_in">float</span> = <span class="number">0.1</span></span>):</span><br><span class="line">        <span class="string">"""Initialize the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            embed_size: size of the embedding vector</span></span><br><span class="line"><span class="string">            max_len: maximum length of the input sequence</span></span><br><span class="line"><span class="string">            dropout: dropout rate</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="built_in">super</span>(PositionalEncoding, self).__init__()</span><br><span class="line">        self.embed_size = embed_size</span><br><span class="line">        self.seq_len = seq_len</span><br><span class="line">        self.dropout = nn.Dropout(p=dropout)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Create positional encoding, a matrix of shape (seq_len, embed_size)</span></span><br><span class="line">        pe = torch.zeros(seq_len, embed_size)</span><br><span class="line">        pos = torch.arange(<span class="number">0</span>, seq_len, dtype=torch.<span class="built_in">float</span>).unsqueeze(<span class="number">1</span>) <span class="comment"># (seq_len, 1), unsqueeze: add a new dimension</span></span><br><span class="line">        div_term = torch.exp(torch.arange(<span class="number">0</span>, embed_size, <span class="number">2</span>).<span class="built_in">float</span>() * (-math.log(<span class="number">10000.0</span>) / embed_size)) <span class="comment"># (embed_size/2,)</span></span><br><span class="line">        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(pos * div_term)</span><br><span class="line">        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(pos * div_term)</span><br><span class="line">        <span class="comment"># self.pe = self.pe.unsqueeze(0).transpose(0, 1) # (seq_len, 1, embed_size)</span></span><br><span class="line">        pe = pe.unsqueeze(<span class="number">0</span>) <span class="comment"># (1, seq_len, embed_size), 1 for batch size</span></span><br><span class="line">        self.register_buffer(<span class="string">'pe'</span>, pe) <span class="comment"># register buffer, so it doesn't need to be trained but can be saved</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        <span class="string">"""Forward pass of the positional encoding layer.</span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            x: input tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            positional encoded tensor of shape (batch_size, seq_len, embed_size)</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="comment"># x = x + self.pe[:, :x.size(1), :].requires_grad(False)</span></span><br><span class="line">        x = x + self.pe[:, :x.size(<span class="number">1</span>), :].detach()</span><br><span class="line">        <span class="keyword">return</span> self.dropout(x)</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h3 id="layer-normalization"><strong>Layer Normalization</strong></h3>
 <p><strong>Layer Normalization</strong>（层归一化）是一种常用于深度学习模型的正则化技术，特别是在序列建模和自然语言处理任务中。它旨在通过标准化每一层的激活值来提高模型的训练稳定性和收敛速度。</p>
@@ -1693,7 +1689,7 @@ h_i^{\text{norm}} = \gamma \hat{h}_i + \beta
 </tr>
 </tbody>
 </table>
-<h4 id="优点-1"><strong>优点</strong></h4>
+<h4 id="优点"><strong>优点</strong></h4>
 <ol type="1">
 <li><strong>适用于小批量或单样本训练</strong>：因为不依赖批次统计信息，Layer Normalization 能很好地适用于小批量甚至单样本训练。</li>
 <li><strong>改善收敛性</strong>：通过减少激活值的变化，模型更容易收敛。</li>
