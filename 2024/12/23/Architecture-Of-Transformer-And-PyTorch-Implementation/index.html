@@ -359,7 +359,12 @@ PE(pos, k) =
 \end{cases}
 \]</span> 其中 * <span class="math inline">\(pos\)</span> 是Token在序列中的位置（从 0 开始，最大值是seq_len - 1）。 * <span class="math inline">\(k\)</span> 是Embedding的维度索引（从 0 开始，最大值是embed_size - 1）。 * <span class="math inline">\(d_{model}\)</span> 是Embedding的维度（embed_size）。 <img alt="正弦位置编码示意图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/sine_frequencies_plot.png"></p>
 <h4 id="位置编码可视化"><strong>位置编码可视化</strong></h4>
-<p>不同序列长度和嵌入特征维度下的位置编码可视化如下： <img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"> <img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"> <img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"> 1. <strong>频率范围：</strong> - 分母中的 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。 - 这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。 - 对于每个维度 <span class="math inline">\(i\)</span>，通过不同的频率编码（由 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。 - 嵌入特征的维度（embed_size）越高，位置编码的粒度越细，信息丰富度越大。</p>
+<p>不同序列长度和嵌入特征维度下的位置编码可视化如下： <img alt="位置编码可视化（embed_size=512, seq_len=256）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap.png"> <img alt="位置编码可视化（embed_size=256, seq_len=128）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_1.png"> <img alt="位置编码可视化（embed_size=128, seq_len=64）" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/positional_encoding_heatmap_2.png"> 1. <strong>频率范围：</strong> * 分母中的 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 利用指数函数设计了一个频率缩放机制，使得高维度对应的频率更低，低维度对应的频率更高。</p>
+<ul>
+<li><p>这种设计让每个维度的编码值具有不同的频率特性，确保编码中包含丰富的位置信息。</p></li>
+<li><p>对于每个维度 <span class="math inline">\(i\)</span>，通过不同的频率编码（由 <span class="math inline">\(10000^{\frac{2i}{d_{model}}}\)</span> 控制）生成一个独特的信号，使得高维信息捕获细粒度的相对位置信息。</p></li>
+<li><p>嵌入特征的维度（embed_size）越高，位置编码的粒度越细，信息丰富度越大。</p></li>
+</ul>
 <ol start="2" type="1">
 <li><strong>正弦与余弦函数：</strong>
 <ul>
