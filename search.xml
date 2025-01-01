@@ -1577,7 +1577,16 @@ f_{1}(x) \\ \vdots \\ f_{m}(x)
     <url>/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/</url>
     <content><![CDATA[<html><head></head><body><p>本文详细介绍<a href="https://user.phil.hhu.de/~cwurm/wp-content/uploads/2020/01/7181-attention-is-all-you-need.pdf">Attention Is All You Need</a>论文中Transformer模型架构、各个模块的数学原理、输入输出、参数规模，以及PyTorch实现。 <span id="more"></span></p>
 <h2 id="模型整体架构">模型整体架构</h2>
-<p><img alt="Transformer模型结构图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/transformer-architecture.png"> 原始的Transformer模型是<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>的经典结构，<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>分别由<span class="math inline">\(N_e\)</span>个<strong>Encoder Block</strong>和<span class="math inline">\(N_d\)</span>个<strong>Decoder Block</strong>残差堆叠组成。编码器的输入是源序列，尺寸是(batch_size, src_seq_len)，输出是Encoder Embedding，尺寸是(batch_size, src_seq_len, embed_size)，解码器的输入是目标序列，尺寸是(batch_size, tgt_seq_len)和Encoder Embedding，输出是Decoder Embedding，尺寸是(batch_size, seq_len, embed_size)。 * 参考连接 * <a href="https://xiaosheng.blog/2022/06/28/use-pytorch-to-implement-transformer">使用 Pytorch 一步一步实现 Transformer Encoder</a> ## 各模块数学原理与代码实现</p>
+<p><img alt="Transformer模型结构图" data-src="/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/transformer-architecture.png"> 原始的Transformer模型是<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>的经典结构，<strong>编码器（Encoder）</strong>和<strong>解码器（Decoder）</strong>分别由<span class="math inline">\(N_e\)</span>个<strong>Encoder Block</strong>和<span class="math inline">\(N_d\)</span>个<strong>Decoder Block</strong>残差堆叠组成。编码器的输入是源序列，尺寸是(batch_size, src_seq_len)，输出是Encoder Embedding，尺寸是(batch_size, src_seq_len, embed_size)，解码器的输入是目标序列，尺寸是(batch_size, tgt_seq_len)和Encoder Embedding，输出是Decoder Embedding，尺寸是(batch_size, seq_len, embed_size)。</p>
+<ul>
+<li>参考连接
+<ul>
+<li><a href="https://xiaosheng.blog/2022/06/28/use-pytorch-to-implement-transformer">使用 Pytorch 一步一步实现 Transformer Encoder</a></li>
+<li><a href="https://mingchao.wang/crmAf7MS/">Transformer</a></li>
+<li><a href="https://github.com/hkproj/pytorch-transformer/tree/main">pytorch-transformer</a></li>
+<li><a href="https://www.youtube.com/watch?v=ISNdQcPhsts">Coding a Transformer from scratch on PyTorch, with full explanation, training and inference</a> ## 各模块数学原理与代码实现</li>
+</ul></li>
+</ul>
 <h3 id="input-embedding"><strong>Input Embedding</strong></h3>
 <p><strong>Input Embedding</strong>（输入嵌入）是将离散Token序列转换为连续向量序列的过程。Transformer模型的输入是文本字符串，首先利用<a href="">Tokenizer</a>将文本转换为Token序列，然后利用<a href="">nn.Embedding</a>将每一个Token保存为一个embed_size维的Embedding向量。<strong>nn.Embedding</strong>本质是一个Lookup Table，Key是Token，Value是Embedding向量，关键参数有两个，vocab_size表示词表中的Token数量, embed_size表示Embedding向量的维度。</p>
 <p>Input Embedding是(vocab_size, embed_size)的参数矩阵，在模型训练时会同步更新该参数矩阵。如果想要冻结Input Embedding的参数矩阵，可以设置embedding.weight.requires_grad = False。Input Embedding的实现代码如下：</p>
