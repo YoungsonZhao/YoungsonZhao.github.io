@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="msvalidate.01" content="3caebbd6f719430c88b5a8dc11df5a98">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Helvetica:300,300italic,400,400italic,700,700italic|Courier New:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://blog.zhaoyongsheng.com').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"default"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: true,
+    lazyload: true,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Transformer模型在自然语言处理、视觉检测、分割和识别等任务中都得到了广泛应用，其核心思想是通过自注意力机制来捕捉学习输入序列中的嵌入特征，多头注意力模块中的注意力分数（Attention Score）是自注意力机制中的重要操作，可以很好的体现出输入序列各Token的关联关系。本文将介绍如何使用Altair对于Attention Score进行可视化，以方便对模型进行分析。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Visualization Of Transformer&#39;s Attention Score">
+<meta property="og:url" content="http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/index.html">
+<meta property="og:site_name" content="Dr. Zhao&#39;s Blog">
+<meta property="og:description" content="Transformer模型在自然语言处理、视觉检测、分割和识别等任务中都得到了广泛应用，其核心思想是通过自注意力机制来捕捉学习输入序列中的嵌入特征，多头注意力模块中的注意力分数（Attention Score）是自注意力机制中的重要操作，可以很好的体现出输入序列各Token的关联关系。本文将介绍如何使用Altair对于Attention Score进行可视化，以方便对模型进行分析。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-02T06:10:38.000Z">
+<meta property="article:modified_time" content="2025-01-02T06:10:38.000Z">
+<meta property="article:author" content="Dr. Zhao">
+<meta property="article:tag" content="Deep Learning">
+<meta property="article:tag" content="Tutorials">
+<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="Transformer">
+<meta property="article:tag" content="Attention">
+<meta property="article:tag" content="Visualization">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Visualization Of Transformer's Attention Score | Dr. Zhao's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-153610516-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-153610516-2');
+      }
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?01357a85fc2ab892b21c9ec34514f480";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dr. Zhao's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">Focus on Scientific Research</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="Searching..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          Visualization Of Transformer's Attention Score
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-01-02 14:10:38" itemprop="dateCreated datePublished" datetime="2025-01-02T14:10:38+08:00">2025-01-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
+                    <span itemprop="name">Tutorials</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">Pytorch</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/Transformer/" itemprop="url" rel="index">
+                    <span itemprop="name">Transformer</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/" class="post-meta-item leancloud_visitors" data-flag-title="Visualization Of Transformer's Attention Score" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>6.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>6 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://youngsonzhao.github.io/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/">Transformer</a>模型在自然语言处理、视觉检测、分割和识别等任务中都得到了广泛应用，其核心思想是通过自注意力机制来捕捉学习输入序列中的嵌入特征，多头注意力模块中的注意力分数（Attention Score）是自注意力机制中的重要操作，可以很好的体现出输入序列各Token的关联关系。本文将介绍如何使用<a target="_blank" rel="noopener" href="https://altair-viz.github.io/user_guide/saving_charts.html">Altair</a>对于Attention Score进行可视化，以方便对模型进行分析。 <span id="more"></span></p>
+<h3 id="工具包安装">工具包安装</h3>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install vl-convert-python <span class="comment"># Altair保存数据依赖该包</span></span><br><span class="line">pip install altair</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="可视化">可视化</h3>
+<p>Attention Score可视化步骤包括： 1. 载入数据集和模型参数 2. 模型进行前向推理，以获取Attention Score 3. 使用Altair对Attention Score进行可视化并将结果保存为png文件</p>
+<h4 id="载入数据集和模型参数">载入数据集和模型参数</h4>
+<p>步骤主要有四步： 1. 载入key-value格式的config配置文件，以获取模型参数和路径 2. 利用config配置信息载入数据集和tokenizer 3. 利用config配置信息创建模型，并从训练好的checkpoint中载入模型参数 </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> get_config, get_weight_file_path</span><br><span class="line">config = get_config()</span><br><span class="line">display(config)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> train <span class="keyword">import</span> get_dataset</span><br><span class="line">train_dataloader, val_dataloader, tokenizer_src, tokenizer_tgt = get_dataset(config)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> train <span class="keyword">import</span> get_model</span><br><span class="line">model = get_model(config, tokenizer_src.get_vocab_size(), tokenizer_tgt.get_vocab_size())</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> config <span class="keyword">import</span> get_weight_file_path</span><br><span class="line">model_filename = get_weight_file_path(config, <span class="string">'22'</span>)</span><br><span class="line"><span class="comment"># model_filename = get_weight_file_path(config, config['preload'])</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f'Preloading model from <span class="subst">{model_filename}</span>'</span>)</span><br><span class="line">state = torch.load(model_filename, weights_only=<span class="literal">True</span>)</span><br><span class="line">model.load_state_dict(state[<span class="string">'model_state_dict'</span>])</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h4 id="模型前向推理">模型前向推理</h4>
+<ul>
+<li><p>载入验证数据集的一个batch数据 </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">load_next_val_batch</span>(<span class="params">val_dataloader, tokenizer_src, tokenizer_tgt, device</span>):</span><br><span class="line">    <span class="string">"""Load the next batch from the validation set</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        val_dataloader: validation dataloader</span></span><br><span class="line"><span class="string">        tokenizer_src: source tokenizer</span></span><br><span class="line"><span class="string">        tokenizer_tgt: target tokenizer</span></span><br><span class="line"><span class="string">        device: cuda or cpu</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        batch: next batch from the validation set</span></span><br><span class="line"><span class="string">        encoder_input_tokens: source sentence tokens</span></span><br><span class="line"><span class="string">        decoder_input_tokens: target sentence tokens</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="comment"># Load a sample batch from the validation set</span></span><br><span class="line">    batch = <span class="built_in">next</span>(<span class="built_in">iter</span>(val_dataloader))</span><br><span class="line">    encoder_input = batch[<span class="string">"encoder_input"</span>].to(device)</span><br><span class="line">    encoder_mask = batch[<span class="string">"encoder_mask"</span>].to(device)</span><br><span class="line">    decoder_input = batch[<span class="string">"decoder_input"</span>].to(device)</span><br><span class="line">    decoder_mask = batch[<span class="string">"decoder_mask"</span>].to(device)</span><br><span class="line"></span><br><span class="line">    encoder_input_tokens = [tokenizer_src.id_to_token(idx) <span class="keyword">for</span> idx <span class="keyword">in</span> encoder_input[<span class="number">0</span>].cpu().numpy()]</span><br><span class="line">    decoder_input_tokens = [tokenizer_tgt.id_to_token(idx) <span class="keyword">for</span> idx <span class="keyword">in</span> decoder_input[<span class="number">0</span>].cpu().numpy()]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># check that the batch size is 1</span></span><br><span class="line">    <span class="keyword">assert</span> encoder_input.size(</span><br><span class="line">        <span class="number">0</span>) == <span class="number">1</span>, <span class="string">"Batch size must be 1 for validation"</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> batch, encoder_input_tokens, decoder_input_tokens</span><br></pre></td></tr></tbody></table></figure><p></p></li>
+<li><p>模型前向推理 </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">greedy_decode</span>(<span class="params">model, src, src_mask, tokenizer_src, tokenizer_tgt, max_len, device</span>):</span><br><span class="line">    <span class="string">"""Greedy decode the model</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        model: the model to decode</span></span><br><span class="line"><span class="string">        src: the source sequence</span></span><br><span class="line"><span class="string">        src_mask: the source mask</span></span><br><span class="line"><span class="string">        tokenizer_src: source tokenizer</span></span><br><span class="line"><span class="string">        tokenizer_tgt: target tokenizer</span></span><br><span class="line"><span class="string">        max_len: the maximum length of the input sequence</span></span><br><span class="line"><span class="string">        device: cuda or cpu</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        None</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    sos_idx = tokenizer_tgt.token_to_id(<span class="string">'[SOS]'</span>)</span><br><span class="line">    eos_idx = tokenizer_tgt.token_to_id(<span class="string">'[EOS]'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Precompute the encoder output and reuse it for every token we get from the decoder</span></span><br><span class="line">    encoder_output = model.encode(src, src_mask)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Initialize the decoder input with the sos token</span></span><br><span class="line">    decoder_input = torch.empty(<span class="number">1</span>, <span class="number">1</span>).fill_(sos_idx).type_as(src).to(device)</span><br><span class="line">    <span class="comment"># Predict the next token until reaching the max_len or the eos token</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> decoder_input.size(<span class="number">1</span>) == max_len:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># Build mask for the target (decoder input)</span></span><br><span class="line">        decoder_mask = causal_mask(decoder_input.size(<span class="number">1</span>)).type_as(src).to(device)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Run the decoder and get the output</span></span><br><span class="line">        decoder_output = model.decode(decoder_input, encoder_output, src_mask, decoder_mask)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Get the next token</span></span><br><span class="line">        prob = model.project(decoder_output[:, -<span class="number">1</span>]) <span class="comment"># (1, vocab_tgt_len)</span></span><br><span class="line">        <span class="comment"># Select the next token with the maximum probability (greedy search)</span></span><br><span class="line">        _, next_token = torch.<span class="built_in">max</span>(prob, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        decoder_input = torch.cat((decoder_input, torch.empty(<span class="number">1</span>, <span class="number">1</span>).fill_(next_token.item()).type_as(src).to(device)), dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Check if the next token is the eos token</span></span><br><span class="line">        <span class="keyword">if</span> next_token.item() == eos_idx:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> decoder_input.squeeze(<span class="number">0</span>)</span><br></pre></td></tr></tbody></table></figure><p></p></li>
+<li><p>Attention Score可视化 </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">mtx2df</span>(<span class="params">m, max_row, max_col, row_tokens, col_tokens</span>):</span><br><span class="line">    <span class="keyword">return</span> pd.DataFrame(</span><br><span class="line">        [</span><br><span class="line">            (</span><br><span class="line">                r,</span><br><span class="line">                c,</span><br><span class="line">                <span class="built_in">float</span>(m[r, c]),</span><br><span class="line">                <span class="string">"%.3d %s"</span> % (r, row_tokens[r] <span class="keyword">if</span> <span class="built_in">len</span>(row_tokens) &gt; r <span class="keyword">else</span> <span class="string">"&lt;blank&gt;"</span>),</span><br><span class="line">                <span class="string">"%.3d %s"</span> % (c, col_tokens[c] <span class="keyword">if</span> <span class="built_in">len</span>(col_tokens) &gt; c <span class="keyword">else</span> <span class="string">"&lt;blank&gt;"</span>),</span><br><span class="line">            )</span><br><span class="line">            <span class="keyword">for</span> r <span class="keyword">in</span> <span class="built_in">range</span>(m.shape[<span class="number">0</span>])</span><br><span class="line">            <span class="keyword">for</span> c <span class="keyword">in</span> <span class="built_in">range</span>(m.shape[<span class="number">1</span>])</span><br><span class="line">            <span class="keyword">if</span> r &lt; max_row <span class="keyword">and</span> c &lt; max_col</span><br><span class="line">        ],</span><br><span class="line">        columns=[<span class="string">"row"</span>, <span class="string">"column"</span>, <span class="string">"value"</span>, <span class="string">"row_token"</span>, <span class="string">"col_token"</span>],</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_attn_map</span>(<span class="params">attn_type: <span class="built_in">str</span>, layer: <span class="built_in">int</span>, head: <span class="built_in">int</span></span>):</span><br><span class="line">    <span class="keyword">if</span> attn_type == <span class="string">"encoder"</span>:</span><br><span class="line">        attn = model.encoder.encoder_blocks[layer].multi_head_attention.score</span><br><span class="line">    <span class="keyword">elif</span> attn_type == <span class="string">"decoder"</span>:</span><br><span class="line">        attn = model.decoder.decoder_blocks[layer].self_attention_block.score</span><br><span class="line">    <span class="keyword">elif</span> attn_type == <span class="string">"encoder-decoder"</span>:</span><br><span class="line">        attn = model.decoder.decoder_blocks[layer].cross_attention_block.score</span><br><span class="line">    <span class="keyword">return</span> attn[<span class="number">0</span>, head].data</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attn_map</span>(<span class="params">attn_type, layer, head, row_tokens, col_tokens, max_sentence_len</span>):</span><br><span class="line">    df = mtx2df(</span><br><span class="line">        get_attn_map(attn_type, layer, head),</span><br><span class="line">        max_sentence_len,</span><br><span class="line">        max_sentence_len,</span><br><span class="line">        row_tokens,</span><br><span class="line">        col_tokens,</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        alt.Chart(data=df)</span><br><span class="line">        .mark_rect()</span><br><span class="line">        .encode(</span><br><span class="line">            x=alt.X(<span class="string">"col_token"</span>, axis=alt.Axis(title=<span class="string">""</span>)),</span><br><span class="line">            y=alt.Y(<span class="string">"row_token"</span>, axis=alt.Axis(title=<span class="string">""</span>)),</span><br><span class="line">            color=<span class="string">"value"</span>,</span><br><span class="line">            tooltip=[<span class="string">"row"</span>, <span class="string">"column"</span>, <span class="string">"value"</span>, <span class="string">"row_token"</span>, <span class="string">"col_token"</span>],</span><br><span class="line">        )</span><br><span class="line">        <span class="comment">#.title(f"Layer {layer} Head {head}")</span></span><br><span class="line">        .properties(height=<span class="number">400</span>, width=<span class="number">400</span>, title=<span class="string">f"Layer <span class="subst">{layer}</span> Head <span class="subst">{head}</span>"</span>)</span><br><span class="line">        .interactive()</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_all_attention_maps</span>(<span class="params">attn_type: <span class="built_in">str</span>, layers: <span class="built_in">list</span>[<span class="built_in">int</span>], heads: <span class="built_in">list</span>[<span class="built_in">int</span>], row_tokens: <span class="built_in">list</span>, col_tokens, max_sentence_len: <span class="built_in">int</span></span>):</span><br><span class="line">    charts = []</span><br><span class="line">    <span class="keyword">for</span> layer <span class="keyword">in</span> layers:</span><br><span class="line">        rowCharts = []</span><br><span class="line">        <span class="keyword">for</span> head <span class="keyword">in</span> heads:</span><br><span class="line">            rowCharts.append(attn_map(attn_type, layer, head, row_tokens, col_tokens, max_sentence_len))</span><br><span class="line">        charts.append(alt.hconcat(*rowCharts))</span><br><span class="line">    <span class="keyword">return</span> alt.vconcat(*charts)</span><br></pre></td></tr></tbody></table></figure><p></p></li>
+</ul>
+<p>整个流程代码如下所是： </p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">device = torch.device(<span class="string">'cuda'</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">'cpu'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f'Using device: <span class="subst">{device}</span>'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> train <span class="keyword">import</span> load_next_val_batch</span><br><span class="line">batch, encoder_input_tokens, decoder_input_tokens = load_next_val_batch(val_dataloader, tokenizer_src, tokenizer_tgt, device)</span><br><span class="line">model.to(device)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> train <span class="keyword">import</span> greedy_decode</span><br><span class="line">model_out = greedy_decode(model, batch[<span class="string">'encoder_input'</span>].to(device), batch[<span class="string">'encoder_mask'</span>].to(device), tokenizer_src, tokenizer_tgt, config[<span class="string">'src_seq_len'</span>], device)</span><br><span class="line">display(model_out)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> altair <span class="keyword">as</span> alt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> warnings</span><br><span class="line">warnings.filterwarnings(<span class="string">"ignore"</span>)</span><br><span class="line"></span><br><span class="line">layers = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]</span><br><span class="line">heads = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">sentence_len = encoder_input_tokens.index(<span class="string">"[PAD]"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Encoder Self-Attention</span></span><br><span class="line"><span class="built_in">map</span> = get_all_attention_maps(<span class="string">"encoder"</span>, layers, heads, encoder_input_tokens, encoder_input_tokens, <span class="built_in">min</span>(<span class="number">20</span>, sentence_len))</span><br><span class="line"><span class="built_in">map</span>.save(<span class="string">'chart.png'</span>, ppi=<span class="number">200</span>)</span><br></pre></td></tr></tbody></table></figure><p></p>
+</body></html>
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>Please buy me a cup of coffee if this article helps you.</div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="Dr. Zhao WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="Dr. Zhao Alipay">
+        <p>Alipay</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Dr. Zhao
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/" title="Visualization Of Transformer&#39;s Attention Score">http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Deep-Learning/" rel="tag"><i class="fa fa-tag"></i> Deep Learning</a>
+              <a href="/tags/Tutorials/" rel="tag"><i class="fa fa-tag"></i> Tutorials</a>
+              <a href="/tags/Pytorch/" rel="tag"><i class="fa fa-tag"></i> Pytorch</a>
+              <a href="/tags/Transformer/" rel="tag"><i class="fa fa-tag"></i> Transformer</a>
+              <a href="/tags/Attention/" rel="tag"><i class="fa fa-tag"></i> Attention</a>
+              <a href="/tags/Visualization/" rel="tag"><i class="fa fa-tag"></i> Visualization</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/31/Visualization-and-Analysis-Of-Parameters-And-Architectures-Of-Models/" rel="prev" title="Visualization and Analysis Of Parameters And Architectures Of Models">
+      <i class="fa fa-chevron-left"></i> Visualization and Analysis Of Parameters And Architectures Of Models
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="comments"></div>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%8C%85%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">工具包安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">可视化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%BD%E5%85%A5%E6%95%B0%E6%8D%AE%E9%9B%86%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">载入数据集和模型参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E5%89%8D%E5%90%91%E6%8E%A8%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">模型前向推理</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Dr. Zhao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Dr. Zhao</p>
+  <div class="site-description" itemprop="description">A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element"><i class="fa fa-comment"></i>
+    Chat
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YoungsonZhao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YoungsonZhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhaoyongsheng@zju.edu.cn" title="E-Mail → mailto:zhaoyongsheng@zju.edu.cn" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/yongshengzhao" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;yongshengzhao" rel="noopener" target="_blank"><i class="fa fa-fw fa-linkedin"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.facebook.com/yourname" title="FB Page → https:&#x2F;&#x2F;www.facebook.com&#x2F;yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-facebook"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:swardman@126.com?add" title="Skype → skype:swardman@126.com?add" rel="noopener" target="_blank"><i class="fa fa-fw fa-skype"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i></a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备2023003977号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heartbeat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Dr. Zhao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    <span title="Symbols count total">278k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    <span title="Reading time total">4:13</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/lozad.js/1.9.0/lozad.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pangu/4.0.7/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+<script type="text/x-mathjax-config">
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      equationNumbers: {
+        autoNumber: 'AMS'
+      }
+    }
+  });
+
+  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
+    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+      if (data.display) {
+        var next = data.script.nextSibling;
+        while (next && next.nodeName.toLowerCase() === '#text') {
+          next = next.nextSibling;
+        }
+        if (next && next.nodeName.toLowerCase() === 'br') {
+          next.parentNode.removeChild(next);
+        }
+      }
+    });
+  });
+
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i = 0; i < all.length; i += 1) {
+      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
+      if (element.nodeName.toLowerCase() == 'li') {
+        element = element.parentNode;
+      }
+      element.classList.add('has-jax');
+    }
+  });
+</script>
+<script>
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+    MathJax.Hub.Typeset();
+  }, window.MathJax);
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout: 3000,
+        priority: true,
+        ignores: [uri => uri.includes('#'),uri => uri == 'http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/',]
+      });
+      });
+  </script>
+
+
+<script>
+NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: 'n9rtSD8wdvwav5LXeOerMH5C-gzGzoHsz',
+    appKey: 'xcMirBCoS6Ecbog1fFmXEwhu',
+    placeholder: "You are welcome to leave a comment.",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: '' || 'zh-cn',
+    path: location.pathname,
+    recordIP: false,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
