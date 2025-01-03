@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2025/01/03/Learning-Notes-Of-Pytorch/</loc>
+    
+    <lastmod>2025-01-03T14:13:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2025/01/02/Visualization-Of-Transformer-s-Attention-Score/</loc>
     
     <lastmod>2025-01-02T06:10:38.000Z</lastmod>

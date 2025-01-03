@@ -2423,4 +2423,29 @@ M_{total} = P_{total} * 4 / 1000 / 1000 = 75174402 * 4 / 1000 / 1000 = 300.70MB
         <tag>Visualization</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Learning Notes Of Pytorch</title>
+    <url>/2025/01/03/Learning-Notes-Of-Pytorch/</url>
+    <content><![CDATA[<html><head></head><body><p><strong>Pytorch</strong>是开源的深度学习框架，由Facebook的Deep Learning Team开发，2016年发布。本文主要记录<strong>Pytorch</strong>学习过程中的一些知识点。 <span id="more"></span></p>
+<h2 id="tensor维度操作">Tensor维度操作</h2>
+<h3 id="flatten">flatten</h3>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">torch.flatten(<span class="built_in">input</span>, start_dim=<span class="number">0</span>, end_dim=-<span class="number">1</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>将输入张量展平，从<code>start_dim</code>到<code>end_dim</code>的维度展平。 参数说明：</p>
+<ul>
+<li>input：输入的张量。</li>
+<li>start_dim：开始展平的维度，默认为 0。</li>
+<li>end_dim：结束展平的维度，默认为 -1，表示最后一个维度。</li>
+</ul>
+</body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>Deep Learning</category>
+        <category>Pytorch</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+        <tag>Tutorials</tag>
+        <tag>Pytorch</tag>
+      </tags>
+  </entry>
 </search>
