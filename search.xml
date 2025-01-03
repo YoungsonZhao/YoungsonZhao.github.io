@@ -2436,6 +2436,35 @@ M_{total} = P_{total} * 4 / 1000 / 1000 = 75174402 * 4 / 1000 / 1000 = 300.70MB
 <li>start_dim：开始展平的维度，默认为 0。</li>
 <li>end_dim：结束展平的维度，默认为 -1，表示最后一个维度。</li>
 </ul>
+<h3 id="unsqueeze">unsqueeze</h3>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">torch.unsqueeze(<span class="built_in">input</span>, dim)</span><br></pre></td></tr></tbody></table></figure>
+<p>在指定维度上增加一个维度，维度大小为1。 参数说明：</p>
+<ul>
+<li>input：输入的张量。</li>
+<li>dim：要增加的维度。</li>
+</ul>
+<h3 id="squeeze">squeeze</h3>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">torch.squeeze(<span class="built_in">input</span>, dim=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>删除张量中所有大小为1的维度。 参数说明：</p>
+<ul>
+<li>input：输入的张量。</li>
+<li>dim：要删除的维度，默认为 None，表示删除所有大小为1的维度。</li>
+</ul>
+<h3 id="transpose">transpose</h3>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">torch.transpose(<span class="built_in">input</span>, dim0, dim1)</span><br></pre></td></tr></tbody></table></figure>
+<p>交换张量的两个维度。 参数说明：</p>
+<ul>
+<li>input：输入的张量。</li>
+<li>dim0：要交换的第一个维度。</li>
+<li>dim1：要交换的第二个维度。</li>
+</ul>
+<h3 id="permute">permute</h3>
+<figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">torch.permute(<span class="built_in">input</span>, dims)</span><br></pre></td></tr></tbody></table></figure>
+<p>重新排列张量的多个维度。 参数说明：</p>
+<ul>
+<li>input：输入的张量。</li>
+<li>dims：新的维度顺序。</li>
+</ul>
 </body></html>]]></content>
       <categories>
         <category>Tutorials</category>
