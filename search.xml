@@ -2487,6 +2487,10 @@ M_{total} = P_{total} * 4 / 1000 / 1000 = 75174402 * 4 / 1000 / 1000 = 300.70MB
     <url>/2025/01/04/Masked-Auto-Encoder-MAE-For-Vision-Transformer/</url>
     <content><![CDATA[<html><head></head><body><p><a href="https://openaccess.thecvf.com/content/CVPR2022/papers/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.pdf">Masked Auto Encoder (MAE)</a>成功将<strong>Vision Transformer</strong>应用到了图像领域的自监督预训练中，并在多个视觉任务中取得了SOTA的表现，是视觉自监督预训练的重要突破。本文将介绍<strong>MAE</strong>的原理和实现细节，将重点介绍<strong>MAE</strong>相对于<a href="https://youngsonzhao.github.io/2024/07/05/Learning-Note-Of-Vision-Transformer/">Vision Transformer</a>和<a href="https://youngsonzhao.github.io/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/">Transformer</a>的创新点。 <span id="more"></span></p>
 <h2 id="整体结构">整体结构</h2>
+<figure>
+<img alt="" data-src="/2025/01/04/Masked-Auto-Encoder-MAE-For-Vision-Transformer/mae.png"><figcaption>MAE Vision Transformer模型架构图</figcaption>
+</figure>
+<p>相对于<strong>Vision Transformer</strong>，<strong>MAE</strong>的模型架构图如上所示，主要创新点如下： * 1. 将图像的patches按照随机概率mask掉，在encoder的输入中仅保留未被mask的patches，随机mask的概率是75%。 * 2. 使用一个轻量级的decoder来处理encoder编码的未被mask的patches，和被mask的patches，来重建原始图像。 * 3. encoder和decoder的大小是非对称的，由此可以提升非监督预训练的效率和效果。 * 4. 预训练结束后，decoder被丢弃，仅保留encoder，用于下游任务。 * 5. MAE中可以使用global pooling来代替class token（可选的，通过参数配置） * 6. MAE中的position embedding是2D sin-cos embedding，而不是<strong>Vision Transformer</strong>中的learnable position embedding。</p>
 </body></html>]]></content>
   </entry>
 </search>
