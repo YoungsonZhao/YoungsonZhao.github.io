@@ -23,11 +23,11 @@
     <published>2025-01-04T06:26:43.000Z</published>
     <updated>2025-01-04T06:26:43.000Z</updated>
     
-    <content type="html"><![CDATA[<html><head></head><body><p><a href="https://openaccess.thecvf.com/content/CVPR2022/papers/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.pdf">Masked Auto Encoder (MAE)</a>成功将<strong>Vision Transformer</strong>应用到了图像领域的自监督预训练中，并在多个视觉任务中取得了SOTA的表现，是视觉自监督预训练的重要突破。本文将介绍<strong>MAE</strong>的原理和实现细节，将重点介绍<strong>MAE</strong>相对于<a href="">Vision Transformer</a>和<a href="">Transformer</a>的创新点。</p><span id="more"></span></body></html>]]></content>
+    <content type="html"><![CDATA[<html><head></head><body><p><a href="https://openaccess.thecvf.com/content/CVPR2022/papers/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.pdf">Masked Auto Encoder (MAE)</a>成功将<strong>Vision Transformer</strong>应用到了图像领域的自监督预训练中，并在多个视觉任务中取得了SOTA的表现，是视觉自监督预训练的重要突破。本文将介绍<strong>MAE</strong>的原理和实现细节，将重点介绍<strong>MAE</strong>相对于<a href="https://youngsonzhao.github.io/2024/07/05/Learning-Note-Of-Vision-Transformer/">Vision Transformer</a>和<a href="https://youngsonzhao.github.io/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/">Transformer</a>的创新点。 <span id="more"></span></p><h2 id="整体结构">整体结构</h2></body></html>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;a href=&quot;https://openaccess.thecvf.com/content/CVPR2022/papers/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.pdf&quot;&gt;Masked Auto Encoder (MAE)&lt;/a&gt;成功将&lt;strong&gt;Vision Transformer&lt;/strong&gt;应用到了图像领域的自监督预训练中，并在多个视觉任务中取得了SOTA的表现，是视觉自监督预训练的重要突破。本文将介绍&lt;strong&gt;MAE&lt;/strong&gt;的原理和实现细节，将重点介绍&lt;strong&gt;MAE&lt;/strong&gt;相对于&lt;a href&gt;Vision Transformer&lt;/a&gt;和&lt;a href&gt;Transformer&lt;/a&gt;的创新点。&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;https://openaccess.thecvf.com/content/CVPR2022/papers/He_Masked_Autoencoders_Are_Scalable_Vision_Learners_CVPR_2022_paper.pdf&quot;&gt;Masked Auto Encoder (MAE)&lt;/a&gt;成功将&lt;strong&gt;Vision Transformer&lt;/strong&gt;应用到了图像领域的自监督预训练中，并在多个视觉任务中取得了SOTA的表现，是视觉自监督预训练的重要突破。本文将介绍&lt;strong&gt;MAE&lt;/strong&gt;的原理和实现细节，将重点介绍&lt;strong&gt;MAE&lt;/strong&gt;相对于&lt;a href=&quot;https://youngsonzhao.github.io/2024/07/05/Learning-Note-Of-Vision-Transformer/&quot;&gt;Vision Transformer&lt;/a&gt;和&lt;a href=&quot;https://youngsonzhao.github.io/2024/12/23/Architecture-Of-Transformer-And-PyTorch-Implementation/&quot;&gt;Transformer&lt;/a&gt;的创新点。&lt;/p&gt;
     
     </summary>
     
