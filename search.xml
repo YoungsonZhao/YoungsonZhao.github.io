@@ -2601,16 +2601,6 @@ O^{'} = W_{o}O + b_{o}
 <p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
 <ul>
 <li><p>flowchart</p></li>
-<li><p>甘特图</p>
-<pre class="mermaid">gantt
-  title A Gantt Diagram
-  dateFormat YYYY-MM-DD
-  section Section
-      A task          :a1, 2014-01-01, 30d
-      Another task    :after a1, 20d
-  section Another
-      Task in Another :2014-01-12, 12d
-      another task    :24d</pre></li>
 <li><p>mindmap</p>
 <pre class="mermaid">mindmap
 root["根节点"]
@@ -2656,6 +2646,16 @@ root((mindmap))
   G --&gt; I;
   H --&gt; I;
   I --&gt; J[结束];</pre></li>
+<li><p>甘特图</p>
+<pre class="mermaid">gantt
+  title A Gantt Diagram
+  dateFormat YYYY-MM-DD
+  section Section
+      A task          :a1, 2014-01-01, 30d
+      Another task    :after a1, 20d
+  section Another
+      Task in Another :2014-01-12, 12d
+      another task    :24d</pre></li>
 </ul>
 </body></html>]]></content>
       <categories>
