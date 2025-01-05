@@ -2613,7 +2613,11 @@ O^{'} = W_{o}O + b_{o}
     G --&gt; I;
     H --&gt; I;
     I --&gt; J[结束];</pre>
-<p>```mermaid graph TD; A[开始] --&gt; B{这是一个判断点吗?}; B --&gt;|是| C[处理步骤1]; B --&gt;|否| D[处理步骤2]; C --&gt; E[结束]; D --&gt; E;</p>
+<pre class="mermaid">mindmap
+  root(SAM)
+    ImageEncoderViT
+    PromptEncoder
+    MaskDecoder</pre>
 </body></html>]]></content>
       <categories>
         <category>Tutorials</category>
