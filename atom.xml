@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.zhaoyongsheng.com/"/>
-  <updated>2025-01-04T06:26:43.000Z</updated>
+  <updated>2025-01-05T12:01:01.000Z</updated>
   <id>http://blog.zhaoyongsheng.com/</id>
   
   <author>
@@ -15,6 +15,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Learning Notes Of Segment Anything (SAM)</title>
+    <link href="http://blog.zhaoyongsheng.com/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/"/>
+    <id>http://blog.zhaoyongsheng.com/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/</id>
+    <published>2025-01-05T12:01:01.000Z</published>
+    <updated>2025-01-05T12:01:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<html><head></head><body><p>由<strong>Meta</strong>开发的<a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file">Segment Anything (SAM)</a>是图像分割领域的SOTA模型,其核心思想是<strong>Prompt Tuning</strong>，通过<strong>Prompt Tuning</strong>，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于<strong>语义分割</strong>、<strong>实例分割</strong>、<strong>全景分割</strong>、<strong>抠图</strong>、<strong>图像编辑</strong>等。本文将重点介绍<strong>SAM</strong>的模型结构、算法原理、训练方法以及pytorch实现。 <span id="more"></span> ## 模型结构 <img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p></body></html>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由&lt;strong&gt;Meta&lt;/strong&gt;开发的&lt;a href=&quot;https://github.com/facebookresearch/segment-anything?tab=readme-ov-file&quot;&gt;Segment Anything (SAM)&lt;/a&gt;是图像分割领域的SOTA模型,其核心思想是&lt;strong&gt;Prompt Tuning&lt;/strong&gt;，通过&lt;strong&gt;Prompt Tuning&lt;/strong&gt;，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于&lt;strong&gt;语义分割&lt;/strong&gt;、&lt;strong&gt;实例分割&lt;/strong&gt;、&lt;strong&gt;全景分割&lt;/strong&gt;、&lt;strong&gt;抠图&lt;/strong&gt;、&lt;strong&gt;图像编辑&lt;/strong&gt;等。本文将重点介绍&lt;strong&gt;SAM&lt;/strong&gt;的模型结构、算法原理、训练方法以及pytorch实现。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/"/>
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/"/>
+    
+      <category term="Pytorch" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/"/>
+    
+      <category term="Vision Transformer" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/"/>
+    
+      <category term="Segment Anything" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/Segment-Anything/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/tags/Deep-Learning/"/>
+    
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
+    
+      <category term="Pytorch" scheme="http://blog.zhaoyongsheng.com/tags/Pytorch/"/>
+    
+      <category term="Vision Transformer" scheme="http://blog.zhaoyongsheng.com/tags/Vision-Transformer/"/>
+    
+      <category term="Segment Anything" scheme="http://blog.zhaoyongsheng.com/tags/Segment-Anything/"/>
+    
+  </entry>
   
   <entry>
     <title>Masked Auto Encoder (MAE) For Vision Transformer</title>
@@ -31,6 +69,24 @@
     
     </summary>
     
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/"/>
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/"/>
+    
+      <category term="Pytorch" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/"/>
+    
+      <category term="Vision Transformer" scheme="http://blog.zhaoyongsheng.com/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/"/>
+    
+    
+      <category term="Deep Learning" scheme="http://blog.zhaoyongsheng.com/tags/Deep-Learning/"/>
+    
+      <category term="Tutorials" scheme="http://blog.zhaoyongsheng.com/tags/Tutorials/"/>
+    
+      <category term="Pytorch" scheme="http://blog.zhaoyongsheng.com/tags/Pytorch/"/>
+    
+      <category term="Vision Transformer" scheme="http://blog.zhaoyongsheng.com/tags/Vision-Transformer/"/>
+    
+      <category term="Masked Auto Encoder" scheme="http://blog.zhaoyongsheng.com/tags/Masked-Auto-Encoder/"/>
     
   </entry>
   
@@ -575,30 +631,6 @@
       <category term="ROS" scheme="http://blog.zhaoyongsheng.com/tags/ROS/"/>
     
       <category term="Navigation" scheme="http://blog.zhaoyongsheng.com/tags/Navigation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Make Operation System ISO Installation File Using Systemback</title>
-    <link href="http://blog.zhaoyongsheng.com/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/"/>
-    <id>http://blog.zhaoyongsheng.com/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/</id>
-    <published>2023-12-25T14:43:15.000Z</published>
-    <updated>2023-12-25T14:43:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<html><head></head><body><p>本文主要讲解如何使用<strong>systemback</strong>打包操作系统，并制作U盘启动盘。 <span id="more"></span> ### 安装systemback 通过以下指令安装： </p><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "deb [arch=amd64] https://mirrors.bwbot.org/ stable main" &gt; /etc/apt/sources.list.d/systemback.list'</span></span><br><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key 50B2C005A67B264F</span><br><span class="line">sudo apt-<span class="built_in">get</span> update</span><br><span class="line">sudo apt-<span class="built_in">get</span><span class="built_in"> upgrade</span></span><br><span class="line"><span class="built_in"></span>sudo apt-<span class="built_in">get</span> install systemback</span><br></pre></td></tr></tbody></table></figure> ### 删除firefox <strong>FireFox</strong>浏览器会导致<strong>systemback</strong>制作系统盘报错，因此删除之。 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo snap remove firefox</span><br><span class="line"><span class="built_in">cd</span> snap</span><br><span class="line"><span class="built_in">rm</span> -rf firefox</span><br></pre></td></tr></tbody></table></figure><p></p><h3 id="制作系统盘">制作系统盘</h3><p>在terminal中输入以下指令打开<strong>systemback</strong> </p><figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">systemback-sustart</span></span><br></pre></td></tr></tbody></table></figure> 在弹出的对话框中选择<strong>Live system create</strong>按钮。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/live-system-create.png"> 在弹出的对话框中将安装iso文件重命名为<strong>ubuntu-22.04-robot</strong>，勾选<strong>include user data files</strong>，然后点击<strong>create new</strong>。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/create-new.png"><p></p><h3 id="写入u盘">写入U盘</h3><p>在iso文件制作成功后，插入U盘，可以将其写入U盘。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/write-to-target"></p><h3 id="安装">安装</h3><p>U盘启动后，选择第一项进入系统后，在terminal中使用<strong>systemback-sustart</strong>命令启动，然后选在<strong>system install</strong>即可安装系统。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/system-install.png"></p></body></html>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文主要讲解如何使用&lt;strong&gt;systemback&lt;/strong&gt;打包操作系统，并制作U盘启动盘。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Ubuntu" scheme="http://blog.zhaoyongsheng.com/categories/Ubuntu/"/>
-    
-    
-      <category term="Ubuntu" scheme="http://blog.zhaoyongsheng.com/tags/Ubuntu/"/>
-    
-      <category term="OS" scheme="http://blog.zhaoyongsheng.com/tags/OS/"/>
     
   </entry>
   

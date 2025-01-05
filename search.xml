@@ -2584,5 +2584,38 @@ M_{total} = P_{total} * 4 / 1000 / 1000 = 75174402 * 4 / 1000 / 1000 = 300.70MB
 <h3 id="decoder">Decoder</h3>
 <p>Decoder并不是将encoder输出的编码特征与输出序列进行cross attention，而是利用ids_restore索引矩阵将encoder输出的编码特征恢复至原有序列特征位置，被mask掉的序列特征统一用一个可学习的mask_token向量填充，然后进行decoder编码最终恢复原始图像。</p>
 </body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>Deep Learning</category>
+        <category>Pytorch</category>
+        <category>Vision Transformer</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+        <tag>Tutorials</tag>
+        <tag>Pytorch</tag>
+        <tag>Vision Transformer</tag>
+        <tag>Masked Auto Encoder</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Learning Notes Of Segment Anything (SAM)</title>
+    <url>/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/</url>
+    <content><![CDATA[<html><head></head><body><p>由<strong>Meta</strong>开发的<a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file">Segment Anything (SAM)</a>是图像分割领域的SOTA模型,其核心思想是<strong>Prompt Tuning</strong>，通过<strong>Prompt Tuning</strong>，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于<strong>语义分割</strong>、<strong>实例分割</strong>、<strong>全景分割</strong>、<strong>抠图</strong>、<strong>图像编辑</strong>等。本文将重点介绍<strong>SAM</strong>的模型结构、算法原理、训练方法以及pytorch实现。 <span id="more"></span> ## 模型结构 <img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
+</body></html>]]></content>
+      <categories>
+        <category>Tutorials</category>
+        <category>Deep Learning</category>
+        <category>Pytorch</category>
+        <category>Vision Transformer</category>
+        <category>Segment Anything</category>
+      </categories>
+      <tags>
+        <tag>Deep Learning</tag>
+        <tag>Tutorials</tag>
+        <tag>Pytorch</tag>
+        <tag>Vision Transformer</tag>
+        <tag>Segment Anything</tag>
+      </tags>
   </entry>
 </search>
