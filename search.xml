@@ -2614,10 +2614,21 @@ O^{'} = W_{o}O + b_{o}
     H --&gt; I;
     I --&gt; J[结束];</pre>
 <pre class="mermaid">mindmap
-  root(SAM)
+  root["SAM"]
     ImageEncoderViT
     PromptEncoder
     MaskDecoder</pre>
+<pre class="mermaid">mindmap
+root["根节点"]
+  C1[有个"特殊字符]
+    C1-1
+    C1-2
+  C2
+    C2-1
+    C2-2
+  C3
+    C3-1
+    C3-2</pre>
 </body></html>]]></content>
       <categories>
         <category>Tutorials</category>
