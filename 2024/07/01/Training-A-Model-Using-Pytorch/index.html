@@ -677,7 +677,7 @@
 
 <script>
 if (document.querySelectorAll('pre.mermaid').length) {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mermaid/8.3.0/mermaid.min.js', () => {
     mermaid.initialize({
       theme: 'forest',
       logLevel: 3,
@@ -736,7 +736,7 @@ if (document.querySelectorAll('pre.mermaid').length) {
   });
 </script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
+  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML', () => {
     MathJax.Hub.Typeset();
   }, window.MathJax);
 </script>
