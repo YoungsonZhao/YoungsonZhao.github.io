@@ -2600,10 +2600,24 @@ O^{'} = W_{o}O + b_{o}
 <h2 id="模型结构">模型结构</h2>
 <p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
 <ul>
-<li><p>flowchart</p>
-<pre class="mermaid">flowchart TD
-  Start --&gt; Stop</pre></li>
-<li><p>mindmap</p></li>
+<li><p>flowchart</p></li>
+<li><p>mindmap</p>
+<pre class="mermaid">mindmap
+root((mindmap))
+  Origins
+    Long history
+    Popularisation
+      British popular psychology author Tony Buzan
+  Research
+    On effectiveness<br>and features
+    On Automatic creation
+      Uses
+          Creative techniques
+          Strategic planning
+          Argument mapping
+  Tools
+    Pen and paper
+    Mermaid</pre></li>
 <li><p>流程图</p>
 <pre class="mermaid">graph TD;
   A[输入图像] --&gt; B[ViT提取Embedding特征];
