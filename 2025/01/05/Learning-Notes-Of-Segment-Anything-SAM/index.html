@@ -324,7 +324,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>906</span>
+              <span>697</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -343,38 +343,31 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>由<strong>Meta</strong>开发的<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file">Segment Anything (SAM)</a>是图像分割领域的SOTA模型,其核心思想是<strong>Prompt Tuning</strong>，通过<strong>Prompt Tuning</strong>，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于<strong>语义分割</strong>、<strong>实例分割</strong>、<strong>全景分割</strong>、<strong>抠图</strong>、<strong>图像编辑</strong>等。本文将重点介绍<strong>SAM</strong>的模型结构、算法原理、训练方法以及pytorch实现。 <span id="more"></span></p>
-<h2 id="模型结构">模型结构</h2>
-<p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
+        <html><head></head><body><p>由<strong>Meta</strong>开发的<a target="_blank" rel="noopener" href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file">Segment Anything (SAM)</a>是图像分割领域的SOTA模型,其核心思想是<strong>Prompt Tuning</strong>，通过<strong>Prompt Tuning</strong>，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于<strong>语义分割</strong>、<strong>实例分割</strong>、<strong>全景分割</strong>、<strong>抠图</strong>、<strong>图像编辑</strong>等。本文将重点介绍<strong>SAM</strong>的模型结构、算法原理、训练方法以及pytorch实现。</p>
+<span id="more"></span>
+
+<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"><br>SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
 <ul>
 <li>flowchart</li>
 </ul>
 <pre class="mermaid">flowchart LR
     Start --&gt; Stop</pre>
+
 <ul>
-<li>sequence
+<li><p>sequence</p>
 <pre class="mermaid">sequenceDiagram
   Alice-&gt;&gt;John: Hello John, how are you?
   John--&gt;&gt;Alice: Great!
-  Alice-)John: See you later!</pre></li>
-<li>mindmap
+  Alice-)John: See you later!</pre>
+</li>
+<li><p>mindmap</p>
 <pre class="mermaid">mindmap
-root((mindmap))
-  Origins
-    Long history
-    Popularisation
-      British popular psychology author Tony Buzan
-  Research
-    On effectiveness<br>and features
-    On Automatic creation
-      Uses
-          Creative techniques
-          Strategic planning
-          Argument mapping
-  Tools
-    Pen and paper
-    Mermaid</pre></li>
-<li>流程图
+Root
+  A
+    B
+    C</pre>
+</li>
+<li><p>流程图</p>
 <pre class="mermaid">graph TD;
   A[输入图像] --&gt; B[ViT提取Embedding特征];
   B --&gt; C[Prompt Tuning];
@@ -388,8 +381,9 @@ root((mindmap))
   F --&gt; I;
   G --&gt; I;
   H --&gt; I;
-  I --&gt; J[结束];</pre></li>
-<li>甘特图
+  I --&gt; J[结束];</pre>
+</li>
+<li><p>甘特图</p>
 <pre class="mermaid">gantt
   title A Gantt Diagram
   dateFormat YYYY-MM-DD
