@@ -2603,18 +2603,6 @@ O^{'} = W_{o}O + b_{o}
 <li><p>flowchart</p></li>
 <li><p>mindmap</p>
 <pre class="mermaid">mindmap
-root["根节点"]
-C1[有个"特殊字符]
-  C1-1
-  C1-2
-C2
-  C2-1
-  C2-2
-C3
-  C3-1
-  C3-2</pre></li>
-<li><p>mindmap</p>
-<pre class="mermaid">mindmap
 root((mindmap))
   Origins
     Long history
