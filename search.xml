@@ -2602,7 +2602,7 @@ O^{'} = W_{o}O + b_{o}
 <ul>
 <li>flowchart</li>
 </ul>
-<pre class="mermaid">flowchart LR；
+<pre class="mermaid">flowchart LR
     A[输入图像] --&gt; B[ViT提取Embedding特征];
     B --&gt; C[Prompt Tuning];
     C --&gt; D[语义分割];
@@ -2618,7 +2618,7 @@ O^{'} = W_{o}O + b_{o}
     I --&gt; J[结束];</pre>
 <ul>
 <li>甘特图
-<pre class="mermaid">gantt;
+<pre class="mermaid">gantt
   title A Gantt Diagram
   dateFormat YYYY-MM-DD
   section Section
@@ -2628,7 +2628,7 @@ O^{'} = W_{o}O + b_{o}
       Task in Another :2014-01-12, 12d
       another task    :24d</pre></li>
 <li>mindmap
-<pre class="mermaid">mindmap;
+<pre class="mermaid">mindmap
 root["根节点"]
 C1[有个"特殊字符]
   C1-1
@@ -2640,7 +2640,7 @@ C3
   C3-1
   C3-2</pre></li>
 <li>mindmap
-<pre class="mermaid">mindmap;
+<pre class="mermaid">mindmap
 root((mindmap))
   Origins
     Long history
