@@ -324,7 +324,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>783</span>
+              <span>875</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -347,8 +347,12 @@
 <h2 id="模型结构">模型结构</h2>
 <p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
 <ul>
-<li><p>flowchart</p></li>
-<li><p>mindmap</p>
+<li>flowchart
+<pre class="mermaid">sequenceDiagram
+  Alice-&gt;&gt;John: Hello John, how are you?
+  John--&gt;&gt;Alice: Great!
+  Alice-)John: See you later!</pre></li>
+<li>mindmap
 <pre class="mermaid">mindmap
 root((mindmap))
   Origins
@@ -365,7 +369,7 @@ root((mindmap))
   Tools
     Pen and paper
     Mermaid</pre></li>
-<li><p>流程图</p>
+<li>流程图
 <pre class="mermaid">graph TD;
   A[输入图像] --&gt; B[ViT提取Embedding特征];
   B --&gt; C[Prompt Tuning];
@@ -380,7 +384,7 @@ root((mindmap))
   G --&gt; I;
   H --&gt; I;
   I --&gt; J[结束];</pre></li>
-<li><p>甘特图</p>
+<li>甘特图
 <pre class="mermaid">gantt
   title A Gantt Diagram
   dateFormat YYYY-MM-DD
