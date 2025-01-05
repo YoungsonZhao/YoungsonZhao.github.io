@@ -347,24 +347,9 @@
 <h2 id="模型结构">模型结构</h2>
 <p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
 <ul>
-<li>流程图
-<pre class="mermaid">graph TD;
-  A[输入图像] --&gt; B[ViT提取Embedding特征];
-  B --&gt; C[Prompt Tuning];
-  C --&gt; D[语义分割];
-  C --&gt; E[实例分割];
-  C --&gt; F[全景分割];
-  C --&gt; G[抠图];
-  C --&gt; H[图像编辑];
-  D --&gt; I[输出分割结果];
-  E --&gt; I;
-  F --&gt; I;
-  G --&gt; I;
-  H --&gt; I;
-  I --&gt; J[结束];</pre></li>
 <li>flowchart</li>
 </ul>
-<pre class="mermaid">flowchart LR
+<pre class="mermaid">flowchart LR；
     A[输入图像] --&gt; B[ViT提取Embedding特征];
     B --&gt; C[Prompt Tuning];
     C --&gt; D[语义分割];
@@ -419,6 +404,21 @@ root((mindmap))
   Tools
     Pen and paper
     Mermaid</pre></li>
+<li>流程图
+<pre class="mermaid">graph TD;
+  A[输入图像] --&gt; B[ViT提取Embedding特征];
+  B --&gt; C[Prompt Tuning];
+  C --&gt; D[语义分割];
+  C --&gt; E[实例分割];
+  C --&gt; F[全景分割];
+  C --&gt; G[抠图];
+  C --&gt; H[图像编辑];
+  D --&gt; I[输出分割结果];
+  E --&gt; I;
+  F --&gt; I;
+  G --&gt; I;
+  H --&gt; I;
+  I --&gt; J[结束];</pre></li>
 </ul>
 </body></html>
     </div>
