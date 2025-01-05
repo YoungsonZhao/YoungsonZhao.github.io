@@ -284,7 +284,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.3k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -330,6 +330,7 @@
 </ol></li>
 </ul>
 <h2 id="核心模块">核心模块</h2>
+<h3 id="random-masking">Random Masking</h3>
 <p><strong>MAE</strong>最核心的模块是随机掩码生成模块，可以以指定概率随机生成掩码。 具体步骤如下所示：</p>
 <ul>
 <li><ol type="1">
@@ -359,6 +360,10 @@
 <li>mask掩码矩阵在计算loss时使用，由于被mask掉的token对应的mask值是1,因此在计算loss时，仅计算被mask掉的token的loss. <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">random_masking</span>(<span class="params">self, x, mask_ratio</span>):</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Perform per-sample random masking by per-sample shuffling.</span></span><br><span class="line"><span class="string">    Per-sample shuffling is done by argsort random noise.</span></span><br><span class="line"><span class="string">    x: [N, L, D], sequence</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    N, L, D = x.shape  <span class="comment"># batch, length, dim</span></span><br><span class="line">    len_keep = <span class="built_in">int</span>(L * (<span class="number">1</span> - mask_ratio))</span><br><span class="line">    </span><br><span class="line">    noise = torch.rand(N, L, device=x.device)  <span class="comment"># noise in [0, 1]</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># sort noise for each sample</span></span><br><span class="line">    ids_shuffle = torch.argsort(noise, dim=<span class="number">1</span>)  <span class="comment"># ascend: small is keep, large is remove</span></span><br><span class="line">    ids_restore = torch.argsort(ids_shuffle, dim=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># keep the first subset</span></span><br><span class="line">    ids_keep = ids_shuffle[:, :len_keep]</span><br><span class="line">    x_masked = torch.gather(x, dim=<span class="number">1</span>, index=ids_keep.unsqueeze(-<span class="number">1</span>).repeat(<span class="number">1</span>, <span class="number">1</span>, D))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># generate the binary mask: 0 is keep, 1 is remove</span></span><br><span class="line">    mask = torch.ones([N, L], device=x.device)</span><br><span class="line">    mask[:, :len_keep] = <span class="number">0</span></span><br><span class="line">    <span class="comment"># unshuffle to get the binary mask</span></span><br><span class="line">    mask = torch.gather(mask, dim=<span class="number">1</span>, index=ids_restore)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> x_masked, mask, ids_restore</span><br></pre></td></tr></tbody></table></figure></li>
 </ul></li>
 </ul>
+<h3 id="encoder">Encoder</h3>
+<p>Encoder就是使用ViT对x_masked进行编码，得到编码后的特征序列. 值的注意的是，在encoder中保留了class token。</p>
+<h3 id="decoder">Decoder</h3>
+<p>Decoder并不是将encoder输出的编码特征与输出序列进行cross attention，而是利用ids_restore索引矩阵将encoder输出的编码特征恢复至原有序列特征位置，被mask掉的序列特征统一用一个可学习的mask_token向量填充，然后进行decoder编码最终恢复原始图像。</p>
 </body></html>
     </div>
 
@@ -453,7 +458,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">整体结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">核心模块</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">整体结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">核心模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#random-masking"><span class="nav-number">2.1.</span> <span class="nav-text">Random Masking</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#encoder"><span class="nav-number">2.2.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#decoder"><span class="nav-number">2.3.</span> <span class="nav-text">Decoder</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -550,13 +555,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">282k</span>
+    <span title="Symbols count total">283k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:16</span>
+    <span title="Reading time total">4:17</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
