@@ -2596,10 +2596,9 @@ O^{'} = W_{o}O + b_{o}
   <entry>
     <title>Learning Notes Of Segment Anything (SAM)</title>
     <url>/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/</url>
-    <content><![CDATA[<html><head></head><body><p>由<strong>Meta</strong>开发的<a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file">Segment Anything (SAM)</a>是图像分割领域的SOTA模型,其核心思想是<strong>Prompt Tuning</strong>，通过<strong>Prompt Tuning</strong>，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于<strong>语义分割</strong>、<strong>实例分割</strong>、<strong>全景分割</strong>、<strong>抠图</strong>、<strong>图像编辑</strong>等。本文将重点介绍<strong>SAM</strong>的模型结构、算法原理、训练方法以及pytorch实现。</p>
-<span id="more"></span>
-
-<h2 id="模型结构"><a href="#模型结构" class="headerlink" title="模型结构"></a>模型结构</h2><p><img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"><br>SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。</p>
+    <content><![CDATA[<html><head></head><body><p>由<strong>Meta</strong>开发的<a href="https://github.com/facebookresearch/segment-anything?tab=readme-ov-file">Segment Anything (SAM)</a>是图像分割领域的SOTA模型,其核心思想是<strong>Prompt Tuning</strong>，通过<strong>Prompt Tuning</strong>，SAM在无需训练的情况下，可以完成各种图像分割任务，包括但不限于<strong>语义分割</strong>、<strong>实例分割</strong>、<strong>全景分割</strong>、<strong>抠图</strong>、<strong>图像编辑</strong>等。本文将重点介绍<strong>SAM</strong>的模型结构、算法原理、训练方法以及pytorch实现。 <span id="more"></span></p>
+<h2 id="模型结构">模型结构</h2>
+<img alt="Segment Anything (SAM)模型结构" data-src="/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/sam.png"> SAM的模型结构如上图所示，首先由<strong>ViT</strong>提取图像的Embedding特征，然后。
 <pre class="mermaid">graph TD;
     A[输入图像] --&gt; B[ViT提取Embedding特征];
     B --&gt; C[Prompt Tuning];
@@ -2614,7 +2613,6 @@ O^{'} = W_{o}O + b_{o}
     G --&gt; I;
     H --&gt; I;
     I --&gt; J[结束];</pre>
-
 <pre class="mermaid">flowchart LR;
     A[输入图像] --&gt; B[ViT提取Embedding特征];
     B --&gt; C[Prompt Tuning];
@@ -2629,13 +2627,15 @@ O^{'} = W_{o}O + b_{o}
     G --&gt; I;
     H --&gt; I;
     I --&gt; J[结束];</pre>
-
-<pre class="mermaid">mindmap
-root["SAM"]
-    ImageEncoderViT
-    PromptEncoder
-    MaskDecoder</pre>
-
+<pre class="mermaid">gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Section
+        A task          :a1, 2014-01-01, 30d
+        Another task    :after a1, 20d
+    section Another
+        Task in Another :2014-01-12, 12d
+        another task    :24d</pre>
 <pre class="mermaid">mindmap
 root["根节点"]
   C1[有个"特殊字符]
@@ -2647,7 +2647,6 @@ root["根节点"]
   C3
     C3-1
     C3-2</pre>
-
 <pre class="mermaid">mindmap
   root((mindmap))
     Origins
@@ -2664,7 +2663,8 @@ root["根节点"]
             Argument mapping
     Tools
       Pen and paper
-      Mermaid</pre></body></html>]]></content>
+      Mermaid</pre>
+</body></html>]]></content>
       <categories>
         <category>Tutorials</category>
         <category>Deep Learning</category>
