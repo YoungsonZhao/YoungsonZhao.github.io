@@ -2603,19 +2603,11 @@ O^{'} = W_{o}O + b_{o}
 <li>flowchart</li>
 </ul>
 <pre class="mermaid">flowchart LR
-    A[输入图像] --&gt; B[ViT提取Embedding特征];
-    B --&gt; C[Prompt Tuning];
-    C --&gt; D[语义分割];
-    C --&gt; E[实例分割];
-    C --&gt; F[全景分割];
-    C --&gt; G[抠图];
-    C --&gt; H[图像编辑];
-    D --&gt; I[输出分割结果];
-    E --&gt; I;
-    F --&gt; I;
-    G --&gt; I;
-    H --&gt; I;
-    I --&gt; J[结束];</pre>
+    A[输入图像] --&gt; B[ViT提取Embedding特征]
+    B --&gt; C[Prompt Tuning]
+    C --&gt; D[语义分割]
+    C --&gt; E[实例分割]
+    C --&gt; F[全景分割]</pre>
 <ul>
 <li>甘特图
 <pre class="mermaid">gantt
