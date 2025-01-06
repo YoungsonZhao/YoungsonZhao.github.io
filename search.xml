@@ -2613,21 +2613,24 @@ O^{'} = W_{o}O + b_{o}
 <p><strong>SAM</strong>模型由三个核心模块组成，分别是<strong>ImageEncoderViT</strong>、<strong>PromptEncoder</strong>和<strong>MaskDecoder</strong>。其中<strong>ImageEncoderViT</strong>是<strong>ViT</strong>模型，主要用于提取图像嵌入向量特征。<strong>PromptEncoder</strong>是<strong>Prompt Tuning</strong>模块，主要用于处理prompt特征，。<strong>MaskDecoder</strong>是<strong>Mask Decoder</strong>模块，主要输出分割结果。</p>
 <h2 id="核心模块">核心模块</h2>
 <h3 id="imageencodervit">ImageEncoderViT</h3>
+<p><strong>ImageEncoderViT</strong>是<strong>ViT</strong>模型，主要用于提取图像嵌入向量特征。相对于原生的<strong>ViT</strong>模型，<strong>ImageEncoderViT</strong>模块做了一些改进。首先去掉了分类用的class token，然后增加了序列特征融合的<strong>Neck</strong>模块，最后位置编码修改为了可配置的绝对和相对位置编码。</p>
 <pre class="mermaid">flowchart LR
     ImageEncoderViT --&gt; PatchEmbed
     ImageEncoderViT --&gt; PosEmbedding
     ImageEncoderViT --&gt; Blocks
     ImageEncoderViT --&gt; Neck
-    PatchEmbed --&gt; nn.Conv2d
+    PatchEmbed --&gt; nn.Conv2d(patch_size)
     PatchEmbed --&gt; nn.permute
     PosEmbedding --&gt; absolute_pos_embed
     PosEmbedding --&gt; relative_pos_embed
-    Neck --&gt; nn.Conv2d
+    Neck --&gt; nn.Conv2dO(1/3)
     Neck --&gt; nn.LayerNorm</pre>
 <h4 id="patchembed">PatchEmbed</h4>
 <p><strong>PatchEmbed</strong>主要由<strong>nn.Conv2d</strong>和<strong>nn.permute</strong>组成，主要作用是把图像转换为<strong>patch</strong>，然后进行embedding。</p>
 <h4 id="posembedding">PosEmbedding</h4>
-<p><strong>PosEmbedding</strong>分为绝对值位置编码和相对位置编码，绝对值位置编码由可以学习的参数组成。</p>
+<p><strong>PosEmbedding</strong>分为绝对值位置编码和相对位置编码，在模型初始化时由超参数控制。绝对值位置编码由可以学习的参数组成。</p>
+<h4 id="blocks">Blocks</h4>
+<p><strong>Blocks</strong>是<strong>ViT</strong>模型的主体部分，由多个<strong>Block</strong>组成，每个<strong>Block</strong>包含<strong>Attention</strong>和<strong>MLP</strong>两部分。<strong>Attention</strong>模块与<strong>ViT</strong>论文中操作保持一致，只是输入模块的Tensor维度略有不同，原始论文中是(batch_size, seq_len, embed_dim)，而<strong>SAM</strong>模型中是(batch_size, height_patches, width_patches, embed_dim)。</p>
 <h4 id="neck">Neck</h4>
 <p><strong>Neck</strong>主要由<strong>nn.Conv2d</strong>和<strong>nn.LayerNorm</strong>组成，主要作用是把<strong>Blocks</strong>提取的嵌入特征扩展映射到指定维度作为输出。<strong>SAM</strong>模型分别用了两层<strong>nn.Conv2d</strong>和<strong>nn.LayerNorm</strong>，用于提升模型的泛化能力。第一层<strong>nn.Conv2d</strong>的kernel_size为1,stride为1,可视为等效全链接层。第二层<strong>nn.Conv2d</strong>的kernel_size为3,stride为1,padding为1，可视为卷积层，将邻域特征做了融合处理，进一步提升了<strong>Neck</strong>模块的特征融合与表达能力。</p>
 <ul>
