@@ -2610,6 +2610,26 @@ O^{'} = W_{o}O + b_{o}
     ImageEncoderViT --&gt; PosEmbedding
     ImageEncoderViT --&gt; Blocks
     ImageEncoderViT --&gt; Neck</pre>
+<p><strong>SAM</strong>模型由三个核心模块组成，分别是<strong>ImageEncoderViT</strong>、<strong>PromptEncoder</strong>和<strong>MaskDecoder</strong>。其中<strong>ImageEncoderViT</strong>是<strong>ViT</strong>模型，主要用于提取图像嵌入向量特征。<strong>PromptEncoder</strong>是<strong>Prompt Tuning</strong>模块，主要用于处理prompt特征，。<strong>MaskDecoder</strong>是<strong>Mask Decoder</strong>模块，主要输出分割结果。</p>
+<h2 id="核心模块">核心模块</h2>
+<h3 id="imageencodervit">ImageEncoderViT</h3>
+<pre class="mermaid">flowchart LR
+    ImageEncoderViT --&gt; PatchEmbed
+    ImageEncoderViT --&gt; PosEmbedding
+    ImageEncoderViT --&gt; Blocks
+    ImageEncoderViT --&gt; Neck
+    PatchEmbed --&gt; nn.Conv2d
+    PatchEmbed --&gt; nn.permute
+    PosEmbedding --&gt; absolute_pos_embed
+    PosEmbedding --&gt; relative_pos_embed
+    Neck --&gt; nn.Conv2d
+    Neck --&gt; nn.LayerNorm</pre>
+<h4 id="patchembed">PatchEmbed</h4>
+<p><strong>PatchEmbed</strong>主要由<strong>nn.Conv2d</strong>和<strong>nn.permute</strong>组成，主要作用是把图像转换为<strong>patch</strong>，然后进行embedding。</p>
+<h4 id="posembedding">PosEmbedding</h4>
+<p><strong>PosEmbedding</strong>分为绝对值位置编码和相对位置编码，绝对值位置编码由可以学习的参数组成。</p>
+<h4 id="neck">Neck</h4>
+<p><strong>Neck</strong>主要由<strong>nn.Conv2d</strong>和<strong>nn.LayerNorm</strong>组成，主要作用是把<strong>Blocks</strong>提取的嵌入特征扩展映射到指定维度作为输出。<strong>SAM</strong>模型分别用了两层<strong>nn.Conv2d</strong>和<strong>nn.LayerNorm</strong>，用于提升模型的泛化能力。第一层<strong>nn.Conv2d</strong>的kernel_size为1,stride为1,可视为等效全链接层。第二层<strong>nn.Conv2d</strong>的kernel_size为3,stride为1,padding为1，可视为卷积层，将邻域特征做了融合处理，进一步提升了<strong>Neck</strong>模块的特征融合与表达能力。</p>
 <ul>
 <li>sequence
 <pre class="mermaid">sequenceDiagram
