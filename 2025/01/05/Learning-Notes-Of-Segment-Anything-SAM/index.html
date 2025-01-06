@@ -324,7 +324,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>742</span>
+              <span>846</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -352,7 +352,11 @@
 <pre class="mermaid">flowchart LR
     Sam --&gt; ImageEncoderViT
     Sam --&gt; PromptEncoder
-    Sam --&gt; MaskDecoder</pre>
+    Sam --&gt; MaskDecoder
+    ImageEncoderViT --&gt; PatchEmbed
+    ImageEncoderViT --&gt; PosEmbedding
+    ImageEncoderViT --&gt; Blocks
+    ImageEncoderViT --&gt; Neck</pre>
 <ul>
 <li>sequence
 <pre class="mermaid">sequenceDiagram

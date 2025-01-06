@@ -2605,7 +2605,11 @@ O^{'} = W_{o}O + b_{o}
 <pre class="mermaid">flowchart LR
     Sam --&gt; ImageEncoderViT
     Sam --&gt; PromptEncoder
-    Sam --&gt; MaskDecoder</pre>
+    Sam --&gt; MaskDecoder
+    ImageEncoderViT --&gt; PatchEmbed
+    ImageEncoderViT --&gt; PosEmbedding
+    ImageEncoderViT --&gt; Blocks
+    ImageEncoderViT --&gt; Neck</pre>
 <ul>
 <li>sequence
 <pre class="mermaid">sequenceDiagram
