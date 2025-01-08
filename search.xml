@@ -1855,6 +1855,8 @@ M_{total} = P_{total} * 4 / 1000 / 1000 = 75174402 * 4 / 1000 / 1000 = 300.70MB
 <li>自动管理设备：缓冲区会跟随模型移动到不同的设备（如 CPU 或 GPU），确保其始终与模型的其他部分保持一致。</li>
 <li>包含在模型的状态字典中：当调用 model.state_dict() 时，缓冲区会被包含在返回的字典中，从而可以在保存和加载模型时一并处理。</li>
 </ul>
+<h3 id="convTranspose2d"><a href="#convTranspose2d" class="headerlink" title="convTranspose2d"></a>convTranspose2d</h3><p>转置卷积操作，也称为反卷积操作，用于将输入张量进行上采样，从而生成更大的输出张量。转置卷积操作与普通卷积操作相反，普通卷积操作是将输入张量进行下采样，从而生成更小的输出张量。<br>具体操作细节可以参照这篇文章<a href="https://numbersmithy.com/understanding-transposed-convolutions-in-pytorch/">Understanding transposed convolutions in PyTorch
+</a></p>
 </body></html>]]></content>
       <categories>
         <category>Tutorials</category>
