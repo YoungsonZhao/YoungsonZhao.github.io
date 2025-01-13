@@ -1876,6 +1876,23 @@ GELU(x) = x \cdot \Phi(x)
 \]</span> 其中，<span class="math inline">\(\Phi(x)\)</span> 是标准正态分布的累积分布函数（CDF）。<code>GELU</code>函数在深度学习模型中广泛使用，因为它可以有效地缓解梯度消失问题，并提高模型的性能。</p>
 <p>GELU函数相对于RELU函数的优势再于，在x=0处，GELU函数的导数是1，而RELU函数的导数在x=0处是0，这会导致梯度消失问题。GELU函数在x=0处有平滑的过渡，使得梯度在x=0处不会消失，从而提高了模型的训练效果。</p>
 <p>！<a href="gelu.png">GELU激活函数曲线图</a></p>
+<h2 id="torchvision">TorchVision</h2>
+<h3 id="transforms">transforms</h3>
+<p><code>torchvision.transforms</code> 是 PyTorch 提供的一个模块，用于对图像进行预处理和增强。它提供了一系列常用的图像变换操作，如裁剪、缩放、旋转、翻转、归一化等。这些变换操作可以用于数据增强，以提高模型的泛化能力。</p>
+<p>以下是一些常用的 <code>torchvision.transforms</code> 操作：</p>
+<ol type="1">
+<li><strong>裁剪（Crop）</strong>：从图像中裁剪出指定大小的区域。</li>
+<li><strong>缩放（Resize）</strong>：将图像缩放到指定的大小。</li>
+<li><strong>旋转（Rotate）</strong>：将图像旋转指定角度。</li>
+<li><strong>翻转（Flip）</strong>：将图像左右翻转或上下翻转。</li>
+<li><strong>正则化（Normalize）</strong>：将图像像素值归一化到指定范围。</li>
+<li><strong>转换颜色空间（ColorJitter）</strong>：对图像的颜色进行随机调整，如亮度、对比度、饱和度和色调。</li>
+<li><strong>转换通道顺序（ToTensor）</strong>：将图像从 PIL 或 NumPy 数组格式转换为 PyTorch 张量格式。</li>
+<li><strong>添加噪声（AddNoise）</strong>：向图像中添加随机噪声。</li>
+<li><strong>随机裁剪（RandomCrop）</strong>：从图像中随机裁剪出指定大小的区域。</li>
+<li><strong>随机旋转（RandomRotation）</strong>：将图像随机旋转指定角度。</li>
+</ol>
+<p>通过<strong>Compose</strong> 操作可以将多个变换操作组合成一个变换操作。</p>
 <h2 id="模型保存">模型保存</h2>
 <h3 id="pytorch-jit优化">PyTorch JIT优化</h3>
 <p><code>PyTorch JIT</code>（Just-In-Time 编译）提供了针对模型加速和优化的功能，<code>TorchScript</code> 是其核心技术之一，用于将 PyTorch 动态计算图转化为静态图以实现更高效的执行。JIT 格式（<code>.pt</code> 或 <code>.jit</code> 文件）在保存和执行模型时具备以下优化：</p>
