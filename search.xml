@@ -2886,10 +2886,14 @@ There are multiple ways that can insert images in Markdown, such as using absolu
   <entry>
     <title>Learning Notes Of CLIP</title>
     <url>/2025/01/18/Learning-Notes-Of-CLIP/</url>
-    <content><![CDATA[<html><head></head><body><p><a href="https://github.com/openai/CLIP">CLIP</a> (Contrastive Language-Image Pre-Training) 是一个基于<strong>Transformer</strong>和<strong>Vision Transformer</strong>结构的语言-视觉预训练模型。<strong>CLIP</strong>模型通过对比学习训练了一个图像编码器和一个文本编码器，让模型自动学习（图片，文本）对的关联关系。给定一张图片，<strong>CLIP</strong>模型可以预测出来与该图片最相关的文字描述。由于<strong>CLIP</strong>模型的训练文本语料是由图片类目和命名实体和一些固定的语式短语(A photo of cat)组成，因此<strong>CLIP</strong>模型可以学习到图像特征与类目和命名实体之间的内在关系。<strong>CLIP</strong>模型不需要使用<strong>ImageNet</strong>数据集1.28M标签样本训练即可达到<strong>ResNet50</strong>的准确率。本文将介绍<strong>CLIP</strong>模型的结构，以及如何使用<strong>CLIP</strong>模型进行图像分类。</p>
-<span id="more"></span>
-
-<h2 id="CLIP模型结构"><a href="#CLIP模型结构" class="headerlink" title="CLIP模型结构"></a>CLIP模型结构</h2><p><img alt="CLIP模型结构" data-src="/2025/01/18/Learning-Notes-Of-CLIP/clip.png"></p>
+    <content><![CDATA[<html><head></head><body><p><a href="https://github.com/openai/CLIP">CLIP</a> (Contrastive Language-Image Pre-Training) 是一个基于<strong>Transformer</strong>和<strong>Vision Transformer</strong>结构的语言-视觉预训练模型。<strong>CLIP</strong>模型通过对比学习训练了一个图像编码器和一个文本编码器，让模型自动学习（图片，文本）对的关联关系。给定一张图片，<strong>CLIP</strong>模型可以预测出来与该图片最相关的文字描述。由于<strong>CLIP</strong>模型的训练文本语料是由图片类目和命名实体和一些固定的语式短语(A photo of cat)组成，因此<strong>CLIP</strong>模型可以学习到图像特征与类目和命名实体之间的内在关系。<strong>CLIP</strong>模型不需要使用<strong>ImageNet</strong>数据集1.28M标签样本训练即可达到<strong>ResNet50</strong>的准确率。本文将介绍<strong>CLIP</strong>模型的结构，以及如何使用<strong>CLIP</strong>模型进行图像分类。 <span id="more"></span></p>
+<h2 id="clip模型结构">CLIP模型结构</h2>
+<p><img alt="CLIP模型结构" data-src="/2025/01/18/Learning-Notes-Of-CLIP/clip.png"> <strong>CLIP</strong>模型由两个部分组成：<strong>Image Encoder</strong>和<strong>Text Encoder</strong>。<strong>Image Encoder</strong>是一个<strong>Vision Transformer</strong>，它将图片编码成<span class="math inline">\((embed_dim,)\)</span>维度的嵌入特征。<strong>Text Encoder</strong>是一个<strong>Transformer</strong>，它将文本编码成<span class="math inline">\((embed_dim,)\)</span>维度的嵌入特征。<strong>CLIP</strong>模型将<strong>Image Encoder</strong>和<strong>Text Encoder</strong>的输出进行对比学习，学习到图像和文本之间的关联关系。</p>
+<p>在预测阶段，将图像标签组成固定语式的文本，分别提取图片编码特征和文本编码特征，然后计算两个嵌入特征的余弦相似度，取最大值作为预测结果。</p>
+<h2 id="clip模型核心模块">CLIP模型核心模块</h2>
+<h3 id="image-encoder">Image Encoder</h3>
+<h3 id="text-encoder">Text Encoder</h3>
+<h3 id="contrastive-learning">Contrastive Learning</h3>
 </body></html>]]></content>
       <categories>
         <category>Notes</category>
