@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.zhaoyongsheng.com/2025/01/18/Learning-Notes-Of-CLIP/</loc>
+    
+    <lastmod>2025-01-18T14:23:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.zhaoyongsheng.com/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/</loc>
     
     <lastmod>2025-01-05T12:01:01.000Z</lastmod>

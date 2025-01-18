@@ -227,6 +227,135 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2025/01/18/Learning-Notes-Of-CLIP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Dr. Zhao">
+      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dr. Zhao's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/18/Learning-Notes-Of-CLIP/" class="post-title-link" itemprop="url">Learning Notes Of CLIP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-01-18 22:23:30" itemprop="dateCreated datePublished" datetime="2025-01-18T22:23:30+08:00">2025-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Pytorch/" itemprop="url" rel="index">
+                    <span itemprop="name">Pytorch</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Pytorch/Transformer/" itemprop="url" rel="index">
+                    <span itemprop="name">Transformer</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Notes/Pytorch/Transformer/Vision-Transformer/" itemprop="url" rel="index">
+                    <span itemprop="name">Vision Transformer</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/2025/01/18/Learning-Notes-Of-CLIP/" class="post-meta-item leancloud_visitors" data-flag-title="Learning Notes Of CLIP" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2025/01/18/Learning-Notes-Of-CLIP/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2025/01/18/Learning-Notes-Of-CLIP/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>352</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a target="_blank" rel="noopener" href="https://github.com/openai/CLIP">CLIP</a> (Contrastive Language-Image Pre-Training) 是一个基于<strong>Transformer</strong>和<strong>Vision Transformer</strong>结构的语言-视觉预训练模型。<strong>CLIP</strong>模型通过对比学习训练了一个图像编码器和一个文本编码器，让模型自动学习（图片，文本）对的关联关系。给定一张图片，<strong>CLIP</strong>模型可以预测出来与该图片最相关的文字描述。由于<strong>CLIP</strong>模型的训练文本语料是由图片类目和命名实体和一些固定的语式短语(A photo of cat)组成，因此<strong>CLIP</strong>模型可以学习到图像特征与类目和命名实体之间的内在关系。<strong>CLIP</strong>模型不需要使用<strong>ImageNet</strong>数据集1.28M标签样本训练即可达到<strong>ResNet50</strong>的准确率。本文将介绍<strong>CLIP</strong>模型的结构，以及如何使用<strong>CLIP</strong>模型进行图像分类。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2025/01/18/Learning-Notes-Of-CLIP/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2025/01/05/Learning-Notes-Of-Segment-Anything-SAM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -259,31 +388,25 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
-                    <span itemprop="name">Tutorials</span>
+                  <a href="/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/" itemprop="url" rel="index">
                     <span itemprop="name">Pytorch</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/Vision-Transformer/" itemprop="url" rel="index">
                     <span itemprop="name">Vision Transformer</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/Segment-Anything/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/Vision-Transformer/Segment-Anything/" itemprop="url" rel="index">
                     <span itemprop="name">Segment Anything</span>
                   </a>
                 </span>
@@ -394,25 +517,19 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
-                    <span itemprop="name">Tutorials</span>
+                  <a href="/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/" itemprop="url" rel="index">
                     <span itemprop="name">Pytorch</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/Vision-Transformer/" itemprop="url" rel="index">
                     <span itemprop="name">Vision Transformer</span>
                   </a>
                 </span>
@@ -646,25 +763,19 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
-                    <span itemprop="name">Tutorials</span>
+                  <a href="/categories/Notes/" itemprop="url" rel="index">
+                    <span itemprop="name">Notes</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/" itemprop="url" rel="index">
                     <span itemprop="name">Pytorch</span>
                   </a>
                 </span>
                   , 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/Transformer/" itemprop="url" rel="index">
+                  <a href="/categories/Notes/Pytorch/Transformer/" itemprop="url" rel="index">
                     <span itemprop="name">Transformer</span>
                   </a>
                 </span>
@@ -1366,135 +1477,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://blog.zhaoyongsheng.com/2024/07/05/Learning-Note-Of-Vision-Transformer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Dr. Zhao">
-      <meta itemprop="description" content="A technical blog for sharing articles related to Computer Vision, Robotics & Deep Learning.">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dr. Zhao's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/07/05/Learning-Note-Of-Vision-Transformer/" class="post-title-link" itemprop="url">Learning Note Of Vision Transformer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-07-05 00:18:01" itemprop="dateCreated datePublished" datetime="2024-07-05T00:18:01+08:00">2024-07-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/" itemprop="url" rel="index">
-                    <span itemprop="name">Tutorials</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Deep Learning</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/" itemprop="url" rel="index">
-                    <span itemprop="name">Pytorch</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tutorials/Deep-Learning/Pytorch/Vision-Transformer/" itemprop="url" rel="index">
-                    <span itemprop="name">Vision Transformer</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/2024/07/05/Learning-Note-Of-Vision-Transformer/" class="post-meta-item leancloud_visitors" data-flag-title="Learning Note Of Vision Transformer" title="Views">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">Views: </span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Valine: </span>
-    
-    <a title="valine" href="/2024/07/05/Learning-Note-Of-Vision-Transformer/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2024/07/05/Learning-Note-Of-Vision-Transformer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.5k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>6 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>Vision Transformer (ViT)</strong>是Transformer模型应用到视觉领域的开山之作,在分类识别领域取得了SOTA表现，在<a target="_blank" rel="noopener" href="https://github.com/Alibaba-MIIL/ImageNet21K">ImageNet-21K</a>上训练的模型作为骨干基座，被广泛应用在了各个视觉任务中。本文主要介绍<strong>ViT</strong>的模型结构，<a target="_blank" rel="noopener" href="https://github.com/jeonsworld/ViT-pytorch?tab=readme-ov-file">pytorch代码实现</a>和训练方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2024/07/05/Learning-Note-Of-Vision-Transformer/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1545,20 +1527,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">57</span>
+        <span class="site-state-item-count">61</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">78</span>
+        <span class="site-state-item-count">79</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1626,7 +1608,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">289k</span>
+    <span title="Symbols count total">290k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
