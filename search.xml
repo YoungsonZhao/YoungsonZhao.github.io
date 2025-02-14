@@ -1420,7 +1420,13 @@ ctr=\frac{n_{clk}}{n_{exp}}
   <entry>
     <title>Using Python Virtual Environment In Jupyter Notebook</title>
     <url>/2024/06/27/Using-Python-Virtual-Environment-In-Jupyter-Notebook/</url>
-    <content><![CDATA[<html><head></head><body><p>介绍如何在<strong>Jupyter Notebook</strong>中使用Python的虚拟环境。 <span id="more"></span> ### 安装 </p><figure class="highlight crmsh"><table><tbody><tr><td class="code"><pre><span class="line">pip install --<span class="keyword">user</span> <span class="title">ipykernel</span> -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></tbody></table></figure> ### 添加虚拟环境 创建python虚拟环境请参照<a href="https://youngsonzhao.github.io/2024/02/21/Using-Python-Virtual-Environment/">Using Python Virtual Environment</a> 创建好虚拟环境后，可以使用一下命令在Jupyter中注册虚拟环境。 <figure class="highlight crmsh"><table><tbody><tr><td class="code"><pre><span class="line">python -m ipykernel install --<span class="keyword">user</span> <span class="title">--name</span>=.sam</span><br></pre></td></tr></tbody></table></figure> ### 在Jupyter Notebook中使用虚拟环境 在<strong>Jupyter Notebook</strong>页面的左下角按钮，可以切换kernel，如下图所示： <img alt="切换kernel" data-src="/2024/06/27/Using-Python-Virtual-Environment-In-Jupyter-Notebook/ipykernel.png"><p></p>
+    <content><![CDATA[<html><head></head><body><p>介绍如何在<strong>Jupyter Notebook</strong>中使用Python的虚拟环境。 <span id="more"></span></p>
+<h3 id="安装">安装</h3>
+<figure class="highlight crmsh"><table><tbody><tr><td class="code"><pre><span class="line">pip install --<span class="keyword">user</span> <span class="title">ipykernel</span> -i https://pypi.tuna.tsinghua.edu.cn/simple</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="添加虚拟环境">添加虚拟环境</h3>
+<p>创建python虚拟环境请参照<a href="https://youngsonzhao.github.io/2024/02/21/Using-Python-Virtual-Environment/">Using Python Virtual Environment</a> 创建好虚拟环境后，可以使用一下命令在Jupyter中注册虚拟环境。 </p><figure class="highlight crmsh"><table><tbody><tr><td class="code"><pre><span class="line">python -m ipykernel install --<span class="keyword">user</span> <span class="title">--name</span>=.sam</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="在jupyter-notebook中使用虚拟环境">在Jupyter Notebook中使用虚拟环境</h3>
+<p>在<strong>Jupyter Notebook</strong>页面的左下角按钮，可以切换kernel，如下图所示： <img alt="切换kernel" data-src="/2024/06/27/Using-Python-Virtual-Environment-In-Jupyter-Notebook/ipykernel.png"></p>
 </body></html>]]></content>
       <categories>
         <category>Tutorials</category>
@@ -2907,6 +2913,81 @@ There are multiple ways that can insert images in Markdown, such as using absolu
         <tag>Vision Transformer</tag>
         <tag>Transformer</tag>
         <tag>CLIP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>FLOPs Analysis of Transformer Models</title>
+    <url>/2025/02/10/FLOPs-Analysis-of-Transformer-Models/</url>
+    <content><![CDATA[<html><head></head><body><span id="more"></span>
+<h3 id="参考链接">参考链接</h3>
+<ul>
+<li><a href="https://blog.eleuther.ai/transformer-math/">Transformer Math 101</a></li>
+<li><a href="https://www.gaohongnan.com/playbook/training/how_to_calculate_flops_in_transformer_based_models.html">How to Calculate the Number of FLOPs in Transformer Based Models?</a></li>
+<li><a href="https://www.adamcasson.com/posts/transformer-flops">Transformer FLOPs</a></li>
+<li><a href="https://github.com/HarleysZhang/llm_note/blob/main/1-transformer_model/llm%E5%8F%82%E6%95%B0%E9%87%8F-%E8%AE%A1%E7%AE%97%E9%87%8F-%E6%98%BE%E5%AD%98%E5%8D%A0%E7%94%A8%E5%88%86%E6%9E%90.md">llm参数量-计算量-显存占用分析</a></li>
+<li><a href="https://medium.com/@dzmitrybahdanau/the-flops-calculus-of-language-model-training-3b19c1f025e4">The FLOPs Calculus of Language Model Training</a></li>
+</ul>
+</body></html>]]></content>
+      <categories>
+        <category>Notes</category>
+        <category>Pytorch</category>
+        <category>Transformer</category>
+      </categories>
+      <tags>
+        <tag>Notes</tag>
+        <tag>Pytorch</tag>
+        <tag>Vision Transformer</tag>
+        <tag>Transformer</tag>
+        <tag>FLOPs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Parallel Training Scheme Of Large Model</title>
+    <url>/2025/02/10/Parallel-Training-Scheme-Of-Large-Model/</url>
+    <content><![CDATA[<html><head></head><body><span id="more"></span>
+<h3 id="参考链接">参考链接</h3>
+<ul>
+<li><a href="https://www.high-flyer.cn/en/blog/hai-llm/#3d%E5%B9%B6%E8%A1%8C">HAI-LLM：高效且轻量的大模型训练工具</a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+</ul>
+</body></html>]]></content>
+      <categories>
+        <category>Notes</category>
+        <category>Pytorch</category>
+        <category>Train</category>
+      </categories>
+      <tags>
+        <tag>Notes</tag>
+        <tag>Pytorch</tag>
+        <tag>Transformer</tag>
+        <tag>Parallel Training</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Key Value Cache and Optimization Method for Transformer</title>
+    <url>/2025/02/10/Key-Value-Cache-and-Optimization-Method-for-Transformer/</url>
+    <content><![CDATA[<html><head></head><body><span id="more"></span>
+<h3 id="参考链接">参考链接</h3>
+<ul>
+<li><a href="https://medium.com/@joaolages/kv-caching-explained-276520203249">Transformers KV Caching Explained</a></li>
+<li><a href="https://neptune.ai/blog/transformers-key-value-caching">Transformers Key-Value Caching Explained</a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+</ul>
+</body></html>]]></content>
+      <categories>
+        <category>Notes</category>
+        <category>Pytorch</category>
+        <category>Train</category>
+      </categories>
+      <tags>
+        <tag>Notes</tag>
+        <tag>Pytorch</tag>
+        <tag>Transformer</tag>
+        <tag>Parallel Training</tag>
       </tags>
   </entry>
 </search>
