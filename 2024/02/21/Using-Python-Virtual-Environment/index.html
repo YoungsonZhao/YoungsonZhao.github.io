@@ -302,7 +302,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>342</span>
+              <span>339</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -321,7 +321,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>在Python中使用虚拟环境可以将包安装在独立的环境中，既不会污染主环境，也不会相互影响。因此在跑测试环境的时候，推荐使用虚拟环境。本文主要介绍虚拟环境的使用方法。 <span id="more"></span> ### 安装 使用以下指令安装虚拟环境： </p><figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> virtualenv</span><br><span class="line">sudo apt-get <span class="keyword">install</span> python3.<span class="number">10</span>-venv</span><br></pre></td></tr></tbody></table></figure><p></p>
+        <html><head></head><body><p>在Python中使用虚拟环境可以将包安装在独立的环境中，既不会污染主环境，也不会相互影响。因此在跑测试环境的时候，推荐使用虚拟环境。本文主要介绍虚拟环境的使用方法。 <span id="more"></span></p>
+<h3 id="安装">安装</h3>
+<p>使用以下指令安装虚拟环境： </p><figure class="highlight cmake"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> virtualenv</span><br><span class="line">sudo apt-get <span class="keyword">install</span> python3.<span class="number">10</span>-venv</span><br></pre></td></tr></tbody></table></figure><p></p>
 <h3 id="使用">使用</h3>
 <h4 id="初始化环境">初始化环境</h4>
 <p>安装成功后，使用以下指令可以创建一个虚拟环境。 </p><figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m venv <span class="string">.venv</span></span><br></pre></td></tr></tbody></table></figure> 所创建的虚拟环境目录为：<strong>.venv</strong> #### 激活环境 创建环境后，可以使用以下指令激活环境，让Python在虚拟环境中运行。 <figure class="highlight gradle"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">source</span> ~<span class="regexp">/.venv/</span>bin/active</span><br></pre></td></tr></tbody></table></figure> 激活后，我们可以在虚拟环境中正常运行python代码以及使用pip安装包。 #### 失活环境 <figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deactive</span></span><br></pre></td></tr></tbody></table></figure><p></p>
@@ -428,7 +430,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">初始化环境</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">初始化环境</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
