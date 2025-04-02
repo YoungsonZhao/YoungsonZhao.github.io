@@ -319,7 +319,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In this article, I will introduce some useful skills of using git to manage version control.<br><span id="more"></span></p>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://git-scm.com/">Git</a> is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. In this article, I will introduce some useful skills of using git to manage version control.</p>
+<span id="more"></span>
 <h3 id="Manage-Remote-Repository"><a href="#Manage-Remote-Repository" class="headerlink" title="Manage Remote Repository"></a>Manage Remote Repository</h3><h4 id="Add"><a href="#Add" class="headerlink" title="Add"></a>Add</h4><figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin ssh:<span class="regexp">//gi</span>t@gitlab.com:<span class="number">30001</span><span class="regexp">/yongsheng/</span>jupyter.git</span><br></pre></td></tr></tbody></table></figure>
 <p>The above command will add a remote repository to a git project named <strong>origin</strong>. We can add multiple remote repositories using different names, such <strong>backup</strong>, <strong>test</strong> and so on. </p>
 <h4 id="Change-URL"><a href="#Change-URL" class="headerlink" title="Change URL"></a>Change URL</h4><figure class="highlight dsconfig"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">git</span> <span class="string">remote</span> <span class="built_in">set-url</span> <span class="string">origin</span> <span class="string">ssh</span>://<span class="string">git</span>@<span class="string">gitlab</span>.<span class="string">com:30001/</span><span class="string">yongsheng</span>/<span class="string">jupyter</span>.<span class="string">git</span></span><br></pre></td></tr></tbody></table></figure>
@@ -443,20 +444,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -514,7 +515,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -524,13 +525,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -624,60 +625,23 @@
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

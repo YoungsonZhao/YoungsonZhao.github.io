@@ -307,7 +307,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>410</span>
+              <span>491</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -326,10 +326,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><strong>SSH</strong> is secure way to login a server. It is difficult to remember the IPs of several servers. In this tutorials, I will teach to setup host of <strong>SSH</strong> to login using hostname instead of IP.<br><span id="more"></span></p>
-<h3 id="Create-Config-File"><a href="#Create-Config-File" class="headerlink" title="Create Config File"></a>Create Config File</h3><p>Create a custom ssh config file by the following command.<br></p><figure class="highlight arcade"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></tbody></table></figure><p></p>
+        <html><head></head><body><p><strong>SSH</strong> is secure way to login a server. It is difficult to remember the IPs of several servers. In this tutorials, I will teach to setup host of <strong>SSH</strong> to login using hostname instead of IP.</p>
+<span id="more"></span>
+<h3 id="Create-Config-File"><a href="#Create-Config-File" class="headerlink" title="Create Config File"></a>Create Config File</h3><p>Create a custom ssh config file by the following command.</p>
+<figure class="highlight arcade"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~<span class="regexp">/.ssh/</span>config</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="Add-Host"><a href="#Add-Host" class="headerlink" title="Add Host"></a>Add Host</h3><figure class="highlight crmsh"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab.com</span><br><span class="line">    HostName <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line">    <span class="keyword">User</span> <span class="title">git</span></span><br><span class="line">    Port <span class="number">30001</span></span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br></pre></td></tr></tbody></table></figure>
-<p>The above host is a ssh connect for git. With this host, we can use <strong>ssh://git@gitlab.com:30001/</strong> to clone and push.</p>
+<p>The above host is a ssh connect for git. With this host, we can use <strong>ssh://<a href="mailto:git@gitlab.com">git@gitlab.com</a>:30001/</strong> to clone and push.</p>
 </body></html>
     </div>
 
@@ -448,20 +450,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -519,7 +521,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -529,13 +531,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -629,60 +631,23 @@
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

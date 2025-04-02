@@ -55,7 +55,7 @@
 <meta property="og:description" content="For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2019-12-07T07:54:13.000Z">
-<meta property="article:modified_time" content="2023-02-11T16:08:40.889Z">
+<meta property="article:modified_time" content="2019-12-07T07:54:13.000Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="Ubuntu">
 <meta property="article:tag" content="Grub">
@@ -257,13 +257,6 @@
 
               <time title="Created: 2019-12-07 15:54:13" itemprop="dateCreated datePublished" datetime="2019-12-07T15:54:13+08:00">2019-12-07</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-12 00:08:40" itemprop="dateModified" datetime="2023-02-12T00:08:40+08:00">2023-02-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -315,7 +308,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.7k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -335,32 +328,24 @@
 
       
         <html><head></head><body><p>For convenient, we sometimes install multiple operation systems on one computer, such as Windows 10, Ubuntu 16.04, and Ubuntu 18.04. These operation systems can be installed into different hard disks at different time. The existing Ubuntu’s grub file will be overwritten during the installation of new operation system. When the installation failed or the new installed operation system broken, the grub file may be broken, which results in that the existing Ubuntu can not boot. Fortunately, there are methods to repair the broken grub file and restore the existing Ubuntu system. In this article, I will briefly introduce one useful method, which helps me to save my Ubuntu 16.04.</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>When the grub file is broken, the following message will be prompted in terminal during booting.</p>
-<figure class="highlight subunit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>: unknow filesystem</span><br><span class="line">grub &gt;</span><br><span class="line">```</span><br></pre></td></tr></tbody></table></figure>
-<p>If you see a similar message when you boot a ubuntu system, it indicates that the operation system’s grub file was broken. You can use the following method to repair the grub file. I have tested that this method is valid.</p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ul>
-<li>Check partition<figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub &gt; <span class="keyword">ls</span></span><br></pre></td></tr></tbody></table></figure>
-We will see all the partitions on disk.</li>
-</ul>
-<figure class="highlight gcode"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">(hd0)</span> <span class="comment">(hd0,gpt0)</span> <span class="comment">(hd0,gpt1)</span> <span class="comment">(hd0,gpt2)</span> ...</span><br></pre></td></tr></tbody></table></figure>
-
-<ul>
-<li><p>Find the root directory of Ubuntu<br>List contents of every partition until we find the root directory of the Ubuntu system we want to restore.</p>
-<figure class="highlight lisp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grub &gt; ls (<span class="name">hd0</span>,gpt1)/</span><br><span class="line">grub &gt; ls (<span class="name">hd0</span>,gpt2)/</span><br><span class="line">grub &gt; ls (<span class="name">hd0</span>,gpt3)/</span><br></pre></td></tr></tbody></table></figure>
-<p>If we see the following message, we find where the root directory is.</p>
-<figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grub &gt; .<span class="regexp">/ ../</span> tmp<span class="regexp">/ bin/</span> lib<span class="regexp">/ proc/</span> boot<span class="regexp">/ lib32/</span> root<span class="regexp">/ lib64/</span> run<span class="regexp">/ lost+found/</span> sbin<span class="regexp">/ usr/</span> media<span class="regexp">/ srv/</span> var<span class="regexp">/ dev/</span> mnt<span class="regexp">/ vmlinuz/</span> etc<span class="regexp">/ vmlinuz.old sys/</span> opt<span class="regexp">/</span></span><br></pre></td></tr></tbody></table></figure>
-</li>
-<li><p>Set booting partition</p>
-<figure class="highlight gams"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grub &gt; <span class="keyword">set</span> root=(hd0,gpt3)</span><br><span class="line">grub <span class="comment">&gt; set prefix=(hd0,gpt3)</span>/boot/<span class="comment">grub</span></span><br><span class="line">grub <span class="comment">&gt; insmod normal</span></span><br><span class="line">grub <span class="comment">&gt; normal</span></span><br></pre></td></tr></tbody></table></figure>
-<p>The Ubuntu system would booting successfully and we can login now.</p>
-</li>
-<li><p>Update grub file</p>
-<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">sudo</span> <span class="string">update-grub</span></span><br><span class="line"><span class="attr">sudo</span> <span class="string">grub-install /dev/sda</span></span><br><span class="line"><span class="attr">reboot</span></span><br></pre></td></tr></tbody></table></figure>
-<p>If you could not repair the grub file and restore the Ubuntu operation system, please do not hesitate to leave a comment. Thank you very much.</p>
-</li>
-</ul>
+<figure class="highlight subunit"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>: unknow filesystem</span><br><span class="line">grub &gt;</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight applescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">If you see a similar message when you boot a ubuntu system, <span class="keyword">it</span> indicates <span class="keyword">that</span> <span class="keyword">the</span> operation system's grub <span class="built_in">file</span> was broken. You can use <span class="keyword">the</span> following method <span class="keyword">to</span> repair <span class="keyword">the</span> grub <span class="built_in">file</span>. I have tested <span class="keyword">that</span> this method <span class="keyword">is</span> valid.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Solution </span></span><br><span class="line"></span><br><span class="line">* Check partition</span><br></pre></td></tr></tbody></table></figure>
+<p>grub &gt; ls</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">We</span> will see <span class="literal">all</span> the partitions <span class="literal">on</span> disk.</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<p>(hd0) (hd0,gpt0) (hd0,gpt1) (hd0,gpt2) …</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* Find <span class="keyword">the</span> root <span class="built_in">directory</span> <span class="keyword">of</span> Ubuntu </span><br><span class="line">List contents <span class="keyword">of</span> every partition <span class="keyword">until</span> we find <span class="keyword">the</span> root <span class="built_in">directory</span> <span class="keyword">of</span> <span class="keyword">the</span> Ubuntu <span class="keyword">system</span> we want <span class="built_in">to</span> restore.</span><br></pre></td></tr></tbody></table></figure>
+<p>grub &gt; ls (hd0,gpt1)/<br>grub &gt; ls (hd0,gpt2)/<br>grub &gt; ls (hd0,gpt3)/</p>
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If we see <span class="keyword">the</span> following message, we find where <span class="keyword">the</span> root <span class="built_in">directory</span> is.</span><br></pre></td></tr></tbody></table></figure>
+<p>grub &gt; ./ ../ tmp/ bin/ lib/ proc/ boot/ lib32/ root/ lib64/ run/ lost+found/ sbin/ usr/ media/ srv/ var/ dev/ mnt/ vmlinuz/ etc/ vmlinuz.old sys/ opt/</p>
+<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* <span class="keyword">Set</span> booting <span class="keyword">partition</span></span><br></pre></td></tr></tbody></table></figure>
+<p>grub &gt; set root=(hd0,gpt3)<br>grub &gt; set prefix=(hd0,gpt3)/boot/grub<br>grub &gt; insmod normal<br>grub &gt; normal</p>
+<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The Ubuntu <span class="keyword">system</span> would booting successfully <span class="keyword">and</span> we can <span class="keyword">login</span> now.</span><br><span class="line"></span><br><span class="line">* <span class="keyword">Update</span> grub file</span><br></pre></td></tr></tbody></table></figure>
+<p>sudo update-grub<br>sudo grub-install /dev/sda<br>reboot</p>
+<pre><code>If you could not repair the grub file and restore the Ubuntu operation system, please do not hesitate to leave a comment. Thank you very much.
+</code></pre>
 </body></html>
     </div>
 
@@ -464,7 +449,7 @@ We will see all the partitions on disk.</li>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.</span> <span class="nav-text">Problem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">2.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Problem"><span class="nav-number">1.</span> <span class="nav-text">Problem</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -480,20 +465,20 @@ We will see all the partitions on disk.</li>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -551,7 +536,7 @@ We will see all the partitions on disk.</li>
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -561,13 +546,13 @@ We will see all the partitions on disk.</li>
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -661,60 +646,23 @@ We will see all the partitions on disk.</li>
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

@@ -55,7 +55,7 @@
 <meta property="og:description" content="PostgreSQL is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and perform">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-11T15:59:05.000Z">
-<meta property="article:modified_time" content="2023-02-11T17:51:07.126Z">
+<meta property="article:modified_time" content="2023-02-11T15:59:05.000Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="PostgreSQL">
 <meta name="twitter:card" content="summary">
@@ -255,13 +255,6 @@
 
               <time title="Created: 2023-02-11 23:59:05" itemprop="dateCreated datePublished" datetime="2023-02-11T23:59:05+08:00">2023-02-11</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-12 01:51:07" itemprop="dateModified" datetime="2023-02-12T01:51:07+08:00">2023-02-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -332,24 +325,24 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a href="https://www.postgresql.org/" target="_blank" rel="noopener">PostgreSQL</a> is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. Here I will introduce some basic commands of PostgreSQL</p>
-<a id="more"></a>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.postgresql.org/">PostgreSQL</a> is a powerful, open source object-relational database system with over 35 years of active development that has earned it a strong reputation for reliability, feature robustness, and performance. Here I will introduce some basic commands of PostgreSQL</p>
+<span id="more"></span>
 <h2 id="Default-User"><a href="#Default-User" class="headerlink" title="Default User"></a>Default User</h2><p>PostgreSQL creates a default user named <strong>postgres</strong> for you after installation. The default user has full access to PostgreSQL’s database, including creating a new database, reading data from a database, and updating data into a database. </p>
 <h3 id="Reset-Password"><a href="#Reset-Password" class="headerlink" title="Reset Password"></a>Reset Password</h3><p>If we want to use PostgreSQL in Django applications, the password is required. However, the default user <strong>postgres</strong> doesn’t have a password and we must set password for <strong>postgres</strong>.</p>
-<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line">ALTER<span class="built_in"> USER </span>postgres WITH PASSWORD <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql restart / systemctl restart postgresql</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres psql</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> postgres <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'12345678'</span>;</span><br><span class="line">\q</span><br><span class="line">service postgresql <span class="keyword">restart</span> / systemctl <span class="keyword">restart</span> postgresql</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="Basic-Command"><a href="#Basic-Command" class="headerlink" title="Basic Command"></a>Basic Command</h2><ul>
 <li>Check status<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service postgresql status</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li>Start psql with user postgres<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo -u postgres psql</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li>Create Database<figure class="highlight n1ql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> servo;</span><br></pre></td></tr></tbody></table></figure></li>
 <li>List Databases<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\l</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>List Users<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\du</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>List Users<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="built_in">du</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li>Connect to database<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\c</span> servo</span><br></pre></td></tr></tbody></table></figure></li>
-<li>List tables<figure class="highlight excel"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\d<span class="built_in">t</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Quit<figure class="highlight livescript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">\q</span></span><br></pre></td></tr></tbody></table></figure></li>
-<li>Show data<figure class="highlight cs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure></li>
-<li>Show data directory<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> data_directory;</span><br></pre></td></tr></tbody></table></figure></li>
+<li>List tables<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">dt</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Quit<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">\<span class="selector-tag">q</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>Show data<figure class="highlight axapta"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xxx_table</span><br></pre></td></tr></tbody></table></figure></li>
+<li>Show data directory<figure class="highlight abnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show data_directory<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure></li>
 </ul>
-<h2 id="Backup-amp-Restore"><a href="#Backup-amp-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2><h3 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h3><figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Backup-Restore"><a href="#Backup-Restore" class="headerlink" title="Backup &amp; Restore"></a>Backup &amp; Restore</h2><h3 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h3><figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_dump -Fc servo &gt; servo.bak</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h3><figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo -u postgres pg_restore -Fc -d servo &lt; /var/lib/postgresql/servo.bak</span><br></pre></td></tr></tbody></table></figure></body></html>
     </div>
 
@@ -451,7 +444,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Default-User"><span class="nav-number">1.</span> <span class="nav-text">Default User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reset-Password"><span class="nav-number">1.1.</span> <span class="nav-text">Reset Password</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Command"><span class="nav-number">2.</span> <span class="nav-text">Basic Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backup-amp-Restore"><span class="nav-number">3.</span> <span class="nav-text">Backup &amp; Restore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Backup"><span class="nav-number">3.1.</span> <span class="nav-text">Backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Restore"><span class="nav-number">3.2.</span> <span class="nav-text">Restore</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Default-User"><span class="nav-number">1.</span> <span class="nav-text">Default User</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reset-Password"><span class="nav-number">1.1.</span> <span class="nav-text">Reset Password</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Command"><span class="nav-number">2.</span> <span class="nav-text">Basic Command</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Backup-Restore"><span class="nav-number">3.</span> <span class="nav-text">Backup &amp; Restore</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Backup"><span class="nav-number">3.1.</span> <span class="nav-text">Backup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Restore"><span class="nav-number">3.2.</span> <span class="nav-text">Restore</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -467,20 +460,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -538,7 +531,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -548,13 +541,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -648,60 +641,23 @@
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

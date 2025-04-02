@@ -330,7 +330,7 @@
 <span id="more"></span>
 <h3 id="Install-Gitlab"><a href="#Install-Gitlab" class="headerlink" title="Install Gitlab"></a>Install Gitlab</h3><h4 id="Install-Docker"><a href="#Install-Docker" class="headerlink" title="Install Docker"></a>Install Docker</h4><p>Docker is supported by a series of synology nas hardwares. We can install docker in suite center.</p>
 <h4 id="Download-Gitlab-Image"><a href="#Download-Gitlab-Image" class="headerlink" title="Download Gitlab Image"></a>Download Gitlab Image</h4><p>Open docker and search <strong>gitlab</strong> in registration tab page. You can download the latest release or the release that has the most downloads. I choose <em>gitlab-ce</em> that has the most downloads, which is more stable.</p>
-<h4 id="Install-amp-Config-Gitlab"><a href="#Install-amp-Config-Gitlab" class="headerlink" title="Install &amp; Config Gitlab"></a>Install &amp; Config Gitlab</h4><p>Double click the downloaded image to install it. Input the name of the docker, for example, <strong>gitlab-ce</strong>. And click the button <strong>Advanced Settings</strong>.</p>
+<h4 id="Install-Config-Gitlab"><a href="#Install-Config-Gitlab" class="headerlink" title="Install &amp; Config Gitlab"></a>Install &amp; Config Gitlab</h4><p>Double click the downloaded image to install it. Input the name of the docker, for example, <strong>gitlab-ce</strong>. And click the button <strong>Advanced Settings</strong>.</p>
 <h5 id="Directory"><a href="#Directory" class="headerlink" title="Directory"></a>Directory</h5><p>In the volume tab, we build and configure three directories for gitlab to store logs, configurations and data correspondingly.</p>
 <figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker<span class="regexp">/gitlab/</span>logs -&gt; <span class="regexp">/var/</span>log/gitlab</span><br><span class="line">docker<span class="regexp">/gitlab/</span>config -&gt; <span class="regexp">/etc/gi</span>tlab</span><br><span class="line">docker<span class="regexp">/gitlab/</span>data -&gt; <span class="regexp">/var/</span>opt/gitlab</span><br></pre></td></tr></tbody></table></figure>
 <h5 id="Port"><a href="#Port" class="headerlink" title="Port"></a>Port</h5><p>We need set the http, https and ssh port map for serving gitlab. The default ports of http, https on docker are 80, 443 and 22. These three ports are reserved in synology nas and we had better use other ports instead. Here I use 30000 to map 80, 30001 to map 22.<br>Finish the above steps, we can run this docker. A few minutes latter, we can visit gitlab via “<a target="_blank" rel="noopener" href="http://192.168.1.2:30000/">http://192.168.1.2:30000</a>“, where “192.168.1.2” is the ip of synology nas.</p>
@@ -454,7 +454,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Gitlab"><span class="nav-number">1.</span> <span class="nav-text">Install Gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Docker"><span class="nav-number">1.1.</span> <span class="nav-text">Install Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-Gitlab-Image"><span class="nav-number">1.2.</span> <span class="nav-text">Download Gitlab Image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-amp-Config-Gitlab"><span class="nav-number">1.3.</span> <span class="nav-text">Install &amp; Config Gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Directory"><span class="nav-number">1.3.1.</span> <span class="nav-text">Directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Port"><span class="nav-number">1.3.2.</span> <span class="nav-text">Port</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Customize-Gitlab"><span class="nav-number">2.</span> <span class="nav-text">Customize Gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#external-url"><span class="nav-number">2.1.</span> <span class="nav-text">external_url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh-host-name-and-port"><span class="nav-number">2.2.</span> <span class="nav-text">ssh host name and port</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#close-email-service"><span class="nav-number">2.3.</span> <span class="nav-text">close email service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#content-security-policy"><span class="nav-number">2.4.</span> <span class="nav-text">content_security_policy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#better-performance"><span class="nav-number">2.5.</span> <span class="nav-text">better performance</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Commands"><span class="nav-number">3.</span> <span class="nav-text">Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#start"><span class="nav-number">3.1.</span> <span class="nav-text">start</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stop"><span class="nav-number">3.2.</span> <span class="nav-text">stop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reconfigure"><span class="nav-number">3.3.</span> <span class="nav-text">reconfigure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#restart"><span class="nav-number">3.4.</span> <span class="nav-text">restart</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#status"><span class="nav-number">3.5.</span> <span class="nav-text">status</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Install-Gitlab"><span class="nav-number">1.</span> <span class="nav-text">Install Gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Docker"><span class="nav-number">1.1.</span> <span class="nav-text">Install Docker</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-Gitlab-Image"><span class="nav-number">1.2.</span> <span class="nav-text">Download Gitlab Image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Config-Gitlab"><span class="nav-number">1.3.</span> <span class="nav-text">Install &amp; Config Gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Directory"><span class="nav-number">1.3.1.</span> <span class="nav-text">Directory</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Port"><span class="nav-number">1.3.2.</span> <span class="nav-text">Port</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Customize-Gitlab"><span class="nav-number">2.</span> <span class="nav-text">Customize Gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#external-url"><span class="nav-number">2.1.</span> <span class="nav-text">external_url</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssh-host-name-and-port"><span class="nav-number">2.2.</span> <span class="nav-text">ssh host name and port</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#close-email-service"><span class="nav-number">2.3.</span> <span class="nav-text">close email service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#content-security-policy"><span class="nav-number">2.4.</span> <span class="nav-text">content_security_policy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#better-performance"><span class="nav-number">2.5.</span> <span class="nav-text">better performance</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Commands"><span class="nav-number">3.</span> <span class="nav-text">Commands</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#start"><span class="nav-number">3.1.</span> <span class="nav-text">start</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#stop"><span class="nav-number">3.2.</span> <span class="nav-text">stop</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reconfigure"><span class="nav-number">3.3.</span> <span class="nav-text">reconfigure</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#restart"><span class="nav-number">3.4.</span> <span class="nav-text">restart</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#status"><span class="nav-number">3.5.</span> <span class="nav-text">status</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -470,20 +470,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -541,7 +541,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -551,13 +551,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -651,60 +651,23 @@
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

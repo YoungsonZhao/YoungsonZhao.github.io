@@ -55,7 +55,7 @@
 <meta property="og:description" content="Nowadays, there are lots of intelligent devices at home, such as a personal web server or a NAS. It is quite convenient if we can visit these devices anywhere and anytime. However, the home network pr">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-02-15T14:37:40.000Z">
-<meta property="article:modified_time" content="2023-02-19T09:26:28.317Z">
+<meta property="article:modified_time" content="2023-02-15T14:37:40.000Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="frp">
 <meta name="twitter:card" content="summary">
@@ -255,13 +255,6 @@
 
               <time title="Created: 2023-02-15 22:37:40" itemprop="dateCreated datePublished" datetime="2023-02-15T22:37:40+08:00">2023-02-15</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-19 17:26:28" itemprop="dateModified" datetime="2023-02-19T17:26:28+08:00">2023-02-19</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -326,25 +319,25 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>Nowadays, there are lots of intelligent devices at home, such as a personal web server or a NAS. It is quite convenient if we can visit these devices anywhere and anytime. However, the home network provides by broadband providers is usually in a local network and doesn’t have a public IP. Therefore, it is difficult to visit the device at home. <a href="https://github.com/fatedier/frp" target="_blank" rel="noopener"><strong>frp</strong></a> is a reverse proxy that can penetrate the broadband providers’ local network and make the devices at home available on the Internet. I will teach you how to deploy a reverse proxy using <strong>frp</strong> step by step. Note that you must have a server with a public IP available on the Internet.</p>
-<a id="more"></a>
+        <html><head></head><body><p>Nowadays, there are lots of intelligent devices at home, such as a personal web server or a NAS. It is quite convenient if we can visit these devices anywhere and anytime. However, the home network provides by broadband providers is usually in a local network and doesn’t have a public IP. Therefore, it is difficult to visit the device at home. <a target="_blank" rel="noopener" href="https://github.com/fatedier/frp"><strong>frp</strong></a> is a reverse proxy that can penetrate the broadband providers’ local network and make the devices at home available on the Internet. I will teach you how to deploy a reverse proxy using <strong>frp</strong> step by step. Note that you must have a server with a public IP available on the Internet.</p>
+<span id="more"></span>
 <h3 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h3><h4 id="Confirm-Machine-Architecture"><a href="#Confirm-Machine-Architecture" class="headerlink" title="Confirm Machine Architecture"></a>Confirm Machine Architecture</h4><p>Open a terminal and check the machine architecture of your server using <strong>arch</strong> command.</p>
-<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">arch</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">arch</span></span><br></pre></td></tr></tbody></table></figure>
 <p>If the result is <strong>x86_64</strong>, we can download <strong>amd64</strong> version of <strong>frp</strong>.</p>
 <h4 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h4><p>Go the release page of <strong>frp</strong> on GitHub and download the latest release. The os of my server is Ubuntu 18.04, thus I download **frp_0.47.0_linux_amd64.tar.gz<br>** using the following command.</p>
 <figure class="highlight awk"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https:<span class="regexp">//gi</span>thub.com<span class="regexp">/fatedier/</span>frp<span class="regexp">/releases/</span>download<span class="regexp">/v0.47.0/</span>frp_0.<span class="number">47.0</span>_linux_amd64.tar.gz</span><br></pre></td></tr></tbody></table></figure>
 <p>After download, mv the file to the root dir <strong>“/“</strong>, which is more convenient to run it.</p>
-<figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv frp_0<span class="number">.47</span><span class="number">.0</span>_linux_amd64.tar.gz ~/..</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">mv</span> frp_0.<span class="number">47</span>.<span class="number">0</span>_linux_amd64.tar.gz ~/..</span><br></pre></td></tr></tbody></table></figure>
 <h4 id="Installation-1"><a href="#Installation-1" class="headerlink" title="Installation"></a>Installation</h4><p>The files we download contains the execution and configuration files of <strong>frp</strong> well complied and built using the source code. Unzip them using the following command.</p>
-<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">cd</span></span><br><span class="line"><span class="selector-tag">cd</span> ..</span><br><span class="line"><span class="selector-tag">tar</span> <span class="selector-tag">-zxvf</span> <span class="selector-tag">frp_0</span><span class="selector-class">.47</span><span class="selector-class">.0_linux_amd64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span></span><br><span class="line"><span class="keyword">cd</span> <span class="string">..</span></span><br><span class="line">tar -zxvf frp_0.47.0_linux_amd64.tar.gz</span><br></pre></td></tr></tbody></table></figure>
 <p>And delete the compressed file.</p>
-<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">rm</span> <span class="selector-tag">frp_0</span><span class="selector-class">.47</span><span class="selector-class">.0_linux_amd64</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rm</span> frp_0.<span class="number">47</span>.<span class="number">0</span>_linux_amd64.tar.gz</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="Server-Configuration"><a href="#Server-Configuration" class="headerlink" title="Server Configuration"></a>Server Configuration</h3><p>Go to the directory and show the files.</p>
-<figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd frp_0<span class="number">.47</span><span class="number">.0</span>_linux_amd64</span><br><span class="line">ls</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cd</span> frp_0.<span class="number">47</span>.<span class="number">0</span>_linux_amd64</span><br><span class="line"><span class="attribute">ls</span></span><br></pre></td></tr></tbody></table></figure>
 <p>You will see the following files.</p>
-<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── <span class="selector-tag">frpc</span></span><br><span class="line">├── <span class="selector-tag">frpc_full</span><span class="selector-class">.ini</span></span><br><span class="line">├── <span class="selector-tag">frpc</span><span class="selector-class">.ini</span></span><br><span class="line">├── <span class="selector-tag">frps</span></span><br><span class="line">├── <span class="selector-tag">frps_full</span><span class="selector-class">.ini</span></span><br><span class="line">├── <span class="selector-tag">frps</span><span class="selector-class">.ini</span></span><br><span class="line">├── <span class="selector-tag">LICENSE</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">├── frpc</span><br><span class="line">├── frpc_full<span class="selector-class">.ini</span></span><br><span class="line">├── frpc<span class="selector-class">.ini</span></span><br><span class="line">├── frps</span><br><span class="line">├── frps_full<span class="selector-class">.ini</span></span><br><span class="line">├── frps<span class="selector-class">.ini</span></span><br><span class="line">├── LICENSE</span><br></pre></td></tr></tbody></table></figure>
 <p><strong>frps</strong> and <strong>frps.ini</strong> are the execution and configuration files for server and <strong>frpc</strong> and <strong>frpc.ini</strong> are the files for client.<br>Open <strong>frps.ini</strong> using vim and modify it as follows.</p>
-<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">vi</span> <span class="selector-tag">frps</span><span class="selector-class">.ini</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight nginx"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">vi</span> frps.ini</span><br></pre></td></tr></tbody></table></figure>
 
 <figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">12345678</span></span><br><span class="line"><span class="attr">dashboard_port</span> = <span class="number">7500</span></span><br><span class="line"><span class="attr">dashboard_user</span> = admin</span><br><span class="line"><span class="attr">dashboard_pwd</span> = <span class="number">12345678</span></span><br><span class="line"><span class="attr">vhost_http_port</span> = <span class="number">10080</span></span><br><span class="line"><span class="attr">vhost_https_port</span> = <span class="number">10443</span></span><br></pre></td></tr></tbody></table></figure>
 <ul>
@@ -353,11 +346,11 @@
 <li><strong>dashboard</strong> let us check the status of the frps using port 7500.</li>
 </ul>
 <p>Run the server and test the configuration by the following command.</p>
-<figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./frps</span> -c frps.ini</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c frps.ini</span><br></pre></td></tr></tbody></table></figure>
 <p>If we see the following log, congratulations, the <strong>frps</strong> is deployed successfully.</p>
-<figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2023</span>/<span class="number">02</span>/<span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [root.go:<span class="number">206</span>] frps uses config file: frps.ini</span><br><span class="line"><span class="number">2023</span>/<span class="number">02</span>/<span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">200</span>] frps tcp listen on <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">7000</span></span><br><span class="line"><span class="number">2023</span>/<span class="number">02</span>/<span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">261</span>] http service listen on <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">10080</span></span><br><span class="line"><span class="number">2023</span>/<span class="number">02</span>/<span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">276</span>] https service listen on <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">10443</span></span><br><span class="line"><span class="number">2023</span>/<span class="number">02</span>/<span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">317</span>] Dashboard listen on <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">7500</span></span><br><span class="line"><span class="number">2023</span>/<span class="number">02</span>/<span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [root.go:<span class="number">215</span>] frps started successfully</span><br></pre></td></tr></tbody></table></figure>
-<p>You can check the status of <strong>frps</strong> via “<a href="http://127.0.0.1:7500/" target="_blank" rel="noopener">http://127.0.0.1:7500</a>“.<br>If we close the ssh connection or terminal, <strong>frps</strong> will stop. <strong>nohup</strong> command can help to make frps run continually in the background ignoring hangup signals.</p>
-<figure class="highlight 1c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./frps -c frps.ini <span class="meta">&amp;</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight gradle"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2023</span><span class="regexp">/02/</span><span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [root.go:<span class="number">206</span>] frps uses config <span class="keyword">file</span>: frps.ini</span><br><span class="line"><span class="number">2023</span><span class="regexp">/02/</span><span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">200</span>] frps tcp listen on <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">7000</span></span><br><span class="line"><span class="number">2023</span><span class="regexp">/02/</span><span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">261</span>] http service listen on <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">10080</span></span><br><span class="line"><span class="number">2023</span><span class="regexp">/02/</span><span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">276</span>] https service listen on <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">10443</span></span><br><span class="line"><span class="number">2023</span><span class="regexp">/02/</span><span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [service.go:<span class="number">317</span>] Dashboard listen on <span class="number">0.0</span>.<span class="number">0.0</span>:<span class="number">7500</span></span><br><span class="line"><span class="number">2023</span><span class="regexp">/02/</span><span class="number">13</span> <span class="number">23</span>:<span class="number">54</span>:<span class="number">24</span> [I] [root.go:<span class="number">215</span>] frps started successfully</span><br></pre></td></tr></tbody></table></figure>
+<p>You can check the status of <strong>frps</strong> via “<a target="_blank" rel="noopener" href="http://127.0.0.1:7500/">http://127.0.0.1:7500</a>“.<br>If we close the ssh connection or terminal, <strong>frps</strong> will stop. <strong>nohup</strong> command can help to make frps run continually in the background ignoring hangup signals.</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nohup</span> ./frps -c frps.ini &amp;</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="Client-Configuration"><a href="#Client-Configuration" class="headerlink" title="Client Configuration"></a>Client Configuration</h3><p>Put <strong>frpc</strong> and <strong>frpc.ini</strong> on the client. Edit <strong>frpc.ini</strong> as follows.</p>
 <figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="number">8.8</span>.<span class="number">8.8</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">11232035</span></span><br><span class="line"><span class="attr">log_file</span> = /dev/null</span><br><span class="line"><span class="attr">log_level</span> = info</span><br><span class="line"><span class="attr">log_max_days</span> = <span class="number">3</span></span><br><span class="line"><span class="attr">tcp_mux</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">protocol</span> = tcp</span><br><span class="line"><span class="attr">login_fail_exit</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">user</span> = RT-AC86U</span><br></pre></td></tr></tbody></table></figure>
 <ul>
@@ -484,20 +477,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -555,7 +548,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -565,13 +558,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -665,60 +658,23 @@
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

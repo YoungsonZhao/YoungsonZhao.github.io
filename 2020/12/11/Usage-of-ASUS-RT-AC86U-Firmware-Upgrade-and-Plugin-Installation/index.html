@@ -56,7 +56,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://blog.zhaoyongsheng.com/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/shadowsocks.png">
 <meta property="article:published_time" content="2020-12-11T15:19:21.000Z">
-<meta property="article:modified_time" content="2023-02-11T16:05:33.791Z">
+<meta property="article:modified_time" content="2020-12-11T15:19:21.000Z">
 <meta property="article:author" content="Dr. Zhao">
 <meta property="article:tag" content="Setups">
 <meta property="article:tag" content="RT-AC86U">
@@ -260,13 +260,6 @@
 
               <time title="Created: 2020-12-11 23:19:21" itemprop="dateCreated datePublished" datetime="2020-12-11T23:19:21+08:00">2020-12-11</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2023-02-12 00:05:33" itemprop="dateModified" datetime="2023-02-12T00:05:33+08:00">2023-02-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -331,16 +324,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><a href="https://www.asus.com/us/Networking/RT-AC86U/" target="_blank" rel="noopener">Asus RT-AC86U</a> is a professional dual band gigabit WiFi router, which has arm structure. Moreover, it has officially supported open source firmware, which has much more powerful functions, such like running official and third-part plugins on it. In this article, I will show you how to upgrade its firmware to highly customized version, install shadowsocks plugin and config v2ray service.</p>
-<a id="more"></a>
+        <html><head></head><body><p><a target="_blank" rel="noopener" href="https://www.asus.com/us/Networking/RT-AC86U/">Asus RT-AC86U</a> is a professional dual band gigabit WiFi router, which has arm structure. Moreover, it has officially supported open source firmware, which has much more powerful functions, such like running official and third-part plugins on it. In this article, I will show you how to upgrade its firmware to highly customized version, install shadowsocks plugin and config v2ray service.</p>
+<span id="more"></span>
 <p>NOTE： There is a reset button on the back of Asus RT-AC86U, if there is anything wrong when upgrading the firmware, we can hold the button for seconds (maybe 30s) to reset the router.</p>
-<p>The recommended firmware is developed based on <a href="https://github.com/RMerl/asuswrt-merlin.ng" target="_blank" rel="noopener">asuswrt-merlin</a>, and we can download it at <a href="https://koolshare.cn/thread-127878-1-1.html" target="_blank" rel="noopener">koolshare</a>.</p>
+<p>The recommended firmware is developed based on <a target="_blank" rel="noopener" href="https://github.com/RMerl/asuswrt-merlin.ng">asuswrt-merlin</a>, and we can download it at <a target="_blank" rel="noopener" href="https://koolshare.cn/thread-127878-1-1.html">koolshare</a>.</p>
 <ul>
 <li>Firmware Upgrade<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Login ASUS RT-AC86U</span><br><span class="line">系统管理 -&gt; 固件升级 -&gt; 上传</span><br></pre></td></tr></tbody></table></figure>
 Choose the downloaded firmware and upload, it will automatically upgrade to the uploaded version. The process takes about 1-2 mins.</li>
-<li>Install Shadowsocks Plugin<br>All the plugins are managed in software center. For some reason, we can not download and install shadowsocks from the software center directly and we have to download the <a href="https://github.com/hq450/fancyss_history_package/tree/master/fancyss_hnd" target="_blank" rel="noopener">source code</a> and install it manually. <figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">软件中心 -&gt; 离线安装 -&gt; 上传并安装</span><br></pre></td></tr></tbody></table></figure>
+<li>Install Shadowsocks Plugin<br>All the plugins are managed in software center. For some reason, we can not download and install shadowsocks from the software center directly and we have to download the <a target="_blank" rel="noopener" href="https://github.com/hq450/fancyss_history_package/tree/master/fancyss_hnd">source code</a> and install it manually. <figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">软件中心 -&gt; 离线安装 -&gt; 上传并安装</span><br></pre></td></tr></tbody></table></figure>
 <img data-src="/2020/12/11/Usage-of-ASUS-RT-AC86U-Firmware-Upgrade-and-Plugin-Installation/shadowsocks.png"><br>Probably, it could prompt that “illegal keywords is detected and could not install”. In this scenario, we have to login the router through ssh and install it using command line.<br>First, we have to open the ssh function.<figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">系统管理 -&gt; 系统设置 -&gt; 启用SSH (LAN only)</span><br></pre></td></tr></tbody></table></figure>
-Second, login using a computer in lan and install.<figure class="highlight angelscript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ssh <span class="symbol">admin@</span><span class="number">10.10</span><span class="number">.10</span><span class="number">.1</span></span><br><span class="line">sed -i <span class="string">'s/\tdetect_package/\t# detect_package/g'</span> /koolshare/scripts/ks_tar_install.sh</span><br><span class="line">cd /tmp/upload</span><br><span class="line">tar -xzf shadowsocks_1<span class="number">.9</span><span class="number">.1</span>.tar.gz</span><br><span class="line">cd shadowsocks</span><br><span class="line">chmod +x install.sh</span><br><span class="line">./install.sh</span><br></pre></td></tr></tbody></table></figure>
+Second, login using a computer in lan and install.<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ssh admin@10.10.10.1</span><br><span class="line">sed -i <span class="string">'s/\tdetect_package/\t# detect_package/g'</span> /koolshare/scripts/ks_tar_install.sh</span><br><span class="line"><span class="built_in">cd</span> /tmp/upload</span><br><span class="line">tar -xzf shadowsocks_1.9.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> shadowsocks</span><br><span class="line"><span class="built_in">chmod</span> +x install.sh</span><br><span class="line">./install.sh</span><br></pre></td></tr></tbody></table></figure>
 After running the above command line, we will sea the shadowsocks plugin in software center. If we want to use the v2ray function, we have to config virtual memory for a better performance. Prepare an USB storage (USB 3.0 is recommended) and format it as ext4. Then download and install the virtual memory plugin directly from software center.</li>
 </ul>
 </body></html>
@@ -462,20 +455,20 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -533,7 +526,7 @@ After running the above command line, we will sea the shadowsocks plugin in soft
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -543,13 +536,13 @@ After running the above command line, we will sea the shadowsocks plugin in soft
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -643,60 +636,23 @@ After running the above command line, we will sea the shadowsocks plugin in soft
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>

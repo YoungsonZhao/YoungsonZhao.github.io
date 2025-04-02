@@ -302,14 +302,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>9.9k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>9 mins.</span>
+              <span>10 mins.</span>
             </span>
 
         </div>
@@ -341,118 +341,140 @@
 <h4 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h4><h4 id="revolute"><a href="#revolute" class="headerlink" title="revolute"></a>revolute</h4><h2 id="Xacro"><a href="#Xacro" class="headerlink" title="Xacro"></a>Xacro</h2><h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><figure class="highlight dust"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">"effort"</span> <span class="attr">value</span>=<span class="string">"30.0"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">xacro:property</span> <span class="attr">name</span>=<span class="string">"velocity"</span> <span class="attr">value</span>=<span class="string">"10.0"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">xacro:macro</span> <span class="attr">name</span>=<span class="string">"default_inertial"</span> <span class="attr">params</span>=<span class="string">"mass"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">inertial</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">mass</span> <span class="attr">value</span>=<span class="string">"$</span></span></span><span class="template-variable">{mass}</span><span class="language-xml"><span class="tag"><span class="string">"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">inertia</span> <span class="attr">ixx</span>=<span class="string">"1.0"</span> <span class="attr">ixy</span>=<span class="string">"0.0"</span> <span class="attr">ixz</span>=<span class="string">"0.0"</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">iyy</span>=<span class="string">"1.0"</span> <span class="attr">iyz</span>=<span class="string">"0.0"</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">                    <span class="attr">izz</span>=<span class="string">"1.0"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">inertial</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">xacro:macro</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">xacro:macro</span> <span class="attr">name</span>=<span class="string">"default_transmission"</span> <span class="attr">params</span>=<span class="string">"number"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;<span class="name">transmission</span> <span class="attr">name</span>=<span class="string">"transmission_$</span></span></span><span class="template-variable">{number}</span><span class="language-xml"><span class="tag"><span class="string">"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span>transmission_interface/SimpleTransmission<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">actuator</span> <span class="attr">name</span>=<span class="string">"motor_$</span></span></span><span class="template-variable">{number}</span><span class="language-xml"><span class="tag"><span class="string">"</span> <span class="attr">role</span>=<span class="string">"actuator1"</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;<span class="name">joint</span> <span class="attr">name</span>=<span class="string">"joint_$</span></span></span><span class="template-variable">{number}</span><span class="language-xml"><span class="tag"><span class="string">"</span> <span class="attr">role</span>=<span class="string">"joint1"</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">            <span class="tag">&lt;<span class="name">mechanical_reduction</span>&gt;</span>1.0<span class="tag">&lt;/<span class="name">mechanical_reduction</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">        <span class="tag">&lt;/<span class="name">joint</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    <span class="tag">&lt;/<span class="name">transmission</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">xacro:macro</span>&gt;</span></span></span><br></pre></td></tr></tbody></table></figure>
 <h3 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h3><figure class="highlight clean"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">### 引入文件</span><br></pre></td></tr></tbody></table></figure>
 <p>&lt;xacro:include filename=”$(find robot_description)/urdf/robot_gazebo.xacro”/&gt;<br>&lt;xacro:include filename=”$(find robot_description)/urdf/robot_ros2_control.xacro”/&gt;</p>
-<p>```<br>    <link name="base_plate"><br>        <visual><br>            <geometry><br>                <mesh filename="package://robot_description/meshes/base_plate.STL" scale="0.01 0.01 0.01"><br>            </mesh></geometry><br>            <origin rpy="0 0 0" xyz="-0.39 -0.39 -0.56"><br>        </origin></visual><br>        <collision><br>            <geometry><br>                <mesh filename="package://robot_description/meshes/base_plate.STL" scale="0.01 0.01 0.01"><br>            </mesh></geometry><br>            <origin rpy="0 0 0" xyz="-0.39 -0.39 -0.56"><br>        </origin></collision><br>        &lt;xacro:default_inertial mass=”1.0”/&gt;<br>    <br>    <joint name="joint_1" type="revolute"><br>        <parent link="base_link"><br>        <child link="base_plate"><br>        <axis xyz="0 0 1"><br>        <origin rpy="0 0 0" xyz="0 0 0.307"><br>        <limit lower="-${pi/2}" upper="${pi/2}" effort="${effort}" velocity="${velocity}"><br>    </limit></origin></axis></child></parent></joint></p>
-<pre><code>&lt;link name="forward_drive_arm"&gt;
-    &lt;visual&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/forward_drive_arm.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin rpy="0 -${pi/2} ${pi/2}" xyz="0.19 0.06 -0.08"/&gt;
-    &lt;/visual&gt;
-    &lt;collision&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/forward_drive_arm.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin rpy="0 -${pi/2} ${pi/2}" xyz="0.19 0.06 -0.08"/&gt;
-    &lt;/collision&gt;
-    &lt;xacro:default_inertial mass="1.0"/&gt;
-&lt;/link&gt;
+<pre><code>    &lt;link name="base_plate"&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/base_plate.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="0 0 0" xyz="-0.39 -0.39 -0.56"/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/base_plate.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="0 0 0" xyz="-0.39 -0.39 -0.56"/&gt;
+        &lt;/collision&gt;
+        &lt;xacro:default_inertial mass="1.0"/&gt;
+    &lt;/link&gt;
+    &lt;joint name="joint_1" type="revolute"&gt;
+        &lt;parent link="base_link"/&gt;
+        &lt;child link="base_plate"/&gt;
+        &lt;axis xyz="0 0 1"/&gt;
+        &lt;origin rpy="0 0 0" xyz="0 0 0.307"/&gt;
+        &lt;limit lower="-${pi/2}" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
+    &lt;/joint&gt;
 
-&lt;joint name="joint_2" type="revolute"&gt;
-    &lt;parent link="base_plate"/&gt;
-    &lt;child link="forward_drive_arm"/&gt;
-    &lt;axis xyz="1 0 0"/&gt;
-    &lt;origin rpy="0 0 0" xyz="-0.02 0 0.35"/&gt;
-    &lt;limit lower="-${pi/2}" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
-&lt;/joint&gt;
+    &lt;link name="forward_drive_arm"&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/forward_drive_arm.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="0 -${pi/2} ${pi/2}" xyz="0.19 0.06 -0.08"/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/forward_drive_arm.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="0 -${pi/2} ${pi/2}" xyz="0.19 0.06 -0.08"/&gt;
+        &lt;/collision&gt;
+        &lt;xacro:default_inertial mass="1.0"/&gt;
+    &lt;/link&gt;
 
-&lt;link name="horizontal_arm"&gt;
-    &lt;visual&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/horizontal_arm.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin rpy="${pi/2} 0 ${pi/2}" xyz="-0.03 -0.4 -0.06"/&gt;
-    &lt;/visual&gt;
-    &lt;collision&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/horizontal_arm.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin rpy="${pi/2} 0 ${pi/2}" xyz="-0.03 -0.4 -0.06"/&gt;
+    &lt;joint name="joint_2" type="revolute"&gt;
+        &lt;parent link="base_plate"/&gt;
+        &lt;child link="forward_drive_arm"/&gt;
+        &lt;axis xyz="1 0 0"/&gt;
+        &lt;origin rpy="0 0 0" xyz="-0.02 0 0.35"/&gt;
+        &lt;limit lower="-${pi/2}" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
+    &lt;/joint&gt;
 
-    &lt;/collision&gt;
-    &lt;xacro:default_inertial mass="1.0"/&gt;
-&lt;/link&gt;
-&lt;joint name="joint_3" type="revolute"&gt;
-    &lt;parent link="forward_drive_arm"/&gt;
-    &lt;child link="horizontal_arm"/&gt;
-    &lt;axis xyz="1 0 0"/&gt;
-    &lt;origin rpy="0 0 0" xyz="0 0 0.8"/&gt;
-    &lt;limit lower="-${pi/2}" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
-&lt;/joint&gt;
+    &lt;link name="horizontal_arm"&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/horizontal_arm.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="${pi/2} 0 ${pi/2}" xyz="-0.03 -0.4 -0.06"/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/horizontal_arm.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="${pi/2} 0 ${pi/2}" xyz="-0.03 -0.4 -0.06"/&gt;
 
-&lt;link name="claw_support"&gt;
-    &lt;visual&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/claw_support.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin rpy="0 0 ${pi/2}" xyz="0 -0.05 -0.15"/&gt;
-    &lt;/visual&gt;
-    &lt;collsion&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/claw_support.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin rpy="0 0 ${pi/2}" xyz="0 -0.05 -0.15"/&gt;
-    &lt;/collsion&gt;
-    &lt;xacro:default_inertial mass="0.05"/&gt;
-&lt;/link&gt;
-&lt;joint name="horizontal_arm_to_claw_support" type="fixed"&gt;
-    &lt;parent link="horizontal_arm"/&gt;
-    &lt;child link="claw_support"/&gt;
-    &lt;origin rpy="0 0 0" xyz="0 0.82 0"/&gt;
-&lt;/joint&gt;
+        &lt;/collision&gt;
+        &lt;xacro:default_inertial mass="1.0"/&gt;
+    &lt;/link&gt;
+    &lt;joint name="joint_3" type="revolute"&gt;
+        &lt;parent link="forward_drive_arm"/&gt;
+        &lt;child link="horizontal_arm"/&gt;
+        &lt;axis xyz="1 0 0"/&gt;
+        &lt;origin rpy="0 0 0" xyz="0 0 0.8"/&gt;
+        &lt;limit lower="-${pi/2}" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
+    &lt;/joint&gt;
 
-&lt;link name="gripper_right"&gt;
-    &lt;visual&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/right_finger.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin xyz="-0.1 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
-    &lt;/visual&gt;
-    &lt;collision&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/right_finger.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin xyz="-0.1 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
-    &lt;/collision&gt;
-    &lt;xacro:default_inertial mass="0.01"/&gt;
-&lt;/link&gt;
-&lt;link name="gripper_left"&gt;
-    &lt;visual&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/left_finger.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin xyz="-0.04 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
-    &lt;/visual&gt;
-    &lt;collision&gt;
-        &lt;geometry&gt;
-            &lt;mesh filename="package://robot_description/meshes/left_finger.STL" scale="0.01 0.01 0.01"/&gt;
-        &lt;/geometry&gt;
-        &lt;origin xyz="-0.04 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
-    &lt;/collision&gt;
-    &lt;xacro:default_inertial mass="0.01"/&gt;
-&lt;/link&gt;
-&lt;joint name="joint_5" type="revolute"&gt;
-    &lt;parent link="claw_support"/&gt;
-    &lt;child link="gripper_left"/&gt;
-    &lt;origin xyz="-0.22 0.13 -0.1" rpy="0 0 0"/&gt;
-    &lt;axis xyz="0 0 1"/&gt;
-    &lt;mimic joint="joint_4" multiplier="-1"/&gt;
-    &lt;limit lower="0" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
-&lt;/joint&gt;
-&lt;xacro:default_transmission number="1"/&gt;
-&lt;xacro:default_transmission number="2"/&gt;
-&lt;xacro:default_transmission number="3"/&gt;
-&lt;xacro:default_transmission number="4"/&gt;
+    &lt;link name="claw_support"&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/claw_support.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="0 0 ${pi/2}" xyz="0 -0.05 -0.15"/&gt;
+        &lt;/visual&gt;
+        &lt;collsion&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/claw_support.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin rpy="0 0 ${pi/2}" xyz="0 -0.05 -0.15"/&gt;
+        &lt;/collsion&gt;
+        &lt;xacro:default_inertial mass="0.05"/&gt;
+    &lt;/link&gt;
+    &lt;joint name="horizontal_arm_to_claw_support" type="fixed"&gt;
+        &lt;parent link="horizontal_arm"/&gt;
+        &lt;child link="claw_support"/&gt;
+        &lt;origin rpy="0 0 0" xyz="0 0.82 0"/&gt;
+    &lt;/joint&gt;
+
+    &lt;link name="gripper_right"&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/right_finger.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin xyz="-0.1 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/right_finger.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin xyz="-0.1 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
+        &lt;/collision&gt;
+        &lt;xacro:default_inertial mass="0.01"/&gt;
+    &lt;/link&gt;
+    &lt;link name="gripper_left"&gt;
+        &lt;visual&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/left_finger.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin xyz="-0.04 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
+        &lt;/visual&gt;
+        &lt;collision&gt;
+            &lt;geometry&gt;
+                &lt;mesh filename="package://robot_description/meshes/left_finger.STL" scale="0.01 0.01 0.01"/&gt;
+            &lt;/geometry&gt;
+            &lt;origin xyz="-0.04 0.5 -0.1" rpy="0 0 -${pi/2}"/&gt;
+        &lt;/collision&gt;
+        &lt;xacro:default_inertial mass="0.01"/&gt;
+    &lt;/link&gt;
+    &lt;joint name="joint_5" type="revolute"&gt;
+        &lt;parent link="claw_support"/&gt;
+        &lt;child link="gripper_left"/&gt;
+        &lt;origin xyz="-0.22 0.13 -0.1" rpy="0 0 0"/&gt;
+        &lt;axis xyz="0 0 1"/&gt;
+        &lt;mimic joint="joint_4" multiplier="-1"/&gt;
+        &lt;limit lower="0" upper="${pi/2}" effort="${effort}" velocity="${velocity}"/&gt;
+    &lt;/joint&gt;
+    &lt;xacro:default_transmission number="1"/&gt;
+    &lt;xacro:default_transmission number="2"/&gt;
+    &lt;xacro:default_transmission number="3"/&gt;
+    &lt;xacro:default_transmission number="4"/&gt;
 </code></pre>
 </body></html>
     </div>
@@ -573,20 +595,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -644,7 +666,7 @@
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heartbeat"></i>
   </span>
@@ -654,13 +676,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">217k</span>
+    <span title="Symbols count total">292k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">3:18</span>
+    <span title="Reading time total">4:26</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
@@ -754,60 +776,23 @@
 
 
 
-
-
-
-  
-
-  
-      
-<script type="text/x-mathjax-config">
-
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$', '$'], ['\\(', '\\)'] ],
-      processEscapes: true,
-      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-    },
-    TeX: {
-      equationNumbers: {
-        autoNumber: 'AMS'
-      }
-    }
-  });
-
-  MathJax.Hub.Register.StartupHook('TeX Jax Ready', function() {
-    MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
-      if (data.display) {
-        var next = data.script.nextSibling;
-        while (next && next.nodeName.toLowerCase() === '#text') {
-          next = next.nextSibling;
-        }
-        if (next && next.nodeName.toLowerCase() === 'br') {
-          next.parentNode.removeChild(next);
-        }
-      }
-    });
-  });
-
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for (i = 0; i < all.length; i += 1) {
-      element = document.getElementById(all[i].inputID + '-Frame').parentNode;
-      if (element.nodeName.toLowerCase() == 'li') {
-        element = element.parentNode;
-      }
-      element.classList.add('has-jax');
-    }
-  });
-</script>
 <script>
-  NexT.utils.getScript('//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML', () => {
-    MathJax.Hub.Typeset();
-  }, window.MathJax);
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme: 'forest',
+      logLevel: 3,
+      flowchart: { curve: 'linear' },
+      gantt: { axisFormat: '%m/%d/%Y' },
+      sequence: { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
 </script>
 
-    
+
+
+  
 
   
   <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
