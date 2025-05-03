@@ -3123,7 +3123,7 @@ There are multiple ways that can insert images in Markdown, such as using absolu
   <entry>
     <title>Installation and Usage of Anaconda</title>
     <url>/2025/05/03/Installation-and-Usage-of-Anaconda/</url>
-    <content><![CDATA[<html><head></head><body><p><img alt="Anaconda" data-src="https://www.anaconda.com/docs/getting-started/anaconda/install">是一个Python环境管理工具, 可以方便地管理Python环境, 安装和管理Python包, 以及创建虚拟环境等。本文将介绍Anaconda的安装和使用方法。与python虚拟环境相比，Anaconda可以方便的选择合适的python版本。</p>
+    <content><![CDATA[<html><head></head><body><p><a href="https://www.anaconda.com/docs/getting-started/anaconda/install">Anaconda</a>是一个Python环境管理工具, 可以方便地管理Python环境, 安装和管理Python包, 以及创建虚拟环境等。本文将介绍Anaconda的安装和使用方法。与python虚拟环境相比，Anaconda可以方便的选择合适的python版本。</p>
 <span id="more"></span>
 <h2 id="安装Anaconda"><a href="#安装Anaconda" class="headerlink" title="安装Anaconda"></a>安装Anaconda</h2><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><span class="line">curl -O https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Linux-x86_64.sh</span><br><span class="line">bash ~/Anaconda3-2024.10-1-Linux-x86_64.sh</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="设置ZSH自动提醒"><a href="#设置ZSH自动提醒" class="headerlink" title="设置ZSH自动提醒"></a>设置ZSH自动提醒</h2><h3 id="下载插件"><a href="#下载插件" class="headerlink" title="下载插件"></a>下载插件</h3><p>将插件下载到<code>~/.oh-my-zsh/custom/plugins/</code>目录下。</p>
