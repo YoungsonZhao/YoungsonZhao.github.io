@@ -327,85 +327,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p><strong>Pytorch</strong>是开源的深度学习框架，由Facebook的Deep Learning Team开发，2016年发布。本文主要记录<strong>Pytorch</strong>学习过程中的一些知识点。 <span id="more"></span></p>
-<h2 id="tensor维度操作">Tensor维度操作</h2>
-<h3 id="flatten">flatten</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.flatten(<span class="built_in">input</span>, start_dim=<span class="number">0</span>, end_dim=-<span class="number">1</span>)</span><br></pre></td></tr></tbody></table></figure>
-<p>将输入张量展平，从<code>start_dim</code>到<code>end_dim</code>的维度展平。 参数说明：</p>
+        <html><head></head><body><p><strong>Pytorch</strong>是开源的深度学习框架，由Facebook的Deep Learning Team开发，2016年发布。本文主要记录<strong>Pytorch</strong>学习过程中的一些知识点。</p>
+<span id="more"></span>
+
+<h2 id="Tensor维度操作"><a href="#Tensor维度操作" class="headerlink" title="Tensor维度操作"></a>Tensor维度操作</h2><h3 id="flatten"><a href="#flatten" class="headerlink" title="flatten"></a>flatten</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.flatten(<span class="built_in">input</span>, start_dim=<span class="number">0</span>, end_dim=-<span class="number">1</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>将输入张量展平，从<code>start_dim</code>到<code>end_dim</code>的维度展平。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>start_dim：开始展平的维度，默认为 0。</li>
 <li>end_dim：结束展平的维度，默认为 -1，表示最后一个维度。</li>
 </ul>
-<h3 id="unsqueeze">unsqueeze</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.unsqueeze(<span class="built_in">input</span>, dim)</span><br></pre></td></tr></tbody></table></figure>
-<p>在指定维度上增加一个维度，维度大小为1。 参数说明：</p>
+<h3 id="unsqueeze"><a href="#unsqueeze" class="headerlink" title="unsqueeze"></a>unsqueeze</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.unsqueeze(<span class="built_in">input</span>, dim)</span><br></pre></td></tr></tbody></table></figure>
+<p>在指定维度上增加一个维度，维度大小为1。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dim：要增加的维度。</li>
 </ul>
-<h3 id="squeeze">squeeze</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.squeeze(<span class="built_in">input</span>, dim=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
-<p>删除张量中所有大小为1的维度。 参数说明：</p>
+<h3 id="squeeze"><a href="#squeeze" class="headerlink" title="squeeze"></a>squeeze</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.squeeze(<span class="built_in">input</span>, dim=<span class="literal">None</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>删除张量中所有大小为1的维度。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dim：要删除的维度，默认为 None，表示删除所有大小为1的维度。</li>
 </ul>
-<h3 id="transpose">transpose</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.transpose(<span class="built_in">input</span>, dim0, dim1)</span><br></pre></td></tr></tbody></table></figure>
-<p>交换张量的两个维度。 参数说明：</p>
+<h3 id="transpose"><a href="#transpose" class="headerlink" title="transpose"></a>transpose</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.transpose(<span class="built_in">input</span>, dim0, dim1)</span><br></pre></td></tr></tbody></table></figure>
+<p>交换张量的两个维度。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dim0：要交换的第一个维度。</li>
 <li>dim1：要交换的第二个维度。</li>
 </ul>
-<h3 id="permute">permute</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.permute(<span class="built_in">input</span>, dims)</span><br></pre></td></tr></tbody></table></figure>
-<p>重新排列张量的多个维度。 参数说明：</p>
+<h3 id="permute"><a href="#permute" class="headerlink" title="permute"></a>permute</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.permute(<span class="built_in">input</span>, dims)</span><br></pre></td></tr></tbody></table></figure>
+<p>重新排列张量的多个维度。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dims：新的维度顺序。</li>
 </ul>
-<h3 id="einsum">einsum</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.einsum(<span class="string">'nhwpqc-&gt;nchpwq'</span>, x)</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="einsum"><a href="#einsum" class="headerlink" title="einsum"></a>einsum</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x = torch.einsum(<span class="string">'nhwpqc-&gt;nchpwq'</span>, x)</span><br></pre></td></tr></tbody></table></figure>
 <p>通过爱因斯坦求和约定计算张量的各种操作。</p>
-<h2 id="tensor排序操作">Tensor排序操作</h2>
-<h3 id="argmax">argmax</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.argmax(<span class="built_in">input</span>, dim=<span class="literal">None</span>, keepdim=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
-<p>返回张量中指定维度上最大值的索引。 参数说明：</p>
+<h2 id="Tensor排序操作"><a href="#Tensor排序操作" class="headerlink" title="Tensor排序操作"></a>Tensor排序操作</h2><h3 id="argmax"><a href="#argmax" class="headerlink" title="argmax"></a>argmax</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.argmax(<span class="built_in">input</span>, dim=<span class="literal">None</span>, keepdim=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>返回张量中指定维度上最大值的索引。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dim：指定维度，默认为 None，表示所有维度。</li>
 <li>keepdim：是否保持维度，默认为 False。</li>
 </ul>
-<h3 id="topk">topk</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.topk(<span class="built_in">input</span>, k, dim=<span class="literal">None</span>, largest=<span class="literal">True</span>, <span class="built_in">sorted</span>=<span class="literal">True</span>)</span><br></pre></td></tr></tbody></table></figure>
-<p>返回张量中指定维度上k个最大值的索引和值。 参数说明：</p>
+<h3 id="topk"><a href="#topk" class="headerlink" title="topk"></a>topk</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.topk(<span class="built_in">input</span>, k, dim=<span class="literal">None</span>, largest=<span class="literal">True</span>, <span class="built_in">sorted</span>=<span class="literal">True</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>返回张量中指定维度上k个最大值的索引和值。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>k：返回的最大值的数量。</li>
 <li>dim：指定维度，默认为 None，表示所有维度。</li>
 <li>largest：是否返回最大值，默认为 True。</li>
 </ul>
-<h3 id="sort">sort</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.sort(<span class="built_in">input</span>, dim=<span class="literal">None</span>, descending=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
-<p>对张量进行排序，返回排序后的张量和索引。 参数说明：</p>
+<h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.sort(<span class="built_in">input</span>, dim=<span class="literal">None</span>, descending=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>对张量进行排序，返回排序后的张量和索引。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dim：指定维度，默认为 None，表示所有维度。</li>
 <li>descending：是否降序排序，默认为 False。</li>
 </ul>
-<h3 id="argsort">argsort</h3>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.argsort(<span class="built_in">input</span>, dim=<span class="literal">None</span>, descending=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
-<p>对张量进行排序，返回排序后的索引。 参数说明：</p>
+<h3 id="argsort"><a href="#argsort" class="headerlink" title="argsort"></a>argsort</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">torch.argsort(<span class="built_in">input</span>, dim=<span class="literal">None</span>, descending=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+<p>对张量进行排序，返回排序后的索引。<br>参数说明：</p>
 <ul>
 <li>input：输入的张量。</li>
 <li>dim：指定维度，默认为 None，表示所有维度。</li>
 <li>descending：是否降序排序，默认为 False。</li>
 </ul>
-<h2 id="tensor数学操作">Tensor数学操作</h2>
-<h3 id="register_buffer">register_buffer</h3>
-<p>在 PyTorch 中，register_buffer 是一个用于注册缓冲区（buffer）的方法。缓冲区是那些不需要进行梯度计算的张量，通常用于保存模型的状态信息或常量数据。与参数（parameters）不同，缓冲区不会被优化器更新，但它们会被保存和加载到模型的状态字典（state dict）中。</p>
+<h2 id="Tensor数学操作"><a href="#Tensor数学操作" class="headerlink" title="Tensor数学操作"></a>Tensor数学操作</h2><h3 id="register-buffer"><a href="#register-buffer" class="headerlink" title="register_buffer"></a>register_buffer</h3><p>在 PyTorch 中，register_buffer 是一个用于注册缓冲区（buffer）的方法。缓冲区是那些不需要进行梯度计算的张量，通常用于保存模型的状态信息或常量数据。与参数（parameters）不同，缓冲区不会被优化器更新，但它们会被保存和加载到模型的状态字典（state dict）中。</p>
 <p>register_buffer 的作用:</p>
 <ul>
 <li>保存状态信息：缓冲区可以保存一些不参与训练但需要随模型一起保存和加载的数据，例如批量归一化层中的运行均值和方差、位置编码等。</li>
@@ -413,20 +401,14 @@
 <li>自动管理设备：缓冲区会跟随模型移动到不同的设备（如 CPU 或 GPU），确保其始终与模型的其他部分保持一致。</li>
 <li>包含在模型的状态字典中：当调用 model.state_dict() 时，缓冲区会被包含在返回的字典中，从而可以在保存和加载模型时一并处理。</li>
 </ul>
-<h3 id="convtranspose2d">convTranspose2d</h3>
-<p>转置卷积操作，也称为反卷积操作，用于将输入张量进行上采样，从而生成更大的输出张量。转置卷积操作与普通卷积操作相反，普通卷积操作是将输入张量进行下采样，从而生成更小的输出张量。 具体操作细节可以参照这篇文章<a target="_blank" rel="noopener" href="https://numbersmithy.com/understanding-transposed-convolutions-in-pytorch/">Understanding transposed convolutions in PyTorch</a></p>
-<h2 id="激活函数">激活函数</h2>
-<h3 id="gelu">GELU</h3>
-<p><code>GELU</code>（Gaussian Error Linear Unit）是深度学习中常用的激活函数，它结合了<code>ReLU</code>和<code>tanh</code>函数的优势，并具有更好的梯度传播特性。<code>GELU</code>函数的数学表达式为： <span class="math display">\[
-GELU(x) = x \cdot \Phi(x)
-\]</span> 其中，<span class="math inline">\(\Phi(x)\)</span> 是标准正态分布的累积分布函数（CDF）。<code>GELU</code>函数在深度学习模型中广泛使用，因为它可以有效地缓解梯度消失问题，并提高模型的性能。</p>
+<h3 id="convTranspose2d"><a href="#convTranspose2d" class="headerlink" title="convTranspose2d"></a>convTranspose2d</h3><p>转置卷积操作，也称为反卷积操作，用于将输入张量进行上采样，从而生成更大的输出张量。转置卷积操作与普通卷积操作相反，普通卷积操作是将输入张量进行下采样，从而生成更小的输出张量。<br>具体操作细节可以参照这篇文章<a target="_blank" rel="noopener" href="https://numbersmithy.com/understanding-transposed-convolutions-in-pytorch/">Understanding transposed convolutions in PyTorch
+</a></p>
+<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><h3 id="GELU"><a href="#GELU" class="headerlink" title="GELU"></a>GELU</h3><p><code>GELU</code>（Gaussian Error Linear Unit）是深度学习中常用的激活函数，它结合了<code>ReLU</code>和<code>tanh</code>函数的优势，并具有更好的梯度传播特性。<code>GELU</code>函数的数学表达式为：<br>$$<br>GELU(x) = x \cdot \Phi(x)<br>$$<br>其中，$\Phi(x)$ 是标准正态分布的累积分布函数（CDF）。<code>GELU</code>函数在深度学习模型中广泛使用，因为它可以有效地缓解梯度消失问题，并提高模型的性能。</p>
 <p>GELU函数相对于RELU函数的优势再于，在x=0处，GELU函数的导数是1，而RELU函数的导数在x=0处是0，这会导致梯度消失问题。GELU函数在x=0处有平滑的过渡，使得梯度在x=0处不会消失，从而提高了模型的训练效果。</p>
 <p>！<a href="gelu.png">GELU激活函数曲线图</a></p>
-<h2 id="torchvision">TorchVision</h2>
-<h3 id="transforms">transforms</h3>
-<p><code>torchvision.transforms</code> 是 PyTorch 提供的一个模块，用于对图像进行预处理和增强。它提供了一系列常用的图像变换操作，如裁剪、缩放、旋转、翻转、归一化等。这些变换操作可以用于数据增强，以提高模型的泛化能力。</p>
+<h2 id="TorchVision"><a href="#TorchVision" class="headerlink" title="TorchVision"></a>TorchVision</h2><h3 id="transforms"><a href="#transforms" class="headerlink" title="transforms"></a>transforms</h3><p><code>torchvision.transforms</code> 是 PyTorch 提供的一个模块，用于对图像进行预处理和增强。它提供了一系列常用的图像变换操作，如裁剪、缩放、旋转、翻转、归一化等。这些变换操作可以用于数据增强，以提高模型的泛化能力。</p>
 <p>以下是一些常用的 <code>torchvision.transforms</code> 操作：</p>
-<ol type="1">
+<ol>
 <li><strong>裁剪（Crop）</strong>：从图像中裁剪出指定大小的区域。</li>
 <li><strong>缩放（Resize）</strong>：将图像缩放到指定的大小。</li>
 <li><strong>旋转（Rotate）</strong>：将图像旋转指定角度。</li>
@@ -439,48 +421,53 @@ GELU(x) = x \cdot \Phi(x)
 <li><strong>随机旋转（RandomRotation）</strong>：将图像随机旋转指定角度。</li>
 </ol>
 <p>通过<strong>Compose</strong> 操作可以将多个变换操作组合成一个变换操作。</p>
-<h2 id="模型保存">模型保存</h2>
-<h3 id="pytorch-jit优化">PyTorch JIT优化</h3>
-<p><code>PyTorch JIT</code>（Just-In-Time 编译）提供了针对模型加速和优化的功能，<code>TorchScript</code> 是其核心技术之一，用于将 PyTorch 动态计算图转化为静态图以实现更高效的执行。JIT 格式（<code>.pt</code> 或 <code>.jit</code> 文件）在保存和执行模型时具备以下优化：</p>
-<ol type="1">
+<h2 id="模型保存"><a href="#模型保存" class="headerlink" title="模型保存"></a>模型保存</h2><h3 id="PyTorch-JIT优化"><a href="#PyTorch-JIT优化" class="headerlink" title="PyTorch JIT优化"></a>PyTorch JIT优化</h3><p><code>PyTorch JIT</code>（Just-In-Time 编译）提供了针对模型加速和优化的功能，<code>TorchScript</code> 是其核心技术之一，用于将 PyTorch 动态计算图转化为静态图以实现更高效的执行。JIT 格式（<code>.pt</code> 或 <code>.jit</code> 文件）在保存和执行模型时具备以下优化：</p>
+<ol>
 <li><strong>图优化（Graph Optimization）</strong></li>
 </ol>
-<p>JIT 模型在编译和执行时会进行以下图级优化： - <strong>算子融合（Operator Fusion）</strong>：将多个算子（如卷积和 ReLU）合并为一个，以减少内存访问和计算开销。例如，将 <code>Conv2d</code> 和 <code>BatchNorm</code> 融合。 - <strong>常量折叠（Constant Folding）</strong>：将编译时已知的常量值计算出结果，从而减少运行时的计算。 - <strong>死代码消除（Dead Code Elimination）</strong>：删除未使用的计算和变量，以减小模型规模和提高运行速度。</p>
-<ol start="2" type="1">
+<p>JIT 模型在编译和执行时会进行以下图级优化：</p>
+<ul>
+<li><strong>算子融合（Operator Fusion）</strong>：将多个算子（如卷积和 ReLU）合并为一个，以减少内存访问和计算开销。例如，将 <code>Conv2d</code> 和 <code>BatchNorm</code> 融合。</li>
+<li><strong>常量折叠（Constant Folding）</strong>：将编译时已知的常量值计算出结果，从而减少运行时的计算。</li>
+<li><strong>死代码消除（Dead Code Elimination）</strong>：删除未使用的计算和变量，以减小模型规模和提高运行速度。</li>
+</ul>
+<ol start="2">
 <li><strong>内存优化</strong></li>
 </ol>
 <ul>
 <li><strong>内存分配优化</strong>：JIT 运行时管理内存使用，减少不必要的内存分配和释放操作，降低内存分配的开销。</li>
 <li><strong>Tensor 内存复用</strong>：避免不必要的张量拷贝和中间结果的存储，提升内存利用效率。</li>
 </ul>
-<ol start="3" type="1">
-<li><strong>静态图执行（Static Graph Execution）</strong> TorchScript 将动态计算图编译为静态图，提供以下优势：</li>
+<ol start="3">
+<li><strong>静态图执行（Static Graph Execution）</strong><br>TorchScript 将动态计算图编译为静态图，提供以下优势：</li>
 </ol>
 <ul>
 <li><strong>消除 Python 解释器开销</strong>：TorchScript 代码运行在 C++ 后端而不是 Python 解释器，减少解释器的调用开销。</li>
 <li><strong>跨平台部署</strong>：生成的 JIT 模型可以在支持 C++ API 的平台运行，无需依赖 Python 环境。</li>
 </ul>
-<ol start="4" type="1">
+<ol start="4">
 <li><strong>计算优化</strong></li>
 </ol>
 <ul>
 <li><strong>多线程并行化</strong>：JIT 模型能更好地利用多线程进行并行计算。</li>
 <li><strong>矢量化</strong>：生成的代码可以利用底层硬件指令集（如 SIMD）进行矢量化计算，提升处理速度。</li>
 </ul>
-<ol start="5" type="1">
-<li><strong>更好的硬件支持</strong> TorchScript 支持对硬件加速器（如 GPU、TPU）的专门优化：</li>
+<ol start="5">
+<li><strong>更好的硬件支持</strong><br>TorchScript 支持对硬件加速器（如 GPU、TPU）的专门优化：</li>
 </ol>
 <ul>
 <li><strong>CUDA 核心优化</strong>：在 GPU 上自动选择更高效的 CUDA 核。</li>
 <li><strong>张量核心（Tensor Core）利用</strong>：在支持 Tensor Core 的硬件上自动启用更快的矩阵乘法和卷积操作。</li>
 </ul>
-<ol start="6" type="1">
+<ol start="6">
 <li><strong>序列化和部署优化</strong></li>
 </ol>
 <ul>
-<li><p><strong>更小的模型文件</strong>：TorchScript JIT 格式比传统 Python 模型的依赖项少，生成的文件体积通常更小。</p></li>
-<li><p><strong>跨语言支持</strong>：JIT 编译模型生成的文件可以通过 C++、Java 或其他语言加载和运行，使得部署更加灵活。</p></li>
-<li><p>总结 JIT 优化使得 PyTorch 模型在推理阶段速度更快、内存利用率更高，且具有跨平台和跨语言的部署能力。这些特性对于生产环境中的深度学习模型部署至关重要。</p></li>
+<li><strong>更小的模型文件</strong>：TorchScript JIT 格式比传统 Python 模型的依赖项少，生成的文件体积通常更小。</li>
+<li><strong>跨语言支持</strong>：JIT 编译模型生成的文件可以通过 C++、Java 或其他语言加载和运行，使得部署更加灵活。</li>
+</ul>
+<ul>
+<li>总结<br>JIT 优化使得 PyTorch 模型在推理阶段速度更快、内存利用率更高，且具有跨平台和跨语言的部署能力。这些特性对于生产环境中的深度学习模型部署至关重要。</li>
 </ul>
 </body></html>
     </div>
@@ -585,7 +572,7 @@ GELU(x) = x \cdot \Phi(x)
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tensor%E7%BB%B4%E5%BA%A6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">Tensor维度操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flatten"><span class="nav-number">1.1.</span> <span class="nav-text">flatten</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unsqueeze"><span class="nav-number">1.2.</span> <span class="nav-text">unsqueeze</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#squeeze"><span class="nav-number">1.3.</span> <span class="nav-text">squeeze</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transpose"><span class="nav-number">1.4.</span> <span class="nav-text">transpose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#permute"><span class="nav-number">1.5.</span> <span class="nav-text">permute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#einsum"><span class="nav-number">1.6.</span> <span class="nav-text">einsum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tensor%E6%8E%92%E5%BA%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Tensor排序操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#argmax"><span class="nav-number">2.1.</span> <span class="nav-text">argmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#topk"><span class="nav-number">2.2.</span> <span class="nav-text">topk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">2.3.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#argsort"><span class="nav-number">2.4.</span> <span class="nav-text">argsort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tensor%E6%95%B0%E5%AD%A6%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">Tensor数学操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#register_buffer"><span class="nav-number">3.1.</span> <span class="nav-text">register_buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convtranspose2d"><span class="nav-number">3.2.</span> <span class="nav-text">convTranspose2d</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gelu"><span class="nav-number">4.1.</span> <span class="nav-text">GELU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#torchvision"><span class="nav-number">5.</span> <span class="nav-text">TorchVision</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transforms"><span class="nav-number">5.1.</span> <span class="nav-text">transforms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98"><span class="nav-number">6.</span> <span class="nav-text">模型保存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pytorch-jit%E4%BC%98%E5%8C%96"><span class="nav-number">6.1.</span> <span class="nav-text">PyTorch JIT优化</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensor%E7%BB%B4%E5%BA%A6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">Tensor维度操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flatten"><span class="nav-number">1.1.</span> <span class="nav-text">flatten</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unsqueeze"><span class="nav-number">1.2.</span> <span class="nav-text">unsqueeze</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#squeeze"><span class="nav-number">1.3.</span> <span class="nav-text">squeeze</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#transpose"><span class="nav-number">1.4.</span> <span class="nav-text">transpose</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#permute"><span class="nav-number">1.5.</span> <span class="nav-text">permute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#einsum"><span class="nav-number">1.6.</span> <span class="nav-text">einsum</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensor%E6%8E%92%E5%BA%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Tensor排序操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#argmax"><span class="nav-number">2.1.</span> <span class="nav-text">argmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#topk"><span class="nav-number">2.2.</span> <span class="nav-text">topk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">2.3.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#argsort"><span class="nav-number">2.4.</span> <span class="nav-text">argsort</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensor%E6%95%B0%E5%AD%A6%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">Tensor数学操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#register-buffer"><span class="nav-number">3.1.</span> <span class="nav-text">register_buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#convTranspose2d"><span class="nav-number">3.2.</span> <span class="nav-text">convTranspose2d</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">激活函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GELU"><span class="nav-number">4.1.</span> <span class="nav-text">GELU</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TorchVision"><span class="nav-number">5.</span> <span class="nav-text">TorchVision</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transforms"><span class="nav-number">5.1.</span> <span class="nav-text">transforms</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98"><span class="nav-number">6.</span> <span class="nav-text">模型保存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PyTorch-JIT%E4%BC%98%E5%8C%96"><span class="nav-number">6.1.</span> <span class="nav-text">PyTorch JIT优化</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -682,13 +669,13 @@ GELU(x) = x \cdot \Phi(x)
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">292k</span>
+    <span title="Symbols count total">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:25</span>
+    <span title="Reading time total">4:27</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>

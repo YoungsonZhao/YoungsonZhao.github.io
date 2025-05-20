@@ -300,7 +300,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>816</span>
+              <span>831</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -319,9 +319,13 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>When <strong>import scipy</strong> or <strong>import numpy as np</strong> in a Django project, it works very well in development mode. However, it will get stuck when deploy Django project using apache. In this article, I will show you how to solve this problem. <span id="more"></span> Some third party packages for Python which use C extension modules, and this includes scipy and numpy, will only work in the Python main interpreter and cannot be used in sub interpreters as mod_wsgi by default uses. The result can be thread deadlock, incorrect behavior or processes crashes. These is detailed in:<a target="_blank" rel="noopener" href="http://code.google.com/p/modwsgi/wiki/ApplicationIssues#Python_Simplified_GIL_State_API">http://code.google.com/p/modwsgi/wiki/ApplicationIssues#Python_Simplified_GIL_State_API</a></p>
-<p>The workaround is to force the WSGI application to run in the main interpreter of the process using: </p><figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">WSGIApplicationGroup</span> <span class="variable">%{GLOBAL}</span></span><br></pre></td></tr></tbody></table></figure> Add the above line to the apache's configure file, which is probably locate in <strong>/etc/apache/sites-available</strong>. And then reload apache service using: <figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="keyword">reload</span> apache2.service</span><br></pre></td></tr></tbody></table></figure><p></p>
-</body></html>
+        <html><head></head><body><p>When <strong>import scipy</strong> or <strong>import numpy as np</strong> in a Django project, it works very well in development mode. However, it will get stuck when deploy Django project using apache. In this article, I will show you how to solve this problem.</p>
+<span id="more"></span>
+<p>Some third party packages for Python which use C extension modules, and this includes scipy and numpy, will only work in the Python main interpreter and cannot be used in sub interpreters as mod_wsgi by default uses. The result can be thread deadlock, incorrect behavior or processes crashes. These is detailed in:<a target="_blank" rel="noopener" href="http://code.google.com/p/modwsgi/wiki/ApplicationIssues#Python_Simplified_GIL_State_API">http://code.google.com/p/modwsgi/wiki/ApplicationIssues#Python_Simplified_GIL_State_API</a></p>
+<p>The workaround is to force the WSGI application to run in the main interpreter of the process using:</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">WSGIApplicationGroup</span> <span class="variable">%{GLOBAL}</span></span><br></pre></td></tr></tbody></table></figure>
+<p>Add the above line to the apache’s configure file, which is probably locate in <strong>/etc/apache/sites-available</strong>. And then reload apache service using:</p>
+<figure class="highlight jboss-cli"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl <span class="keyword">reload</span> apache2.service</span><br></pre></td></tr></tbody></table></figure></body></html>
     </div>
 
     
@@ -518,13 +522,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">292k</span>
+    <span title="Symbols count total">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:25</span>
+    <span title="Reading time total">4:27</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>

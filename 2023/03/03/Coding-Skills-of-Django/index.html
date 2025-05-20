@@ -319,14 +319,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>In this article, I will share some useful coding skills of Django. Hope it helps you. <span id="more"></span> ### Errors &amp; Solutions #### Related Field has invalid lookup: icontains ##### Error Condition When using search function in <strong>admin</strong> module, we may meet this error. * The search configuration </p><figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class <span class="built_in">RecItemAdmin</span>(admin.ModelAdmin):</span><br><span class="line">    <span class="selector-tag">form</span> = RecItemAdminForm</span><br><span class="line">    search_fields = <span class="selector-attr">[<span class="string">'category'</span>, <span class="string">'brand'</span>, <span class="string">'title'</span>,]</span></span><br></pre></td></tr></tbody></table></figure> * The model definition * RecItem <figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class RecItem(models.Model):</span><br><span class="line">    category = models.ForeignKey(Category, <span class="attribute">on_delete</span>=models.CASCADE, <span class="attribute">related_name</span>=<span class="string">'rec_items'</span>)</span><br><span class="line">    title = models.CharField(<span class="attribute">max_length</span>=64, <span class="attribute">null</span>=<span class="literal">True</span>, <span class="attribute">blank</span>=<span class="literal">True</span>)</span><br><span class="line">    brand = models.ForeignKey(Brand, <span class="attribute">on_delete</span>=models.CASCADE, <span class="attribute">related_name</span>=<span class="string">'rec_items'</span>)</span><br></pre></td></tr></tbody></table></figure><p></p>
-<pre><code>* Category</code></pre>
+        <html><head></head><body><p>In this article, I will share some useful coding skills of Django. Hope it helps you.</p>
+<span id="more"></span>
+<h3 id="Errors-Solutions"><a href="#Errors-Solutions" class="headerlink" title="Errors &amp; Solutions"></a>Errors &amp; Solutions</h3><h4 id="Related-Field-has-invalid-lookup-icontains"><a href="#Related-Field-has-invalid-lookup-icontains" class="headerlink" title="Related Field has invalid lookup: icontains"></a>Related Field has invalid lookup: icontains</h4><h5 id="Error-Condition"><a href="#Error-Condition" class="headerlink" title="Error Condition"></a>Error Condition</h5><p>When using search function in <strong>admin</strong> module, we may meet this error.</p>
+<ul>
+<li>The search configuration<figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class <span class="built_in">RecItemAdmin</span>(admin.ModelAdmin):</span><br><span class="line">    <span class="selector-tag">form</span> = RecItemAdminForm</span><br><span class="line">    search_fields = <span class="selector-attr">[<span class="string">'category'</span>, <span class="string">'brand'</span>, <span class="string">'title'</span>,]</span></span><br></pre></td></tr></tbody></table></figure></li>
+<li>The model definition<ul>
+<li><p>RecItem</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class RecItem(models.Model):</span><br><span class="line">    category = models.ForeignKey(Category, <span class="attribute">on_delete</span>=models.CASCADE, <span class="attribute">related_name</span>=<span class="string">'rec_items'</span>)</span><br><span class="line">    title = models.CharField(<span class="attribute">max_length</span>=64, <span class="attribute">null</span>=<span class="literal">True</span>, <span class="attribute">blank</span>=<span class="literal">True</span>)</span><br><span class="line">    brand = models.ForeignKey(Brand, <span class="attribute">on_delete</span>=models.CASCADE, <span class="attribute">related_name</span>=<span class="string">'rec_items'</span>)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>Category</p>
+</li>
+</ul>
+</li>
+</ul>
 <figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class Category(models.Model):</span><br><span class="line">    card = models.ForeignKey(CardInfo, <span class="attribute">on_delete</span>=models.CASCADE, <span class="attribute">related_name</span>=<span class="string">'cates'</span>)</span><br><span class="line">    name = models.CharField(<span class="attribute">max_length</span>=32, <span class="attribute">null</span>=<span class="literal">True</span>, <span class="attribute">blank</span>=<span class="literal">True</span>)</span><br></pre></td></tr></tbody></table></figure>
-<pre><code>* Brand</code></pre>
+<pre><code>* Brand
+</code></pre>
 <figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="constructor">Brand(<span class="params">models</span>.Model)</span>:</span><br><span class="line">    name = models.<span class="constructor">CharField(<span class="params">max_length</span>=64, <span class="params">unique</span> = True, <span class="params">verbose_name</span>='中文名称')</span></span><br></pre></td></tr></tbody></table></figure>
-<h5 id="solution">Solution</h5>
-<p>The search fields category and brand are foreign keys. Django does not support search on foreign key and manytomany field. We have to search on string field. Thus we can use the double under score symbol to get the model's string properties. </p><figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class <span class="built_in">RecItemAdmin</span>(admin.ModelAdmin):</span><br><span class="line">    <span class="selector-tag">form</span> = RecItemAdminForm</span><br><span class="line">    search_fields = <span class="selector-attr">[<span class="string">'category__name'</span>, <span class="string">'brand__name'</span>, <span class="string">'title'</span>,]</span></span><br></pre></td></tr></tbody></table></figure><p></p>
-</body></html>
+<h5 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h5><p>The search fields category and brand are foreign keys. Django does not support search on foreign key and manytomany field. We have to search on string field. Thus we can use the double under score symbol to get the model’s string properties.</p>
+<figure class="highlight stylus"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">class <span class="built_in">RecItemAdmin</span>(admin.ModelAdmin):</span><br><span class="line">    <span class="selector-tag">form</span> = RecItemAdminForm</span><br><span class="line">    search_fields = <span class="selector-attr">[<span class="string">'category__name'</span>, <span class="string">'brand__name'</span>, <span class="string">'title'</span>,]</span></span><br></pre></td></tr></tbody></table></figure></body></html>
     </div>
 
     
@@ -427,7 +439,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#solution"><span class="nav-number">1.</span> <span class="nav-text">Solution</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Errors-Solutions"><span class="nav-number">1.</span> <span class="nav-text">Errors &amp; Solutions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Related-Field-has-invalid-lookup-icontains"><span class="nav-number">1.1.</span> <span class="nav-text">Related Field has invalid lookup: icontains</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Error-Condition"><span class="nav-number">1.1.1.</span> <span class="nav-text">Error Condition</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Solution"><span class="nav-number">1.1.2.</span> <span class="nav-text">Solution</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -524,13 +536,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">292k</span>
+    <span title="Symbols count total">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:25</span>
+    <span title="Reading time total">4:27</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>

@@ -300,7 +300,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>708</span>
+              <span>702</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -319,13 +319,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>本文主要讲解如何使用<strong>systemback</strong>打包操作系统，并制作U盘启动盘。 <span id="more"></span> ### 安装systemback 通过以下指令安装： </p><figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "deb [arch=amd64] https://mirrors.bwbot.org/ stable main" &gt; /etc/apt/sources.list.d/systemback.list'</span></span><br><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key 50B2C005A67B264F</span><br><span class="line">sudo apt-<span class="built_in">get</span> update</span><br><span class="line">sudo apt-<span class="built_in">get</span><span class="built_in"> upgrade</span></span><br><span class="line"><span class="built_in"></span>sudo apt-<span class="built_in">get</span> install systemback</span><br></pre></td></tr></tbody></table></figure> ### 删除firefox <strong>FireFox</strong>浏览器会导致<strong>systemback</strong>制作系统盘报错，因此删除之。 <figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo snap remove firefox</span><br><span class="line"><span class="built_in">cd</span> snap</span><br><span class="line"><span class="built_in">rm</span> -rf firefox</span><br></pre></td></tr></tbody></table></figure><p></p>
-<h3 id="制作系统盘">制作系统盘</h3>
-<p>在terminal中输入以下指令打开<strong>systemback</strong> </p><figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">systemback-sustart</span></span><br></pre></td></tr></tbody></table></figure> 在弹出的对话框中选择<strong>Live system create</strong>按钮。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/live-system-create.png"> 在弹出的对话框中将安装iso文件重命名为<strong>ubuntu-22.04-robot</strong>，勾选<strong>include user data files</strong>，然后点击<strong>create new</strong>。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/create-new.png"><p></p>
-<h3 id="写入u盘">写入U盘</h3>
-<p>在iso文件制作成功后，插入U盘，可以将其写入U盘。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/write-to-target"></p>
-<h3 id="安装">安装</h3>
-<p>U盘启动后，选择第一项进入系统后，在terminal中使用<strong>systemback-sustart</strong>命令启动，然后选在<strong>system install</strong>即可安装系统。 <img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/system-install.png"></p>
+        <html><head></head><body><p>本文主要讲解如何使用<strong>systemback</strong>打包操作系统，并制作U盘启动盘。</p>
+<span id="more"></span>
+<h3 id="安装systemback"><a href="#安装systemback" class="headerlink" title="安装systemback"></a>安装systemback</h3><p>通过以下指令安装：</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">'echo "deb [arch=amd64] https://mirrors.bwbot.org/ stable main" &gt; /etc/apt/sources.list.d/systemback.list'</span></span><br><span class="line">sudo apt-key adv --keyserver <span class="string">'hkp://keyserver.ubuntu.com:80'</span> --recv-key 50B2C005A67B264F</span><br><span class="line">sudo apt-<span class="built_in">get</span> update</span><br><span class="line">sudo apt-<span class="built_in">get</span><span class="built_in"> upgrade</span></span><br><span class="line"><span class="built_in"></span>sudo apt-<span class="built_in">get</span> install systemback</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="删除firefox"><a href="#删除firefox" class="headerlink" title="删除firefox"></a>删除firefox</h3><p><strong>FireFox</strong>浏览器会导致<strong>systemback</strong>制作系统盘报错，因此删除之。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo snap remove firefox</span><br><span class="line"><span class="built_in">cd</span> snap</span><br><span class="line"><span class="built_in">rm</span> -rf firefox</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="制作系统盘"><a href="#制作系统盘" class="headerlink" title="制作系统盘"></a>制作系统盘</h3><p>在terminal中输入以下指令打开<strong>systemback</strong></p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">systemback-sustart</span></span><br></pre></td></tr></tbody></table></figure>
+<p>在弹出的对话框中选择<strong>Live system create</strong>按钮。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/live-system-create.png"><br>在弹出的对话框中将安装iso文件重命名为<strong>ubuntu-22.04-robot</strong>，勾选<strong>include user data files</strong>，然后点击<strong>create new</strong>。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/create-new.png"></p>
+<h3 id="写入U盘"><a href="#写入U盘" class="headerlink" title="写入U盘"></a>写入U盘</h3><p>在iso文件制作成功后，插入U盘，可以将其写入U盘。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/write-to-target"></p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>U盘启动后，选择第一项进入系统后，在terminal中使用<strong>systemback-sustart</strong>命令启动，然后选在<strong>system install</strong>即可安装系统。<br><img data-src="/2023/12/25/Make-Operation-System-ISO-Installation-File-Using-Systemback/system-install.png"></p>
 </body></html>
     </div>
 
@@ -428,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%98"><span class="nav-number">1.</span> <span class="nav-text">制作系统盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5u%E7%9B%98"><span class="nav-number">2.</span> <span class="nav-text">写入U盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">安装</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85systemback"><span class="nav-number">1.</span> <span class="nav-text">安装systemback</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4firefox"><span class="nav-number">2.</span> <span class="nav-text">删除firefox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%B6%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%98"><span class="nav-number">3.</span> <span class="nav-text">制作系统盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%85%A5U%E7%9B%98"><span class="nav-number">4.</span> <span class="nav-text">写入U盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">5.</span> <span class="nav-text">安装</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -525,13 +530,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">292k</span>
+    <span title="Symbols count total">294k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">4:25</span>
+    <span title="Reading time total">4:27</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5de3d9a492e22c4b" async="async"></script>
